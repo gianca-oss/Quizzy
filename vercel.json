@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/analyze-enhanced.js": {
+      "maxDuration": 30
+    }
+  }
+}
