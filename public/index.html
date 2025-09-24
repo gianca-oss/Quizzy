@@ -200,6 +200,36 @@
             to { transform: rotate(360deg); }
         }
         
+        /* Direct table styles - no wrappers */
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fbfbfd;
+            border: 1px solid #d2d2d7;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .results-table th {
+            background: #f5f5f7;
+            padding: 8px;
+            border: 1px solid #d2d2d7;
+            text-align: left;
+            font-weight: 600;
+            color: #1d1d1f;
+        }
+        
+        .results-table td {
+            padding: 8px;
+            border: 1px solid #d2d2d7;
+            vertical-align: top;
+            background: #ffffff;
+        }
+        
+        .results-table tr:hover td {
+            background: #f9f9f9;
+        }
+        
         .results {
             display: none;
             padding: 10px 0;
@@ -905,19 +935,17 @@
                 // Calculate total questions for internal use
                 const totalQuestions = allResults.reduce((sum, r) => sum + r.parsed.questions.length, 0);
                 
-                // Unified answers table - ONLY THE TABLE, NO TITLES
+                // Direct table output - NO WRAPPERS
                 if (totalQuestions > 0) {
                     consolidatedHTML += `
-                        <div class="result-item">
-                            <div class="result-content">
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th style="width: 15%;">Domanda</th>
-                                            <th style="width: 85%;">Risposta</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                        <table class="results-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">Domanda</th>
+                                    <th style="width: 85%;">Risposta</th>
+                                </tr>
+                            </thead>
+                            <tbody>
                     `;
                     
                     let questionCounter = 1;
@@ -934,25 +962,19 @@
                     });
                     
                     consolidatedHTML += `
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            </tbody>
+                        </table>
                     `;
                 }
                 
-                // Consolidated explanations
+                // Consolidated explanations - simplified
                 const allExplanations = allResults.flatMap((r, idx) => 
                     r.parsed.explanations.length > 0 ? 
                     { imageIndex: idx + 1, content: r.parsed.explanations.join('\n') } : []
                 );
                 
                 if (allExplanations.length > 0) {
-                    consolidatedHTML += `
-                        <div class="result-item">
-                            <div class="result-header">💡 Spiegazioni e Note</div>
-                            <div class="result-content">
-                    `;
+                    consolidatedHTML += `<div class="explanations-section">`;
                     
                     allExplanations.forEach(exp => {
                         if (images.length > 1) {
@@ -967,19 +989,12 @@
                         }
                     });
                     
-                    consolidatedHTML += `
-                            </div>
-                        </div>
-                    `;
+                    consolidatedHTML += `</div>`;
                 }
                 
                 // If no parsed content, show raw results
                 if (totalQuestions === 0 && allExplanations.length === 0) {
-                    consolidatedHTML += `
-                        <div class="result-item">
-                            <div class="result-header">📝 Analisi Completa</div>
-                            <div class="result-content">
-                    `;
+                    consolidatedHTML += `<div class="raw-results">`;
                     
                     allResults.forEach(result => {
                         if (images.length > 1) {
@@ -994,10 +1009,7 @@
                         }
                     });
                     
-                    consolidatedHTML += `
-                            </div>
-                        </div>
-                    `;
+                    consolidatedHTML += `</div>`;
                 }
                 
                 // Display results
