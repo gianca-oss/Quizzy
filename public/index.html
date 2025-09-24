@@ -147,6 +147,15 @@
             background: #1d1d1f;
         }
         
+        .btn-primary.success {
+            background: #34c759 !important;
+            border-color: #34c759 !important;
+        }
+        
+        .btn-primary.success:hover {
+            background: #2fb54d !important;
+        }
+        
         .btn-secondary {
             background: #ffffff;
             color: #000000;
@@ -712,6 +721,11 @@
                     imgSublabel.textContent = 'Pronte per l\'analisi';
                     imgStatus.textContent = '';
                     debugLog(`${images.length} images ready`);
+                    
+                    // Reset Analyze button if it was green
+                    analyzeBtn.style.background = '';
+                    analyzeBtn.style.borderColor = '';
+                    analyzeBtn.textContent = 'Analizza';
                 }
             } catch (err) {
                 debugLog(`Error processing images: ${err.message}`, 'error');
@@ -784,6 +798,11 @@
             // Clear results
             results.style.display = 'none';
             resultsContent.innerHTML = '';
+            
+            // Reset Analyze button to original style
+            analyzeBtn.style.background = '';
+            analyzeBtn.style.borderColor = '';
+            analyzeBtn.textContent = 'Analizza';
             
             checkReady();
         }
@@ -1012,6 +1031,11 @@
                 debugLog('Analysis completed successfully');
                 results.style.display = 'block';
                 results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Change Analyze button to green to indicate success
+                analyzeBtn.style.background = '#34c759';
+                analyzeBtn.style.borderColor = '#34c759';
+                analyzeBtn.textContent = 'Analisi Completata ✓';
                 
             } catch (err) {
                 debugLog(`Analysis error: ${err.message}`, 'error');
