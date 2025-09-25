@@ -23,6 +23,7 @@
             --success-hover: #2fb54d;
             --black-button: #000000;
             --black-button-hover: #1d1d1f;
+            --button-text-primary: #ffffff;
         }
         
         /* Dark mode colors */
@@ -42,6 +43,7 @@
                 --success-hover: #34c759;
                 --black-button: #f5f5f7;
                 --black-button-hover: #ffffff;
+                --button-text-primary: #1c1c1e;
             }
         }
         
@@ -61,6 +63,7 @@
             --success-hover: #34c759;
             --black-button: #f5f5f7;
             --black-button-hover: #ffffff;
+            --button-text-primary: #1c1c1e;
         }
         
         body.light-mode {
@@ -78,6 +81,7 @@
             --success-hover: #2fb54d;
             --black-button: #000000;
             --black-button-hover: #1d1d1f;
+            --button-text-primary: #ffffff;
         }
         
         * { 
@@ -214,11 +218,12 @@
         
         .btn-primary {
             background: var(--black-button);
-            color: var(--text-white);
+            color: var(--button-text-primary);
         }
         
         .btn-primary:hover {
             background: var(--black-button-hover);
+            color: var(--button-text-primary);
         }
         
         .btn-primary.success {
