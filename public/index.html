@@ -345,6 +345,7 @@
             .results-table {
                 flex: 1;
                 margin: 0;
+                margin-top: 50px; /* Space for the fixed back button */
                 border-radius: 0;
                 border: none;
                 border-top: 1px solid var(--border-primary);
@@ -580,7 +581,7 @@
         .back-button {
             position: sticky;
             top: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             padding: 8px 16px;
             background: var(--bg-secondary);
             color: var(--text-primary);
@@ -1231,11 +1232,12 @@
                 
                 let consolidatedHTML = '';
                 
-                // Add a floating back button
+                // Add a floating back button and wrapper
                 consolidatedHTML += `
                     <button onclick="backToUpload()" class="back-button">
                         ← Nuova Analisi
                     </button>
+                    <div style="padding-top: 10px;">
                 `;
                 
                 // Calculate total questions for internal use
@@ -1315,6 +1317,7 @@
                         }
                     });
                     
+                    consolidatedHTML += `</div>`;
                     consolidatedHTML += `</div>`;
                 }
                 
