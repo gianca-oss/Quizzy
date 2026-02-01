@@ -189,10 +189,9 @@ function searchForAnswers(questions, chunks) {
             // Conta quante keyword specifiche matchano
             const matchCount = uniqueKeywords.filter(k => text.includes(k)).length;
 
-            // SOGLIA ESTREMA: richiedi almeno 7 keyword E score >= 150
-            // Praticamente impossibile con keyword generiche
-            // Solo match REALI verranno marcati come "dal PDF"
-            if (matchCount >= 7 && score >= 150) {
+            // Soglia ragionevole: almeno 3 keyword E score >= 30
+            // Questo permette match realistici per domande di quiz
+            if (matchCount >= 3 && score >= 30) {
                 matches.push({
                     chunk: chunk,
                     score: score,

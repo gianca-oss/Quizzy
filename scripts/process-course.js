@@ -77,24 +77,36 @@ const STOP_WORDS = new Set([
 
 /**
  * Corregge parole spezzate da spazi errati nel PDF
- * Es: "ela bora ta" -> "elaborata", "informa zione" -> "informazione"
+ * Es: "ela bora ta" -> "elaborata", "sa ggezza" -> "saggezza"
  */
 function fixBrokenWords(text) {
     let result = text;
 
-    // FASE 1: Unisci frammenti corti separati da singolo spazio
-    // Pattern: lettera(e) + spazio + 2-4 lettere minuscole (ripetuto)
-    // Questo cattura casi come "ela bora ta" -> "elaborata"
+    // Parole comuni italiane che NON devono essere unite
+    const commonWords = new Set([
+        'il', 'lo', 'la', 'i', 'gli', 'le', 'un', 'uno', 'una',
+        'di', 'da', 'in', 'su', 'a', 'e', 'o', 'ma', 'se', 'che', 'chi',
+        'con', 'per', 'tra', 'fra', 'non', 'più', 'già', 'può', 'qui',
+        'del', 'dei', 'nel', 'sul', 'dal', 'al', 'col',
+        'ora', 'poi', 'mai', 'cui', 'ciò', 'come', 'dove', 'sono', 'ha'
+    ]);
 
-    // Unisci frammenti di 2-4 lettere separati da spazi
-    // Ripeti più volte per catturare catene lunghe
-    for (let i = 0; i < 5; i++) {
-        result = result.replace(/\b([a-zA-ZàèéìòùÀÈÉÌÒÙ]{2,4}) ([a-zàèéìòù]{2,4})\b/g, (match, p1, p2) => {
-            // Non unire se p1 è una parola comune italiana
-            const commonWords = new Set(['che', 'con', 'per', 'non', 'una', 'uno', 'gli', 'del', 'dei', 'nel', 'sul', 'dal', 'tra', 'fra', 'può', 'più', 'già', 'qui', 'ora', 'poi', 'mai', 'chi', 'cui', 'ciò']);
+    // FASE 0: Correggi pattern specifici comuni nei PDF italiani
+    // Pattern: 2 lettere + spazio + consonante doppia o gruppo consonantico
+    // Es: "sa ggezza" -> "saggezza", "co mportamento" -> "comportamento"
+    result = result.replace(/\b([a-zA-ZàèéìòùÀÈÉÌÒÙ]{2}) ([bcdfghjklmnpqrstvwxz]{2}[a-zàèéìòù]+)\b/gi, (match, p1, p2) => {
+        if (commonWords.has(p1.toLowerCase())) return match;
+        return p1 + p2;
+    });
+
+    // FASE 1: Unisci frammenti corti separati da singolo spazio
+    // Ripeti più volte per catturare catene lunghe come "ela bora ta"
+    for (let i = 0; i < 8; i++) {
+        result = result.replace(/\b([a-zA-ZàèéìòùÀÈÉÌÒÙ]{2,5}) ([a-zàèéìòù]{2,5})\b/g, (match, p1, p2) => {
             if (commonWords.has(p1.toLowerCase()) || commonWords.has(p2.toLowerCase())) {
                 return match;
             }
+            // Unisci solo se la combinazione sembra plausibile
             return p1 + p2;
         });
     }
@@ -120,11 +132,11 @@ function fixBrokenWords(text) {
     // FASE 3: Prefissi comuni separati da spazio
     result = result.replace(/\b(pre|pro|con|dis|mis|sub|inter|intra|extra|super|auto|anti|contro|sotto|sopra|oltre|entro|fuori|dentro|dietro|dopo|prima) (\w{3,})/gi, '$1$2');
 
-    // FASE 4: Unisci "a" isolata che dovrebbe essere parte di parola
-    // Es: "a lla" -> "alla", "a ttra" -> "attra"
-    result = result.replace(/\b([aA]) ([a-z]{2,})\b/g, (match, p1, p2) => {
-        // Solo se p2 inizia con ll, tt, rr, cc, etc. (raddoppio)
-        if (/^(ll|tt|rr|cc|pp|bb|dd|ff|gg|mm|nn|ss|vv|zz)/.test(p2)) {
+    // FASE 4: Unisci singole lettere isolate che dovrebbero essere parte di parola
+    // Es: "a lla" -> "alla", "a ttra" -> "attra", "e laborare" -> "elaborare"
+    result = result.replace(/\b([aeioAEIO]) ([a-z]{2,})\b/g, (match, p1, p2) => {
+        // Solo se p2 inizia con ll, tt, rr, cc, etc. (raddoppio) o combinazioni comuni
+        if (/^(ll|tt|rr|cc|pp|bb|dd|ff|gg|mm|nn|ss|vv|zz|la|le|sp|st|sc|str|spr)/.test(p2)) {
             return p1 + p2;
         }
         return match;
