@@ -612,9 +612,9 @@ ANALISI: [breve spiegazione basata sul corso]`;
         // Parse risposte e crea tabella (supporta dark mode)
         let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">';
         tableHtml += '<thead><tr>';
-        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">N°</th>';
-        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">RISPOSTA</th>';
-        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">FONTE</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">N°</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">RISPOSTA</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">FONTE</th>';
         tableHtml += '</tr></thead><tbody>';
 
         const lines = finalResponse.split('\n');
@@ -646,8 +646,8 @@ ANALISI: [breve spiegazione basata sul corso]`;
                     }
 
                     tableHtml += '<tr>';
-                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3);">${num}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3);">${letter.toUpperCase()}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${num}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${letter.toUpperCase()}</td>`;
                     tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid rgba(128,128,128,0.3);">${sourceIndicator}</td>`;
                     tableHtml += '</tr>';
                 }
