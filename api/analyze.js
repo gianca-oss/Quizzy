@@ -199,16 +199,16 @@ function searchForAnswers(questions, chunks) {
                 }
             });
             
-            // Bonus speciale per match multipli
+            // Conta quante keyword specifiche matchano
             const matchCount = uniqueKeywords.filter(k => text.includes(k)).length;
-            if (matchCount > 2) {
-                score += matchCount * 10;
-            }
-            
-            if (score > 20) {
+
+            // SOGLIA ALTA: richiedi almeno 5 keyword E score >= 80
+            // Questo evita falsi positivi da parole generiche
+            if (matchCount >= 5 && score >= 80) {
                 matches.push({
                     chunk: chunk,
                     score: score,
+                    matchCount: matchCount,
                     page: chunk.page
                 });
             }
