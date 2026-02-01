@@ -567,14 +567,21 @@ C) ${q.options.C || ''}
 D) ${q.options.D || ''}
 `).join('\n')}
 
-IMPORTANTE: Usa il CONTESTO DAL CORSO sopra per rispondere. 
+IMPORTANTE: Usa il CONTESTO DAL CORSO sopra per rispondere.
 Rispondi SOLO così:
 1. [lettera]
 2. [lettera]
 (continua per tutte)
 
-Poi aggiungi:
-ANALISI: [breve spiegazione basata sul corso]`;
+Poi aggiungi la sezione ANALISI con questo formato ESATTO per ogni domanda:
+ANALISI:
+**1. [testo completo della domanda]**
+[spiegazione della risposta]
+
+**2. [testo completo della domanda]**
+[spiegazione della risposta]
+
+(continua per tutte le domande)`;
 
         let analysisResponse;
         try {
@@ -587,7 +594,7 @@ ANALISI: [breve spiegazione basata sul corso]`;
                 },
                 body: JSON.stringify({
                     model: 'claude-3-haiku-20240307',
-                    max_tokens: 1500,
+                    max_tokens: 3000,
                     temperature: 0.1,
                     messages: [{
                         role: 'user',
