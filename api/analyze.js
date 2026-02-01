@@ -322,24 +322,19 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `Estrai tutte le domande del quiz da questa immagine.
+        const extractPrompt = `Guarda questa immagine di un quiz. Estrai TUTTE le domande che vedi, nell'ordine in cui appaiono dall'alto verso il basso.
 
-Leggi dall'alto verso il basso. La prima domanda in alto è la numero 1.
-
-Formato richiesto per ogni domanda:
-
+Per ogni domanda usa questo formato:
 DOMANDA_1
-TESTO: testo della prima domanda
-OPZIONE_A: prima opzione
-OPZIONE_B: seconda opzione
-OPZIONE_C: terza opzione
-OPZIONE_D: quarta opzione (se presente)
+TESTO: [copia il testo della domanda]
+OPZIONE_A: [prima opzione]
+OPZIONE_B: [seconda opzione]
+OPZIONE_C: [terza opzione]
+OPZIONE_D: [quarta opzione se esiste]
 ---
-DOMANDA_2
-TESTO: testo della seconda domanda
-...
 
-Estrai TUTTE le domande visibili nell'immagine.`;
+Continua con DOMANDA_2, DOMANDA_3, ecc. fino all'ultima domanda in fondo all'immagine.
+Assicurati di estrarre TUTTE le domande, non fermarti alla prima.`;
 
         let extractResponse;
         try {
@@ -351,7 +346,7 @@ Estrai TUTTE le domande visibili nell'immagine.`;
                     'anthropic-version': '2023-06-01'
                 },
                 body: JSON.stringify({
-                    model: 'claude-3-haiku-20240307',
+                    model: 'claude-3-5-sonnet-20241022',
                     max_tokens: 4000,
                     temperature: 0,
                     messages: [{
