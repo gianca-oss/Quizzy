@@ -545,15 +545,21 @@ C) ${q.options.C || ''}
 D) ${q.options.D || ''}
 `).join('\n')}
 
-Rispondi con la lettera corretta per ogni domanda:
-1. A/B/C/D
-2. A/B/C/D
-(una riga per domanda)
+RISPONDI IN QUESTO FORMATO ESATTO:
 
-Poi scrivi ANALISI: e per ogni domanda scrivi il testo della domanda in grassetto seguito dalla spiegazione.
-Esempio:
-**1. Testo della domanda qui**
-Spiegazione del perché la risposta è corretta.`;
+RISPOSTE:
+1. C
+2. B
+3. A
+(continua per tutte le ${questions.length} domande, una per riga)
+
+ANALISI:
+**1. testo domanda**
+spiegazione
+
+**2. testo domanda**
+spiegazione
+(continua per tutte)`;
 
         let analysisResponse;
         try {
@@ -605,39 +611,46 @@ Spiegazione del perché la risposta è corretta.`;
         const lines = finalResponse.split('\n');
         let analysisText = '';
         let foundAnalysis = false;
+        const answers = {}; // Mappa numero domanda -> risposta
 
+        // Prima passa: cerca risposte nel formato "1. C" o "La risposta corretta è X"
         lines.forEach(line => {
             if (line.includes('ANALISI:')) {
                 foundAnalysis = true;
                 analysisText = line.replace('ANALISI:', '').trim();
             } else if (foundAnalysis) {
                 analysisText += '\n' + line;
-            } else {
-                // Parse risposte - pattern più flessibile
-                const match = line.match(/^(\d+)[.):]\s*([a-dA-D])/);
-                if (match) {
-                    const [_, num, letter] = match;
-                    const questionNum = parseInt(num);
-                    const hasContext = questionsWithContext.includes(questionNum);
-
-                    // Indicatore compatto per mobile
-                    let sourceIndicator, sourceColor;
-                    if (hasContext) {
-                        sourceIndicator = '📚 PDF';
-                        sourceColor = '#34c759'; // Verde
-                    } else {
-                        sourceIndicator = '⚠️ AI';
-                        sourceColor = '#ff9500'; // Arancione
+                // Cerca anche "La risposta corretta è X" nell'analisi
+                const altMatch = line.match(/risposta\s+(?:corretta\s+)?(?:è|e)\s+([A-Da-d])/i);
+                if (altMatch) {
+                    // Trova il numero della domanda dal contesto (es. **1. o **2.)
+                    const numMatch = analysisText.match(/\*\*(\d+)\.[^*]*$/);
+                    if (numMatch && !answers[numMatch[1]]) {
+                        answers[numMatch[1]] = altMatch[1].toUpperCase();
                     }
-
-                    tableHtml += '<tr>';
-                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${num}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${letter.toUpperCase()}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid rgba(128,128,128,0.3);">${sourceIndicator}</td>`;
-                    tableHtml += '</tr>';
+                }
+            } else {
+                // Parse risposte - formato "1. C"
+                const match = line.match(/^(\d+)[.):]\s*([a-dA-D])\b/);
+                if (match) {
+                    answers[match[1]] = match[2].toUpperCase();
                 }
             }
         });
+
+        // Genera tabella con le risposte trovate
+        for (let i = 1; i <= questions.length; i++) {
+            const letter = answers[i] || '?';
+            const hasContext = questionsWithContext.includes(i);
+            const sourceIndicator = hasContext ? '📚 PDF' : '⚠️ AI';
+            const sourceColor = hasContext ? '#34c759' : '#ff9500';
+
+            tableHtml += '<tr>';
+            tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${i}</td>`;
+            tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${letter}</td>`;
+            tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid rgba(128,128,128,0.3);">${sourceIndicator}</td>`;
+            tableHtml += '</tr>';
+        }
         
         tableHtml += '</tbody></table>';
         
