@@ -322,24 +322,28 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `ANALIZZA ATTENTAMENTE L'INTERA IMMAGINE e conta TUTTE le domande presenti.
-SCANSIONA DALL'INIZIO ALLA FINE per non perdere nessuna domanda.
+        const extractPrompt = `LEGGI L'IMMAGINE DALL'ALTO VERSO IL BASSO, riga per riga.
 
-Per OGNI domanda trovata, scrivi ESATTAMENTE in questo formato:
+ORDINE DI LETTURA CRITICO:
+- DOMANDA_1 = la PRIMA domanda che appare IN ALTO nell'immagine
+- DOMANDA_2 = la domanda SUBITO SOTTO la prima
+- DOMANDA_3 = la domanda SOTTO la seconda
+- E così via fino all'ULTIMA domanda IN FONDO
+
+Per OGNI domanda, scrivi:
 DOMANDA_1
-TESTO: [testo completo della domanda]
-OPZIONE_A: [testo opzione A]
-OPZIONE_B: [testo opzione B]
-OPZIONE_C: [testo opzione C]
-OPZIONE_D: [testo opzione D se presente]
+TESTO: [testo della domanda più in alto]
+OPZIONE_A: [opzione A]
+OPZIONE_B: [opzione B]
+OPZIONE_C: [opzione C]
+OPZIONE_D: [opzione D se presente]
 ---
 
-REGOLE CRITICHE:
-- Conta OGNI domanda nell'immagine (spesso sono 5-10 domande)
-- NON fermarti prima di aver estratto TUTTE le domande
-- Alcune domande hanno 3 opzioni, altre 4 - estraile tutte
-- Separa ogni domanda con ---
-- Scorri fino in FONDO all'immagine`;
+REGOLE:
+- Procedi SEMPRE dall'ALTO verso il BASSO
+- NON cambiare l'ordine delle domande
+- La numerazione deve riflettere la posizione verticale nell'immagine
+- Estrai TUTTE le domande (spesso 5-10)`;
 
         let extractResponse;
         try {
