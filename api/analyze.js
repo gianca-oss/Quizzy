@@ -5,31 +5,30 @@ async function callClaudeWithRetry(url, options, maxRetries = 3) {
     for (let i = 0; i < maxRetries; i++) {
         try {
             const response = await fetch(url, options);
-            
+
             if (response.status === 429) {
                 const waitTime = Math.min(Math.pow(2, i) * 2000, 15000);
                 console.log(`Rate limit hit, waiting ${waitTime}ms before retry ${i + 1}/${maxRetries}`);
                 await new Promise(resolve => setTimeout(resolve, waitTime));
                 continue;
             }
-            
-            // Log dettagliato dell'errore per debug
+
+            // Clone response prima di leggere il body per logging
             if (!response.ok) {
-                const errorBody = await response.text();
+                const clonedResponse = response.clone();
+                const errorBody = await clonedResponse.text();
                 console.error(`API Error ${response.status}:`, errorBody);
-                
-                // Se è un errore 401, lo gestiamo specificamente
+
                 if (response.status === 401) {
                     throw new Error('API Key non valida o mancante');
                 }
-                
-                // Per altri errori, proviamo il retry
+
                 if (i < maxRetries - 1) {
                     await new Promise(resolve => setTimeout(resolve, 2000));
                     continue;
                 }
             }
-            
+
             return response;
         } catch (error) {
             console.error(`Tentativo ${i + 1} fallito:`, error.message);
