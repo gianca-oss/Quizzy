@@ -524,9 +524,7 @@ C: [opzione]
 
         // STEP 4: Chiedi a Claude di rispondere BASANDOSI SUL CONTESTO
         console.log('🎯 Analisi finale con contesto dal corso...');
-        
-        await new Promise(resolve => setTimeout(resolve, 2000)); // Delay per rate limit
-        
+
         const analysisPrompt = `Analizza le domande del quiz usando ESCLUSIVAMENTE il contesto fornito.
 
 ISTRUZIONI CRITICHE:
@@ -570,7 +568,7 @@ Risposta: B (basata sulle mie conoscenze)
                     'anthropic-version': '2023-06-01'
                 },
                 body: JSON.stringify({
-                    model: 'claude-sonnet-4-20250514',
+                    model: 'claude-3-haiku-20240307',
                     max_tokens: 4000,
                     temperature: 0,
                     messages: [{
