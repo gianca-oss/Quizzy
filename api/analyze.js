@@ -321,26 +321,32 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `Questo è un quiz con multiple domande. Prima di tutto, scorri TUTTA l'immagine dall'alto verso il basso e conta quante domande ci sono in totale.
+        const extractPrompt = `Questa immagine contiene un quiz con MOLTE domande (probabilmente 5-10). Devi estrarre TUTTE le domande visibili.
 
-Poi estrai OGNI domanda nel seguente formato, partendo dalla domanda PIÙ IN ALTO:
+ISTRUZIONI:
+1. Scorri l'INTERA immagine dall'alto verso il basso
+2. Estrai OGNI singola domanda che vedi
+3. NON fermarti dopo 2-3 domande - continua fino alla FINE dell'immagine
 
+Formato per ogni domanda:
 DOMANDA_1
-TESTO: [testo completo della prima domanda che appare in cima all'immagine]
-OPZIONE_A: [opzione A]
-OPZIONE_B: [opzione B]
-OPZIONE_C: [opzione C]
-OPZIONE_D: [opzione D se presente]
+TESTO: [prima domanda in alto]
+OPZIONE_A: [opzione]
+OPZIONE_B: [opzione]
+OPZIONE_C: [opzione]
 ---
 DOMANDA_2
-TESTO: [testo della seconda domanda]
-OPZIONE_A: [opzione A]
-OPZIONE_B: [opzione B]
-OPZIONE_C: [opzione C]
-OPZIONE_D: [opzione D se presente]
+TESTO: [seconda domanda]
+OPZIONE_A: [opzione]
+OPZIONE_B: [opzione]
+OPZIONE_C: [opzione]
+---
+DOMANDA_3
+TESTO: [terza domanda]
+...continua...
 ---
 
-E così via per TUTTE le domande. NON saltare nessuna domanda.`;
+IMPORTANTE: Continua con DOMANDA_4, DOMANDA_5, DOMANDA_6, DOMANDA_7 ecc. fino all'ULTIMA domanda in fondo all'immagine. Non fermarti prima!`;
 
         let extractResponse;
         try {
