@@ -395,12 +395,14 @@ C: [opzione]
 
         const responseText = extractData.content[0].text;
         console.log('📝 Testo estratto da Claude (prime 500 char):', responseText.substring(0, 500));
-        
+
         // Parse domande - parsing semplificato e robusto
         const questions = [];
-        const questionBlocks = responseText.split(/---+/).filter(block => block.includes('TESTO:') || block.includes('DOMANDA'));
+        const allBlocks = responseText.split(/---+/);
+        console.log(`📦 Split ha prodotto ${allBlocks.length} blocchi totali`);
 
-        console.log(`📦 Trovati ${questionBlocks.length} blocchi di domande`);
+        const questionBlocks = allBlocks.filter(block => block.includes('TESTO:') || block.includes('DOMANDA'));
+        console.log(`📦 Dopo filtro: ${questionBlocks.length} blocchi con TESTO/DOMANDA`);
 
         questionBlocks.forEach((block, index) => {
             const lines = block.trim().split('\n');
@@ -646,7 +648,12 @@ Spiegazione del perché la risposta è corretta.`;
             (analysisText || finalResponse) +
             '</div></div>' +
             '<details style="margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 8px;">' +
-            '<summary style="cursor: pointer; font-weight: bold;">🔍 Debug: Risposta Claude (clicca per espandere)</summary>' +
+            '<summary style="cursor: pointer; font-weight: bold;">🔍 Debug: Parsing Info</summary>' +
+            '<div style="font-size: 12px; margin-top: 10px; padding: 10px; background: #e0e0e0; border-radius: 4px;">' +
+            `<b>Blocchi trovati:</b> ${questionBlocks.length}<br>` +
+            `<b>Domande parsate:</b> ${questions.length}<br>` +
+            `<b>Domande:</b> ${questions.map(q => q.text.substring(0, 30) + '...').join(' | ')}` +
+            '</div>' +
             '<pre style="white-space: pre-wrap; font-size: 11px; margin-top: 10px; max-height: 300px; overflow-y: auto;">' +
             responseText.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
             '</pre></details>';
