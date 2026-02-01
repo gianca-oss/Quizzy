@@ -1051,9 +1051,9 @@
                 
                 // Consolidate results
                 debugLog('Consolidating results...');
-                
+
                 let consolidatedHTML = '';
-                
+
                 // Add a floating back button and wrapper
                 consolidatedHTML += `
                     <button onclick="backToUpload()" class="back-button">
@@ -1061,26 +1061,79 @@
                     </button>
                     <div style="padding-top: 10px;">
                 `;
-                
-                // Calculate total questions for internal use
-                const totalQuestions = allResults.reduce((sum, r) => sum + r.parsed.questions.length, 0);
 
-                // Use API's HTML directly (contains table with FONTE column)
-                if (allResults.length > 0 && allResults[0].content) {
-                    consolidatedHTML += `<div class="result-content">${allResults[0].content}</div>`;
-                }
+                // Collect ALL questions from ALL images with sequential numbering
+                let globalQuestionNum = 0;
+                const allQuestions = [];
+                const allAnalyses = [];
 
-                // Add additional images' content if multiple images
-                if (allResults.length > 1) {
-                    for (let i = 1; i < allResults.length; i++) {
-                        consolidatedHTML += `
-                            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
-                            <h4 style="color: #666; margin-bottom: 10px;">Immagine ${i + 1}</h4>
-                            <div class="result-content">${allResults[i].content}</div>
-                        `;
+                allResults.forEach((result, imgIndex) => {
+                    // Parse questions from this image's table
+                    result.parsed.questions.forEach(q => {
+                        globalQuestionNum++;
+                        allQuestions.push({
+                            num: globalQuestionNum,
+                            answer: q.answer,
+                            fonte: q.row.cells[2] ? q.row.cells[2].innerHTML : '⚠️ AI'
+                        });
+                    });
+
+                    // Extract analysis text from this image
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = result.content;
+
+                    // Find analysis section
+                    const analysisHeader = tempDiv.querySelector('h3');
+                    if (analysisHeader && analysisHeader.textContent.includes('Analisi')) {
+                        const analysisDiv = analysisHeader.nextElementSibling;
+                        if (analysisDiv) {
+                            // Renumber the analysis items
+                            let analysisText = analysisDiv.innerHTML;
+                            const baseNum = globalQuestionNum - result.parsed.questions.length;
+
+                            // Replace **1. with **{baseNum + 1}. etc
+                            result.parsed.questions.forEach((q, idx) => {
+                                const oldNum = idx + 1;
+                                const newNum = baseNum + oldNum;
+                                // Replace patterns like **1. or **1) at start of lines
+                                analysisText = analysisText.replace(
+                                    new RegExp(`\\*\\*${oldNum}\\.`, 'g'),
+                                    `**${newNum}.`
+                                );
+                            });
+
+                            allAnalyses.push(analysisText);
+                        }
                     }
-                }
-                
+                });
+
+                // Build ONE consolidated table
+                consolidatedHTML += '<div class="result-content">';
+                consolidatedHTML += '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">';
+                consolidatedHTML += '<thead><tr>';
+                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">N°</th>';
+                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">RISPOSTA</th>';
+                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">FONTE</th>';
+                consolidatedHTML += '</tr></thead><tbody>';
+
+                allQuestions.forEach(q => {
+                    consolidatedHTML += '<tr>';
+                    consolidatedHTML += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.num}</td>`;
+                    consolidatedHTML += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.answer}</td>`;
+                    consolidatedHTML += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3);">${q.fonte}</td>`;
+                    consolidatedHTML += '</tr>';
+                });
+
+                consolidatedHTML += '</tbody></table>';
+
+                // Add ONE consolidated analysis section
+                consolidatedHTML += '<div style="margin-top: 20px;">';
+                consolidatedHTML += '<h3 style="font-size: 16px;">Analisi:</h3>';
+                consolidatedHTML += '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">';
+                consolidatedHTML += allAnalyses.join('\n\n');
+                consolidatedHTML += '</div></div>';
+                consolidatedHTML += '</div>';
+
                 // Close wrapper div
                 consolidatedHTML += `</div>`;
                 
