@@ -609,11 +609,11 @@ ANALISI: [breve spiegazione basata sul corso]`;
         console.log('RISPOSTA FINALE:', finalResponse.substring(0, 200) + '...');
 
         // Parse risposte e crea tabella (mobile-friendly)
-        let tableHtml = '<table style="width: 100%; max-width: 400px; margin: 20px auto; border-collapse: collapse; table-layout: fixed;">';
+        let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">';
         tableHtml += '<thead><tr style="background: #f5f5f7;">';
-        tableHtml += '<th style="padding: 10px; width: 25%;">N°</th>';
-        tableHtml += '<th style="padding: 10px; width: 35%;">RISPOSTA</th>';
-        tableHtml += '<th style="padding: 10px; width: 40%;">FONTE</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">N°</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">RISPOSTA</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">FONTE</th>';
         tableHtml += '</tr></thead><tbody>';
 
         const lines = finalResponse.split('\n');
@@ -645,9 +645,9 @@ ANALISI: [breve spiegazione basata sul corso]`;
                     }
 
                     tableHtml += '<tr>';
-                    tableHtml += `<td style="padding: 10px; text-align: center;">${num}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 20px;">${letter.toUpperCase()}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; font-size: 14px;">${sourceIndicator}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid #ddd;">${num}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid #ddd;">${letter.toUpperCase()}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid #ddd;">${sourceIndicator}</td>`;
                     tableHtml += '</tr>';
                 }
             }
