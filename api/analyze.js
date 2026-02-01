@@ -46,48 +46,36 @@ let enhancedDataCache = null;
  */
 async function loadEnhancedData() {
     if (enhancedDataCache) return enhancedDataCache;
-    
+
     try {
         console.log('🚀 Caricamento dati del corso da GitHub...');
-        
-        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed-v3/';
-        
-        let metadataResponse = await fetch(GITHUB_BASE + 'metadata.json');
-        let baseUrl = GITHUB_BASE;
-        let version = '3.0';
-        
-        if (!metadataResponse.ok) {
-            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed-v2/';
-            metadataResponse = await fetch(baseUrl + 'metadata.json');
-            version = '2.0';
-        }
-        
-        if (!metadataResponse.ok) {
-            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/';
-            metadataResponse = await fetch(baseUrl + 'metadata.json');
-            version = '1.0';
-        }
-        
+
+        // Corso attivo: strategia-internazionalizzazione
+        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
+
+        const metadataResponse = await fetch(GITHUB_BASE + 'metadata.json');
+
         if (!metadataResponse.ok) {
             console.log('Nessun metadata trovato, uso fallback...');
             return loadFallbackData();
         }
-        
+
         const metadata = await metadataResponse.json();
-        
-        // Carica PIÙ chunks per avere più contenuto
-        const textChunks = await loadTextChunks(baseUrl, metadata.totalChunks || 500);
-        
+
+        // Carica tutti i chunks (8 file, 389 chunks totali)
+        const textChunks = await loadTextChunks(GITHUB_BASE, metadata.stats?.totalFiles || 8);
+
         enhancedDataCache = {
             metadata,
             textChunks,
-            version: version
+            version: metadata.version || '1.0',
+            courseName: metadata.courseName || 'strategia-internazionalizzazione'
         };
-        
-        console.log(`✅ Corso v${version} caricato: ${textChunks.length} chunks`);
-        
+
+        console.log(`✅ Corso "${metadata.courseName}" caricato: ${textChunks.length} chunks`);
+
         return enhancedDataCache;
-        
+
     } catch (error) {
         console.error('⌛ Errore caricamento corso:', error);
         return loadFallbackData();
@@ -96,11 +84,12 @@ async function loadEnhancedData() {
 
 async function loadFallbackData() {
     try {
-        const FALLBACK_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/';
+        // Fallback: prova a caricare dal corso strategia-internazionalizzazione
+        const FALLBACK_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
         const chunks = [];
-        
-        // Carica più file in fallback
-        for (let i = 0; i <= 3; i++) {
+
+        // Carica fino a 8 file (corso completo)
+        for (let i = 0; i < 8; i++) {
             try {
                 const response = await fetch(FALLBACK_BASE + `chunks_${i}.json`);
                 if (response.ok) {
@@ -111,40 +100,39 @@ async function loadFallbackData() {
                 break;
             }
         }
-        
+
         return {
-            metadata: { version: 'fallback' },
+            metadata: { version: 'fallback', courseName: 'strategia-internazionalizzazione' },
             textChunks: chunks,
             version: '1.0-fallback'
         };
-        
+
     } catch (error) {
         console.error('Fallback fallito:', error);
         return null;
     }
 }
 
-async function loadTextChunks(baseUrl, totalChunks) {
+async function loadTextChunks(baseUrl, totalFiles) {
     const chunks = [];
-    const chunksPerFile = 100;
-    const numFiles = Math.ceil(totalChunks / chunksPerFile);
-    
-    console.log(`📚 Caricamento di ${Math.min(numFiles, 5)} file di chunks...`);
-    
-    // Carica fino a 5 file (500 chunks)
-    for (let i = 0; i < Math.min(numFiles, 5); i++) {
+
+    console.log(`📚 Caricamento di ${totalFiles} file di chunks...`);
+
+    // Carica tutti i file di chunks
+    for (let i = 0; i < totalFiles; i++) {
         try {
             const response = await fetch(baseUrl + `chunks_${i}.json`);
             if (response.ok) {
                 const fileChunks = await response.json();
                 chunks.push(...fileChunks);
-                console.log(`  ✅ chunks_${i}.json caricato`);
+                console.log(`  ✅ chunks_${i}.json caricato (${fileChunks.length} chunks)`);
             }
         } catch (error) {
+            console.warn(`  ⚠️ Errore caricamento chunks_${i}.json:`, error.message);
             if (i === 0) break;
         }
     }
-    
+
     return chunks;
 }
 

@@ -1,0 +1,752 @@
+[
+  {
+    "id": "chunk_0",
+    "text": "[TABELLA]\n\n[HEADER] EMBA - Strategia ed Internazionalizzazione 1\n KNOWLEDGE MANAGEMENT Prof. Cuel Roberta Che differenza c’è tra: • Dati • Informazioni • Conoscenza Il Dato è l’insieme degli input grezzi che aggregati in una certa maniera diventano Informazione e l’informazione provata, interiorizzata, aggregata con i nostri valori viene mappata nel nostro mododi pensare. È li che l’informazione elabora ta secondo la nostra mappa mentale cifa crescere. A volte arriva no informazioni sfida nti (es. della pa ndemia ) che ci trova no imprepa rati (rifiuto).\n[H2] 1. La Piramide della Conoscenza\n Questo modello gera rchico illustra come i dati grezzi si tra sformino progressivamente insa ggezza attra verso un processo diela borazione e comprensione crescente. \n[FIG] Fig. 1 – Modello teorico che prevede una gerarchia, DIKW [Data-Information-Knowledge-Wisd\nom]\n[H3] 1.1. Dati\n I dati sonola base della piramide e costituiscono elementi grezzi, non ela borati e privi di contesto. Sonofa tti, numeri, simboli o osservazioni che da soli non hanno significa to intrinseco. I datisono simboli, misurazioni, registrazioni. Sonoil \"cosa\" senza il \"perché\": un numero suun foglio, un pixel inun'immagine, unbit in memoria . Di per sé non dicono nulla . \"42\" è undato. Può essere un'età , una tempera tura, un codice, il numero di una stanza, la risposta alladoma nda fondamentale sulla vita , l'universo e tutto quanto. Lacara tteristica essenzia le dei dati è che sono indifferenti a l significa toed esistono senza interpretazione. Questo li rende potenti (possono essere riusa tiin contesti diversi) e a l contempo inutili dasoli. Risponde a domande come “cosa” Caratteristiche: quantità eleva ta , nessuna interpretazione, nessun contesto.",
+    "page": 1,
+    "pages": [
+      1
+    ],
+    "keywords": [
+      "grezzi",
+      "informazione",
+      "knowledge",
+      "informazioni",
+      "conoscenza"
+    ]
+  },
+  {
+    "id": "chunk_1",
+    "text": "[H3] 1.2. Informazioni\n L’informazione nasce quando i dati vengono orga nizza ti, struttura ti e contestua lizza ti. L'informazione emerge quando i dati a cquisiscono contesto e struttura . È la risposta a una doma nda implicita . \"42 anni\" tidice qua lcosa che \"42\" dasolo non diceva . \"Roma , 18°C, ore 14\" è informazione perché colloca undato in coordinate che lo rendono interpretabile. Gregory Ba teson la definiva come \"una differenza che fa una differenza \": l'informazione è ciò che cambia losta todi chi la riceve, ciò che riduce l'incertezza . Segià sa i che a Romaci sono 18°C, dirtelo di nuovo non è informazione, è rumore. Un punto crucia le: l'informazione non è oggettiva ovvero dipende da chi riceve. Per un meteorologo, \"18°C a genna io a Roma \" è undato a nomalo che richiede indagine. Per un turista , è semplicemente \"bel tempo\". Risponde a domande come “chi”, “dove”, “quando”. Caratteristiche: dati concontesto, orga nizzazione logica , significa to comprensibile.\n[H3] 1.3. Conoscenza\n La conoscenza emerge quando l’informazione viene elabora ta , compresa e collega ta all’esperienza . La conoscenza è ilsa ltopiù difficile da definire. Non è solo informazione accumula ta: è informazione integrata, collega ta , resa opera tiva . Sapere che \"l'a cqua bolle a 100°C\" è informazione. Sa per cucina rela pasta è conoscenza . \n[HEADER] EMBA - Strategia ed Internazionalizzazione 2\n Micha el Polanyi distingueva tra conoscenza esplicita (codificabile, tra smissibile inparole) e conoscenza tacita (incorpora tanell'esperienza , difficile da a rticola re). Sa i a ndare in bicicletta , ma prova a spiega reesa ttamente comefai a ma ntenere l'equilibrio.",
+    "page": 2,
+    "pages": [
+      2
+    ],
+    "keywords": [
+      "informazione",
+      "conoscenza",
+      "quando",
+      "struttura",
+      "emerge"
+    ]
+  },
+  {
+    "id": "chunk_2",
+    "text": "La conoscenza ha a lcune proprietà pa rticola ri: • È personale: la stessa informazione genera conoscenze diverse in persone diverse, a seconda delle esperienze pregresse • È contestuale: funziona in certi a mbiti e non in a ltri • È generativa: permette di produrre nuova informazione, difare inferenze, di risolvere problemi ma i visti • Può essere sbagliata: a differenza dei da ti, che semplicemente sono, la conoscenza include interpretazioni che possono rivela rsierra te Esempi: ➢ “Con 18°C a genna io a Roma , il clima è più mite del solito, proba bilmente a causa del ca mbiamento climatico” ➢ Sa per utilizza rele informazioni per prendere decisioni Risponde a domande come “come” e “perché”. Caratteristiche: comprensione profonda , capacitàdi applicazione, collegamento conesperienze pregresse.\n[H3] 1.4. Saggezza\n All’apice della piramide lasa ggezza ra ppresenta il livello più eleva toed è laca pacità di applica rela conoscenza congiudizio, etica e visione a lungo termine. Implica discernimento e capacitàdi valuta re conseguenze. Qui il terreno diventa scivoloso. Lasa ggezza non è semplicemente \"più conoscenza \". È qua lcosa diqua litativamente diverso: laca pacità diusa rela conoscenza bene, congiudizio, lungimira nza , consa pevolezza dei limiti e delle conseguenze. Un medico può a vere enorme conoscenza tecnica ma mancare disa ggezza nel comunica re una dia gnosi. Un ingegnere può progetta reun ponte perfetto da l punto di vista struttura le senza chiedersi sequel ponte dovrebbe essere costruito.",
+    "page": 3,
+    "pages": [
+      3
+    ],
+    "keywords": [
+      "conoscenza",
+      "ggezza",
+      "informazione",
+      "diverse",
+      "pregresse"
+    ]
+  },
+  {
+    "id": "chunk_3",
+    "text": "Lasa ggezza include dimensioni che sfuggono allapura elaborazione dell'informazione: • Etica: non solo \"posso farlo?\" ma \"dovrei farlo?\" • Umiltà epistemica: sapere cosa non sisa , riconoscere l'incertezza • Visione sistemica: vedere le connessioni, le conseguenze a lungo termine, gli effetti non intenziona li • Equilibrio: bilancia reva loriin conflitto, naviga re dilemmi senza soluzioni pulite È discutibile selasa ggezza appa rtenga da vvero alla stessa ca tegoria degli a ltritre concetti. Dati, informazione e conoscenza sono tutti oggetto di studio dell'epistemologia e delle scienze dell'informazione. Lasa ggezza è un concetto filosofico e morale che risa le a i greci a ntichi, e forse non si \"produce\" a pa rtire dalla conoscenza nello stesso modoin cui la conoscenza si produce a pa rtire dall'informazione. Esempi: ➢ Decidere di a dotta re politiche a mbienta libasa ndosi sulla comprensione del ca mbiamento climatico ➢ Sa per consiglia re a ltriba sa ndosi su esperienza e valori Risponde a domande come “quindi” Caratteristiche: giudizio equilibra to, visione olistica , applicazione etica della conoscenza .\n[H3] 1.5. Il Flusso Ascendente Livello\n Domanda chiave Valore aggiunto Dati Cosa ? Registrazione Informazione Chi, dove, quando? Contesto Conoscenza Come, perché? Comprensione Sa ggezza E quindi? Giudizio \n[TAB] Tabella 1 - Il flusso ascendente",
+    "page": 4,
+    "pages": [
+      4
+    ],
+    "keywords": [
+      "informazione",
+      "conoscenza",
+      "ggezza",
+      "etica",
+      "farlo"
+    ]
+  },
+  {
+    "id": "chunk_4",
+    "text": "[HEADER] EMBA - Strategia ed Internazionalizzazione 3\n \n[FIG] Fig. 2 - Comesi interconnettono gli elementi I Dati grezzi vengono sottoposti a un proces\nso di aggregazione contestua lizzazione (Informazione) e applicazione e sperimentazione (Conoscenza). La Saggezza presuppone un livello conoscitivo a stratto e va loria le che esula dall'a mbito di una specifica applicazione. Iltema è proprio questo: quanto le informazioni che noi abbiamo nella testa e nel cuore ci cambiano l’interpretazione. Le nostre conoscenze influenza nociò che interpretia mo.\n[H3] 1.6. La parabola dei pannolini e\n la birra • Dato: a cquisto del prodotto. • Informazione: aggrega ndo i datisiha nnole correlazioni tra i due prodotti • Conoscenza: interpretazione che si vuolda re Decisione: mettere pa nnolini e birra insca ffali vicini, oppure per ogni pacco dipa nnolini arriva una birra gratis oppure, metterli lonta nicosì uno gira tutto il supermerca to e magari a cquista qualche a ltro prodotto. Avere tanti datici consente di a vereta nte informazioni e tante conoscenze. Con l’AI abbiamo una montagna didatied iltema è sa perli gestire edela borarli. Spesso è qui il problema : dati, informazioni, conoscenza , sa ggezza sono spesso correla tidaun fortissimo legame perché si definisce un’informazione anche inbase a delle conoscenze (conoscenze matematiche nell’esempio della galassia di punti rappresentati sulla lavagna) che sono state approfondite; quindi, sa per leggere dei da tied interpreta rli presuppone ilfa ttodi a vere delle conoscenze. In sosta nza è vero che abbiamo un sacco didati e informazioni ma poi questi sono interpretabili dal fatto che noi abbiamo delle conoscenze. Senza le conoscenze a lcuni datied informazioni vengono perse.",
+    "page": 5,
+    "pages": [
+      5
+    ],
+    "keywords": [
+      "conoscenze",
+      "informazione",
+      "conoscenza",
+      "informazioni",
+      "birra"
+    ]
+  },
+  {
+    "id": "chunk_5",
+    "text": "Altro elemento importa nte è la comprensione dei da ti ovvero, se non a vessimo delle conoscenze non sa remmo ingra dodi comprendere i dati. Esempio: i punti ra ppresenta ti fuoridalla nuvola sono degli errori, è una devia nzada lla regola rità . Però, direse è un errore o no significa dire che questa cosa non vabene, e quindi c’è già un setdi valori (giusti o sbagliati) Un ultimo elemento è la conoscenza che è correla ta a questi elementi: • KNOW WHAT - Sapere che cosa fare. • KNOW HOW - Sapere comefa rlo. • KNOW WHY - Sapere perché farlo - mettere la birra vicino o lonta noha i pa nnolini è il perché. Esercitazione 1: il gioco dello scambio dinome. La morale è che è necessario l’ascolto per reperire le informazioni Esercitazione 2: costruire una storia “un giorno di pioggia”, ognuno una sola parola. Morale: non c’è nessun controllo, ognuno a vevain testa una storia diversa e poi qua ndo tocca a noiho una responsa bilità di una parola importa nte. Comefa re a gestire le informazioni che non riesco a gestire oppure come faccio a gestire l’imprevisto? 2.TIPI DI CONOSCENZE La conoscenza combina esperienza , valori, informazioni contestua li e intuizioni, offrendo unqua dro per interpreta re nuove informazioni. Si forma e si utilizza nellamente delle persone. Nelle orga nizzazioni, la conoscenza risiede non solo nei documenti ma a nche nelle routine, nei processi e nelle pratiche.",
+    "page": 6,
+    "pages": [
+      6
+    ],
+    "keywords": [
+      "informazioni",
+      "conoscenza",
+      "sapere",
+      "gestire",
+      "nelle"
+    ]
+  },
+  {
+    "id": "chunk_6",
+    "text": "(Da venport & Prusa k, 1998) • Siamo pieni di informazioni, a spetta tive, maqua lisono le conoscenze esplicite nell’iceberg? La conoscenza esplicita è quella fuoridall’acqua ciò è quella che si può vedere e che per definizione sipuò tra durre con un lingua ggio forma lecome a d esempio i punti, lama tematica, l’inglese, l’italiano o qualsia si lingua ggio che abbiaun senso è conoscenza esplicita . \n[HEADER] EMBA - Strategia ed Internazionalizzazione 4\n È quella forma lizza ta, codifica ta e fa cilmente tra smissibile. Si trova in documenti, ma nuali, database, procedure scritte. Può essere a rticola tain parole, numeri o simboli e condivisa senza difficoltà . Un esempio è unma nuale opera tivo o una formula matematica . • Nell’iceberg quali sonole conoscenze implicite? Quella che ogni tanto sivede quando c’è l’ondacioè è quella fetta di conoscenza che sta appena sotto l’acqua che però si riesce a vedere, che possiamo dedurre dalla conoscenza esplicita . Quindi, datele informazioni matematiche possia mo a nalizza re dei datied ottenere a ltre conoscenze. Sono quelle che l'individuo possiede e potrebbe in teoria esplicita re, ma che non è a ncora stata codificata. Risiede nelle routine, nelle pratiche quotidia ne, nel \"modoin cui si fanno lecose\" all'interno diun'orga nizzazione. Conuno sforzo consa pevole può essere resa esplicita . Un esempio è ilknow-how opera tivo che un dipendente esperto ha sviluppa to nel tempo. • Quali sonole conoscenze tacite invece? Tutte quelle conoscenze che noi abbiamo e che spesso non sa ppiamo neanche di a vere. Sono i valori intrinsechi: perché mi siedo ed a scolto la professoressa ? Perché si è a bitua ti a farcosì, è una consuetudine a nchese la professoressa non ci ha chiesto dista re seduti.",
+    "page": 7,
+    "pages": [
+      7
+    ],
+    "keywords": [
+      "esplicita",
+      "quella",
+      "conoscenza",
+      "conoscenze",
+      "esempio"
+    ]
+  },
+  {
+    "id": "chunk_7",
+    "text": "Diamo per sconta to che questo tipodi apprendimento sia quello che funziona dipiù perché diamo per scontato che sia ilpiù efficiente ed è quello che abbiamo sempre fatto. In a utomatico ci sedia mo, e notia moun certo clima all’inizio della primalezione doveil silenzio regna sovra no, mala professoressa non ha ma i detto difa r silenzio, hasolo salutato e si è presentata all’aula. Noi però abbiamo capito che lei erala professoressa , leiha gioca toilsuo ruolo senza dire nulla. Gli studenti ca piscono il ruolo e sisono seduti a d a scolta re. In sosta nza , la conoscenza tacita è tutta quella conoscenza che abbiamo accumula to e che a volte non ci si rende conto di a verema che si mette inpratica quotidia namente. Diventa parte dei nostri valori e tali valori vanno riconosciuti. In una orga nizzazione a zienda le funziona meglio se messa inpratica congli atteggiamenti piuttosto a parole. Le conoscenze tacite sono difficili da tra durre in conoscenze esplicite perché sono complesse dara cconta re perché cele abbiamo ma non sappia moesa ttamente come formula rle. • Esempio della prepa razione della pasta quando si è all’estero. Capita di vedere che la pasta viene buttata nell’acqua fredda mase nessuno gli dice che non sideve farecosì è norma le prepararla nell’acqua fredda. Noi abbiamo visto i nostri genitori che la pasta va buttata nell’acqua bollente ed è da lì che abbiamo appreso la conoscenza , non ce ne rendia mo conto ma è una informazione fonda menta le per farelapa sta. • Esempio della preparazione dell’impasto della pizza Il processo di torsione che fa lievita rema ggiormente lapasta . I video sono migliori delle guide carta cee. Guarda ndoil video si riesce a ca rpire quel micromovimento che potrebbe a iutare meglio chi vuol farela pizza .",
+    "page": 8,
+    "pages": [
+      8
+    ],
+    "keywords": [
+      "abbiamo",
+      "perché",
+      "diamo",
+      "quello",
+      "funziona"
+    ]
+  },
+  {
+    "id": "chunk_8",
+    "text": "Le conoscenze tacite sonole più difficili da tra sferire. Sono profondamente radica tenell'esperienza persona le, nelle intuizioni, neiva lori e nelle emozioni. Non può essere fa cilmente a rticola ta o forma lizza ta perché chi la possiede spesso non è nemmeno consa pevole di a verla . Si a cquisisce attra verso l'esperienza diretta , l'osservazione e lapratica . Un esempio cla ssico è laca pacità di a ndare in bicicletta o l'intuito diun a rtigia no esperto. Cisono formule ma tematiche ma è impossibile spiega recome stare in equilibrio se non si prova . Per sa per fa relecose (Know-How) dobbia mo provare a lcune tecniche per sta rein equilibrio e la vorarci sopra . Questo è un processo molto più veloce rispetto a leggere tonnella tedi libri. In genera le, nelle orga nizzazioni vince il: “guarda comesi faed impari” oppure “rubail mestiere”. La gestione della conoscenza non si deve ferma re allasola gestione della conoscenza esplicita o implicita madeve lavora re molto a nche sulla conoscenza tacita ovvero sul sa per fa relecose (Know-How) I sistemi informativi finoagli anni 90 si occupavano didati e informazioni, non di conoscenze e saggezza. Oggiin azienda dobbiamo lavorare sulle persone per poter favorire la creazione, la comunicazione e l’applicazione di conoscenze. La gestione delle persone passa attra verso questo affinché si a cquisisca migliore esperienza , crea tività . Knowledge Management isthus the management of knowledge. It enables the creation, communication, and application of knowledge ofall kinds to achieve business goals - by Paul Quintas) (Knowledge Management isthe ability to create and retain greater value fromcore business competencies - by Kirk Klasson)",
+    "page": 9,
+    "pages": [
+      9
+    ],
+    "keywords": [
+      "conoscenze",
+      "nelle",
+      "gestione",
+      "conoscenza",
+      "esperienza"
+    ]
+  },
+  {
+    "id": "chunk_9",
+    "text": "[H2] 3. I KNOWLEDGE WORKERS I\n lavoratori della conoscenza sono coloro i quali gestiscono la conoscenza edhanno o sonochia mati a d avere queste skills: • Capacità decisiona le • Flessibilità • Autonomia responsabile • Colla borazione \n[HEADER] EMBA - Strategia ed Internazionalizzazione 5\n Non-Routine Manual Non-Routine Interpersonal Non-Routine Analytical Routine Manual Routine Cognitive Con lo sviluppo dell’AI.... • Intelligenza emotiva ovvero riuscire a mettersi neipa nni degli a ltri cerca ndodi a scolta rli meglio • Lea dership ovvero guida rele persone • Visione\n[H2] 4. LA CONOSCENZA NELLE\n ORGANIZZAZIONI\n[H3] 4.1 Soft Skills and Innovation Perché\n la conoscenza è sempre più importa nte? Andiamo ad analizzare un’analisi fatta nel 2010 negli USA che evidenzia le varie tipologie di lavoro presenti nel mercato del la voro: Lavoro manua le non routina rio Non-Routine Manual innero. È ilcla ssico lavoro a rtigia nale. Comesi vededa l grafico tende a diminuire marima ne sempre abba stanza costa nte, bassa marima ne sempre. Illavoro a rtigia naleda quello più tecnologico informatico a quello più opera tivo del fa legna merima rrà sempre. Ciò che calainma niera drastica è illavoro routina rioma nuale Routine Manual ingia llo perché l’automazione e la robotica , Industria 4.0 sta porta ndo a d a utoma tizza re tutte le operazioni routina rie. Ciò che già nel 2010 stava ca lando molto sonole Routine Cognitive in verde. Ovvero lecose ripetute che si fanno inmoda lità cognitiva . Uncla ssico esempio è ilfilm “Il diritto di contare” nel quale le donne erano delle macchine per contare ovvero fa cevano unlavoro routina rio cognitivo basatosu ca lcoli che nel tempo sonosta ti automatizzati.",
+    "page": 10,
+    "pages": [
+      10
+    ],
+    "keywords": [
+      "routine",
+      "conoscenza",
+      "manual",
+      "sempre",
+      "lavoro"
+    ]
+  },
+  {
+    "id": "chunk_10",
+    "text": "Con l’AI andremo a d a utomatizza re questi processi, non solo, ma a ncheil lavoro che non è più di routine che è cognitivo. Quindi, a nchele parti di Non-Routine Analytical in rosso tendera nno a diminuire poiché a vremmo a disposizioni strumenti che fa nnola vori a na litici che non sono routina ri che combina no meglio datied informazioni conuna velocità impressiona nte Iltipo dilavoro che rimarrà sempre in crescendo saràil tipodi lavoro Non-Routine Manuale innero e Non Routine Interpersonale inblu ovvero il lavoro di gruppo, la creatività, l’innovazione introdotti dapiù persone. Questo tipodi lavoro in futuro aumenterà sempre dipiù e costituirà l’elemento distintivo diogni organizzazione. Lavora resu questi temi significa lavora rein gruppo, a scolta re, prendere decisioni e diventa re Knowledge Workers. Alcuni esempi sotto: Fordismo e Tayolorismo. Siamo all’inizio del 900, produzione di massa. La Topolino ha avuto grande successo perché lasua produzione è stata automatizzata, il costo dell’autoera prevalentemente ridotto al costo del metallo, iltime to market era abbastanza breve per l’epoca. Tipodi lavoratori: conposizioni che richiedono poche competenze, persone che veniva noda i campi e da a ltri continenti ispirati dal messaggio “We Want You”. Dov’è la conoscenza? L'intero impia ntodi questi modelli orga nizza tivisi fonda va sulla codificazione e standa rdizzazione del sa pere. Taylor, con il suo Scientific Management, mirava proprio a sottra rrela conoscenza tacita a gli opera i per tra sforma rlain procedure scritte, tempi misurabili e metodi forma lizza ti.",
+    "page": 11,
+    "pages": [
+      11
+    ],
+    "keywords": [
+      "lavoro",
+      "routine",
+      "tipodi",
+      "questi",
+      "sempre"
+    ]
+  },
+  {
+    "id": "chunk_11",
+    "text": "L'ideaera che il \"modo migliore\" (onebest way) di svolgere ogni operazione dovesse essere identifica to scientificamente dalla direzione e poi imposto a i lavoratori attra verso istruzioni detta gliate. Fordportò questa logica alle estreme conseguenze con la catena di monta ggio: ogni gesto era scomposto, cronometra to e prescritto. L'opera io non doveva pensa re né improvvisa re, ma eseguire movimenti predefiniti. La conoscenza risiedeva nel sistema , non nelle persone. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 6\n Questo approccio comporta va una separazione netta tra chi pensa e chi esegue: gli ingegneri e i manager detenevano ilsapere, gli opera i erano braccia interca mbiabili. La conoscenza tacita e implicita dei la voratori veniva sistema ticamente ignora ta o addirittura considera taun ostacolo all'efficienza . Il limite di questo modello emerse quando i merca ti divennero più dina mici e la competizione richiese flessibilità , innovazione e capacitàdi a dattamento, tutte qualità che dipendono proprio dalle forme di conoscenza che il ta ylorismo a veva cerca todi elimina re. L’esperienza dei lavoratori, tendenzialmente laloro conoscenza eradi tipo Esplicito. Gli Ingegneri che disegnavano il processo e di conseguenza la catena di montaggio osservandola dall’alto. I coniugi Gilberth hanno ottimizzato il modello introducendo ilfatto che mana ger e ingegneri hanno il compito dicla ssifica re, orga nizza re e tra durre le migliori pratiche gestiona liin regole, leggi e pratiche che guida nola forza lavoro non istruita . Tutto ciò che è fuori da l processo diventa un problema da risolvere. Movimenti dilavoro: filma re i detta gli delle attività diun lavoratore e lasua postura , registra ndoil tempo e, inparte, sviluppa ndobest pra ctice standa rdizza te.",
+    "page": 12,
+    "pages": [
+      12
+    ],
+    "keywords": [
+      "conoscenza",
+      "ingegneri",
+      "lavoratori",
+      "catena",
+      "opera"
+    ]
+  },
+  {
+    "id": "chunk_12",
+    "text": "Il modello Google Siamo a gli inizi degli anni 2000 doveil para digma cambia notevolmente. Tipodi lavoratori: Coworking, R&D, Innovazione, Knowledge Workers, a nchela voratori più ma nuali allafine dima nuale fanno sempre dimeno (cambia no motherboard e progra mmano). Manua lità tipicamente diversa rispetto a l modello del Fordismo e Ta ylorismo, il contesto orga nizza tivo è diverso. Qui abbiamo a lto specia lizzazione, persone che la vorano conmolte informazioni, che porta no innovazione. Sefaccio timbra reilca rtellino allo sviluppatore Google non funziona perché hanno bisogno di a utonomia , il coinvolgimento non è fisico ma è menta le e per essere coinvolti menta lmente è quello di tenerli sempre attenziona ti sul tema . In Google, e più in genera le nelle a ziende knowledge-intensive dell'economia contempora nea, il modello siriba lta completamente rispetto a l Fordismo dove preva lgono la conoscenza tacita e implicita, che diventa nolevere fonti diva ntaggio competitivo. Ilvalore non sta nelle procedure codifica tema nella crea tività , nell'intuizione, nella capacitàdi problem-solving dei dipendenti. Un ingegnere di Google non esegue istruzioni predefinite: affronta problemi complessi che richiedono giudizio, esperienza accumula ta e spesso colla borazione informa le con i colleghi. Google ha costruito la propria orga nizzazione proprio per fa vorire la circolazione e lo sviluppo di queste forme di conoscenza . Gli spa zi a perti, le a ree comuni, i famosi \"20% time\" (tempo dedica to a progetti persona li), la cultura del confronto e della sperimentazione servono tutti a fa r emergere e condividere saperi che non possono essere scritti inun manua le.",
+    "page": 13,
+    "pages": [
+      13
+    ],
+    "keywords": [
+      "google",
+      "modello",
+      "cambia",
+      "innovazione",
+      "knowledge"
+    ]
+  },
+  {
+    "id": "chunk_13",
+    "text": "La conoscenza esplicita ovviamente esiste a nche qui (documentazione tecnica , codice, brevetti), ma è quasi un sottoprodotto. Il cuore pulsa ntedell'innovazione stain ciò che le persone sanno fare e intuiscono, non in ciò che è già sta to forma lizza to. C'è a ncheun'inversione nel ra pporto tra la voratore e orga nizzazione: mentre nel Fordismo l'opera ioera fa cilmente sostituibile perché ilsa peresta va nel sistema , in Google perdere unta lento significa perdere conoscenza difficilmente replicabile. Da qui la competizione per attrarre e tra ttenere le persone migliori.\n[H3] 4.2. Le motivazioni e soddisfazioni dei\n lavoratori, alcuni modelli\n[H2] 1. Piramide di Maslow Si tra ttadi\n una teoria della motivazione umana proposta dallo psicologo Abraha m Maslow nel\n[H2] 1943. Ra ppresenta i bisogni umani orga nizza tiin\n una gera rchia : secondo Maslow, tendia mo a soddisfa re prima i bisogni allaba se primadipa ssare a quelli superiori. I cinque livelli, dalla base a l vertice: 1. Founda tion - Bisogni fisiologici - cibo, a cqua , sonno, riparo, calore\n[H2] 2. First\n Floor - Bisogni di sicurezza - sta bilità economica , salute, protezione da i pericoli\n[H2] 3. Second\n Floor - Bisogni di appa rtenenza - a more, a micizia , relazioni socia li, senso di comunità",
+    "page": 14,
+    "pages": [
+      14
+    ],
+    "keywords": [
+      "bisogni",
+      "maslow",
+      "conoscenza",
+      "persone",
+      "perdere"
+    ]
+  },
+  {
+    "id": "chunk_14",
+    "text": "[H2] 4. Third\n Floor - Bisogni di stima - a utostima , riconoscimento, rispetto, successo 5. Roof - Autorea lizzazione - rea lizza reil proprio potenzia le, crea tività , crescita persona le Maslow sosteneva che una persona non si concentra sui bisogni superiori finché quelli inferiori non sono ra gionevolmente soddisfa tti. Ad esempio, chi lotta per procura rsiil cibo difficilmente si preoccupa dell'a utorea lizzazione. La teoria è stata molto influente in psicologia , mana gement e ma rketing, a nchese oggi viene considera ta una semplificazione utile più che un modello scientifico rigido - le persone non seguono sempre questa sequenza inmodo linea re, e culture diverse possono a vere priorità differenti. 2. Teoria dei due fattori. Herzberg (1923-2000) è stato uno psicologo a merica no, famoso per la sua teoria dei due fa ttori [o teoria igienico- motiva ziona le], molto usata in a mbito orga nizza tivo e mana geria le, proprio comela piramide di Maslow. Herzberg distinse dueca tegorie di elementi che influenza nola soddisfazione lavora tiva : \n[HEADER] EMBA - Strategia ed Internazionalizzazione 7\n\n[H2] 1. Fattori igienici o di mantenimento\n Se assenti causa no insoddisfazione, mase presenti non motiva nopa rticola rmente: 1. Stipendio a degua to 2. Condizioni dilavoro 3. Sicurezza del posto 4. Relazioni concolleghi e superiori 5. Politiche a zienda li",
+    "page": 15,
+    "pages": [
+      15
+    ],
+    "keywords": [
+      "teoria",
+      "bisogni",
+      "lizzazione",
+      "proprio",
+      "persona"
+    ]
+  },
+  {
+    "id": "chunk_15",
+    "text": "[H2] 2. Fattori motivanti\n Questi sì genera novera soddisfazione e motivazione:\n[H2] 1. Aumento disa\n lario a nche resta motiva ntesolo per i primi tremesi 2. Riconoscimento 3. Responsa bilità 4. Crescita professiona le\n[H2] 5. Contenuto del\n la voro interessa nte 6. Senso direa lizzazione 7. Autonomia\n[H2] 8. Job Cra fting ovvero\n la definizione della mia a rea opera tiva Il collegamento conMaslow Entra mbisi occupa nodi motivazione umana . I fa ttori igienici di Herzberg corrispondono a i livelli bassi della piramide di Maslow (bisogni fisiologici, sicurezza), mentre i fa ttori motiva nti corrispondono a i livelli a lti (stima , a utorea lizzazione). La differenza chiave: per Herzberg, soddisfa re i bisogni dibase non motiva, semplicemente evita l'insoddisfazione. Lavera motivazione viene soloda i fa ttori superiori.\n[H2] 3. Goal Setting Theory Teoria del goa l setting di\n Edwin Locke e Gary Latha m, sviluppa ta a pa rtire da gli anni'60. Obiettivi specifici e sfida nti porta no a prestazioni migliori rispetto a obiettivi vaghi o troppo facili. \"Fa i del tuo meglio\" funziona molto menodi \"completa 10 chiama te entro le 17\". I cinque principi chiave: • Chia rezza - l'obiettivo deve essere specifico e misurabile • Sfida - deve essere difficile mara ggiungibile; troppo facile non motiva , impossibile frustra • Impegno (commitment) - la persona deve sentire l'obiettivo come proprio • Feedba ck - serve un riscontro regola resui progressi • Complessità gestibile - obiettivi complessi vanno scomposti in sotto-obiettivi Collegamento conMaslow e Herzberg Mentre Maslow e Herzberg spiega nocosa motiva le persone (bisogni, fa ttori), Locke e Latha m spiega nocome tra durre quella motivazione in a zione concreta attra verso obiettivi ben struttura ti.",
+    "page": 16,
+    "pages": [
+      16
+    ],
+    "keywords": [
+      "motiva",
+      "motivazione",
+      "ttori",
+      "lizzazione",
+      "herzberg"
+    ]
+  },
+  {
+    "id": "chunk_16",
+    "text": "È labase teorica dietrometodologie come gli OKR (Objectives a nd Key Results) usati da Google e molte a ltre a ziende, e ilmana gement per obiettivi (MBO).\n[H2] 5. LE TEORIE DEL KNOWLEDGE\n MANAGEMENT\n[H3] 5.1. Capitale intellettuale\n La teoria del ca pitale intellettua le è un fra mework sviluppa to principa lmente negli anni'90 per comprendere e misura rele risorse inta ngibili che crea novalore nelle orga nizzazioni. Oggi è iltema della sostenibilità all’epoca erail tema della conoscenza a zienda le. I principali teorici • Thoma s Stewa rt. Giorna lista di Fortune che ha popola rizza toil concetto con il libro Intellectual Capital (1997) • Leif Edvinsson. Hacrea toil modello Skandia Navigator come primo sistema di misurazione del ca pitale intellettua le • Karl-Erik Sveiby. Ha sviluppa to “Intangible Assets Monitor” Una definizione \"Intellectua l capita l is intellectua l ma teria l-knowledge, informa tion, intellectua l property, experience, tha t ca n beput touse tocrea tewea lth. Itis collective bra inpower.\" Letre componenti Ilca pitale intellettua lesi divide tra diziona lmente in: \n[HEADER] EMBA - Strategia ed Internazionalizzazione 8\n • Capitale umano: è l'insieme delle conoscenze, competenze, esperienze, crea tività e capacità delle persone che la vorano nell'orga nizzazione. Include a nchela loro motivazione, attitudine all'apprendimento e capacitàdi innova re. È la componente più difficile da tra ttenere perché \"esceda ll'a zienda ognisera \". • Capitale strutturale (o organizzativo): comprende tutto ciò che resta in a zienda quando i dipendenti vanno a casa . Sono i processi, le procedure, i database, i brevetti, i marchi, i sistemi informa tivi, la cultura orga nizza tiva, i manua li.",
+    "page": 17,
+    "pages": [
+      17
+    ],
+    "keywords": [
+      "pitale",
+      "intellettua",
+      "intellectua",
+      "knowledge",
+      "capitale"
+    ]
+  },
+  {
+    "id": "chunk_17",
+    "text": "È la conoscenza che l'orga nizzazione è riuscita a codifica re e istituziona lizza re. Copilot Teams Reca p è conoscenza orga nizza tiva poiché ra ccoglie singole conoscenze mettendole a fattor comune condividendole a i pa rtecipa nti alla riunione e quindi la conoscenza orga nizza tiva è molto dipiù della somma delle conoscenze individua li! • Capitale relazionale: rigua rdail valore delle relazioni con l'esterno, ovvero clienti, fornitori, pa rtner, istituzioni, comunità . Include la reputazione, la fiducia costruita nel tempo, la fedeltà dei clienti, le alleanze stra tegiche, i network di conta tti. La combinazione di questi 3 fattori determina il valore dell’azienda quindi l’obiettivo è sviluppare le 3 componenti fa cendole convergere a fattor comune. Spiega perché a ziende come Google o Apple va lgono in borsa molto più del loropa trimonio ta ngibile. Ilvalore contabile non ca ttura ilvero valore delle orga nizzazioni knowledge-based. Collegamento con le altre teorie Si ricollega a Maslow e Herzberg nel senso che il capita leuma no dipende dalla motivazione e soddisfazione delle persone, e a l goa l setting perché obiettivi ben definiti a iutano a sviluppa re e tra ttenere quelca pitale.",
+    "page": 18,
+    "pages": [
+      18
+    ],
+    "keywords": [
+      "conoscenza",
+      "valore",
+      "nizza",
+      "conoscenze",
+      "fattor"
+    ]
+  },
+  {
+    "id": "chunk_18",
+    "text": "[H4] 5.1.1. Capitale umano RISORSA BASSO VALORE ALTO\n VALORE NON SOSTITUIBILE Fornire informazioni più approfondite Per a umenta reil valore percepito da i clienti Es. Opera i Specia lizza ti e Segreta rie esperte (a nelli fonda menta lidi una ca tenadi produzione) Capitalizzazione Ma ntenere, tra ttenere e va lorizza reil lavoro dei dipendenti all'interno dell'a zienda . Difficilmente sostituibili e prendono decisione SOSTITUIBILE Automatizazzione Differenziazione o Esternalizzazione Es. Designer - Risorse non sostituibili + alto valore vanno ca pitalizza te e tra ttenute. Sonoil cuore del va ntaggio competitivo. - Risorse non sostituibili + basso valore bisogna investire per a umenta rneil valore percepito - Risorse sostituibili + basso valore si a utoma tizza no per ridurre i costi (es. di Mc Donalds) - Risorse sostituibili + alto valore si possono differenzia re internamente oppure esterna lizza re (outsourcing) \n[HEADER] EMBA - Strategia ed Internazionalizzazione 9\n È uno strumento utile per decidere dove investire e come gestire le diverse componenti del ca pitale umano e struttura le. 5.1.1.1 Indicatori per la determinazione del capitale umano Knowledge stock come indicatore importantissimo • Livelli educa tivi (formazione dibase e continua ) - N. diore di apprendimento - Tempo impiega to per studia re • Numero degli esperti sul tota le dei lavoratori • Retention degli esperti (media anniin a zienda ). Sono quelli non sostituibili.",
+    "page": 19,
+    "pages": [
+      19
+    ],
+    "keywords": [
+      "valore",
+      "sostituibili",
+      "risorse",
+      "umano",
+      "basso"
+    ]
+  },
+  {
+    "id": "chunk_19",
+    "text": "• Innova tion - Quantità e qualità dei nuovi prodotti e servizi - % dirica vi deriva ntida i nuovi prodotti/servizi • Psychologica l attitude - Livello di soddisfazione dei la voratori - Cultura orga nizza tiva - Monitora ggio situazioni di mobbing, burnout, stress lavoro correla to Knowledge stock indica ilpa trimonio di conoscenze accumula tedaun'orga nizzazione inundato momento. È la \"fotogra fia \" del sa pere posseduto, che comprende competenze, know-how, brevetti, esperienze sedimenta te nel tempo. Si distingue da l knowledge flow, che invece ra ppresenta i flussi di conoscenza , ovvero comeil sapere circola , sicrea e si tra sforma all'interno e all'esterno dell'orga nizzazione. L'esempio Swatch illustra bene questi concetti. Negli anni'70-'80 l'industria orologiera svizzera erain crisi profonda, tra volta dalla concorrenza gia pponese degli orologi a l quarzo economici. Le a ziende svizzere a vevano un enorme knowledge stock nella mecca nicadi precisione, ma questo sapere sembra va diventa to obsoleto. Nicola s Hayek, con la creazione di Swatch, non abbandonò quelpa trimonio di conoscenze malo ricombinò inmodo innova tivo. Prese il knowledge stock esistente (competenze nella minia turizzazione, nella precisione, nel design) e lo integrò connuove conoscenze (plastica , a utomazione, ma rketing della moda ). Il risulta tofuun orologio economico, colora to, allamoda , ma comunque svizzero. Swatch tra sformò l'orologio da strumento funziona le a d accessorio di stile, creando un nuovo merca to. L'esempio mostra che il valore del knowledge stock non è statico: dipende dalla capacitàdi attiva rlo, ricombina rlo e farlo fluire in nuove direzioni.",
+    "page": 20,
+    "pages": [
+      20
+    ],
+    "keywords": [
+      "knowledge",
+      "stock",
+      "conoscenze",
+      "innova",
+      "nuovi"
+    ]
+  },
+  {
+    "id": "chunk_20",
+    "text": "[H4] 5.1.2. Capitale Strutturale\n “Quella conoscenza che rimane in azienda anche dopole 5 del pomeriggio...” Reified knowledge Conoscenza crista llizza ta. È ilsapere che è stato \"solidifica to\" in forme stabili e difficili da modifica re che si divide in: - Hard: elementi ta ngibili come tecnologie, brevetti, prodotti, database - Soft: elementi inta ngibili ma consolida ticome la cultura orga nizza tiva e lastra tegia a zienda le (cambia rela cultura è un processo lento e complesso) Currency knowledge Conoscenza fluida /corrente È ilsapere che circola inmodo più dina mico attra verso: - Pratiche informali: forum, gruppi di discussione, conversazioni allama cchina del ca ffè - Processi strutturati: procedure forma lizza te per la condivisione Gli indicatori per misura reil capita le struttura le comprendono sia misure dirette (numero e valore di brevetti, marchi, sistemi informatici) sia misure di efficienza che rivela noqua ntobene l'orga nizzazione gestisce la propria conoscenza : • ilra pporto tra suggerimenti ricevuti e applica ti mostra l'a pertura all'innovazione interna • iltime tomarket indica la velocità di tra sformazione delle ideein prodotti • l'indice di inefficienza burocratica segna laosta coli alla circolazione del sa pere",
+    "page": 21,
+    "pages": [
+      21
+    ],
+    "keywords": [
+      "conoscenza",
+      "knowledge",
+      "ilsapere",
+      "elementi",
+      "ngibili"
+    ]
+  },
+  {
+    "id": "chunk_21",
+    "text": "[H4] 5.1.3. Capitale Relazionale Le relazioni con le\n persone concui un'organizzazione intrattiene rapporti commerciali, è forse questa l’areapiù presidiata mameno sfruttata all’interno dell’organizzazione data per più scontata. Collegamento più stretto tra clienti e fornitori: produzione just-in-time e riduzione delle scorte, riduzione dei costi amministra tivi, ecc. Oggi possia mo utilizza repiù informazioni: \n[HEADER] EMBA - Strategia ed Internazionalizzazione 10\n • ICT e B2B, B2C, ecc. Alcuni strumenti: • Customer Rela tionship Mana gement, • Database clienti • È ilpa trimonio peggio gestito • Quota di merca to (%) • Clienti persi (#) • Valutazione dei clienti (%) • Giorni tra scorsi a visita re i clienti (#) • Visite dei clienti in a zienda (#) • Reddito lordo per dipendente ($) Riepilogo: L'approccio del ca pitale intellettua le, pur essendo orma i cla ssico, si fonda sull'idea della rendicontazione e mira a comprendere comela conoscenza sia struttura ta all'interno dell'orga nizzazione. Questa prospettiva tende a tra tta rela conoscenza quasi comeun oggetto, concentra ndosi preva lentemente sulla dimensione esplicita . Certo, la teoria riconosce l'esistenza della parte sommersa dell'iceberg, ovvero tutto ilpa trimonio inta ngibile e tacito, ma l'obiettivo rimane quello di renderlo ilpiù possibile misurabile. E c'è una ra gione precisa : in a zienda si inizia a gestire ciò che si riesce a misura re, perché la misurazione rende lecose visibili e quindi governabili. In definitiva , lo scopo di questo fra mework è porsi una doma nda fondamentale: dove risiedono le nostre conoscenze, come possia moqua ntifica rle e, di conseguenza , come possia mo gestirle effica cemente?",
+    "page": 22,
+    "pages": [
+      22
+    ],
+    "keywords": [
+      "clienti",
+      "organizzazione",
+      "interno",
+      "riduzione",
+      "trimonio"
+    ]
+  },
+  {
+    "id": "chunk_22",
+    "text": "[H3] 5.2. Approccio\n Orientale\n[H4] 5.2.1. Il modello SECI Ikujiro Nonaka e Hirota\n ka Ta keuchi, nel libro The Knowledge-Creating Company (1995), hanno proposto un modello dicreazione della conoscenza basatosu quattro fasi: Differenza tra approccio occidentale e orientale • Occidentale - si concentra sulla conoscenza esplicita: documenta re, codifica re, creare database e sistemi informativi. La conoscenza è un oggetto da gestire ed è orientato all’efficientismo del “Onebest way” (siamo nel ta ylorismo). • Orientale (giapponese) - va lorizza la conoscenza tacita: intuizione, esperienza , sa per fareed è legato a l tema delle motivazioni. La conoscenza sicrea attra verso lerelazioni e l'interazione tra le persone. È un processo continuo, non un prodotto. Lavora no per a na logie (non ha nnoma nager) ➢ Esempio 1: Honda Civic. Mettono insieme un gruppo di ingegneri ed i loro manager gli dicono “Let’s gamble” ovvero dovete scommettere riducendo i costi. Gli ingegneri hanno rivisto la vecchia Civic ed una volta fatta la proposta a i ma nager sonosta ti rimba lzati, sono a ndati in crisi. Il middle mana gerha gioca toun ruolo importante rivedendo il paradigma dell’epoca ovvero passare dal modello machine maximun, men minimun (ma cchine di Hazard presta zionali ma scomode) a d un modello uomo nel comfort più assoluto, la macchina a suo servizio (tallboy, a uto corta ed a lta ). Si è poi rileva toun successo. Ledina miche: hanno lavora to nella socia lizzazione ovvero scommettiamo e vediamo cosane esce, in gruppo hanno autodefinito i task lavorando sull’obiettivo stimola nte. Altro elemento vincente è stato il midle manager che ha tra dotto lo sloga n per il top a zienda le. A conoscenza tacita A conoscenza esplicita Da conoscenza tacita",
+    "page": 23,
+    "pages": [
+      23
+    ],
+    "keywords": [
+      "conoscenza",
+      "modello",
+      "orientale",
+      "approccio",
+      "occidentale"
+    ]
+  },
+  {
+    "id": "chunk_23",
+    "text": "[H2] 1. Socializzazione\n Apprendere per osservazione, affiancamento, esperienza condivisa . Stare insieme si condividono unsa ccodi cose, a bitudini, valori.\n[H2] 2. Esternalizzazione\n Tra sforma re l'intuizione in concetti, metafore, modelli e qua lcosa di esplicita . Si comincia a pensa re a d un prototipo Da conoscenza esplicita\n[H2] 4. Internalizzazione\n Impara refa cendo, la teoria diventa pratica persona le\n[H2] 3. Combinazione\n Sistema tizza re, aggrega re documenti, database, manua li. Quali sono i componenti che poi diventa no prodotto. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 11\n ➢ Esempio 2: Ma cchina del pa nedi Pana sonic: fa i ilpanein modo semplice. Ingegnere hapa ssato qualche giorno con il cuoco diun a lbergo di Osaka che ha spiega to a l gruppo di ingegneri i movimenti dafare per prepa rareilpa ne.\n[H4] 5.2.2. La spirale della conoscenza È da l\n modello orienta le che nasce il concetto della spirale della conoscenza che è il cuore del modello di Nonaka e Ta keuchi. Descrive comela conoscenza sicrea e siespa nde nelle orga nizzazioni attra verso un processo dinamico e continuo. Come funziona la spirale Lequa ttrofa si del modello SECI non sonostatiche masi susseguono inun ciclo che si espande progressivamente: Tacita → Tacita SOCIALIZZAZIONE ↓ Tacita → Esplicita ESTERNALIZZAZIONE ↓ Esplicita → Esplicita COMBINAZIONE ↓ Esplicita → Tacita INTERNALIZZAZIONE ↓ (ricomincia ) Nell'espa nsione a spira le. Il punto chiave è che ogni ciclo non torna a l punto dipa rtenza , masi allarga : • Livello individuale - una persona a cquisisce conoscenza tacita (es.",
+    "page": 24,
+    "pages": [
+      24
+    ],
+    "keywords": [
+      "esplicita",
+      "conoscenza",
+      "tacita",
+      "spirale",
+      "modello"
+    ]
+  },
+  {
+    "id": "chunk_24",
+    "text": "un a rtigia noimpa ra una tecnica ) • Livello di gruppo - la condivide concolleghi attra verso socia lizzazione • Livello organizzativo - viene esterna lizza tain procedure, manua li, bestpra ctice • Livello inter-organizzativo - si combina conconoscenze esterne e si diffonde a clienti, pa rtner, fornitori Poi il ciclo ricomincia : le persone interna lizza no questa nuova conoscenza , la arricchiscono con la propria esperienza , e la spira le continua a d espa ndersi. Esempio pratico: Un tecnico esperto (conoscenza tacita) → affianca un collega junior (socializzazione) → insieme formalizzano un metodo (esternalizzazione) → il metodo viene integrato nel sistema qualità aziendale (combinazione) → altri dipendenti lo studia no e lo applica no (internalizzazione) → sviluppano nuove varianti basate sulla loro esperienza → e il ciclo riparte. Il messaggio chiave. La conoscenza orga nizza tiva non è statica : cresce e si arricchisce continuamente attra verso l'interazione tra conoscenza tacita ed esplicita , e tra individui, gruppi e orga nizzazione.\n[H4] 5.2.3. Il concetto di BA Nonaka ha introdotto a\n ncheil concetto di BA ovvero dispa zio fisico, virtua le o menta ledove avviene la condivisione di conoscenza . Senza un contesto rela ziona le a degua to, la conoscenza non si tra sferisce. 5.2.4. I 5 fattori abilitanti I 5 fattori abilitanti (ena bling conditions) di Nonaka e Ta keuchi sonole condizioni orga nizza tive necessa rie affinché la spira le della conoscenza possa funziona re effica cemente. 1. Intenzione (Intention) - L'orga nizzazione deve a vere una visione stra tegica chiara che orienti lacreazione di conoscenza . Senza un intento condiviso, la conoscenza genera ta rischia di essere dispersiva e non allinea ta a gli obiettivi a zienda li. 2.",
+    "page": 25,
+    "pages": [
+      25
+    ],
+    "keywords": [
+      "conoscenza",
+      "livello",
+      "attra",
+      "verso",
+      "organizzativo"
+    ]
+  },
+  {
+    "id": "chunk_25",
+    "text": "Autonomia (Autonomy) - Gli individui devono a vere libertà di a gire. L'a utonomia a umenta la motivazione, fa vorisce ideeina spetta te e permette alle persone di sperimenta re. Tea m a uto-orga nizzati sonopiù effica ci nel creare conoscenza . Cisono i ruoli ma non è ben definito cosadeve succedere poiché dipende dadov’è la palla inquel momento (es. un a ncheun difensore può fa regoa l). È ammessa la sovra pposizione dei ruoli. In tutte lefasici può essere qua lcuno della fase precedente che possa dare consigli (es. seci dovesse essere uncambiamento della produzione ci potrebbe essere bisogno diun redesign del prodotto e da qui il Justin time production che obbliga a lavorare in gruppo. C’è un overlap continuo ed è molto costoso. Noi del west preferiamo la sequenzia lità . \n[HEADER] EMBA - Strategia ed Internazionalizzazione 12\n 3. Fluttuazione e caos creativo (Fluctua tion a nd Creative Chaos) - Le crisi, i cambiamenti e le sfide stimola nola riflessione e mettono in discussione le routine consolida te. Un certo grado di \"rottura \" con la norma lità spinge le persone a cerca re nuove soluzioni. Può essere indotto intenziona lmente dal ma nagement. Percezione d’urgente dei la voratori ma senza terrorismo, in sosta nzasi tra tta di: ➢ Rompere le routine ➢ Creare una situazione di crisi allo scopo difa vorire ilcambiamento ➢ Riflettere sulle a zioni svolte o Knowhow e Double looplea rning o Coinvolgimento persona le e conflitto o Discutere inmodo costruttivo sui nuovi concetti (metafore e a na logie) 4. Ridondanza (Redunda ncy) - Sovra pposizione intenziona ledi informazioni, ruoli e competenze. Permette alle persone di comprendere illavoro degli a ltri, fa cilita la condivisione di conoscenza tacita e offre prospettive diverse sugli stessi problemi.",
+    "page": 26,
+    "pages": [
+      26
+    ],
+    "keywords": [
+      "persone",
+      "creare",
+      "ruoli",
+      "crisi",
+      "routine"
+    ]
+  },
+  {
+    "id": "chunk_26",
+    "text": "➢ Sovra pporre le informazioni relative alle attività di business, le responsa bilità mana geria li. ➢ Promuovere la condivisione di conoscenza tacita ➢ Creare nuovi canalidi comunicazione vertica li, orizzonta li e tra sversa li ➢ Promuovere una visione olistica dell’organizzazione adottando il “rugby approach” ➢ Jobrota tion ➢ Brainstorming “tama dashi kai” in Honda 5. Varietà (Requisite Va riety) - La diversità interna dell'orga nizzazione deve riflettere la complessità dell'a mbiente esterno (legge di Ashby). Significa gara ntire accesso alle informazioni a tutti i livelli e a veretea m concompetenze e formazioni diversifica te. L’azienda deve armonizzare lasua diversità organizzativa con la diversità e la complessità dell’ambiente organizzativo in cui si trova [Ashby, 1956] Massima varietà attraverso il numero minimo distep per ottenere informazioni [Numaga mi, Ohta a nd Nonaka , 1989+]\n[H3] 5.3. Le comunità di pratica\n Le comunità dipratica (Communities of Pra ctice - CoP) sonoun concetto sviluppa toda Etienne Wenger e Jean Lave a pa rtire da gli anni'90. Sono gruppi di persone che condividono un interesse, una professione o una pa ssione, e che apprendono insieme attra verso l'interazione regola re. Non sono gruppi forma li né gruppi di progetto, mareti spontanee basate sulla pratica condivisa . (esempio dei conta bilivs i commercia li e le comunità dipratica veloci come gli a lcolisti o dei poliziotti a merica ni) I tre elementi costitutivi • Dominio - l'a readi interesse o competenza che definisce l'identità della comunità (es. cybersecurity, project mana gement, una specifica tecnologia ) • Comunità - lerelazioni tra i membri, la fiducia reciproca , il senso di appa rtenenza. I membri intera giscono, si a iutano, discutono.",
+    "page": 27,
+    "pages": [
+      27
+    ],
+    "keywords": [
+      "informazioni",
+      "diversità",
+      "comunità",
+      "gruppi",
+      "promuovere"
+    ]
+  },
+  {
+    "id": "chunk_27",
+    "text": "• Pratica - il repertorio condiviso di risorse: esperienze, storie, strumenti, modidi affrontare i problemi. È conoscenza tacita che si sviluppa nel tempo. Perché sono importanti Le CoPsono il luogo natura ledove avviene la socia lizzazione del modello di Nonaka - il tra sferimento di conoscenza tacita tra persone. Ciò che non si può mettere inun manuale si impara partecipando alla comunità. Non importa cos’è conoscenza tacita , esplicita ma è vivere la conoscenza Caratteristiche distintive Aspetto Teamdi progetto Comunità di pratica Scopo Delivera ble specifico Apprendimento e sviluppo Appa rtenenza Assegna ta Volonta ria Durata Definita Indefinita , organica Confini Chiari Fluidi Legame Il compito Lapa ssione/interesse Il ciclo divita Le CoPna scono, crescono e a volte muoiono natura lmente. Wenger identifica fasicome: potenziale → coalescenza → maturità → gestione → trasformazione. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 13\n Il ruolo dell'organizzazione Le a ziende non possono \"creare\" comunità dipratica per decreto, ma possono coltiva rle: fornire spazi (fisici e virtua li), tempo, riconoscimento, supporto. Forza rlele uccide, ignora rlele spreca . Come divento un membro di una COP Il processo per diventa re membro di una comunità dipratica è stato descritto da Lave e Wenger con il concetto di Legitima te Periphera l Pa rticipa tion (Pa rtecipazione Periferica Legittima ). Il percorso: dalla periferia al centro OUTSIDER → PERIPHERAL → ACTIVE → CORE (esterno) → (periferia) → (attivo) → (nucleo) Lefasi di appartenenza 1. Outsider - Esterno - Non a ncora parte della comunità - Può osserva reda fuori, essere incuriosito 2.",
+    "page": 28,
+    "pages": [
+      28
+    ],
+    "keywords": [
+      "conoscenza",
+      "tacita",
+      "comunità",
+      "pratica",
+      "tempo"
+    ]
+  },
+  {
+    "id": "chunk_28",
+    "text": "Peripheral / Novice - Periferia - Entra nella comunità conruoli ma rgina li - Osserva , a scolta , fadoma nde - Svolge compiti semplici e a basso rischio - Impara il lingua ggio, le norme, i valori - Lapa rtecipazione è \"legittima \" a nchese limita ta - 3. Active member - Membro attivo - Pa rtecipa pienamente alle attività - Contribuisce con le proprie esperienze - Inizia a essere riconosciuto da gli a ltri 4. Core member - Nucleo - Guida la comunità , ne definisce la direzione - È punto di riferimento per gli a ltri - Custodisce e tra smette lapratica Il concetto chiave: Legitimate Peripheral Participation L'apprendimento non avviene studia ndoma nuali, ma partecipando - a nchein modoma rgina le all'inizio. La \"periferia \" non è una posizione inferiore, è il punto di ingresso natura le. Attra verso lapratica condivisa , il novizio assorbe la conoscenza tacita della comunità . Cosasi apprende nel percorso ➢ Competenze tecniche ➢ Lingua ggio e gergo ➢ Storie e casi esempla ri ➢ Valori e identità professiona le ➢ \"Chi sa cosa \" nella comunità Il ruolo degli old-timers I membri esperti (old-timers) hanno la responsa bilità di accogliere i newcomer, dando loro accesso gradua le allapratica. Seli escludono, la comunità muore. In sintesi: non si \"entra \" in una CoP leggendo un documento, ma praticando insieme. Pa rtendo da i ma rgini e guada gnando progressivamente centra lità . I Boundary Roles I ruoli di confine sono figure chiave che fa cilita noil flusso di conoscenza tra comunità dipratica diverse o tra una CoP e l'orga nizzazione. Ogni comunità dipratica sviluppa il proprio lingua ggio, le proprie pratiche, la propria visione del mondo. Questo crea barriere alla comunicazione con l'esterno. I bounda ry roles servono a supera re queste ba rriere.",
+    "page": 29,
+    "pages": [
+      29
+    ],
+    "keywords": [
+      "comunità",
+      "peripheral",
+      "periferia",
+      "entra",
+      "rgina"
+    ]
+  },
+  {
+    "id": "chunk_29",
+    "text": "I tre ruoli principali secondo Wenger 1. Broker o intermediario • Appa rtiene a più comunità contempora neamente • Tra duce lingua ggi e pratiche tra comunità diverse \n[HEADER] EMBA - Strategia ed Internazionalizzazione 14\n • Tra sferisce idee, connette persone, fa cilita colla borazioni • Rischio: non essere ma i pienamente \"dentro\" a nessuna comunità\n[H2] 2. Boundary\n Spanner o connettore di confini • Crea ponti tra gruppi diversi • Identifica opportunità di colla borazione • Fa cilita progetti cross-funziona li • Spesso è un ruolo informa le, non riconosciuto ufficia lmente 3. Roamer o vagabondo • Si muove liberamente tra comunità diverse • Porta prospettive fresche, conta minale idee • Non ha appa rtenenza fissa Boundary Objects o oggetti di confine Oltre a i ruoli, Wenger identifica a nche gli oggetti di confine ovvero a rtefa tti che fa cilita nola comunicazione tra comunità diverse: • Documenti condivisi • Modelli, prototipi • Glossa ri comuni • Da shboa rd, report • Standa rd e procedure Sono abba stanza flessibili da essere interpreta ti diversamente dacia scuna comunità , ma abbastanza robusti dama ntenere un significa to condiviso. Perché sono importanti Senza boundary roles Conboundary roles Silos isola ti Conoscenza che fluisce Reinventa rela ruota Bestpra ctice condivise Conflitti tra gruppi Colla borazione Innovazione limita ta Conta minazione creativa Nel contesto aziendale Spesso questi ruoli sono ricoperti da project manager, consulenti interni, figure dista ff, o semplicemente persone con un network a mpio e curiosità tra sversa le. Raramente sono ruoli forma lizza ti, masono essenzia li per l'orga nizzazione. 5.4. Knowledge vs.",
+    "page": 30,
+    "pages": [
+      30
+    ],
+    "keywords": [
+      "comunità",
+      "diverse",
+      "cilita",
+      "colla",
+      "boundary"
+    ]
+  },
+  {
+    "id": "chunk_30",
+    "text": "Knowing La distinzione tra Knowledge e Knowing ra ppresenta unca mbiodi para digma fonda mentale nella gestione della conoscenza . Knowledge - Conoscenza come oggetto. È la visione tra diziona le, tipicamente occidenta le: ➢ La conoscenza è un asset, qua lcosa che si possiede ➢ Può essere ca ttura ta , codifica ta , immaga zzina ta ➢ Risiede in documenti, database, sistemi ➢ È tra sferibile comeun oggetto da A a B ➢ Sipuò gestire consistemi IT (knowledge mana gement systems) ➢ Focus: cosa sappiamo Knowing - Conoscenza come pratica. È la visione processua le, più vicina all'approccio orienta le e alle comunità dipratica : ➢ La conoscenza è un processo, qua lcosa che si fa ➢ È insepa rabile dall'a zione e da l contesto ➢ Risiede nelle persone e nelle loro interazioni ➢ Si sviluppa attra verso lapa rtecipazione e l'esperienza ➢ Non può essere \"estra tta \" e messa inun sistema ➢ Focus: come sappiamo fare \n[HEADER] EMBA - Strategia ed Internazionalizzazione 15\n Un esempio concreto: Azione Knowledge Knowing Cucina re La ricetta scritta Sa per cucina reda vvero Andare inbici Manua ledi fisica dell'equilibrio Sa per a ndare inbici Gestire un cliente difficile Procedura nel CRM Sa perlo fare nella pratica Le implicazioni per il management ➢ Knowledge - Investire in tecnologia , documentazione, database ➢ Knowing - Investire inrelazioni, comunità , apprendista to, tempo per intera gire Chi ha sviluppato questa distinzione Principa lmente John Seely Brown, Paul Duguid e la stessa scuola di Wenger. Critica no l'eccesso di fiducia nei sistemi IT per \"gestire\" la conoscenza , sottolinea ndo che la conoscenza più preziosa è quella che non sipuò codifica re. Il nostro lavoro cicambia , nelle nostre a ziende esistono moltissime comunità.",
+    "page": 31,
+    "pages": [
+      31
+    ],
+    "keywords": [
+      "conoscenza",
+      "knowing",
+      "knowledge",
+      "gestire",
+      "distinzione"
+    ]
+  },
+  {
+    "id": "chunk_31",
+    "text": "[H2] 6. COME SI IMPARA AD ESSERE PRONTI AL CAMBIAMENTO\n Gestire situazioni ina spetta tein cui le persone si confronta no conleloro interpretazioni del mondo • Rilevabili (non richiedono conoscenze pregresse) • Rea ttivi (definiscono i para metri) • Additivi (accetta no tutte le proposte) • Presenti (qui e ora ) • Competenza nei propri strumenti • L’autoefficacia • Gli strumenti e gli spa rtiti • L’ascolto • L’accettazione della proposta e dell’inatteso (yes, and...) • Lareazione veloce (a zione – reazione) • Comunicazione chiara ed effica ce • Colla borazione e creazione di una relazione • Fiducia inte stesso e negli a ltri • Empatia e intelligenza emotive • Essere generosi 6.1. L’improvvisazione in azienda Comunicazione tra i membri del team e leader, manager ed executive per: • promuovere la risoluzione creativa e a da ttiva dei problemi • superare i blocchi alla creatività e favorire l’innovazione organizzativa • incentiva re una comunicazione più effica ce • costruire fiducia e supporto all’interno dei team \n[HEADER] EMBA - Strategia ed Internazionalizzazione 16\n • accelera re e migliora reil processo decisiona le individua le e di gruppo • potenziare la concentrazione e l’attenzione • gestire i conflitti concompetenza • comunica rein modopiù effica cedura ntele crisi",
+    "page": 32,
+    "pages": [
+      32
+    ],
+    "keywords": [
+      "comunicazione",
+      "effica",
+      "gestire",
+      "strumenti",
+      "fiducia"
+    ]
+  },
+  {
+    "id": "chunk_32",
+    "text": "[H3] 6.2. Intelligenza artificiale e\n KM • L’usodi AI generativa (come ChatGPT) per catturare, organizzare e distribuire conoscenza. • Sistemi dira ccoma ndazione intelligenti per suggerire contenuti rileva nti. • Automazione di attività di knowledge curation. 6.3. Data-Driven KM • Integrazione tra Big Data Ana lytics e KM. • Passaggio da gestione del documento a gestione dell’insight. • Passaggio da gestione del documento a gestione dell’insight. 6.4. Data-Driven KM • Piatta forme colla borative integra te (es. Teams, Slack) comehub di conoscenza • Incentivi per la pa rtecipazione attiva e laco-creazione • Dina miche di reputazione e fiducia nelle community.\n[H3] 6.5. Knowledge\n Governance & Etica • Aspetti etici della gestione della conoscenza (biasdell’AI, privacy). • Norma tive sulla protezione dei da ti e impatti sul KM. • Nuove policy per l’uso responsabile della conoscenza.\n[H3] 6.6. Lavoro ibrido e\n KM • Creazione di a mbienti digita li che fa vorisca nola condivisione tacita di conoscenze. • Nuove pratiche per ma ntenere la cultura orga nizza tiva e ilca pitale socia le. • Knowledge sharing intea m distribuiti.\n[H2] 7. APPROFONDIMENTO SUL LAVORO IBRIDO\n Le sfide in atto nel lavoro ibrido Il ricorso crescente ai lavoratori non-dipendenti Questo fenomeno rigua rda una tra sformazione importa nte nel merca to del lavoro: professionisti di a lto livello che scelgono delibera tamente di non essere dipendenti, preferendo opera recome freela nce o consulenti indipendenti. Chi sono questi lavoratori Si tra ttadi figure concompetenze rare e molto richieste. Gli UX designer progetta no l'esperienza utente di app e sitiweb, combina ndo competenze tecniche, psicologiche e creative.",
+    "page": 33,
+    "pages": [
+      33
+    ],
+    "keywords": [
+      "gestione",
+      "conoscenza",
+      "lavoro",
+      "knowledge",
+      "ibrido"
+    ]
+  },
+  {
+    "id": "chunk_33",
+    "text": "I data scientist a na lizza nogra ndiqua ntità didati per estra rre insight stra tegici, una competenza crucia lenell'economia attuale. A questi si aggiungono sviluppatori softwa re specia lizza ti, esperti di intelligenza a rtificia le, consulenti stra tegici, creativi di a lto profilo. Perché scelgono l'indipendenza Questi professionisti hanno un potere contra ttuale eleva to. Ladoma nda per leloro competenze supera l'offerta , quindi possono permettersi di detta rele condizioni. Preferiscono lavora resu progetti stimola nti piuttosto che su routine a zienda li, vogliono varietà e possibilità di scegliere conchi colla borare, spesso guada gnano dipiù come indipendenti che come dipendenti, e apprezza no l'a utonomia nella gestione del proprio tempo. La matrice Human Capital Il riferimento allamatrice con \"highva lue, not repla ceable\" in a lto a destra descrive una cla ssificazione dei la voratori secondo due dimensioni: ilvalore che genera no per l'orga nizzazione e laloro sostituibilità . I lavora toriin a lto a destra sonole cosiddette superstar: creano enorme valore e sono difficilissimi da rimpia zzare. Un'a zienda non può semplicemente assumere un a ltroda ta scientist qua lunque se quello attuale seneva , perché le competenze specifiche, l'esperienza accumula ta e laca pacità di genera re risulta ti non sonofa cilmente replicabili. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 17\n Le implicazioni per le aziende Leorga nizzazioni si trova noin una posizione scomoda . Hanno bisogno di queste figure, ma non riescono sempre a tra ttenerle come dipendenti. Devono quindi impara re a costruire relazioni diverse, basatesu progetti, flessibilità e valore reciproco.",
+    "page": 34,
+    "pages": [
+      34
+    ],
+    "keywords": [
+      "scientist",
+      "lizza",
+      "tegici",
+      "questi",
+      "lavora"
+    ]
+  },
+  {
+    "id": "chunk_34",
+    "text": "L'HRdeve gestire una forza lavoro ibrida , dove accanto a i dipendenti tra diziona li opera no colla boratori esterni di a ltissimo livello che richiedono approcci completamente diversi. Il paradosso Queste supersta rssono contempora neamente dentro e fuori l'orga nizzazione: contribuiscono inmodo decisivo a i risulta ti, ma non appa rtengono all'a zienda nel senso tra diziona le. Questo sfida le nozioni cla ssiche dilea ltà , ca rriera e gestione delle persone. Le cause della Great Resignation La Grea t Resigna tion è l'ondata di dimissioni volonta rie che ha investito il merca to del lavoro a pa rtire da l 2021, inizia lmente negli Stati Uniti e poi in molti a ltripa esi. Non si tra tta diun fenomeno casua le, ma del risulta todi diverse forze che la pandemia ha accelera to o fatto emergere. Riconsiderazione delle priorità Il lockdown ha costretto milioni di persone a ferma rsi e riflettere. Molti hanno riscoperto ilvalore del tempo libero, della fa miglia , della salute menta le. Domande come \"perché lavoro cosìtanto?\" o \"questo lavoro mi rende felice?\" sono diventa te urgenti. Il risulta to è stato un rifiuto diffuso disa crifica reil benessere persona le per laca rriera , conuna ricerca di equilibrio vita-lavoro che primaveniva spesso rimanda ta . Condizioni di lavoro insostenibili Per chi ha continua to a la vorare in presenza durante lapa ndemia , l'esperienza è stata spesso tra umatica. Opera torisa nitari, ca ssieri, ca merieri, addetti alla logistica hanno affronta to rischi per la salute, turni estenua nti, e spesso scarso riconoscimento. Molti hanno semplicemente deciso che non neva levapiù lapena , abba ndonando settori percepiti come troppo gravosi rispetto alla retribuzione e alle tutele offerte.",
+    "page": 35,
+    "pages": [
+      35
+    ],
+    "keywords": [
+      "lavoro",
+      "risulta",
+      "diziona",
+      "rriera",
+      "persone"
+    ]
+  },
+  {
+    "id": "chunk_35",
+    "text": "Nuovi paradigmi di lavoro La diffusione forza ta del lavoro remoto ha dimostra to che molte attività non richiedono la presenza fisica in ufficio. Una volta sperimenta ta questa libertà , torna re indietro è diventa toina ccettabile per molti. Para llelamente, esperimenti comela settima nala vorativa diqua ttro giorni hanno a limentato l'idea che modelli a lterna tivisia no possibili. Chi si è trova todi fronte a datori dilavoro rigidi ha preferito cerca re a ltrove. Opportunità geografiche ampliate Illavoro remoto hasga nciato l'impiego dalla residenza . Un progra mmatore può la vorare per un'a zienda di Milano vivendo inun paese di monta gna , o per una startup ca lifornia na resta ndoin Italia . Questo ha a perto possibilità primaimpensabili e hareso i lavora toripiù esigenti: perché accetta re condizioni mediocri seil merca to è diventa to globa le? Il cuscinetto finanziario Durante i lockdown molte fa miglie hanno rispa rmiato involonta riamente: niente viaggi, ristora nti, uscite. Questo accumulo hadato a molti la sicurezza economica per permettersi una pa usa , per riqua lifica rsi, o per avviare un'attività propria . Senza questo cuscinetto, molte dimissioni non sa rebbero state possibili. Rivalutazione della stabilità Para dossa lmente, mentre a lcuni cerca vanopiù libertà , a ltriha nnofa ttoil percorso opposto. Lapa ndemia ha mostrato quanto rapidamente un settore possa crolla re. Lavora toriin a mbiti colpiti duramente, come turismo o intrattenimento, hanno cerca to impieghi più stabili, a nche a costo digua dagna remeno o cambia re completamente ca rriera . Il quadro complessivo La Grea t Resigna tion non ha una causa unica.",
+    "page": 36,
+    "pages": [
+      36
+    ],
+    "keywords": [
+      "molte",
+      "lavoro",
+      "remoto",
+      "attività",
+      "diventa"
+    ]
+  },
+  {
+    "id": "chunk_36",
+    "text": "È il risulta todi una convergenza : lapa ndemia ha a gitoda ca talizzatore, fa cendo emergere insoddisfazioni la tenti e creando le condizioni economiche e tecnologiche per a giresu diesse. Per molti è stata una presa di coscienza collettiva sul va lore del proprio tempo e della propria energia . Crowdsourcing “Crowdsourcing represents theact of a company or institution taking a function once performed by employees and outsourcing ittoan undefined (and generally large) network of people inthe formof anopen call. [...]” (Howe, 2006). Il crowdsourcing è un modello orga nizza tivoin cui un'a zienda o un'istituzione affida un compito, tra diziona lmente svolto da dipendenti interni o da fornitori seleziona ti, a una ma ssa indefinita di persone esterne, attra verso una chia mata a perta. Il termine nasce dalla fusione di crowd (folla ) e outsourcing (esterna lizzazione). Come funziona in pratica Immagina un'a zienda che deve progetta reun nuovo logo. Invece di assumere ungra fico o rivolgersi a un'a genzia , lancia un concorso online: chiunque può proporre il proprio design, e l'a zienda paga solola proposta vincente. Centina ia o \n[HEADER] EMBA - Strategia ed Internazionalizzazione 18\n miglia iadi persone pa rtecipa no, l'a zienda sceglie tra molte opzioni, e il costo è spesso inferiore a quello diun incarico tra diziona le. ➢ L'opencall - L'invito a perto distingue il crowdsourcing dall'outsourcing tra diziona le. Invece di seleziona reun fornitore specifico, l'orga nizzazione lancia una richiesta a chiunque voglia pa rtecipa re. Questo può assumere forme diverse: concorsi di design (comesu 99designs), piatta forme di micro-task (Amazon Mecha nica l Turk), ra ccolta diidee (Dell Idea Storm), o progetti colla borativi (Wikipedia ).",
+    "page": 37,
+    "pages": [
+      37
+    ],
+    "keywords": [
+      "zienda",
+      "crowdsourcing",
+      "proprio",
+      "outsourcing",
+      "persone"
+    ]
+  },
+  {
+    "id": "chunk_37",
+    "text": "➢ Larete di lavoratori potenziali - La forza del crowdsourcing stanei numeri e nella diversità . Una gra nderete offre varietà di competenze e prospettive, la possibilità di completa rerapidamente compiti fra mmentabili, accesso a ta lenti geogra ficamente dispersi, e costi spesso inferiori rispetto all'impiego tra diziona le. ➢ Cambiamenti nella natura del lavoro - Il crowdsourcing ha accelera to a lcune tra sformazioni già in corso. Illavoro viene fra mmentato in micro-task a utonomi, i confini orga nizza tivi diventa nopiù permeabili, emerge una logica di \"progetto\" piuttosto che di \"posizione\", e lavalutazione si sposta da l tempo impiega to a i risulta ti prodotti. ➢ Cambiamenti nelle preferenze dei lavoratori - Molti lavoratori, specia lmente nelle generazioni più giova ni, cerca no flessibilità di ora ri e luoghi, a utonomia nelle scelte progettua li, varietà di esperienze, e la possibilità dibila nciare diversamente vita e lavoro. Il crowdsourcing risponde a queste preferenze, a nchese presenta rischi come insta bilità economica e assenza di tutele. ➢ Le sfide per l'HR - Qui emergono le complessità ma ggiori. L'HRma nager deve ripensa recome attrarre e seleziona redaunba cino potenzia lmente globa le, come motiva rela voratori senza relazione stabile con l'orga nizzazione, comega ra ntire qualità senza supervisione diretta , come gestire questioni legali e contra ttuali in contesti multi-giurisdiziona li, e come integra reil lavoro della \"folla \" conquello dei dipendenti interni. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 19",
+    "page": 38,
+    "pages": [
+      38
+    ],
+    "keywords": [
+      "lavoratori",
+      "crowdsourcing",
+      "nelle",
+      "varietà",
+      "possibilità"
+    ]
+  },
+  {
+    "id": "chunk_38",
+    "text": "[H2] 2. INTELLIGENZA ARTIFICIALE E STRATEGIA\n Prof. Ricca rdi Giuseppe INTRODUZIONE Prof. Giuseppe Riccardi Signa ls a nd Intera ctive Systems La b Depa rtment of Informa tion a nd Communica tion Technology University of Trento Bio e Laboratorio Giuseppe Ricca rdi è Full Professor of Computer Science a nd Informa tion Engineering, Founder a nd Hea d ofthe Signa ls a nd Intera ctive Systems La b presso il Depa rtment of Informa tion Engineering a nd Computer Science, University of Trento, Italy. • Missione del la bora torio: \"Tra ining ma chines to communica te, intera ct a nd benefit humanity.\" • Areedi ricerca : Natura l Langua ge Understa nding, Dia logue Modeling a nd Systems, Dia logue Systems for Health, Recognizing Emotions, Emotion Ca rriers, Recognizing Persona lity, Emotions a nd Autism, Human Signa lsfor Health Applica tions. Programma Venerdi 10 Ottobre 2025 • 17:00 - Lezione: Che Cos'è l'Intelligenza Artificia le (IA) • 18:00 - Lezione: Ma chine Lea rning e IA genera tiva • 19:00 - Guest Lecture + Q&A: Caso d'usodi applicazione IAin a zienda • 19:30 - 21:00 - Presentazione edorga nizzazione del Workshop • Goals, Use Case description, Student Tasks/steps, Resources/Tools, schedule ofthe Workshops. • Tools: Cha tGPTor Gemini Sabato 11 Ottobre 2025 Workshop • 8:30 - Formazione dei gruppi, setup tools, scelta degli useca ses • 9:30 - Group Work a nd Coa ching • 10:30 - Group Presenta tions • 11:30 - 12:30 - Lezione: IA e Stra tegia in Azienda",
+    "page": 39,
+    "pages": [
+      39
+    ],
+    "keywords": [
+      "systems",
+      "giuseppe",
+      "signa",
+      "intera",
+      "informa"
+    ]
+  },
+  {
+    "id": "chunk_39",
+    "text": "[H2] 1. Perché IA per un\n Individuo? • Migliora e a umenta l'a bilità individua le • Migliora rela consa pevolezza del proprio benessere e della propria salute • Aumenta relesue competenze sul posto dilavoro\n[H2] 2. Perché IA per\n un'Azienda? • Cisi a spetta che migliori il presente e ci porti nel futuro • Migliora re l'efficienza dei processi interni ed esterni • Migliora re processi/prodotti esistenti • Migliora re l'effica cia dei processi interni ed esterni • Avvicina rsi alle condizioni ideali • Produrre meglio e oltrelosta todell'a rte\n[H2] 3. E un Motivo in\n Più! • Come posso farequa lcosa di nuovo. • Estendere le opportunità di sviluppo prodotti e servizi oltre l'attuale contesto di merca to • Tra sforma rsi, loca lmente o globa lmente, richiede un processo di autovalutazione • L'utilizzo dell'AIpuò a vereun impatto tecnico ma a ncheorga nizza tivo. • Gestione di situazione fuoridalla zonadi comfort: o Tecnico o Orga nizza tivo o Economico-finanzia rio (stra tegia dei da tiin a zienda 4. Introduzione • 4.1. Leere dell'IA •\n[H3] 4.2. Definizione di\n IA • 4.3. Problemi e sottoproblemi \n[HEADER] EMBA - Strategia ed Internazionalizzazione 20\n • 4.4. Discipline all'interno e intorno all'IA • 4.5. Rischi dell'IA 4.1. Le Eredell'IA - Scienza, Tecnologia, Industria Periodo Era Caratteristiche 1950-1980 IA Medieva le Intelligent Progra ms, Small Scale, Toy Problem, Intuition/Small Theory 1990-2020 PreModerna Intelligent Sys., Medium Scale, In-Vitro/Rea l Problem, Expert Knowledge 2020-2050 IA Moderna Intelligent & Intera ctive Sys, Large/XXL Scale, Ecologica l Problems, Data-Intensive",
+    "page": 40,
+    "pages": [
+      40
+    ],
+    "keywords": [
+      "migliora",
+      "processi",
+      "perché",
+      "interni",
+      "esterni"
+    ]
+  },
+  {
+    "id": "chunk_40",
+    "text": "[H4] 4.1.1. Riflessioni\n - Parte 1 • Intelligenza a rtificia le medieva le = Giochi • Intelligenza a rtificia le premoderna = PREDITTIVA = si è inizia to a considera re i dati (a utomazioni, semi a utomazioni, processi. • Intelligenza a rtificia le moderna = GENERATIVA = cambio nella scala degli utenti, ca lcolo e risorse e non consiste necessa riamente nell'imita re esseri umani o sostituirli. Piuttosto, i confronti tra ciò che gli esseri umani e i \"computers\" - nelle loro differenti forme e capacità - devono essere utili per definizione obiettivi IA che dia beneficio. L'obiettivo dell'IA moderna è di trova reil giusto controllo e equilibrio tra ca pacità dell'uomo e ca pacità della ma cchina . LLMsta per Large Langua ge Model (Modello Linguistico di Grandi Dimensioni). Si tra ttadi reti neura li addestra tesu enormi quantità di testo (milia rdidi token) che sono ingra dodi comprendere e genera re lingua ggiona turale. Ca lcola nola probabilità della parola successiva datoil contesto precedente. Esempi di LLM: GPT-4, Claude, Gemini, Mistra l, OLMO, LLa MA. Nel documento del Prof. Ricca rdi viene specifica to che gli LLM \"sembra nora giona re, ma non lofanno\" e \"sembra no comprendere, ma non lofanno\" - sono modelli sta tistici molto sofistica ti, non intelligenze che pensa nocome gli uma ni. Esempio dell'IAinra diologia : il problema non è l'IA o i ma cchina ri che governa no l'IAma è un problema di processi ovvero dicome un flusso dila vorosi possa ria ssetta re o modifica re per poter utilizza re a l meglio lo strumento.",
+    "page": 41,
+    "pages": [
+      41
+    ],
+    "keywords": [
+      "intelligenza",
+      "rtificia",
+      "utomazioni",
+      "processi",
+      "moderna"
+    ]
+  },
+  {
+    "id": "chunk_41",
+    "text": "[H4] 4.1.2. Idee Distorte\n • IA non è solo apprendimento a utomatico (ma chine lea rning) • IA non è deeplea rning • IA non è robotica • IA non sono LLMs a-la Cha tGPT o GEMINI (l'IA non è Cha tGPT) • Gli LLM (Large Langua ge Model) sembra nora giona re, ma non lofanno • Gli LLM sembra no comprendere, ma non lofanno Definizione di IA: la storia tra passato e passato recente 1. Il passato (1960-1980): l'ambizione di sostituire l'uomo Nei primi decenni dell'intelligenza a rtificia le domina vaun'ambizione a udace: creare ma cchine capacidi replica re, e potenzia lmente sostituire, l'intelligenza umana. L'ideaera che un progra mma per computer, a volte chiama to \"a gente AI\", potesse imita reil modoin cui gli esseri umani pensa no, ra giona no e intera giscono. • Ilcaso di Eliza. Creato da Joseph Weizenba um a l MIT nel 1966, è uno degli esempi più celebri di questa fase. Il progra mma simula vauntera peuta rogersia no, ovvero uno psicotera peuta che segue l'approccio di Carl Rogers, basa tosull'a scolto empatico e sul riformula reciò che il pa ziente dice per stimola rela riflessione. Elive era sorprendentemente semplice: circa 200 righe di codice. Non \"capiva \" nulla nel senso umano del termine. Si limita va a riconoscere parole chiave nelle fra si dell'utente e a rispondere condoma nde o riformulazioni predefinite. Ad esempio: Utente: \"Mi sento triste\" Eliza: \"Perché dici che ti senti triste?\" Utente: \"Mia madre mi critica sempre\" Eliza: \"Parlami dipiù della tua famiglia\" Perché fece scalpore. Lareazione del pubblico sorprese lo stesso Weizenba um. Molte persone che intera givano conEliza si convinceva nodi parla re conqua lcuno che le capiva da vvero. Alcuni utenti sviluppa vano unlega me emotivo con il progra mma , confida ndo segreti persona li.",
+    "page": 42,
+    "pages": [
+      42
+    ],
+    "keywords": [
+      "passato",
+      "utente",
+      "rning",
+      "sembra",
+      "giona"
+    ]
+  },
+  {
+    "id": "chunk_42",
+    "text": "Questo accadeva nonostante Eliza non a vesse a lcuna comprensione reale: erapura ma nipolazione di simboli. Weizenba umnefu turba to. Aveva dimostra to quanto fa cilmente gli esseri umani attribuisca no intelligenza e comprensione a una ma cchina, a nche quando questa è estremamente primitiva . Scrisse poi un libro critico sull'IA, preoccupa to delle implicazioni etiche. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 21\n Il significato storico. Eliza ra ppresenta un momento fonda tivo per l'IA. Daunlato mostrò il potenzia ledell'interazione uomo-ma cchina, dall'a ltro rivelò i limiti dell'approccio simbolico: imita re superficia lmente il comportamento umano non significa comprendere. Questa tensione tra simulazione e vera intelligenza accompa gnail campo dell'IA a ncora oggi. 2. La prima età moderna (1990-2020): l'IA predittiva Questo periodo segna unca mbiodi para digma rispetto alle origini. Si abba ndona l'a mbizione di replica re l'intelligenza umana in senso genera le e cisi concentra suqua lcosa dipiù concreto: usare i dati per fare previsioni. • Cosa cambia. L'elemento centra le diventa ildato. Le a ziende inizia no a ra ccogliere enormi quantità di informazioni su comportamenti, tra nsazioni, preferenze. Da questi datisi estra ggono pa ttern attra verso tecniche di apprendimento a utoma ticosta tistico (ma chine lea rning). • Come funziona l'IA predittiva. Il principio è: a na lizza ilpa ssato per prevedere il futuro.",
+    "page": 43,
+    "pages": [
+      43
+    ],
+    "keywords": [
+      "intelligenza",
+      "eliza",
+      "comprensione",
+      "cchina",
+      "accadeva"
+    ]
+  },
+  {
+    "id": "chunk_43",
+    "text": "Alcuni esempi concreti sono i sistemi dira ccoma ndazione come Netflix che suggerisce filmba sa ndosi suciò che ha i guarda to prima , il credit scoring dovele banche prevedono la proba bilità che un cliente ripaghi un prestito, lama nutenzione predittiva dovele fa bbriche a nticipa noqua ndoun ma cchina riosi guasterà , e ilma rketing persona lizza todove si prevede quali prodotti interessera nno a un cliente specifico. • I limiti. L'IA predittiva è potente ma opera inmodo invisibile, dietro le quinte. L'utente medio non intera gisce direttamente conessa : ne subisce gli effetti senza rendersene conto. È un'intelligenza che cla ssifica , ordina , prevede, ma non crea e non dia loga . 3. L'IA moderna (dal 2020 in poi): l'IA generativa Con l'arrivo di strumenti come Cha tGPT, DALL-E, Midjourney, tutto cambia . L'intelligenza a rtificia leesce da i laboratori e dalle infra strutture a zienda li per entra re nelle manidi milioni di persone comuni, praticamente senza prea vviso. • L'impatto dirompente. Per la primavolta , chiunque può conversa re con un'IA, chiederle di scrivere testi, genera reimma gini, risolvere problemi. Questo ha acceso molti campa nelli d'allarme. Le persone hanno inizia to a porsi domande profonde: questa ma cchina pensa da vvero? Può sostituirmi nel mio lavoro? È sicura ? Chi controlla cosadice? • L'apertura interdisciplinare. L'IA genera tivaha costretto discipline diverse a dialoga re. La filosofia si interroga sulla natura dellamente e della crea tività a rtificia le. La giurisprudenza affronta questioni di copyright, responsa bilità , regola mentazione. La psicologia studia comele persone sirela ziona no con a genti a rtificia li. L'antropologia osserva comeca mbiail lavoro, la comunicazione, la cultura .",
+    "page": 44,
+    "pages": [
+      44
+    ],
+    "keywords": [
+      "dovele",
+      "cliente",
+      "predittiva",
+      "prevede",
+      "senza"
+    ]
+  },
+  {
+    "id": "chunk_44",
+    "text": "Nessuna disciplina dasola può comprendere il fenomeno. • L'utente nel ciclo. Un concetto chiave è quello di \"huma n inthe loop\": l'essere umano rimane parte del processo. L'IA genera tiva non opera in a utonomia totale, main colla borazione con l'utente che la guida , la corregge, nevaluta i risulta ti. Questo solleva interroga tivisu come progetta re sistemi che rispettino e va lorizzino il ruolo umano. • Il beneficio come principio guida. Emerge una nuova bussola etica : il beneficio, inteso comebila ncio tra pro e contro. Non si tra tta più solo di chiedersi \"questa IA funziona ?\" ma \"questa IAfa del bene? A chi? A quale costo?\". È un approccio che mette a l centro le conseguenze per le persone e la società , non solo l'efficienza tecnica . Il quadro complessivo Periodo Tipodi IA Caratteristica principale 1960-1980 Simbolica Imita re l'intelligenza umana 1990-2020 Predittiva Usare i dati per prevedere 2020-oggi Genera tiva Creare contenuti, intera gire contutti \n[HEADER] EMBA - Strategia ed Internazionalizzazione 22\n Storia dell'Intelligenza Artificiale: ordine cronologico 1. Anni 1950-1980: L'IA \"medievale\" - L'ambizione originaria L'obiettivo era a mbizioso: creare ma cchine capacidi sostituire l'intelligenza umana . I progra mmi doveva no imita reil modoin cui le persone pensa no e ra giona no. • Ilcaso ELIZA (1966) - Joseph Weizenba umcreò un progra mmadi circa 200 righe di codice che simula vauntera peuta rogersia no. ELIZA non ca piva nulla : riconosceva parole chiave e rispondeva confra si predefinite. Eppure, le persone cisi affeziona vano, credendo dipa rlare conqua lcuno che le comprendesse da vvero. Questo rivelò quanto fa cilmente gli uma ni attribuisca no intelligenza allema cchine. • I problemi fondamentali.",
+    "page": 45,
+    "pages": [
+      45
+    ],
+    "keywords": [
+      "intelligenza",
+      "utente",
+      "umano",
+      "genera",
+      "guida"
+    ]
+  },
+  {
+    "id": "chunk_45",
+    "text": "Manca va una definizione chiara degli obiettivi. Negli scacchi l'obiettivo sembra semplice (vincere), ma nella realtà un gioca torepuò usare ta ttiche psicologiche che nessuno sacome specifica re a una ma cchina. Lo stesso vale per contesti complessi comela guida a utonoma: \"arriva rein sicurezza \" non ba staqua ndo l'a mbiente è incerto e pieno di a ltri a genti imprevedibili. 2. Anni'80: Thinking Humanly - Il focus sul ragionamento L'attenzione si sposta sucome ra gionia mo. L'IA doveva funzionare comeun motore logico, capacedi inferenze ra ziona li. Pensare razionalmente. Il modello erala deduzione logica : • S1: Socra te è unuomo • S2: Tutti gli uomini sono morta li • S3: Socra te è morta le Lama cchina doveva deriva re conclusioni corrette da premesse date. Agire razionalmente. Non ba stava pensare bene: l'a gente doveva a nche percepire, comunica re e a gire per perseguire obiettivi. Lara ziona lità significa vafarela cosa giusta datele informazioni disponibili. 3. Anni'90: Acting Humanly - Weak AI • Il cambio di prospettiva. Non si chiede più allama cchina di pensa recome noi, madi comporta rsicome noi. Nasce il concetto di IA debole ovvero di sistemi capacidi a scolta re, parla re, percepire, comunica reinmodo simile a gli uma ni. • Caratteristiche. L'IA debole eccelle in compiti specifici ma non ha comprensione genera le né coscienza . Simula comportamenti umani senza \"capire\" da vvero cosasta fa cendo. 4. Anni 1990-2020: L'IA predittiva • La rivoluzione dei dati. Si abba ndona l'a mbizione di replica re l'intelligenza genera le. Il focus diventa ra ccogliere dati e usarli per fa re previsioni attra verso l'apprendimento a utoma ticosta tistico. • Come funziona. Il principio è: a na lizza ilpa ssato per prevedere il futuro.",
+    "page": 46,
+    "pages": [
+      46
+    ],
+    "keywords": [
+      "cchina",
+      "doveva",
+      "obiettivi",
+      "humanly",
+      "ziona"
+    ]
+  },
+  {
+    "id": "chunk_46",
+    "text": "Applicazioni tipiche includono sistemi dira ccoma ndazione, credit scoring, ma nutenzione predittiva e ma rketing persona lizza to. • I limiti. L'IA predittiva opera dietro le quinte. L'utente ne subisce gli effetti senza intera gire direttamente conessa . È potente ma invisibile. 5. Dal 2020 in poi: L'IA generativa • L'impatto dirompente. Strumenti come Cha tGPTra ggiungono milioni di persone senza prea vviso. Per la primavolta chiunque può conversa re con un'IA, chiederle dicrea re contenuti, risolvere problemi. • Le domande che emergono. Si accendono molti campa nelli d'allarme. Le persone si interroga no: questa ma cchina pensa da vvero? Può sostituirmi? È sicura ? Chi la controlla ? • L'apertura interdisciplinare. Nessuna disciplina dasola può comprendere il fenomeno. Filosofia , giurisprudenza , psicologia , a ntropologia devono dialoga re per affronta rele implicazioni. • Il problema dell'allineamento dei valori. La sfida centra le diventa connettere gli obiettivi delle ma cchine con i valori umani. Il beneficio, inteso comebila ncio tra pro e contro, emerge come principio guida . L'utente resta nel ciclo decisiona le (huma n inthe loop). • Esempio: IA diagnostica in medicina Metrica Medico IA Sensibilità 79.4% 88.6% Specificità 88.1% 93.9% L'IA supera i ra diologi, ma questo a predoma nde enormi: quale ruolo per il medico? Chi è responsabile degli errori? Comesi orga nizza illavoro? La tecnologia è pronta , ma servono nuovi modelli orga nizza tivi, etici e norma tivi.",
+    "page": 47,
+    "pages": [
+      47
+    ],
+    "keywords": [
+      "predittiva",
+      "utente",
+      "senza",
+      "persone",
+      "valori"
+    ]
+  },
+  {
+    "id": "chunk_47",
+    "text": "[HEADER] EMBA - Strategia ed Internazionalizzazione 23\n Era Periodo Nome Focus principale Obiettivo Approccio Parola chiave Esempio emblematico Limite principale 1 1950-1980 Medievale Imitare/sostituire l'uomo Replicare l'intelligenza umana Programmi simbolici, regole logiche Giochi, simboli Eliza (1966) Obiettivi ambigui, contesti troppo complessi 2 Anni'80 Thinking Humanly Ragionare come gli umani Costruire un motore logico razionale Inferenza, deduzione Logica Sillogismi (Socrate è mortale) Rigidità, incapacità di gestire l'incertezza 3 Anni'90 Acting Humanly Comportarsi come gli umani Simulare comportamenti umani Percezione, comunicazione, azione Weak AI Assistenti vocali primitivi Nessuna vera comprensione 4 1990-2020 Premoderna (Predittiva) Prevedere daidati Usare il passato per anticipare il futuro Machine learning statistico Dati, automazione Sistemi di raccomandazione, credit scoring Invisibile all'utente, opera dietro le quinte 5 2020-oggi Moderna (Generativa) Equilibrio uomo- macchina Trovare il giusto controllo tra capacità umane e artificiali LLM, reti neurali su larga scala Beneficio, allineamento ChatGPT, Claude, DALL \n[HEADER] EMBA - Strategia ed Internazionalizzazione 24\n 4.6. Discipline che contribuiscono all'evoluzione e sviluppo dell'IA moderna",
+    "page": 48,
+    "pages": [
+      48
+    ],
+    "keywords": [
+      "umani",
+      "header",
+      "strategia",
+      "internazionalizzazione",
+      "principale"
+    ]
+  },
+  {
+    "id": "chunk_48",
+    "text": "[H2] 1. Filosofia\n Nel corso del (lungo) tempo, diverse discipline hanno contribuito a plasma re l'IAcome disciplina . Filosofia (disciplina che pone delle domande e lofa a nchesull'IA): • In che modolamente nasce daun cervello? • Comela conoscenza si tra sforma in a zione? • Comeil ra gionamento logico può porta re a conclusioni valide/pla usibili/accettabili nel mondo reale? Risoluzione dei Problemi Aristotele: pa rtendo dalle premesse vere, la logica (es. operatore sillogismo) potrebbe porta re a conclusioni vere illimita te Idea potente e a mbiziosa che è stata ulteriormente elabora ta Vari tenta tividi costruire dispositivi fisici e, in seguito, progra mmi per computer che implementa no motori logici Negli anni'80 i motori logici erano il nucleo dei sistemi esperti che fa lliva noqua ndo esposti a l mondo reale Come Prendere Decisioni Cisono più modi per ra ggiungere un obiettivo. Come sceglia monell'incertezza ? • L'utilita rismo applica to a tutte le attività umane (Bentha m a nd Mill): Ciò che è giusto/sbaglia to è determinato da l risulta to atteso dell'a zione • Etica deontologica (Kant): Ciò che è giusto/sbaglia to è determina toda leggi socia li universa licome \"non mentire\", \"non uccidere\" → Nessuna bugia a finedi bene! Come Dovrebbe Comportarsi AI? I sistemi di intelligenza a rtificia le dovrebbero allinea rsi conuna combinazione di 1) e 2): Approccio basatosu principi ma a nchera giona sulle conseguenze delle sue a zioni 2. Neuroscienza - Come Prendere Decisioni In che modoil cervello elabora le informazioni, prende decisioni, si a datta , impara . Paul Broca (XIX secolo) studiò l'a fasia (deficit del lingua ggio) neipa zienti con da nni cerebra li e identificò un'a realoca lizza tanell'emisfero sinistro responsabile della produzione del lingua ggio.",
+    "page": 49,
+    "pages": [
+      49
+    ],
+    "keywords": [
+      "filosofia",
+      "disciplina",
+      "zione",
+      "porta",
+      "conclusioni"
+    ]
+  },
+  {
+    "id": "chunk_49",
+    "text": "Da allora , lo sviluppo di dispositivi e sistemi per l'attività cerebra leha porta to allacreazione di strumenti e metodologie EEG e fMRI Segnali Cerebrali - Esempio del Neuro-Marketing • Andava dimoda qualche anno (10-15 annifa ) • Monitora ggio dei segna lina scosti • Elettroencefa logra mma (EEG) • Il Para dosso della Pepsi Cola Esempio della Coca Cola e della Pespi - Neicla ssici test del gusto, le persone spesso preferiva nola Pepsi maqua ndoil ma rchio è stato rivela to, molti sonopa ssati a Coca-Cola. Usando i segna li cerebra li della risona nzama gnetica hanno dimostra to che ilma rchio Coca-Cola attiva a reelega te alla memoria e all'emozione (ippoca mpo, corteccia prefronta le dorsola terale). Insight: l'identità del ma rchio può preva lere sulle preferenze sensoria li Interfacce Cervello-Macchina • Queste interfa cce collega no direttamente i segna lidi attività cerebra le a gli a lgoritmi dica lcolo e a i sistemi di intelligenza a rtificia le • L'applicazione a i casi d'usoin cui le capacità motorie diun individuo sono (gra vemente) compromesse è unica e vanta ggiosa\n[H2] 3. Economia\n Teoria della decisione - individuali e gruppo 1. Decisioni che sono abbasta nza buone (Herbert Simon) e soddisfa centi, piuttosto che la boriosamente ca lcola te rispecchia noil comportamento umano",
+    "page": 50,
+    "pages": [
+      50
+    ],
+    "keywords": [
+      "cerebra",
+      "segna",
+      "rchio",
+      "sistemi",
+      "attività"
+    ]
+  }
+]
