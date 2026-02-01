@@ -625,9 +625,10 @@ Risposta: B (basata sulle mie conoscenze)
                     currentQuestion = questionMatch[1];
                 }
 
-                // Cerca [CITATO] o [AI] nell'analisi per determinare la fonte
+                // Cerca [CITATO], [AI], [Pag. X] nell'analisi per determinare la fonte
                 if (currentQuestion && !answers[currentQuestion]) {
-                    if (line.includes('[CITATO]')) {
+                    if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i)) {
+                        // [Pag. X] indica una citazione dal PDF
                         answers[currentQuestion] = { letter: '?', source: 'CITATO' };
                     } else if (line.includes('[AI]')) {
                         answers[currentQuestion] = { letter: '?', source: 'AI' };
