@@ -514,9 +514,9 @@ C: [opzione]
             if (result.matches.length > 0) {
                 questionsWithContext.push(index + 1); // Domanda ha contesto
                 contextPerQuestion += `\nDOMANDA ${index + 1} - CONTESTO:\n`;
-                // Solo il miglior match, 500 char per evitare timeout
+                // Solo il miglior match, 800 char per avere più contesto
                 const bestMatch = result.matches[0];
-                contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 500)}\n`;
+                contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 800)}\n`;
             } else {
                 contextPerQuestion += `\nDOMANDA ${index + 1} - NO CONTESTO\n`;
             }
