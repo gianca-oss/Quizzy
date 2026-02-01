@@ -51,20 +51,20 @@ async function loadEnhancedData() {
     try {
         console.log('🚀 Caricamento dati del corso da GitHub...');
         
-        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy-Basic/main/data/processed-v3/';
+        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed-v3/';
         
         let metadataResponse = await fetch(GITHUB_BASE + 'metadata.json');
         let baseUrl = GITHUB_BASE;
         let version = '3.0';
         
         if (!metadataResponse.ok) {
-            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy-Basic/main/data/processed-v2/';
+            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed-v2/';
             metadataResponse = await fetch(baseUrl + 'metadata.json');
             version = '2.0';
         }
         
         if (!metadataResponse.ok) {
-            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy-Basic/main/data/processed/';
+            baseUrl = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/';
             metadataResponse = await fetch(baseUrl + 'metadata.json');
             version = '1.0';
         }
@@ -97,7 +97,7 @@ async function loadEnhancedData() {
 
 async function loadFallbackData() {
     try {
-        const FALLBACK_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy-Basic/main/data/processed/';
+        const FALLBACK_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/';
         const chunks = [];
         
         // Carica più file in fallback
