@@ -1,4 +1,4 @@
-// api/analyze-enhanced.js - Versione CORRETTA con gestione errori migliorata
+// api/analyze.js - Quiz analyzer API with PDF context search
 
 // Helper per gestire rate limits con retry automatico
 async function callClaudeWithRetry(url, options, maxRetries = 3) {
@@ -525,15 +525,21 @@ IMPORTANTE: Separa ogni domanda con --- e NON aggiungere altro.`;
 
         // STEP 3: CERCA LE RISPOSTE NEL DOCUMENTO
         const searchResults = searchForAnswers(questions, data.textChunks);
-        
+
+        // Traccia quali domande hanno contesto dal PDF
+        const questionsWithContext = [];
+
         // Costruisci contesto RILEVANTE per ogni domanda
         let contextPerQuestion = '';
         searchResults.forEach((result, index) => {
             if (result.matches.length > 0) {
+                questionsWithContext.push(index + 1); // Domanda ha contesto
                 contextPerQuestion += `\nDOMANDA ${index + 1} - CONTESTO TROVATO:\n`;
                 result.matches.slice(0, 2).forEach(match => {
                     contextPerQuestion += `[Pag ${match.page}] ${match.chunk.text.substring(0, 300)}...\n`;
                 });
+            } else {
+                contextPerQuestion += `\nDOMANDA ${index + 1} - NESSUN CONTESTO NEL CORSO\n`;
             }
         });
 
@@ -603,17 +609,17 @@ ANALISI: [breve spiegazione basata sul corso]`;
         console.log('RISPOSTA FINALE:', finalResponse.substring(0, 200) + '...');
 
         // Parse risposte e crea tabella
-        let tableHtml = '<table style="width: 100%; max-width: 500px; margin: 20px auto; border-collapse: collapse;">';
+        let tableHtml = '<table style="width: 100%; max-width: 550px; margin: 20px auto; border-collapse: collapse;">';
         tableHtml += '<thead><tr style="background: #f5f5f7;">';
         tableHtml += '<th style="padding: 12px;">DOMANDA</th>';
         tableHtml += '<th style="padding: 12px;">RISPOSTA</th>';
-        tableHtml += '<th style="padding: 12px;">ACCURATEZZA</th>';
+        tableHtml += '<th style="padding: 12px;">FONTE</th>';
         tableHtml += '</tr></thead><tbody>';
-        
+
         const lines = finalResponse.split('\n');
         let analysisText = '';
         let foundAnalysis = false;
-        
+
         lines.forEach(line => {
             if (line.includes('ANALISI:')) {
                 foundAnalysis = true;
@@ -625,14 +631,23 @@ ANALISI: [breve spiegazione basata sul corso]`;
                 const match = line.match(/^(\d+)[.):]\s*([a-dA-D])/);
                 if (match) {
                     const [_, num, letter] = match;
-                    // Alta accuratezza perché basata sul corso
-                    const acc = 85 + Math.floor(Math.random() * 10);
-                    const color = '#34c759';
-                    
+                    const questionNum = parseInt(num);
+                    const hasContext = questionsWithContext.includes(questionNum);
+
+                    // Indicatore basato su se la risposta viene dal PDF
+                    let sourceIndicator, sourceColor;
+                    if (hasContext) {
+                        sourceIndicator = '📚 Dal corso';
+                        sourceColor = '#34c759'; // Verde
+                    } else {
+                        sourceIndicator = '⚠️ Non nel PDF';
+                        sourceColor = '#ff9500'; // Arancione
+                    }
+
                     tableHtml += '<tr>';
                     tableHtml += `<td style="padding: 12px; text-align: center;">${num}</td>`;
                     tableHtml += `<td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">${letter.toUpperCase()}</td>`;
-                    tableHtml += `<td style="padding: 12px; text-align: center; color: ${color}; font-weight: 600;">${acc}%</td>`;
+                    tableHtml += `<td style="padding: 12px; text-align: center; color: ${sourceColor}; font-weight: 600; font-size: 13px;">${sourceIndicator}</td>`;
                     tableHtml += '</tr>';
                 }
             }
@@ -640,13 +655,25 @@ ANALISI: [breve spiegazione basata sul corso]`;
         
         tableHtml += '</tbody></table>';
         
-        const formattedContent = tableHtml + 
+        // Conta risposte dal PDF vs non trovate
+        const fromPdfCount = questionsWithContext.length;
+        const notFoundCount = questions.length - fromPdfCount;
+
+        let legendHtml = '<div style="margin-top: 15px; padding: 10px; background: #f5f5f7; border-radius: 8px; font-size: 12px;">';
+        legendHtml += '<strong>Legenda:</strong> ';
+        legendHtml += '<span style="color: #34c759;">📚 Dal corso</span> = risposta trovata nel PDF | ';
+        legendHtml += '<span style="color: #ff9500;">⚠️ Non nel PDF</span> = risposta da AI (verifica!)';
+        legendHtml += '</div>';
+
+        const formattedContent = tableHtml +
+            legendHtml +
             '<hr style="margin: 20px 0; border: none; border-top: 1px solid #d2d2d7;">' +
             '<div style="margin-top: 20px;">' +
             '<h3 style="font-size: 16px; color: #1d1d1f;">Analisi dal Corso:</h3>' +
-            '<div style="white-space: pre-wrap; line-height: 1.5; color: #515154;">' + 
-            (analysisText || finalResponse) + 
-            `\n\n📚 Risposte basate su ${data.textChunks.length} sezioni del corso.` +
+            '<div style="white-space: pre-wrap; line-height: 1.5; color: #515154;">' +
+            (analysisText || finalResponse) +
+            `\n\n📊 ${fromPdfCount}/${questions.length} risposte trovate nel materiale del corso.` +
+            (notFoundCount > 0 ? `\n⚠️ ${notFoundCount} risposta/e NON trovate nel PDF - verificale manualmente!` : '') +
             '</div></div>';
 
         res.status(200).json({
