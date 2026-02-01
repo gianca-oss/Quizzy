@@ -1,0 +1,5 @@
+# Non caricare i PDF originali su GitHub (troppo grandi)
+*.pdf
+
+# Ma tieni un file di esempio per ricordare dove mettere i PDF
+!.gitkeep
