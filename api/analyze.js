@@ -202,9 +202,10 @@ function searchForAnswers(questions, chunks) {
             // Conta quante keyword specifiche matchano
             const matchCount = uniqueKeywords.filter(k => text.includes(k)).length;
 
-            // SOGLIA MOLTO ALTA: richiedi almeno 5 keyword E score >= 95
-            // Solo match molto forti vengono marcati come "dal PDF"
-            if (matchCount >= 5 && score >= 95) {
+            // SOGLIA ESTREMA: richiedi almeno 7 keyword E score >= 150
+            // Praticamente impossibile con keyword generiche
+            // Solo match REALI verranno marcati come "dal PDF"
+            if (matchCount >= 7 && score >= 150) {
                 matches.push({
                     chunk: chunk,
                     score: score,
