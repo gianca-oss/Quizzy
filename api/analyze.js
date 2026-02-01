@@ -656,25 +656,12 @@ ANALISI: [breve spiegazione basata sul corso]`;
         
         tableHtml += '</tbody></table>';
         
-        // Conta risposte dal PDF vs non trovate
-        const fromPdfCount = questionsWithContext.length;
-        const notFoundCount = questions.length - fromPdfCount;
-
-        let legendHtml = '<div style="margin-top: 15px; padding: 10px; background: #f5f5f7; border-radius: 8px; font-size: 13px; text-align: center;">';
-        legendHtml += '<span style="color: #34c759;">📚 PDF</span> = dal corso ';
-        legendHtml += '<span style="margin: 0 8px;">|</span> ';
-        legendHtml += '<span style="color: #ff9500;">⚠️ AI</span> = verifica!';
-        legendHtml += '</div>';
-
         const formattedContent = tableHtml +
-            legendHtml +
             '<hr style="margin: 20px 0; border: none; border-top: 1px solid #d2d2d7;">' +
             '<div style="margin-top: 20px;">' +
-            '<h3 style="font-size: 16px; color: #1d1d1f;">Analisi dal Corso:</h3>' +
+            '<h3 style="font-size: 16px; color: #1d1d1f;">Analisi:</h3>' +
             '<div style="white-space: pre-wrap; line-height: 1.5; color: #515154;">' +
             (analysisText || finalResponse) +
-            `\n\n📊 ${fromPdfCount}/${questions.length} risposte trovate nel materiale del corso.` +
-            (notFoundCount > 0 ? `\n⚠️ ${notFoundCount} risposta/e NON trovate nel PDF - verificale manualmente!` : '') +
             '</div></div>';
 
         res.status(200).json({
