@@ -543,7 +543,7 @@ RISPOSTE:
 
 ANALISI:
 **1. [domanda breve]**
-[CITATO] "${testo_esatto_copiato_dal_contesto}" [Pag. X]
+[CITATO] "copia qui il testo esatto dal contesto" [Pag. X]
 Risposta: C
 
 **2. [domanda breve]**
