@@ -396,63 +396,48 @@ C: [opzione]
         const responseText = extractData.content[0].text;
         console.log('📝 Testo estratto da Claude (prime 500 char):', responseText.substring(0, 500));
         
-        // Parse domande con pattern più flessibile
+        // Parse domande - parsing semplificato e robusto
         const questions = [];
-        const questionBlocks = responseText.split('---').filter(block => block.trim());
-        
+        const questionBlocks = responseText.split(/---+/).filter(block => block.includes('TESTO:') || block.includes('DOMANDA'));
+
         console.log(`📦 Trovati ${questionBlocks.length} blocchi di domande`);
-        
+
         questionBlocks.forEach((block, index) => {
             const lines = block.trim().split('\n');
-            const question = { 
-                number: index + 1, 
-                text: '', 
-                options: {} 
+            const question = {
+                number: index + 1,
+                text: '',
+                options: {}
             };
-            
+
             lines.forEach(line => {
                 line = line.trim();
-                // Pattern più flessibili per catturare variazioni
-                if (line.toUpperCase().startsWith('TESTO:') || line.toUpperCase().startsWith('DOMANDA')) {
-                    if (line.toUpperCase().startsWith('TESTO:')) {
-                        question.text = line.substring(6).trim();
-                    } else if (line.includes(':')) {
-                        question.text = line.substring(line.indexOf(':') + 1).trim();
-                    }
-                } else if (line.toUpperCase().startsWith('OPZIONE_A:') || line.match(/^A[):\.]|^OPZIONE A/i)) {
-                    const colonIndex = line.indexOf(':');
-                    if (colonIndex > -1) {
-                        question.options.A = line.substring(colonIndex + 1).trim();
-                    } else if (line.match(/^A[):\.](.+)/)) {
-                        question.options.A = line.replace(/^A[):\.]\s*/, '').trim();
-                    }
-                } else if (line.toUpperCase().startsWith('OPZIONE_B:') || line.match(/^B[):\.]|^OPZIONE B/i)) {
-                    const colonIndex = line.indexOf(':');
-                    if (colonIndex > -1) {
-                        question.options.B = line.substring(colonIndex + 1).trim();
-                    } else if (line.match(/^B[):\.]\s*(.+)/)) {
-                        question.options.B = line.replace(/^B[):\.]\s*/, '').trim();
-                    }
-                } else if (line.toUpperCase().startsWith('OPZIONE_C:') || line.match(/^C[):\.]|^OPZIONE C/i)) {
-                    const colonIndex = line.indexOf(':');
-                    if (colonIndex > -1) {
-                        question.options.C = line.substring(colonIndex + 1).trim();
-                    } else if (line.match(/^C[):\.]\s*(.+)/)) {
-                        question.options.C = line.replace(/^C[):\.]\s*/, '').trim();
-                    }
-                } else if (line.toUpperCase().startsWith('OPZIONE_D:') || line.match(/^D[):\.]|^OPZIONE D/i)) {
-                    const colonIndex = line.indexOf(':');
-                    if (colonIndex > -1) {
-                        question.options.D = line.substring(colonIndex + 1).trim();
-                    } else if (line.match(/^D[):\.]\s*(.+)/)) {
-                        question.options.D = line.replace(/^D[):\.]\s*/, '').trim();
-                    }
+                if (!line) return;
+
+                // Estrai testo domanda
+                if (line.toUpperCase().startsWith('TESTO:')) {
+                    question.text = line.substring(6).trim();
+                }
+                // Estrai opzioni - pattern molto semplice: A: o A) all'inizio
+                else if (/^A\s*[:)]/i.test(line)) {
+                    question.options.A = line.replace(/^A\s*[:)]\s*/i, '').trim();
+                }
+                else if (/^B\s*[:)]/i.test(line)) {
+                    question.options.B = line.replace(/^B\s*[:)]\s*/i, '').trim();
+                }
+                else if (/^C\s*[:)]/i.test(line)) {
+                    question.options.C = line.replace(/^C\s*[:)]\s*/i, '').trim();
+                }
+                else if (/^D\s*[:)]/i.test(line)) {
+                    question.options.D = line.replace(/^D\s*[:)]\s*/i, '').trim();
                 }
             });
-            
-            console.log(`  Blocco ${index + 1}: testo="${question.text.substring(0, 50)}..." opzioni=${Object.keys(question.options).length}`);
-            
-            if (question.text && Object.keys(question.options).length >= 2) {
+
+            const optCount = Object.keys(question.options).length;
+            console.log(`  Blocco ${index + 1}: testo="${question.text.substring(0, 40)}..." opzioni=${optCount}`);
+
+            // Aggiungi se ha testo e almeno 2 opzioni
+            if (question.text && optCount >= 2) {
                 questions.push(question);
             }
         });
