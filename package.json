@@ -6,6 +6,7 @@
     "preprocess": "node preprocess.js"
   },
   "dependencies": {
-    "pdf-parse": "^1.1.1"
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^5.4.530"
   }
 }
