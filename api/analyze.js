@@ -520,45 +520,35 @@ C: [opzione]
         
         await new Promise(resolve => setTimeout(resolve, 2000)); // Delay per rate limit
         
-        const analysisPrompt = `SEI UN ASSISTENTE CHE RISPONDE SOLO BASANDOSI SUL MATERIALE DEL CORSO.
+        const analysisPrompt = `Analizza le domande del quiz usando ESCLUSIVAMENTE il contesto fornito.
 
-REGOLE FONDAMENTALI:
-1. Se trovi la risposta nel CONTESTO DAL CORSO, DEVI citare il passaggio esatto tra virgolette
-2. Se NON trovi informazioni sufficienti, scrivi "NON TROVATO NEL MATERIALE" e rispondi con la tua conoscenza
-3. Indica sempre [CITATO], [VERIFICATO] o [AI] per ogni risposta
+ISTRUZIONI CRITICHE:
+- Per ogni risposta DEVI copiare il testo esatto dal contesto tra virgolette "..."
+- Indica la pagina [Pag. X]
+- Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
 
 CONTESTO DAL CORSO:
 ${contextPerQuestion}
 
-DOMANDE DEL QUIZ:
-${questions.map(q => `
-${q.number}. ${q.text}
-A) ${q.options.A || ''}
-B) ${q.options.B || ''}
-C) ${q.options.C || ''}
-D) ${q.options.D || ''}
-`).join('\n')}
+DOMANDE:
+${questions.map(q => `${q.number}. ${q.text}
+A) ${q.options.A || ''} B) ${q.options.B || ''} C) ${q.options.C || ''} D) ${q.options.D || ''}`).join('\n')}
 
-RISPONDI IN QUESTO FORMATO ESATTO:
+FORMATO RICHIESTO:
 
 RISPOSTE:
 1. C [CITATO]
 2. B [AI]
-3. A [VERIFICATO]
-(continua per tutte le ${questions.length} domande)
+(una riga per domanda, lettera + tag)
 
 ANALISI:
-**1. testo domanda**
-[CITATO] Dal corso: "citazione esatta dal PDF" (Pag. X)
-Quindi la risposta è C.
+**1. [domanda breve]**
+[CITATO] "${testo_esatto_copiato_dal_contesto}" [Pag. X]
+Risposta: C
 
-**2. testo domanda**
-[AI] Non trovato nel materiale. In base alle mie conoscenze...
-
-**3. testo domanda**
-[VERIFICATO] Il corso menziona questo concetto a Pag. X. La risposta è A.
-
-(continua per tutte le ${questions.length} domande)`;
+**2. [domanda breve]**
+[AI] Non presente nel contesto. [spiegazione breve]
+Risposta: B`;
 
         let analysisResponse;
         try {
