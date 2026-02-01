@@ -1,5 +1,4 @@
-// enhanced-document-processor.js - VERSIONE SEMPLIFICATA PER PRIMO TEST
-// Rimuoviamo le dipendenze più pesanti per il primo test
+// api/document-processor.js - PDF text extraction and chunking
 
 import * as pdfjs from 'pdfjs-dist/legacy/build/pdf.js';
 

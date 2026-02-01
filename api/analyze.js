@@ -1,4 +1,4 @@
-// api/analyze-enhanced.js - Versione CORRETTA con gestione errori migliorata
+// api/analyze.js - Quiz analyzer API with PDF context search
 
 // Helper per gestire rate limits con retry automatico
 async function callClaudeWithRetry(url, options, maxRetries = 3) {

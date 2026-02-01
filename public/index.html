@@ -844,7 +844,7 @@
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 secondi timeout
                 
-                const response = await fetch('/api/analyze-enhanced', {
+                const response = await fetch('/api/analyze', {
                     method: 'GET',
                     signal: controller.signal
                 });
@@ -1143,7 +1143,7 @@
             results.style.display = 'none';
             resultsContent.innerHTML = '';
             
-            const endpointToUse = '/api/analyze-enhanced';
+            const endpointToUse = '/api/analyze';
             
             try {
                 debugLog(`Using endpoint: ${endpointToUse}`);
