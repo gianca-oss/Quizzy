@@ -1,0 +1,752 @@
+[
+  {
+    "id": "chunk_50",
+    "text": "[H2] 2. Ipotesi diun\n Sistema 1 e Sistema 2 (Daniel Ka hnema n, premio Nobel) Lasua idea , a valla tada a lcuni esperimenti, è che forse noira gionia mo condue sistemi: • Sistema 1: impulsivo • Sistema 2: ra ziona le Entra mbi i sistemi hanno ispira to modelli dica lcolo e decisioni in AI moderna \n[HEADER] EMBA - Strategia ed Internazionalizzazione 25\n Esempio del tennista : per impa rare a gioca re a tennis l'a dulto utilizza il sistema 2 mentre ilba mbino di 6 anni utilizza il sistema 1. Cisono pro e contro in questi sistemi. Ilba mbino quando faun errore spesso non sa dare una spiegazione, viceversa l'adulto non riesce a copia re. Esempi direte neura li: Sistema 1 4. Linguaggio • Se c'è stato un motivo per l'enorme diffusione dell'AI questa lasideve a l lingua ggio, a nche emotivo. • In tutte lesue forme - parla ta , scritta e multimoda le - la lingua è ilcanale di comunicazione più na turale e immedia to con un sistema di intelligenza a rtificia le • Le persone usano il lingua ggiona turale come interfa cciana turale per impegna rsi e intera gire con i sistemi di intelligenza a rtificia le Il successo dell'AI genera tiva e dei modelli del lingua ggiodi grandi dimensioni (a-la Cha tGPT) 5. Linguistica • La seconda parte del XX secolo è stata domina tadall'approccio forma ledi Chomsky in contra sto con un approccio empirico • Competenza vs prestazioni • Allafine degli anni'80 questo approccio forma leca ddein disgra ziaqua ndofu valuta to nella valutazione empirica e nei sistemi di intelligenza a rtificia le. Non c'è nessuna linguistica utilizza ta per forma re Cha tGPT Comprendere il lingua ggio nel contesto richiede molto dipiù della sinta ssi forma le",
+    "page": 51,
+    "pages": [
+      51
+    ],
+    "keywords": [
+      "sistema",
+      "sistemi",
+      "lingua",
+      "turale",
+      "approccio"
+    ]
+  },
+  {
+    "id": "chunk_51",
+    "text": "[H2] 6. Oltre la Linguistica\n Areedi ricerca centra li per lo sviluppo di sistemi di AI: • Elaborazione del lingua ggiona turale • Scienza ed Ingegneria della voce • Interazione uomo-computer 7. Matematica • Logica : Quali sonole regole forma li che governa noil modoin cui tra rre conclusioni • Ca lcolo: Cosapuò essere ca lcola to • Proba bilità e Sta tistica : Genera lizzazione daun certo mondo a un mondo incerto 4.7. Rischi dell'AI • \"Le a rti mecca niche sonodi uso a mbiguo, servono sia per ilmale che per il rimedio\" [Fra ncis Ba con, 1609]. Poiché le applicazioni dell'IAsi stanno estendendo a molti settori e funzioni industria li, la comprensione dei rischi e dei benefici universa lied empirici è necessa riata ntoqua ntoil problema del progresso dell'AI. • Ci vuole unpo’ di competenza per capire l'AI. • Sonoin corso molti sforzi con l'obiettivo ben intenziona todi salva gua rdare/regola menta re i sistemi di AI. Un esempio è la legge dell'UEsull'IA. Sibasa principa lmente su una valutazione basata sui risulta ti e sul cosiddetto rischio. Il processo di consultazione non è stato tra spa rente e scientifico. L'attuazione prevista è piena di pericoli dista llo della ricerca e/o dell'innovazione (vedica so a limenta re OGM). Altre consultazioni e sviluppi sonoin corso nel resto del mondo inma niera sparsa.",
+    "page": 52,
+    "pages": [
+      52
+    ],
+    "keywords": [
+      "ricerca",
+      "sistemi",
+      "mondo",
+      "rischi",
+      "molti"
+    ]
+  },
+  {
+    "id": "chunk_52",
+    "text": "[H3] 4.8. AI e Valori Umani È\n unpo’ forte come affermazione ma l'idea è di allineare la macchina a quello che fanno le persone. • Valori umani - Un termine a mpio per i principi, lepratiche standa rd e le preferenze che riflettono gli obiettivi umani e guida no i comportamenti umani. Esse influenza no e motiva no l'etica individua le, professiona le, orga nizzazione (micro e macro), società . • Allineamento (a lignment) - è un termine vago usato di recente nella lettera turasull'AI. Evoca un allineamento tra i valori e i comportamenti umani e quelli delle ma cchine. Sentirete molto e richiederete un controllo approfondito dei sistemi di intelligenza a rtificia le. Allineamento dei Valori Pensa a l problema /para dosso di Re Mida • Ha potuto tra sformare tutto ciò che voleva inoro, compreso ilcibo, la moglie e i membri della fa miglia . Costruire un Sistema di IA che faccia quello che \"piace\" potrebbe essere un problema ma l-posto come quello di Re Mida . • Obiettivo - Progetta re sistemi di intelligenza a rtificia le che faccia nociò che ci a spettia mo (individui, gruppi, società pubbliche e/o priva te) seguendo norme, regolamenti, etica . Progetta re una funzione di utilità che ca tturi ciò che gli esseri umani fanno a qualsia si livello di aggregazione e possa porta re a un comportamento accettabile. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 26",
+    "page": 53,
+    "pages": [
+      53
+    ],
+    "keywords": [
+      "umani",
+      "valori",
+      "quello",
+      "allineamento",
+      "fanno"
+    ]
+  },
+  {
+    "id": "chunk_53",
+    "text": "[H2] 5. Apprendimento\n Automatico - Machine Learning - ML Il Ma chine Lea rning è uncampo interdisciplina re che integra sta tistica , informatica e ottimizzazione. Lesue origini risa lgono a gli anni'50: il termine fu conia toda Arthur Samuel nel 1959, mentre tecniche pionieristiche comeil perceptron di Rosenbla ttrisa lgono a l 1958. Dopodecenni di sviluppo teorico e a lterne fortune, ilca mpoha conosciuto una svolta nel 2012, quando larete neura le AlexNet ha dimostra tola potenza del deep lea rning nella competizione Ima geNet. Da allora l'a dozione di queste tecniche è esplosa inogni settore. La componente fonda menta le del MLsono i dati, e illoro utilizzo solleva questioni crucia li: ➢ Quali dati servono? Laqua lità , quantità e ra ppresenta tività dei da ti determina no l'effica cia del modello. ➢ Di chi sono i dati? Proprietà , priva cy e consenso sono a spetti legali ed etici imprescindibili. ➢ Come vengono usati? I dati per genera re report a na litici hanno requisiti diversi da quelli per addestra re sistemi che governa no linee di produzione in tempo reale. 5.1 Il principio dell'apprendimento da esempi Il Ma chine Lea rning si fonda sull'ideadi apprendere da esempi per svolgere un compito (task). Invece di progra mmare esplicitamente le regole, si fornisce a l sistema un insieme didati (tra ining set) da cui essorica va a utonomamente i pa ttern necessa ri. Ad esempio, per addestra reun assistente alla scrittura di e-mail, si utilizza no miglia iadi messa ggirea licome esempi. Il modello apprende stile, struttura e convenzioni, diventa ndo poi capace di suggerire risposte appropria te a messa ggi nuovi, ma i visti prima .",
+    "page": 54,
+    "pages": [
+      54
+    ],
+    "keywords": [
+      "rning",
+      "apprendimento",
+      "chine",
+      "lgono",
+      "tecniche"
+    ]
+  },
+  {
+    "id": "chunk_54",
+    "text": "[H3] 5.2 Formulazione matematica\n Da l punto di vista ma tematico, l'apprendimento consiste nel seleziona re una funzione f da uno spazio di funzioni possibili (detto spazio delle ipotesi). Questa funzione devema ppare gli input X negli output Y nel modo più accura to possibile: 푋 →푓 푌 Il processo di addestramento cerca , tra tutte le funzioni possibili, quella che meglio approssima larelazione reale tra input e output, basa ndosi esclusivamente suida ti disponibili. La sfida principa le è la generalizzazione: il modello deve funziona rebene non solo sugli esempi di addestramento, ma a nchesu dati nuovi.\n[H3] 5.3 Paradigmi di apprendimento\n Esistono trepa ra digmi principa li: • Apprendimento supervisionato: il sistema apprende da esempi etichettati (input associa ti alla risposta corretta). È ilcaso della cla ssificazione e della regressione. • Apprendimento non supervisionato: il sistema cerca strutture e pa ttern indati privi di etichette, come nel clustering o nella riduzione di dimensiona lità . • Apprendimento per rinforzo: il sistema apprende attra verso l'interazione con un a mbiente, ricevendo ricompense o penalità inbase alle a zioni compiute. 5.4 Compiti di classificazione: esempi Segnale di ingresso (X) Compito (Funzione f) Risposta (Y) Misurazioni meteorologiche Previsione del tempo Previsione Immagine di scrittura Riconoscimento cara tteri Sequenza dicara tteri Forma d'onda a custica Riconoscimento vocale Identità del pa rlante Fotogra fia Cla ssificazione immagini Ca tegoria Sintomi clinici Dia gnosi medica Pa tologia Immagine diun uccello Identificazione specie Nome della specie",
+    "page": 55,
+    "pages": [
+      55
+    ],
+    "keywords": [
+      "apprendimento",
+      "funzione",
+      "input",
+      "esempi",
+      "sistema"
+    ]
+  },
+  {
+    "id": "chunk_55",
+    "text": "[H3] 5.5 Complessità dei compiti\n Non tutti i compiti hanno la stessa difficoltà . Alcuni sono semplici per le ma cchine ma tediosi per gli umani (cla ssifica re milioni diimma gini), a ltri resta no difficili per entra mbi (elabora repia nistra tegici a lungo termine), a ltri a ncora sono sorprendentemente a rdui per i robot mabanali per noi (ma nipola re oggetti deformabili, comera ddrizza relo stoppino di una ca ndela ). 5.6 Domande aperte nell'apprendimento automatico La progettazione diun sistema ML richiede di rispondere a domande fonda menta li: \n[HEADER] EMBA - Strategia ed Internazionalizzazione 27\n • Quali esempi usare e inqua lequa ntità ? • Come verifica re che il modello abbia appreso correttamente? • Come evita re che memorizzi gli esempi invece di genera lizza re (over fitting)? • Comega ra ntire che il modello siaequo e non discrimina torio? • Come rendere interpreta bilile sue decisioni?\n[H3] 5.7 Applicazioni Oggiil\n ML perva deogni settore: • Operations: ottimizzazione della supply chain, ma nutenzione predittiva • Marketing: persona lizzazione, segmentazione clienti, previsione della domanda • Manifattura: controllo qualità a utomatico, robotica a da ttiva • Sanità: dia gnostica per imma gini, scoperta difa rmaci, medicina persona lizza ta La definizione del ta sk è parte integra nte del problema : richiede una colla borazione stretta tra chi conosce il dominio applica tivo e chi possiede le competenze tecniche nel ML.",
+    "page": 56,
+    "pages": [
+      56
+    ],
+    "keywords": [
+      "compiti",
+      "domande",
+      "esempi",
+      "modello",
+      "complessità"
+    ]
+  },
+  {
+    "id": "chunk_56",
+    "text": "[H3] 5.8 Modelli del Linguaggio e IA\n Generativa\n[H4] 5.8.1 Il gioco della\n previsione: come funziona un modello linguistico Un modello del lingua ggio è, nella sua essenza , un sistema che ca lcola la proba bilità della prossima parola datoil contesto precedente. È comeun gioco di indovinelli sofistica to, doveil modello deve completa re una fra se inmodo pla usibile. Esempio Datala fra se \"L'insegna nteha consiglia to\", quali parole potrebbero seguire? Il modello ca lcola una distribuzione di proba bilità sulle possibili continuazioni: • \"...un libro interessante\" → alta probabilità • \"...di studiare dipiù\" → alta probabilità • \"...vivamente di iscriversi\" → probabilità media • \"...il frigorifero blu\" → probabilità molto bassa Forma lmente, il modello stima : 푃 (푝푎푟표푙푎 푠푢푐푐푒푠푠푖푣푎  |  푐표푛푡푒푠푡표 푝푟푒푐푒푑푒푛푡푒) ovvero 푃(푤ᵢ  |  푤ᵢ₋₁,푤ᵢ₋₂,...푤₁) 5.8.2 Token: l'unità dibase I modelli linguistici non la vorano direttamente con le parole, ma contoken: unità che possono essere parole intere, parti diparole o singoli cara tteri. Ad esempio, \"insegna nte\" potrebbe essere un singolo token, mentre \"consiglia to\" potrebbe essere suddiviso in \"consigli\" + \"a to\". Questa tokenizzazione permette a l modello di gestire parole rare o ma i viste combina ndo pezzi noti.",
+    "page": 57,
+    "pages": [
+      57
+    ],
+    "keywords": [
+      "modello",
+      "parole",
+      "probabilità",
+      "modelli",
+      "gioco"
+    ]
+  },
+  {
+    "id": "chunk_57",
+    "text": "[H4] 5.8.3 Dadove vengono le\n probabilità? Le proba bilità sono stima te addestra ndoil modello su enormi quantità di testo: pagine web, libri, a rticoli, forum, codice sorgente, tra scrizioni di conversazioni. Durante l'addestramento, il modello regola milia rdidi para metri per diventa re sempre più accura to nel prevedere laparola successiva . Leparole (o meglio, i token) sonora ppresenta te internamente come vettori numerici in uno spazio a d a lta dimensiona lità, chiama ti embeddings. Token consignifica ti simili occupa no regioni vicine di questo spazio.\n[H4] 5.8.4 Quanto\n \"costa\" imparare a parlare? Un confronto suggestivo mada interpreta re con ca utela : Bambino (30 mesi) GPT-4 Vocabola rio attivo ~600 parole ~100.000 token Esposizione ~10.000 oredi interazione multimoda le Trilioni di token di testo Modalità Audio, video, tatto, feedba ck socia le Solo testo Ilpa ragone è affa scinante ma fuorvia nte: unba mbino apprende inmodo embodied (attra verso il corpo), multimodale (integra ndo vista , udito, tatto) e sociale (confeedba ckda a ltri esseri umani). Un LLM apprende pa ttern sta tistici da testo, senza a lcuna comprensione del mondo fisico o socia le. Sono forme di \"apprendimento\" radica lmente diverse.",
+    "page": 58,
+    "pages": [
+      58
+    ],
+    "keywords": [
+      "testo",
+      "token",
+      "modello",
+      "spazio",
+      "tatto"
+    ]
+  },
+  {
+    "id": "chunk_58",
+    "text": "[H3] 5.9 Foundation Models\n Nel 2021, lo Sta nford Institute for Huma n-Centered AIha introdotto il termine foundation model per indica re modelli con ca ra tteristiche specifiche: \n[HEADER] EMBA - Strategia ed Internazionalizzazione 28\n • Addestramento su scala massiva: milia rdidi esempi da fonti eterogenee • Apprendimento auto-supervisionato: il modello impara a prevedere parti manca nti dei dati (comela parola successiva ) senza bisogno di etichette manua li • Adattabilità: una volta addestra to, il modello può essere specia lizza to (fine-tuned) per compiti specifici conpochi esempi aggiuntivi • Capacità multi-task: lo stesso modello può svolgere compiti diversi (tra duzione, ria ssunto, risposta a domande, generazione di codice) Esempi di founda tion models: BERT, GPT-3, GPT-4, Claude, LLa MA, CLIP, Codex. 5.9.1 Pre-training e fine-tuning L'addestramento avviene tipicamente indue fasi: 1. Pre-training: il modello apprende da enormi quantità di testo generico, sviluppa ndo una \"conoscenza\" linguistica e fattua ledibase. Questa fase richiede risorse computa ziona li enormi. 2. Fine-tuning: il modello viene affina tosudati specifici o conistruzioni umane per renderlo più utile, sicuro e allinea to alle intenzioni degli utenti. Tecniche come RLHF (Reinforcement Lea rning from Huma n Feedback) rientra noin questa fase. 5.9 Addestramento conistruzioni (Instruction Tuning) I modelli moderni sono addestra ti a seguire istruzioni in lingua ggiona turale. L'utente specifica cosa vuole, e il modello esegue.",
+    "page": 59,
+    "pages": [
+      59
+    ],
+    "keywords": [
+      "modello",
+      "addestramento",
+      "esempi",
+      "tuning",
+      "foundation"
+    ]
+  },
+  {
+    "id": "chunk_59",
+    "text": "Alcuni esempi inta bella sottoIstruzione Input Output \"Scrivi una fra se che termini conquesta parola \" democra zia \"Molti popoli hanno comba ttuto per ottenere la democra zia .\" \"Scrivi una fra se che contenga entra mbele parole\" democra zia , a na rchia \"Alcuni filosofi hanno discusso le differenze tra democra zia e a na rchia .\" \"Rispondi a questa e-mail intono forma le\" [testo e-mail] [risposta genera ta ] Questa capacitàdi seguire istruzioni a rbitra rie è ciò che rende gli LLMcosì versa tili e distingue i modelli recenti da quelli precedenti. 5.10 Valutare l'intelligenza: i benchmark Come misura relecapa citàdiun LLM? Nel tempo sonosta ti sviluppa ti numerosi benchma rk, cia scuno foca lizza tosu a bilità specifiche. Benchmark storici 2018-2023 BenchmarkAnno Dominio Cosa misura ARC Cha llenge 2018 Scienze elementa ri Ra gionamento scientifico Hella Swa g 2019 Completamento frasi Comprensione del contesto WinoGra nde 2019 Commonsense Risoluzione di a mbiguità MMLU 2021 Multidisciplina re Conoscenza in 57 ma terie GSM-8K 2021 Matematica Ra gionamento a ritmetico MBPP 2021 Progra mmazione Generazione di codice MT Bench 2023 Conversazione Qualità del dia logo Nota importante: molti di questi benchma rksono orma i \"saturi\", con i modelli migliori che ra ggiungono punteggi vicin i a l ma ssimo. Questo li rende poco utili per discrimina re tra modelli di punta . Nuovi benchmark (2024) Per rispondere allasa turazione, sono emersi benchma rkpiù difficili: ARC-AGI (2024): richiede ra gionamento supa ttern visivi a stratti, coninput multimoda le. Non si tra tta più solo di testo, madi completa re sequenze gra fiche - un compito che richiede a strazione genuina .",
+    "page": 60,
+    "pages": [
+      60
+    ],
+    "keywords": [
+      "democra",
+      "modelli",
+      "benchmark",
+      "alcuni",
+      "scrivi"
+    ]
+  },
+  {
+    "id": "chunk_60",
+    "text": "[HEADER] EMBA - Strategia ed Internazionalizzazione 29\n Esempio: il problema di Monty Hall Untest cla ssico dira gionamento proba bilistico: Pa rtecipi a un gioco contre porte. Dietrouna c'è un'a uto, dietro le a ltredue cisono capre. Scegli una porta . Il conduttore, che sa cosa c'è dietroogni porta , a preun'a ltra porta rivela ndo una capra . Ti chiede: \"Vuoica mbiare porta ?\" Conviene cambiare? Sì, sempre. • Resta ndo: proba bilità di vincere = 1/3 • Cambia ndo: proba bilità di vincere = 2/3 I modelli recenti come GPT-4 e Claude risolvono correttamente questo problema . Tutta via , resta una doma nda a perta: il modello sta ragionando o ha memorizzato la soluzione da i datidi addestramento? Questa distinzione tra ra gionamento genuino e pa ttern ma tching sofistica to è una delle questioni più diba ttute nella ricerca attuale.\n[H3] 5.11 Limiti degli LLM\n Nonosta ntele capacità impressiona nti, i modelli linguistici presenta no limiti struttura li: • Allucinazioni: possono genera re informazioni pla usibili mafalse congrande sicurezza • Mancanza di comprensione causale: ma nipola no correlazioni sta tistiche, non comprendono cause ed effetti • Difficoltà con il ragionamento multi-step: tendono a commettere errori incatene logiche lunghe • Assenza di memoria persistente: ogni conversazione parte dazero (salvo mecca nismi esterni) • Finestra di contesto limitata: possono considera resolo una qua ntità finita di testo alla volta Comprendere questi limiti è essenzia le per usare gli LLMin modo effica ce e responsabile.",
+    "page": 61,
+    "pages": [
+      61
+    ],
+    "keywords": [
+      "porta",
+      "proba",
+      "problema",
+      "gionamento",
+      "resta"
+    ]
+  },
+  {
+    "id": "chunk_61",
+    "text": "[H3] 5.12 Scaling\n Laws\n[H4] 5.12.1 Leggi di\n scala: quanto grande deve essere un modello? Una delle scoperte più significa tive nello sviluppo degli LLMsono le scaling laws, leggi empiriche che descrivono comele prestazioni migliora no all'a umenta re delle risorse. Ilpa per fonda mentale di Kapla n et a l. (2020) \"Scaling Lawsfor Neura l Langua ge Models\" ha identifica totre fa ttori chiave: • Dimensione del modello: numero dipara metri della rete neura le • Dimensione del dataset: quantità di token usati per l'addestramento • Compute: potenza dica lcolo impiega tanell'addestramento Larelazione è loga ritmica : ra ddoppia ndo i para metri, le prestazioni migliora noinmodo prevedibile ma conrendimenti decrescenti. Il principio fonda mentale è che tutti e tre i fa ttori devono crescere insieme: un modello enorme addestra tosu pochi dati, o un piccolo modello addestra tosudati va stissimi, non ra ggiungerà prestazioni ottima li. 5.12.2 L'aggiornamento Chinchilla (2022) Lesca lingla ws origina lisono state riviste significa tivamente nel 2022 da l pa per \"Chinchilla \" di Hoffma nnet a l. (DeepMind). La scoperta chiave: i modelli precedenti erano sovradimensionati e sotto-addestrati. Le nuove leggi suggeriscono che pa ra metri e token di addestramento dovrebbero crescere in proporzione simile. Il risulta topratico: Chinchilla , con 70 milia rdidi para metri, ha supera to GPT-3 (175 milia rdi) perché addestra tosu molti più da tiin proporzione allasua dimensione. Questo haca mbiato lastra tegia dell'industria : non ba sta a umentare i para metri, serve unbila nciamento ottima le tra dimensione del modello e quantità didati.",
+    "page": 62,
+    "pages": [
+      62
+    ],
+    "keywords": [
+      "metri",
+      "modello",
+      "scaling",
+      "leggi",
+      "prestazioni"
+    ]
+  },
+  {
+    "id": "chunk_62",
+    "text": "[H4] 5.12.3 I limiti delle scaling laws Lesca lingla\n ws non gara ntiscono miglioramenti infiniti. Questioni a perte: • Disponibilità didati: il testo diqua lità disponibile su internet è finito • Costi energetici: l'addestramento di modelli sempre più gra ndiha impatti a mbienta li crescenti \n[HEADER] EMBA - Strategia ed Internazionalizzazione 30\n • Capacità emergenti vs incrementali: a lcune a bilità sembra no compa rire improvvisamente a certe scale, a ltre migliora nogra dua lmente 5.13 LLM aperti e closed-source\n[H4] 5.13.1 Livelli di apertura Non tutti i modelli\n \"open\" sono a perti allo stesso modo. È utile distinguere diversi livelli: Livello Cosa è pubblico Esempi Closed source Nulla (solo accesso via API) GPT-4, Claude Open weights Solo i pesi del modello LLa MA, Mistra l Open source Pesi + codice di tra ining Falcon Fully open Pesi + codice + dati + processo completo OLMo, BLOOM, Pythia\n[H4] 5.13.2 Cosa significa\n \"fully open\" Per un modello completamente a perto, devono essere pubblici: • L'a rchitettura della rete neura le • Il numero e ilvalore dei para metri • I pesi delle connessioni tra neuroni • I datidi addestramento • Il codice e i para metri del processo di tra ining • Le procedure divalutazione",
+    "page": 63,
+    "pages": [
+      63
+    ],
+    "keywords": [
+      "source",
+      "codice",
+      "addestramento",
+      "modelli",
+      "closed"
+    ]
+  },
+  {
+    "id": "chunk_63",
+    "text": "[H4] 5.13.3 Esempi di modelli aperti OLMo\n (Allen Institute for AI) è progetta to esplicitamente per la riproducibilità scientifica . I suoida tidi addestramento sono completamente documenta ti: Fonte Tipo GB Documenti (M) Token (B) Common Crawl Pagine web 9.022 3.370\n[H3] 2.006 The Stack\n Codice 1.043 210 342 C4 Pagine web 790 364 174 Reddit Socia l media 339 377 80 peS2o Pa per scientifici 268 39 57 Project Gutenberg Libri 20 0,06 5 Wikipedia Enciclopedia 16 6 4 Totale 11.519 4.367 2.668 Altri modelli con a ltogra dodi a pertura includono: • BLOOM (BigScience): progetto colla borativo interna ziona le condati e processo documenta ti • Pythia (EleutherAI): suite di modelli progetta ta per studia recome l'apprendimento evolve durante il tra ining • StarCoder (BigCode): specia lizza to nella generazione di codice, con da tidi addestramento tra spa renti\n[H4] 5.9.4 Perché\n l'apertura conta L'a pertura permette: • Riproducibilità scientifica: verifica re e costruire sui risulta ti a ltrui • Audit di sicurezza: identifica rebia s e vulnera bilità • Innovazione distribuita: la comunità può migliora re i modelli • Sovranità tecnologica: non dipendere da fornitori esteri 5.14 Allucinazioni e rischi",
+    "page": 64,
+    "pages": [
+      64
+    ],
+    "keywords": [
+      "modelli",
+      "progetta",
+      "riproducibilità",
+      "scientifica",
+      "addestramento"
+    ]
+  },
+  {
+    "id": "chunk_64",
+    "text": "[H4] 5.14.1 Cosasono le allucinazioni Le\n allucinazioni sono output che appaiono pla usibili masono fa ttuali falsi. Non sono bugocca siona li, ma una conseguenza struttura le del funzionamento degli LLM: questi modelli genera no testo sta tisticamente coerente con il contesto, senza verifica rela veridicità diciò che producono. Non ha nno accesso a una \"fonte di verità \" interna . Esempi documentati: • Apple Intelligence (dicembre 2024): unria ssunto genera todall'IAha attribuito alla BBCla notizia falsa che Rafael Nada l a vesse fatto coming outcome ga y. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 31\n • Errori percettivi: alladoma nda \"C'è qua lcosa disba gliato in questa foto?\" mostra ndo una mano conseidita , a lcuni modelli rispondono che la foto appare norma le.\n[H4] 5.14.2 Perché accadono Gli LLMsono addestra ti a\n produrre testo pla usibile, non testo vero. La differenza è crucia le: • Un testo può essere grammatica lmente perfetto e stilisticamente appropria to, ma contenere falsità • Il modello non \"sa \" cosa è vero: riconosce pa ttern sta tistici • Quando il contesto è a mbiguo o le informazioni neida tidi tra ining sonosca rse, il modello \"riempie i vuoti\" concontenuto inventa toma coerente",
+    "page": 65,
+    "pages": [
+      65
+    ],
+    "keywords": [
+      "testo",
+      "allucinazioni",
+      "modelli",
+      "genera",
+      "coerente"
+    ]
+  },
+  {
+    "id": "chunk_65",
+    "text": "[H4] 5.14.3 Tassonomia dei rischi I principa li\n rischi identifica tinell'uso degli LLM includono: Categoria Descrizione Allucinazioni Generazione di informazioni false presenta tecome fatti Contenuti dannosi Testi offensivi, discriminatori o pericolosi Disinformazione Uso per creare fakenews o ma nipola re l'opinione pubblica Privacy Esposizione didati persona li presenti neida tidi tra ining Sicurezza informatica Generazione di codice ma levolo o tecniche di attacco Proliferazione Informazioni su a rmi o sosta nze pericolose Impatti economici Disruption di settori lavora tivi, concentrazione di potere 5.15 LLMin ambito aziendale\n[H4] 5.15.1 Opzioni di deployment Le a ziende possono\n a dotta re LLM condiverse stra tegie: Approccio Descrizione ProContro API esterne Usodi servizi cloud (OpenAI, Anthropic, Google) Semplicità , nessuna infra struttura Dati escono dall'a zienda , dipendenza da l fornitore Modelli ospitati LLMopen su server propri o cloud priva to Controllo suida ti, persona lizzazione Costi infra struttura li, competenze richieste Fine-tuning Adattamento del modello con da ti a zienda li Prestazioni ottimizza te per il dominio Richiede dati diqua lità e risorse dica lcolo 5.15.2 RAG: Retrieval-Augmented Generation Una stra tegia sempre più diffusa è il RAG, che combina l'LLM conuna ba sedi conoscenza a zienda le: 1. Ladoma ndadell'utente viene usata per cerca re documenti rileva nti nel knowledge base a zienda le 2. I documenti trova ti vengono passa ti a l modello come contesto",
+    "page": 66,
+    "pages": [
+      66
+    ],
+    "keywords": [
+      "rischi",
+      "descrizione",
+      "generazione",
+      "informazioni",
+      "persona"
+    ]
+  },
+  {
+    "id": "chunk_66",
+    "text": "[H2] 3. Il modello genera\n una risposta basatasu quel contesto specifico Vanta ggi del RAG: • Riduce le allucinazioni a ncora ndole risposte a documenti reali • Permette di aggiorna rela conoscenza senza ri-addestra reil modello • Ma ntiene i dati sensibili sottocontrollo a zienda le\n[H4] 5.15.3 Governance e sicurezza\n L'a dozione a zienda le richiede attenzione a : • Classificazione dei dati: quali informazioni possono essere elabora tedall'LLM • Audit trail: tra ccia bilità delle interazioni per complia nce • Validazione degli output: processi di verifica per decisioni critiche • Formazione degli utenti: consa pevolezza dei limiti e dei rischi • Allineamento alle policy: il modello deve rispetta rele linee guida a zienda li \n[HEADER] EMBA - Strategia ed Internazionalizzazione 32\n\n[H4] 5.15.4 Casodi Usoin Azienda\n • Azienda: produttore di dolciari dell’Emilia-Romagna . • Prodotti: 10 referenze (cioccola tini, torroni, biscotti secchi, spuntini fa rciti, cara melle, ba rrette, praline, creme spalmabili, pa nettoni/pa ndori, colombe pasqua li) • Venditori: 20, cia scuno dedica to a una città diversa . • Periodo osservato: 3 anni consecutivi (2022–2024). Ragionando sul Report delle Vendite o Intera gire con i datiin lingua ggiona turale. o Tutti accedono a gli stessi dati e possono fare domande e capire i dati e visua lizza rli. o Ridurre leela borazioni intermedie e renderle comprensibili a tutti i fruitori. o Integrazione didati provenienti da flussi diversi. Risultati dell'analisi: Venezia e Verona sonole città più forti complessivamente, leader per molteplici ca tegorie di prodotto. Milano domina per i Torroni, e Trieste si distingue per le Cara melle. Chiedendo a d OpenAI di genera re una Hea t Ma p. 6. Workshop 6.1.",
+    "page": 67,
+    "pages": [
+      67
+    ],
+    "keywords": [
+      "modello",
+      "zienda",
+      "degli",
+      "azienda",
+      "genera"
+    ]
+  },
+  {
+    "id": "chunk_67",
+    "text": "Presentazione del workshop • Dalla teoria alla pratica: comeusa re IA per risolvere problemi reali che possono emergere in a zienda . • Non serve background tecnico: va luterete scelte sulla base della loro descrizione, impa rerete ad approfondire il contesto dei problemi, le specifiche delle soluzioni AIed illoro impatto.\n[H3] 6.2. Obiettivi del workshop\n Un workshop distra tegia per: • Comprendere ilcasodi studio • Studia re soluzioni IA • Valuta repro e contro • Proporre soluzione ⇒ Simulazione di situazione reale in azienda\n[H3] 6.3. Struttura del\n lavoro • Gruppi da 3 persone • Ogni gruppo sceglierà uncaso d'uso tra 11 a disposizione • Avrete a disposizione una lista di 15 soluzioni AI + Cha tGPT • Missione: collega re e ra giona resu scena ri e applicazioni, identifica re priorità 6.4. Fasi del workshop - sabatoOre Task Durata 8:30 Formazione dei gruppi, setup tools, scelta dei ca si d'uso 1h 9:30 Group Work a nd Coa ching: a nalisi scena rio e selezione soluzioni (5 minuti di pitch, e 2 minuti didoma nde e feedba ckdopo ogni pitch) 1h 10:30 Group Presenta tions 1h 6.5. Deliverable diogni gruppo • Comprensione del problema stra tegico • Scelta delle soluzioni AIpiù rileva nti • Analisi di rischi e condizioni di a dozione (Utilizzo, Impatto, Pro, Contro) • Definizione delle 3 priorità da implementa re 6.6. Valore del workshop • Idee concrete sucome IApuò a vereimpa ttosui processi a zienda li \n[HEADER] EMBA - Strategia ed Internazionalizzazione 33\n • Uno spa zio per valuta restra tegie e confronta rsi tra colleghi • Non un'esercitazione tecnica , maun labora torio di decisione • Elabora restra tegia : capire dove l'IA guida valore e competitività 6.7.",
+    "page": 68,
+    "pages": [
+      68
+    ],
+    "keywords": [
+      "workshop",
+      "soluzioni",
+      "problemi",
+      "zienda",
+      "impatto"
+    ]
+  },
+  {
+    "id": "chunk_68",
+    "text": "[ESEMPIO] Caso d'uso: Catena di Hotel in ritardo sui competitor • Contesto: Una ca tena a lberghiera con 10 strutture in Italia . Ilma rchio è consolida to e offre unbuon servizio, mafatica a tenere ilpasso concompetitor digita licome Booking, Expedia e Airbnb. • Narrativa: Lacatena non aggiorna i prezzi delle camere inmodo dinamico, qui i prezzi resta nostatici, risulta ndopoco competitivi siain a lta che inba ssasta gione. Allo stesso tempo, un piccolo gruppo di prenotazioni gestisce manua lmente centina iadi e-mail e richieste dei clienti, rispondendo spesso inrita rdo. • Sfida: Ilta ssodi occupazione è costa ntemente inferiore del 20% rispetto a i concorrenti, e molti potenzia li ospiti abba ndona nola prenotazione per ma ncanza di risposte rapide. • Tensione: Ognica mera vuota ra ppresenta unrica vo perso. I costi fissi resta no eleva ti, mentre i competitor ca ttura no clienti lesure e-business. ⇒ Decisione da Prendere: Il CEOsi chiede: Come possia mo modernizza relastra tegia di prezzo e la gestione delle richieste dei clienti per a umenta rele prenotazioni e resta re competitivi? 6.8. [ESEMPIO] Analisi soluzioni AI per ilcaso Hotel Soluzione AI Utile/Impatto ProContro/Rischi Ana litiche Predictive Utile - Alto Previsioni domanda e occupazione; migliore pia nificazione prezzi e risorse Decisioni sbaglia tese usato senza validazione umana Reportistica Automatica No - - Chatbot Clienti Utile - Alto Risponde subito a richieste ed e-mail Rischio di risposte problematiche Assis. Conv. Interni Utile - Medio Staff trova risposte rapide - Sintesi Documenti NO - - Formazione Dipendenti NO - - 6.9. Importante • Forma te i gruppi datre! • Adesso vi fornia mole soluzioni IA che vi presenteremo domani • Ca rtellina : o Lista e sinossi delle soluzioni IA o Lata bellina",
+    "page": 69,
+    "pages": [
+      69
+    ],
+    "keywords": [
+      "resta",
+      "clienti",
+      "esempio",
+      "hotel",
+      "competitor"
+    ]
+  },
+  {
+    "id": "chunk_69",
+    "text": "[H2] 7. Soluzioni\n AIin azienda\n[H3] 7.1. TOOLBOX DI SOLUZIONI AI Le\n PMI, cosìcome legra ndi imprese, possono applica re l'AI a problemi molto concreti: vendite, ma rketing, opera tions, finanza , HR. Il nostro obiettivo oggi non è \"impara re a progra mmare\", maca pirequa li strumenti AI possono a iutare a risolvere sfide mana geria lirea li. Cosa vedremo: • 15 soluzioni AI, spiega tein termini pratici • Per cia scuna : cos'è, come funziona , perché è rileva nte per un dirigente • Il vostro compito: valuta rein quali useca seusa rle, come, e conqua lipro/contro\n[HEADER] EMBA - Strategia ed Internazionalizzazione 34\n\n[H4] 7.1.1. ANALITICHE PREDITTIVE\n • Cos'è: Tra sforma dati storici e correnti in previsioni sul futuro. Anticipa domanda, rischi e opportunità primache si ma nifestino. • Come funziona: Ana lizza schemi ricorrenti e correlazioni neida ti interni ed esterni. • Esempi reali: Prevedere vendite mensili, stima reca renze di liquidità , a nticipa regua sti allema cchine, stima re turnover dipendenti. • Perché è importante: Permette decisioni proa ttive, riduce sorprese e ra fforza la competitività .\n[H4] 7.1.2. REPORTISTICA E SINTESI AUTOMATICA\n • Cos'è: AI che ra ccoglie e aggrega dati e informazioni (numeriche o testua li) da fonti diverse e li tra sforma in sintesi comprensibili per il mana gement. Genera a utoma ticamente report, verba li e a zioni dadati o riunioni. • Come funziona: Integra sistemi ERP, CRM o registrazioni a udio; a nalizza contenuti, evidenzia tendenze, decisioni e a nomalie. • Esempi reali: Report di vendita settima nali, sna pshot finanzia ri, sintesi di riunioni del boa rd o di progetto.",
+    "page": 70,
+    "pages": [
+      70
+    ],
+    "keywords": [
+      "soluzioni",
+      "possono",
+      "vendite",
+      "funziona",
+      "perché"
+    ]
+  },
+  {
+    "id": "chunk_70",
+    "text": "• Perché è importante: Riduce il tempo speso in reporting e verba lizzazione, assicura coerenza delle informazioni e migliora laqua lità decisiona le.\n[H4] 7.1.3. SEGMENTAZIONE E PROFILAZIONE CLIENTI\n • Cos'è: Tecnologia che divide i clienti in gruppi omogenei. Aiuta a capire meglio comportamenti, bisogni e potenzia ledi spesa . • Come funziona: Ana lizza dati e interazioni per crea re cluster. • Esempi reali: Clienti premium, clienti occa siona li, clienti a rischio abba ndono. • Perché è importante: Permette stra tegie mirate dima rketing e ma ggiore efficienza commercia le.\n[H4] 7.1.4. RACCOMANDAZIONI\n & PERSONALIZZAZIONE • Cos'è: Motore AI che suggerisce prodotti, servizi o contenuti a i clienti. Persona lizza l'esperienza di a cquisto in tempo reale. • Come funziona: Ana lizza cronologia di a cquisti e navigazione. • Esempi reali: Upselling in hotel, suggerimenti e-commerce, pa cchetti viaggio persona lizza ti. • Perché è importante: Aumenta conversioni, fidelizzazione e valore medio per cliente.\n[H4] 7.1.5. CHATBOT\n & ASSISTENTI VIRTUALI (CLIENTI) • Cos'è: Agenti AI che intera giscono direttamente con i clienti. Rispondono a domande e richieste in tempo reale. • Come funziona: Usano NLP per gestire conversazioni sucha t o voce. • Esempi reali: Prenotazioni, domande su prezzi, assistenza post-vendita . • Perché è importante: Migliora il servizio clienti e riduce i costi opera tivi.",
+    "page": 71,
+    "pages": [
+      71
+    ],
+    "keywords": [
+      "clienti",
+      "perché",
+      "importante",
+      "lizza",
+      "tempo"
+    ]
+  },
+  {
+    "id": "chunk_71",
+    "text": "[H4] 7.1.6. ASSISTENTI CONVERSAZIONALI INTERNI\n • Cos'è: Strumenti di AI che supporta no i dipendenti fornendo risposte immedia te e persona lizza tesutemi HR, policy a zienda li e procedure opera tive, come \"helpdesk virtua li\". • Come funziona: Si collega no a i database HR, a i ma nuali interni e a i documenti a ziendali, rispondendo in lingua ggiona turale tra mite cha t o voce. • Esempi reali: Richieste ferie, gestione buste paga , policy di rimborso, procedure opera tive, FAQ interne. • Perché è importante: Riduce ilcarico amministra tivo, diffonde conoscenza inmodo uniforme e migliora la produttività e la soddisfazione dei dipendenti.\n[H4] 7.1.7. SINTESI DOCUMENTALE\n & COMPLIANCE • Cos'è: Tecnologia AI che legge, interpreta e semplifica documenti complessi, evidenzia ndocla usole chiave, rischi e obblighi. Supporta uffici legali, complia nce e amministrazione nella gestione di testi lunghi e tecnici. • Come funziona: Utilizza modelli di lingua ggio (NLP) per estra rre informazioni rileva nti e genera re sintesi opera tivein lingua ggiochia ro. • Esempi reali: Sintesi di contra tti consca denze e penali, estra ttidi norma tivecome GDPR, ria ssunti di policy a zienda li. • Perché è importante: Riduce il rischio di non conformità e di errori contra ttuali, accelera la revisione dei documenti e migliora la comprensione delle regole opera tive.",
+    "page": 72,
+    "pages": [
+      72
+    ],
+    "keywords": [
+      "opera",
+      "policy",
+      "documenti",
+      "lingua",
+      "sintesi"
+    ]
+  },
+  {
+    "id": "chunk_72",
+    "text": "[H4] 7.1.8. SIMULAZIONI DI SCENARIO E\n WHAT-IF • Cos'è: Strumenti AI che modella no scena ri futuri. Permettono di testa re ipotesi stra tegiche senza rischi reali. • Come funziona: Applica modelli predittivi a varia bilidi merca to o interne. • Esempi reali: Ca lcola reimpa ttidi calo domanda , a umento costi fornitori, cambi di prezzo. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 35\n • Perché è importante: Aiuta i leader a prepa rarsi a incertezze e decisioni più solide.\n[H4] 7.1.9. OTTIMIZZAZIONE PREZZI\n • Cos'è: AI che regola i prezzi inbase a domanda e concorrenza . Ma ssimizza ricavi e competitività . • Come funziona: Ana lizza vendite, disponibilità e ta riffe competitor. • Esempi reali: Prezzi dinamici per hotel, compa gnie a eree, e-commerce. • Perché è importante: Protegge ma rgini e sfrutta meglio le fluttuazioni del merca to.\n[H4] 7.1.10. RICONOSCIMENTO VISIVO\n & ISPEZIONE • Cos'è: AI che a na lizza immagini e video per controlli qualità . Individua difetti o a nomalie in tempo reale. • Come funziona: Applica visione a rtificia lesu linee produttive o logistiche. • Esempi reali: Pezzi difettosi, scaffa li vuoti, etichette manca nti. • Perché è importante: Aumenta laqua lità e riduce i costi di controllo manua le.",
+    "page": 73,
+    "pages": [
+      73
+    ],
+    "keywords": [
+      "reali",
+      "funziona",
+      "esempi",
+      "perché",
+      "importante"
+    ]
+  },
+  {
+    "id": "chunk_73",
+    "text": "[H4] 7.1.11. AUTOMAZIONE PROCESSI\n (RPA + AI) • Cos'è: Tecnologia che a utoma tizza attività ripetitive. Riduce errori e libera risorse umane. • Come funziona: Gestisce fa tture, inserimenti dati e conferme a utoma ticamente. • Esempi reali: E-maildi conferma , report giorna lieri, caricamento ordini. • Perché è importante: Migliora efficienza e riduce tempi opera tivi.\n[H4] 7.1.12. FORMAZIONE\n & UPSKILLING DIPENDENTI • Cos'è: AI che persona lizza i percorsi di apprendimento. Adatta i contenuti a l ruolo e alle competenze. • Come funziona: Ana lizza skill ga p e suggerisce corsi mirati. • Esempi reali: Moduli digita li, certificazioni online, micro-lea rning. • Perché è importante: Sviluppa le competenze chiave per sostenere la crescita .\n[H4] 7.1.13. ANALISI SENTIMENT\n & FEEDBACK CLIENTI • Cos'è: AI che interpreta opinioni di clienti dapiù canali. Coglie sentimenti e criticità na scoste. • Come funziona: Ana lizza recensioni, survey, e-mail o call center. • Esempi reali: Individua rela mentele ricorrenti o trend di insoddisfazione. • Perché è importante: Offre la \"voce del cliente\" in tempo reale per migliora re prodotti e servizi.\n[H4] 7.1.14. RILEVAMENTO ANOMALIE\n & RISCHI • Cos'è: AI che individua schemi insoliti neida ti. Segna la frodi, errori o minacce. • Come funziona: Monitora tra nsazioni, sistemi IT e processi opera tivi. • Esempi reali: Frodi dipagamento, guasti imprevisti, intrusioni cyber. • Perché è importante: Offre allarmi preventivi che evita no crisi costose.",
+    "page": 74,
+    "pages": [
+      74
+    ],
+    "keywords": [
+      "funziona",
+      "esempi",
+      "reali",
+      "perché",
+      "importante"
+    ]
+  },
+  {
+    "id": "chunk_74",
+    "text": "[H4] 7.1.15. GENERAZIONE CONTENUTI AI\n (MARKETING & BUSINESS) • Cos'è: AI che produce testi, immagini e ma teria li per comunicazione e ma rketing. Accelera la produzione e ma ntiene coerenza . • Come funziona: Genera newsletter, descrizioni prodotto, post socia l e proposte commercia li. • Esempi reali: Campa gne e-mail, a rticoli blog, copy pubblicita ri. • Perché è importante: Permette di competere sulla visibilità conrisorse limita te. 7.2. [ESEMPIO] CASO D'USO: CATENA DI HOTEL IN RITARDO SUI COMPETITOR • Contesto: Una ca tena alberghiera con 10 strutture in Italia . Ilma rchio è consolida to e offre unbuon servizio , mafatica a tenere ilpasso concompetitor digita licome Booking, Expedia e Airbnb. • Narrativa: Lacatena non aggiorna i prezzi delle camere inmodo dinamico, qui i prezzi resta nostatici, risulta ndopoco competitivi siain a lta che inba ssasta gione. Allo stesso tempo, un piccolo gruppo di prenotazioni gestisce manua lmente centina iadi e-mail e richieste dei clienti, rispondendo spesso inrita rdo. • Sfida: Ilta ssodi occupazione è costa ntemente inferiore del 20% rispetto a i concorrenti, e molti potenzia li ospiti abba ndona nola prenotazione per ma ncanza di risposte rapide. • Tensione: Ognica mera vuota ra ppresenta unrica vo perso. I costi fissi resta no eleva ti, mentre i competitor ca ttura no clienti leisure e business. ⇒ Decisione da Prendere: Il CEOsi chiede: Come possia mo modernizza relastra tegia di prezzo e la gestione delle richieste dei clienti per a umenta rele prenotazioni e resta re competitivi? \n[HEADER] EMBA - Strategia ed Internazionalizzazione 36\n 7.2.1.",
+    "page": 75,
+    "pages": [
+      75
+    ],
+    "keywords": [
+      "prezzi",
+      "generazione",
+      "contenuti",
+      "marketing",
+      "business"
+    ]
+  },
+  {
+    "id": "chunk_75",
+    "text": "[ESEMPIO] ANALISI SOLUZIONI AI PER IL CASO HOTEL Soluzione AI Utile/Impatto ProContro/Rischi Ana litiche Predittive Utile - Alto Previsioni domanda e occupazione; migliore pia nificazione prezzi e risorse Decisioni sbaglia tese usato senza validazione umana Reportistica Automatica No - - Chatbot Clienti Utile - Alto Risponde subito a richieste ed e-mail Rischio di risposte problematiche Assis. Conv. Interni Utile - Medio Staff trova risposte rapide - Sintesi Documenti NO - - Formazione Dipendenti NO - -\n[H2] 8. Use Casein Azienda\n Scenario 1 - Vendite ferme nell'e-commerce • Contesto: Una PMIdi vendite di arredamento online con 20 dipendenti, in concorrenza congra ndima rketpla ce. Attira tra ffico mafatica a convertire in ordini. • Narra tiva : I clienti riempiono i ca rrelli ma non concludono l'a cquisto. I costi ma rketing crescono, i ma rgini calano. • Sfida : Abba ndono del ca rrello oltre il 60%, conversioni molto basse. • Tensione: Ognieuro speso in pubblicità rischia di diventa reun costo senza ritorno. • Punto decisiona le: Il CEOsi chiede: Come ridurre l'abba ndono e a umenta rele conversioni online? Scenario 2 - Qualità sottopressione • Contesto: Una PMI a conduzione fa miglia redi 35 persone produce componenti mecca nici per a utomotive. Ma rgini sottili, standa rd eleva ti. • Narra tiva : Recla mi e resi a umenta no. I controlli manua lisono costosi e poco affidabili. • Sfida : Difetti che sfuggono a i controlli rischia no risoluzioni contra tti e/o penali. • Tensione: Un errore può ca usare perdite eleva te e danni reputa ziona li. • Punto decisiona le: L'opera tions mana gersi chiede: Comega ra ntire qualità costa nte riducendo tempi e costi? Scenario 3 - Turni e personale sbilanciati • Contesto: Una ca tena regiona ledi supermerca ti con 50 dipendenti.",
+    "page": 76,
+    "pages": [
+      76
+    ],
+    "keywords": [
+      "utile",
+      "senza",
+      "clienti",
+      "risposte",
+      "dipendenti"
+    ]
+  },
+  {
+    "id": "chunk_76",
+    "text": "Flussi clienti molto variabili. • Narra tiva : Alcuni giorni sottorga nico conlunghe code, a ltri giorni persona leina ttivo. • Sfida : Pia nificazione turni basatasu intuito, non su dati. • Tensione: Sovra sta ffing = costi a lti, sottosta ffing = vendite perse. • Punto decisiona le: L'HR director si chiede: Come prevedere i picchi per pia nifica re turni efficienti? Scenario 4 - Macchine ferme, clienti persi • Contesto: PMI industria le con 60 dipendenti e ma chine a controllo numerico costose e critiche. • Narra tiva : Ungua sto improvviso blocca la linea : costi a lti e consegne salta te. • Sfida : Ma nutenzione rea ttiva o preventiva poco effica ce. • Tensione: Ogni fermo ma cchina significa perdite e clienti insoddisfa tti. • Punto decisiona le: Ilpla ntma nager si chiede: Come ridurre i guasti e gara ntire continuità produttiva ? Scenario 5 - Scorte fuoricontrollo • Contesto: Un distributore di elettronica con ma ga zzini pieni ma frequenti manca nzedi a rticoli richiesti. • Narra tiva : Ladoma ndaca mbiara pidamente e le previsioni non reggono. • Sfida : Overstock e stock-out senza equilibrio. • Tensione: Liquidità blocca ta e ordini persi. • Punto decisiona le: Il supply chain mana gersi chiede: Come gestire meglio domanda e scorte? Scenario 6 - Previsioni finanziarie inaffidabili • Contesto: Grossista con 40 dipendenti, budget a ncora gestiti su Excel. • Narra tiva : Unmese manca cassa , ilmese dopo i fondi resta no fermi. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 37\n • Sfida : Scarsa visibilità e previsioni errate. • Tensione: Ritardi neipa gamenti e opportunità manca te.",
+    "page": 77,
+    "pages": [
+      77
+    ],
+    "keywords": [
+      "clienti",
+      "narra",
+      "sfida",
+      "tensione",
+      "punto"
+    ]
+  },
+  {
+    "id": "chunk_77",
+    "text": "• Punto decisiona le: Il CEOsi chiede: Come ottenere previsioni più affidabili per decidere meglio? Scenario 7 - Reclutamento lento e costoso • Contesto: PMIdi Servizi di Informa tion Technology (IT) di 25 persone inrapida crescita . • Narra tiva : Assunzioni lunghe e ca ndida ti spesso non a datti. • Sfida : Screening manua le e colloqui poco struttura ti. • Tensione: Errori di assunzione ra llenta no progetti e ma rgini. • Punto decisiona le: L'HRlea d si chiede: Come velocizza reil reclutamento e ridurre misma tch? Scenario 8 - Cybersecurity a rischio • Contesto: Studio legale di 30 persone con da ti sensibili dei clienti. • Narra tiva : Aumenti di phishing, difese attuali insufficienti. • Sfida : Rischio eleva todi incidenti informatici. • Tensione: Una violazione può distruggere reputazione e causa resa nzioni. • Punto decisiona le: L'ITma nager si chiede: Comera fforza rela protezione e prevenire minacce? Scenario 9 - Marketing che non coinvolge • Contesto: Un'a zienda a limenta reita liana di medie dimensioni produce biscotti e prodotti da forno in concorrenza congra ndima rchi. I prodotti sonodi qualità e hanno una tra dizione fa milia re, mailma rchio fatica a distinguersi. • Narra tiva : Leca mpagne ma rketing attuali sono troppo generiche: pubblicità standa rd e newsletter pocomira te non riescono a creare unlega me emotivo con i consumatori. • Sfida : La comunicazione non tra smette i valori del ma rchio né riesce a persona lizza re l'offerta inbase a i gusti e alle a bitudini dei clienti. • Tensione: I consumatori, sempre più attratti damarchi che offrono esperienze persona lizza te e storytellin g coinvolgente, scelgono la concorrenza .",
+    "page": 78,
+    "pages": [
+      78
+    ],
+    "keywords": [
+      "punto",
+      "decisiona",
+      "chiede",
+      "scenario",
+      "contesto"
+    ]
+  },
+  {
+    "id": "chunk_78",
+    "text": "• Punto decisiona le: Ilma rketing director si chiede: Come possia mo rendere leca mpagne più mira te, emoziona li e rileva nti per riconquista re i consumatori? Scenario 10 - Back-office troppo manuale • Contesto: Studio contabile che serve decine di PMI, staff qua lifica toma sovra ccarico. • Narra tiva : Tempo spreca tosufa tture e inserimenti dati. • Sfida : Processi lenti e manua li. • Tensione: Produttività bassa e menova lore a i clienti. • Punto decisiona le: Ilma naging pa rtner si chiede: Come libera re i professionisti dalle attività di routine? Scenario 11 - Gestione dei pazienti cronici • Contesto: L'a zienda sanita ria del Veneto segue miglia iadipa zienti con pa tologie croniche (diabete, ipertensione). I processi di monitora ggiosono a ncora manua li e disconnessi tra di loro. • Narra tiva : I dati clinici sono fra mmentati e i pa zienti non vengono monitora ti tra una visita e l'a ltra , conricoveri evitabili e curepoco persona lizza te. • Sfida : Manca nzadi sistemi integra ti che ra ccolga no e a na lizzino dati clinici e di monitora ggio remoto. • Tensione: Pa zienti insoddisfa tti, a umento dei costi per ricoveri non progra mmati e concorrenza di strutture più digita lizza te. • Punto decisiona le: Il direttore sanita riosi chiede: Come possia mousa re l'AI per monitora re i pa zienti cronici inmodo proa ttivo, riducendo ricoveri e migliora ndola qualità della cura ? \n[HEADER] EMBA - Strategia ed Internazionalizzazione 38\n 9. Quiz per esame",
+    "page": 79,
+    "pages": [
+      79
+    ],
+    "keywords": [
+      "zienti",
+      "monitora",
+      "punto",
+      "decisiona",
+      "chiede"
+    ]
+  },
+  {
+    "id": "chunk_79",
+    "text": "[H2] 1. Quale istituto ha coniato\n il termine \"Foundation Model\" nel 2021? A) MIT Artificia l Intelligence La b B) Sta nford Institute for Huma n-Centered Artificia l Intelligence (HAI) C) OpenAI Resea rch Institute D) Google DeepMind Risposta corretta: B 2. Qual è l'obiettivo principale dell'IA moderna secondo il documento? A) Sostituire completamente gli esseri umani B) Imita re perfettamente l'intelligenza umana C) Trova reil giusto controllo ed equilibrio tra ca pacità dell'uomo e capacità della ma cchina D) Creare robot a utonomi Risposta corretta: C\n[H2] 3. Cosa\n NON è l'Intelligenza Artificiale secondo il documento? A) Solo apprendimento a utomatico B) Solodeep lea rning C) Solo Cha tGPT o LLM D) Tutte le precedenti Risposta corretta: D 4. In quale periodo si colloca l'IA Medievale? A) 1990-2020 B) 1950-1980 C) 2020-2050 D) 1980-1990 Risposta corretta: B 5. Cosa caratterizza l'IA PreModerna (1990-2020)? A) AI Genera tiva B) AI Predittiva basa tasui dati C) Progra mmi intelligenti su piccola scala D) Interfa cce cervello-ma cchina Risposta corretta: B\n[H2] 6. Il programma\n ELIZA (1966) simulava: A) Un gioca toredi scacchi B) Untera peuta rogeria no C) Un assistente virtua le D) Un tra duttore a utomatico Risposta corretta: B 7 . Secondo Daniel Kahneman, il Sistema 1 è: A) Ra ziona le e lento B) Impulsivo e veloce C) Logico e a na litico D) Conscio e delibera to Risposta corretta: B 8. Quanti bytedi datisono stati usati approssimativamente per addestrare GPT-4? A) 1 Gigabyte B) 1 Terabyte C) 1 Petabyte (10^15 byte) D) 1 Exabyte Risposta corretta: C",
+    "page": 80,
+    "pages": [
+      80
+    ],
+    "keywords": [
+      "risposta",
+      "corretta",
+      "secondo",
+      "quale",
+      "artificia"
+    ]
+  },
+  {
+    "id": "chunk_80",
+    "text": "[H2] 9. Nel benchmark\n ARC (2018), che tipo di domande vengono utilizzate? A) Domande di progra mmazione a vanza ta B) Domande di scienze della scuola elementa re C) Domande di storia contempora nea \n[HEADER] EMBA - Strategia ed Internazionalizzazione 39\n D) Domande dima tematica universita ria Risposta corretta: B\n[H2] 10. Nel problema di Monty\n Hall, qual è la probabilità di vincere sesi cambia porta? A) 1/3 B) 1/2 C) 2/3 D) 3/4 Risposta corretta: C\n[H2] 11. Quale\n LLM è considerato veramente open source condati, pesi e parametri pubblici? A) GPT-4 B) Gemini C) OLMO D) Claude Risposta corretta: C 12. Cosasi intende per \"allineamento dei valori\" (value alignment) nell'IA? A) Ca libra re i para metri del modello B) Allinea re gli obiettivi delle ma cchine con i valori e le a spetta tivedell'uomo C) Sincronizza repiù modelli di IA D) Ottimizza rele prestazioni computa ziona li Risposta corretta: B 13. Secondo l'etica deontologica di Kant: A) Ciò che è giusto è determina toda l risulta to atteso dell'a zione B) Ciò che è giusto è determina toda leggi socia li universa li C) Ciò che è giusto dipende da l contesto D) Ciò che è giusto è soggettivo Risposta corretta: B\n[H2] 14. Nel confronto tra medici e\n IA nella diagnostica per immagini, quale metrica mostra l'IA superiore? A) Solo Sensitivity B) Solo Specificity C) Sia Sensitivity che Specificity D) Nessuna delle due Risposta corretta: C",
+    "page": 81,
+    "pages": [
+      81
+    ],
+    "keywords": [
+      "risposta",
+      "corretta",
+      "domande",
+      "giusto",
+      "quale"
+    ]
+  },
+  {
+    "id": "chunk_81",
+    "text": "[H2] 15. Quale benchmark valuta\n il \"Completamento della frase\"? A) MMLU B) Hella Swa g C) ARC Cha llenge D) WinoGra nde Risposta corretta: B 16. Nel caso aziendale del produttore dolciario, quanti venditori sono stati analizzati? A) 10 B) 15 C) 20 D) 25 Risposta corretta: C 17. Il \"Paradosso della Pepsi Cola\" nel neuro-marketing dimostra che: A) La Pepsi è oggettivamente migliore B) L'identità del ma rchio può preva lere sulle preferenze sensoria li C) I consuma torisono ra ziona li nelle scelte D) Il gusto è l'unico fa ttore decisiona le Risposta corretta: B 18. Cosa significa \"Weak AI\" (IA Debole)? A) IA conscarse prestazioni \n[HEADER] EMBA - Strategia ed Internazionalizzazione 40\n B) IAcapace di prestazioni simili a gli uma niin compiti specifici C) IA conpochi para metri D) IA non addestra ta Risposta corretta: B 19. Quale fonte didati ha contribuito con più token (miliardi) all'addestramento di OLMO? A) Wikipedia B) Reddit C) Common Crawl D) Project Gutenberg Risposta corretta: C\n[H2] 20. Secondo\n il documento, quale rischio NON è associato agli LLM? A) Allucinazioni B) Contenuti da nnosi C) Miglioramento a utomatico della priva cy D) Operazioni di disinformazione Risposta corretta: C",
+    "page": 82,
+    "pages": [
+      82
+    ],
+    "keywords": [
+      "risposta",
+      "corretta",
+      "quale",
+      "pepsi",
+      "prestazioni"
+    ]
+  },
+  {
+    "id": "chunk_82",
+    "text": "[H2] 1. Secondo\n il documento, quale affermazione descrive correttamente la differenza tra IA Predittiva e IA Generativa? A) L'IA Predittiva genera contenuti nuovi, l'IA Genera tiva a na lizza dati esistenti B) L'IA Predittiva è più recente dell'IA Genera tiva C) Entra mbesono identiche ma connomi diversi D) L'IA Predittiva (1990-2020) siba sasull'a nalisi dei da ti, l'IA Genera tiva (da l 2020) ra ggiunge milioni di utenti e coinvolge a mbiti interdisciplina ri Risposta corretta: D\n[H2] 2. Nel paradosso di Re\n Mida applicato all'IA, qual è il messaggio principale? A) Costruire un Sistema di IA che faccia esattamente ciò che \"piace\" potrebbe essere un problema ma l-posto B) L'IA dovrebbe sempre ma ssimizza re i profitti C) Re Midaera un esperto di intelligenza a rtificia le D) I sistemi di IA non possono ma i sbaglia re Risposta corretta: A 3. Quale combinazione di approcci etici dovrebbero seguire i sistemi di IA secondo il documento? A) Solo utilita rismo B) Solo etica deontologica C) Approccio basatosu principi combina to con ra gionamento sulle conseguenze delle a zioni D) Nessun approccio etico è necessa rio Risposta corretta: C 4. Nell'esperimento sul neuro-marketing della Pepsi/Coca-Cola, cosa hanno dimostrato i segnali cerebrali della risonanza magnetica? A) La Pepsi attiva più a ree cerebra li della Coca-Cola B) Non c'è differenza tra i duema rchi a livello cerebra le C) Ilma rchio Coca-Cola attiva a reelega te alla memoria e all'emozione (ippoca mpo, corteccia prefronta le dorsola terale) D) I consumatori non hanno preferenze reali Risposta corretta: C",
+    "page": 83,
+    "pages": [
+      83
+    ],
+    "keywords": [
+      "predittiva",
+      "genera",
+      "risposta",
+      "corretta",
+      "secondo"
+    ]
+  },
+  {
+    "id": "chunk_83",
+    "text": "[H2] 5. Secondo Herbert\n Simon (premio Nobel), le decisioni umane sono: A) Sempre perfettamente ra ziona li e ca lcola te B) Completamente casua li C) Abbasta nza buone e soddisfa centi, piuttosto che la boriosamente ca lcola te D) Basate esclusivamente sull'intuito Risposta corretta: C 6. Perché l'approccio formale di Chomsky alla linguistica è caduto in disgrazia allafine degli anni'80? A) Era troppo costoso da implementa re B) Quando fuva lutato nella valutazione empirica e nei sistemi di IA non funziona va C) Chomsky ha ritira tolasua teoria D) I computer non esisteva no a ncora \n[HEADER] EMBA - Strategia ed Internazionalizzazione 41\n Risposta corretta: B\n[H2] 7. Nel confronto IAvs medici per\n la diagnostica per immagini, quale valore di Specificity ha mostrato l'IA? A) 79.4% B) 88.1% C) 88.6% D) 93.9% Risposta corretta: D\n[H2] 8. Quale problema solleva\n il documento riguardo all'usodell'IAin radiologia? A) L'IA è troppo costosa per essere utilizza ta B) Il problema non è l'IAma comeria ssetta re i flussi dilavoro per utilizza rla a l meglio C) I ra diologi rifiuta nodi usare l'IA D) L'IA non è abbasta nza precisa Risposta corretta: B\n[H2] 9. Secondo\n il documento, cosa distingue Meta dagli altri fornitori di LLMin termini di apertura? A) Meta condivide tutto il codice sorgente B) Meta non condivide nulla C) Meta condivide solo i pesi del modello D) Meta è completamente open source come OLMO Risposta corretta: C",
+    "page": 84,
+    "pages": [
+      84
+    ],
+    "keywords": [
+      "risposta",
+      "corretta",
+      "condivide",
+      "secondo",
+      "lcola"
+    ]
+  },
+  {
+    "id": "chunk_84",
+    "text": "[H2] 10. Qual è\n la critica principale mossa dal documento alla legge dell'UEsull'IA? A) È troppo permissiva B) Non esiste a ncora C) Il processo di consultazione non è stato tra spa rente e scientifico, conrischi dista llo della ricerca /innovazione D) È identica alle leggi a merica ne Risposta corretta: C 11. Nell'esempio dell'auto a guida autonoma, quali fattori complicano il raggiungimento dell'obiettivo? A) Soloil costo del ca rbura nte B) Rischi associa ti alla guida in condizioni di incertezza e a mbiente con a ltri a genti ed entità C) La velocità ma ssima consentita D) Il colore dell'a uto Risposta corretta: B\n[H2] 12. Secondo\n il documento, quale area cerebrale fu identificata da Paul Broca nel XIX secolo? A) Area responsabile della vista B) Area responsabile della produzione del lingua ggionell'emisfero sinistro C) Area responsabile del movimento D) Area responsa biledell'udito Risposta corretta: B\n[H2] 13. Nel benchmark\n MMLU (2021), quale percentuale ha ottenuto Mistral Medium? A) 70.0% B) 70.6% C) 75.3% D) 88.0% Risposta corretta: C\n[H2] 14. Quale affermazione sul Machine\n Learning è corretta secondo il documento? A) Il ML non richiede dati B) Il ML è nato negli anni 2020 C) Il ML è esploso da l 2015 con la riscoperta delle reti neura li (deeplea rning) D) Il ML non ha applicazioni pratiche Risposta corretta: C",
+    "page": 85,
+    "pages": [
+      85
+    ],
+    "keywords": [
+      "corretta",
+      "risposta",
+      "documento",
+      "quale",
+      "responsabile"
+    ]
+  },
+  {
+    "id": "chunk_85",
+    "text": "[H2] 15. Secondo\n il documento, quale problema fondamentale pone l'utilizzo delle tecniche di ML? A) Il costo dell'elettricità B) La questione diqua lisono i dati e di chi sono i dati \n[HEADER] EMBA - Strategia ed Internazionalizzazione 42\n C) La velocità dica lcolo D) Il numero di progra mmatori disponibili Risposta corretta: B 16. Nell'esempio del tennista citato per spiegare Sistema 1 e Sistema 2, quale differenza emerge? A) L'a dulto usail Sistema 1, ilba mbino il Sistema 2 B) Entra mbiusa nolo stesso sistema C) L'a dulto usail Sistema 2 (ra ziona le), ilba mbino di 6 anniusa il Sistema 1 (impulsivo) D) Nessuno dei due usa a lcun sistema Risposta corretta: C 17. Quanti documenti (in milioni) provenienti da Reddit sono stati usati per addestrare OLMO? A) 210 B) 364 C) 377 D) 3,370 Risposta corretta: C\n[H2] 18. Secondo\n il documento, quale dovrebbe essere il ruolo dell'IA nella diagnostica medica? A) Sostituire completamente i medici B) Non essere ma i utilizza ta C) È una doma nda a perta : attiva nel processo di deliberazione o pa ssiva conrevisione del medico D) Decidere a utonomamente lecure Risposta corretta: C 19. Nell'analisi del caso aziendale dolciario, quali città sono risultate lepiù forti complessivamente? A) Milano e Roma B) Torino e Genova C) Venezia e Verona D) Bologna e Firenze Risposta corretta: C 20. Quale sillogismo viene citato nel documento come esempio di inferenza logica? A) Tutti i gatti sono a nimali, Fido è ungatto; quindi, Fido è un a nimale B) Socra te è unuomo, tutti gli uomini sono immorta li; quindi, Socra te è immorta le C) La pioggia bagna , il terreno è bagna to, quindi ha piovuto D) Tutti i numeri parisono divisibili per 2 Risposta corretta: B \n[HEADER] EMBA - Strategia ed Internazionalizzazione 43\n 3.",
+    "page": 86,
+    "pages": [
+      86
+    ],
+    "keywords": [
+      "sistema",
+      "risposta",
+      "corretta",
+      "quale",
+      "documento"
+    ]
+  },
+  {
+    "id": "chunk_86",
+    "text": "TECNOLOGIA - INNOVAZIONE - MODELLI DI BUSINESS Prof. Nuccia relli Alberto VERSIONE BREVE\n[H2] 1. La Distinzione\n Fondamentale: Tecnologia ≠ Innovazione La tecnologia dasola non è innovazione. L'innovazione richiede unpa ssaggio intermedio - il modello di business - per tra sforma re una scoperta tecnologica inqua lcosa che migliori concretamente lavita delle persone. L'esempio dida ttico delle treimma gini (Nea ndertha l con la ruota , i Flintstones, la Ferra ri F1) illustra questa distinzione: Tecnologia Creatività Innovazione Ruota (immagine sinistra ) Sì Sì No AutoFlintstones (immagine centra le) Sì No No Formula 1 (immagine destra ) Sì Sì Sì Ruota: ilca vernicolo ha inventa toqua lcosa che non esisteva innatura . Crea tività pura . Tecnologia funziona nte. Ma è un componente, non ca mbia a ncora nulla dasolo. AutoFlintstones: Fred e Barney hanno tecnologia (ruote, telaio, sterzo) ma nessun salto. La forma è nuova , la sostanza è vecchia . Anzi, è un regresso: servono i piedi per muoversi. Niente crea tività , niente innovazione. Formula 1: tutto. Tecnologia stra tifica ta , crea tività nel reinterpreta re i vincoli regola menta ri, innovazione continua che ca mbia prestazioni, sicurezza , spetta colo.",
+    "page": 87,
+    "pages": [
+      87
+    ],
+    "keywords": [
+      "tecnologia",
+      "innovazione",
+      "ruota",
+      "immagine",
+      "tività"
+    ]
+  },
+  {
+    "id": "chunk_87",
+    "text": "[H2] 2. Definizioni Chiave Concetto Definizione Creatività\n Genera reidee nuove e potenzia lmente utili Innovazione Tra durre leidee inqua lcosa di utile per qua lcuno Conoscenza Capacitàdi riopera ziona lizza re l'innovazione per risolvere problemi sempre più complessi Tecnologia \"Lama nipolazione della natura per un guada gnoma teria leuma no\"\n[H2] 3. Il Modello di Business come Ponte\n Il docente presenta uno schema : Tecnologia → IP Rights (intellectual property rights) → Modello di Business → Innovazione Un modello di business risponde a quattro domande: • Che va lorecrei? • Per chi locrei? • Come comunichi che sta i creando valore? • Come monetizzi?\n[H2] 4. Tipologie di\n Innovazione • Innovazione incrementale: migliora un prodotto esistente senza cambia rnela funzione d'uso (es. penna BIC conimpugna tura ergonomica ) • Innovazione radicale: cambia lara gione per cui si a cquista un prodotto (es. penna digita le Moleskine) • Innovazione di prodotto vsdi processo vsdi posizionamento (lana rrativa )\n[H2] 5. La Teoria della Disruptive\n Innovation (Christensen) La disruption haun significa to tecnico preciso: non è semplicemente \"qua lcosa di nuovo\", maun processo in cui: • Un nuovo entra nteda l segmento low-end del merca to (clienti tra scura tida gli incumbent) • Offre un servizio inferiore mapiù accessibile • Impara e migliora progressivamente • Conquista il merca todi massa , scalza ndo gli incumbent Esempi a na lizza ti: Ubervs taxi tra diziona li, Ryana ir/Ea syJet vs compa gniedi ba ndiera . \n[HEADER] EMBA - Strategia ed Internazionalizzazione 44",
+    "page": 88,
+    "pages": [
+      88
+    ],
+    "keywords": [
+      "innovazione",
+      "modello",
+      "business",
+      "prodotto",
+      "lcosa"
+    ]
+  },
+  {
+    "id": "chunk_88",
+    "text": "[H3] 5.1. Casidi Studio\n Principali\n[H4] 5.1.1. Nokia vs Apple\n • Nokia a vevala tecnologia (il primo sma rtphone fu Nokia ), mama ncava il modello di business. Apple ca pì che serviva una piattaforma che permettesse a terzi dicrea revalore (le app), non solo hardwa re superiore.\n[H4] 5.1.2. Xerox vs EMI\n • Xerox: Joe Wilson a veva una tecnologia costosa (fotocopiatrice a secco), ma inventò un modello di business innova tivo - affitto + pagamento per copia - che creò le condizioni per l'a dozione dimassa . • EMI: Godfrey Hounsfield inventò la TAC, ma EMI (un'a zienda musica le!) non seppe costruire un modello di business a degua to e perse l'opportunità .\n[H4] 5.1.3. La Grappa Nonino Esempio di innovazione\n di posizionamento: il prodotto non ca mbiò, mala narra tiva sì - da \"distilla toloca le\" a \"condensa todi sapere centena rio\", tra sforma ndola grappa in uno spirit premium apprezza to interna ziona lmente.\n[H4] 5.1.4. La Carne Coltivata Il docente usa questo\n caso per mostra recome il naming sia integra nte del modello di business: in vitro meat → lab-grown meat → clean meat → cultured meat → carne coltivata. Ognica mbiodi nome riflette pressioni dista keholder diversi e tenta di evoca revalori specifici.",
+    "page": 89,
+    "pages": [
+      89
+    ],
+    "keywords": [
+      "modello",
+      "business",
+      "nokia",
+      "apple",
+      "tecnologia"
+    ]
+  },
+  {
+    "id": "chunk_89",
+    "text": "[H2] 6. Concetti\n Trasversali\n[H3] 6.1. Il Valore Sociale nel Business\n Unfilo conduttore è la critica a l modello \"profitto e basta \". Nei serious games (sanità , educazione), nei progetti sulla sostenibilità (carne coltiva ta , sport inverna li), emerge che: \"Non ba sta pensa rein termini di business model for profit, perché è come a verela Ferra ri che punta controilmuro.\"\n[H3] 6.2. La Neutralità Tecnologica\n Nessuna tecnologia è intrinsecamente buona o ca ttiva. Il docente cita l'a rticolo \"The Right to Priva cy\" del 1890, scritto quando la diffusione della ma cchina fotogra fica sollevò per la primavolta questioni di priva cy - le stesse che oggi rigua rdano l'IA.\n[H3] 6.3. Effetti di Rete e\n Lock-in Ilva loredi molti prodotti dipende daqua nte persone liusa no (club goods). Questo spiega : • Perché VHS vinse su Betama x (tecnologia inferiore, ma a dozione superiore) • Il modello freemium dei videogiochi • Lastra tegia di Ryana ir (biglietti a 1 centesimo per crea remassa critica )\n[H3] 6.4. Letture Consigliate dal\n Docente • Italo Ca lvino, Lezioni Americane / Six Memos forthe Next Millennium • Ma ssimo Sideri & Andrea Ra ngone, L'innovatore rampante • Lucia no Floridi (concetto di onlife) • Clayton Christensen, The Innovator's Dilemma (teoria delle disruptive innova tions) • Maria na Ma zzuca to, Lo Stato Innovatore • Daron Acemoglu & Simon Johnson, Power and Progress • Steven Johnson, Where Good Ideas Come From • David Owen, Copies in Seconds (storia di Xerox) • Jørgen Vig Knudstorp, LEGO (storia a zienda le) • Adidas vs Puma: Il duello di una vita • Joel Mokyr, The Gifts of Athena (definizione di tecnologia )",
+    "page": 90,
+    "pages": [
+      90
+    ],
+    "keywords": [
+      "business",
+      "critica",
+      "modello",
+      "perché",
+      "tecnologia"
+    ]
+  },
+  {
+    "id": "chunk_90",
+    "text": "[H3] 7.1. Sintesi Finale La lezione costruisce\n un fra mework per pensa re all'innovazione: • La tecnologia è necessaria ma non sufficiente • Il modello di business è il meccanismo di traduzione tra tecnologia e valore per il cliente • L'innovazione è miglioramento della vita delle persone (definizione di Floridi) • Il naming e il posizionamento sono integranti della stra tegia innova tiva • Le esternalità sono inevitabili: ogni tecnologia crea vincitori e perdenti, a lmeno nel breve periodo Il messa ggiodi fondo è che chi si occupa di innovazione deve pensa reinmodo sistemico - non ba sta a verela tecnologia migliore, bisogna costruire l'ecosistema che permetta alle persone di estra rneva lore. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 45\n VERSIONE LUNGA - Tecnologia, Innovazione e Modelli di Business INTRODUZIONE E BACKGROUND DEL DOCENTE Alberto Nuccia relli è un docente universita rio che insegna presso l'Università di Trento, dove tiene corsi nell'a mbito del Master in Innova tion Mana gement. Ba ckground Acca demico e Professiona le - Esperienze Interna ziona li • Hala vorato presso Philips nel settore delle tecnologie sanita rie (risona nzama gnetica ), occupa ndosi del ra pporto tra tecnologia , policy, innovazione e stra tegia per la vendita dima cchina ri a gli ospeda li europei e a merica ni • Si è tra sferito in Inghilterra doveha lavora to per la Cass Business School (oggi Bayes Business School, City University London), occupa ndosi di Videoga mes - Modelli di business a supporto dei videoga me (seriu s game) • Ha vissuto diversi anniin Olanda e Inghilterra - la moglie è ola ndese e lavora per H.B.",
+    "page": 91,
+    "pages": [
+      91
+    ],
+    "keywords": [
+      "tecnologia",
+      "innovazione",
+      "business",
+      "occupa",
+      "pensa"
+    ]
+  },
+  {
+    "id": "chunk_91",
+    "text": "Edding, a zienda di consulenza per l'etichetta turadi prodotti a limenta ri) • Ha svolto attività di postdoc in Olanda presso l'Università di Eindhoven • Ha tra scorso un periodo Erasmus a Vienna , doveha studia tolestra tegie di interna ziona lizzazione delle a ziende italia ne (confocus su Telecom Italia ) I Serious Games: Player, Payer e Beneficiary I giochi tra diziona lmente intesi come games for entertainment - quindi Crash, FIFA 2026 e simili - sono giochi progetta tida gli sviluppatori per intrattenere chi pa ga . Vi spiego la distinzione tra player, payer e beneficiary: chi pa ga , chi gioca e chi beneficia del gioco. Nei giochi tra diziona li, queste tre figure di solito coincidono nella stessa persona . Questo rende molto semplice per me, imprenditore o sviluppa toredi giochi, creare un prodotto e un mecca nismo che convinca il giocatore a pagare. Devo conquista re solta nto quella che gli economisti chiama no willingness topay: la disponibilità a pagare, la volontà didare del denaro incambio del divertimento che offro. È molto semplice, è unra pporto uno a uno. È come a ndare a l ba r e dire: \"Guarda , quel cornetto è molto buono\". E se è da vvero buono, lo compro, perché sono disposto a spendere a nche 50 centesimi inpiù. Il serious game, invece, è un gioco sviluppa to per ra ggiungere uno scopo socia le o economico. Detto inparole povere: semi rompo una ga mba , posso fare laria bilitazione in ospeda le contutore, gesso e quant'a ltro, e dopo 10-15 giorni torna reda l medico per ra cconta rglicom'è a ndata.",
+    "page": 92,
+    "pages": [
+      92
+    ],
+    "keywords": [
+      "giochi",
+      "molto",
+      "italia",
+      "serious",
+      "games"
+    ]
+  },
+  {
+    "id": "chunk_92",
+    "text": "Oppure posso farequa lcosa di diverso: posso essere dotato di una serie di sensori da applica re sul ginocchio e intorno allega mbe - accelerometri come quelli che abbiamo nei nostri sma rtphone - che comunica noin tempo reale a l medico, all'infermiere o a l fisiotera pista comesi muove ilmio ginocchio. E posso farlo indossa ndoun paiodi visori come gli Oculus, che mi fanno pensa redi stare ca mmina ndo lungo la Va l di Fiemme o la Va l di Fassa . In questo modo, posso tra sforma reun'attività diria bilitazione inqua lcosa che, se non propriamente divertente, è qua ntomeno più pia cevole. Stofa cendo un'operazione di gamification: sto cerca ndodi tra sforma reinmodo playful un'attività quotidia na . Main realtà quello che sto fa cendo è tra sformare un'attività fisica inun insieme didati - dati che possono essere letti e interpreta tida l medico, da l fisiotera pista e cosìvia , inmodo da fornire un riscontro diretto e continuo. Esistono una qua ntità di serious game che non potete neanche immagina re. Per esempio, per fa cilita re i ba mbini dislessici nell'apprendimento della lettura , c'eraun bel gioco chiama to Reader Rabbit: ilba mbino doveva seguire uno scoia ttolo e salta reesa ttamente dove doveva porre l'accento sulle parole. Esistono giochi diva riana tura ; il settore healthcare è pa rticola rmente ricco di queste applicazioni. Il Problema dei Serious Games: Tre Stakeholder Diversi Però c'è ungra nde problema . Almeno fino a 10-15 annifa , c'eraun grande problema per gli sviluppa toridi serious game. Pensa tecibene: ioil serious game non lo sviluppo per chi gioca , non convinco chi gioca a pagare, e chi gioca non è nemmeno l'unico beneficia rio.",
+    "page": 93,
+    "pages": [
+      93
+    ],
+    "keywords": [
+      "posso",
+      "attività",
+      "lcosa",
+      "ginocchio",
+      "medico"
+    ]
+  },
+  {
+    "id": "chunk_93",
+    "text": "Hoil payer (chi pa ga ), il player (chi gioca o chi utilizza il softwa rediria bilitazione, il softwa rein genera le) e il beneficiary (chi ne tra e beneficio): hotre figure diverse, o a lmeno tre gruppi di persone diverse. Perché iodevo a ndare a l Ministero e dimostra re che ilmio gioco per i ba mbini dislessici funziona , così che possa essere a dotta todalle scuole. Poi però devo convincere la dirigente scolastica a pagare per quel gioco - ma quella rimanderà sicuramente la responsa bilità a l Ministero e dirà : \"No, è il Ministero che pa ga \". E allora : mettetevi d'accordo, una volta che a veteca pito che il gioco funziona , uno di voipa ga . Ma chi è che gioca ? I ba mbini. E lefa miglie dei ba mbini mettera nnota ntissima pressione sul dirigente scolastico, dicendo: \"Ehi, se glielo fa i utilizza re, io voglio essere sicuro che quel gioco funzioni, che non peggiori lecose, che i ba mbini non dislessici non rima ngano indietro, che non perda no tempo a farecose che non servono loro\". Iodevo convincere tanta gente diversa . Allora , laqua litàdiquel gioco - cioèla \"bontà del cornetto\" - per il payer, per il player e per il beneficia ryin realtà significa trecose diverse. Perché io posso dire: \"Punto moltissimo sulla qualità \". Però poi il Ministero midirà : \"Guarda, fantastico, tusa i fareun gioco perfetto, maiocosìtanto non voglio pagare. Quindi fanne uno un pochino meno buono di \n[HEADER] EMBA - Strategia ed Internazionalizzazione 46\n quello che potresti fare, perché io non posso permettermelo\". Chiaramente lefa miglie fa rebbero un'attività di lobby fortissima : loro vogliono il miglior gioco possibile.",
+    "page": 94,
+    "pages": [
+      94
+    ],
+    "keywords": [
+      "gioco",
+      "ministero",
+      "mbini",
+      "diverse",
+      "perché"
+    ]
+  },
+  {
+    "id": "chunk_94",
+    "text": "Noicome taxpayers vorremmo un gioco che sì, diala possibilità a i ba mbini dislessici di non essere esclusi da l mercato del la voroqua ndo a vranno 20 o 30 anni - però non voglia mo nessun a umento ditasse. Anzi, voglia mo una riduzione. Ma questo è un discorso per un a ltro momento. La Necessità diun Valore Sociale nel Business Allora , dobbia mo mettere insieme troppa gente diversa : comefa cciamo? Dobbia mo inserire all'interno del mecca nismo del modello di business - di cui pa rleremo forse la prossima volta , oggi non credo ci arrivia mo, siamo unpo'inrita rdo - qua lcosa di diverso. All'interno del mecca nismo che permette il tra sferimento del va lore, dobbia mo aggiungere un valore sociale, non solta ntoil valore economico. Non posso misura reun'a zienda , a nche nel settore dei videoga me, sulla base del solo profitto. Non funziona . Non funziona più. Non ha senso. Non ha senso perché non riesco a fa r stare insieme payer, player e beneficia ry. Nel settore dei videoga me - e allarga ndolo sguardo all'industria hea lthca re - è difficilissimo mettere insieme a spetta tive e volontà così diverse. Allora cisia mo divertiti per un po'di anni a fare business model design per i serious games, confronta ndolo conquello dei ga mesfor enterta inment. Li abbiamo confrontati su diverse dimensioni: crowdsourcing, crowdfunding e a ltro a ncora.",
+    "page": 95,
+    "pages": [
+      95
+    ],
+    "keywords": [
+      "valore",
+      "business",
+      "dobbia",
+      "insieme",
+      "voglia"
+    ]
+  },
+  {
+    "id": "chunk_95",
+    "text": "[H2] 2. I PROGETTI DI RICERCA ATTUALI Il Legame tra\n Tecnologia, Innovazione e Strategia Quello che fa cciooggi è sosta nzia lmente a ncora questo: cerca redi capire illega me che c'è tra tecnologia , innovazione e stra tegia . Ed è quello che mi è stato chiesto di prova re a ra cconta rvi. Per trova reilmodo giusto difarlo, parto dadue progetti di ricerca su cui sono attua lmente coinvolto - progetti che, chiaramente, influenza nola narra tiva, la storia che ra cconto incla sse. I due progetti principa lisono: uno sulla carne coltiva ta , tema scotta nte nel nostro Paese, e l'a ltrosull'impatto dei ca mbiamenti climatici sugli sport inverna li, a ltrotema molto scotta nte. Progetto \"Hot Snow\": Cambiamenti Climatici e Sport Invernali Partia moda l secondo. Il progetto sichia ma Hot Snowed è condotto insieme alla Stockholm School of Economics, inizia lmente con la Fondazione Kahn. citano a nche, inparte, il Comita to Olimpico Interna ziona le, l'Università di Oxford e il King's College di Londra . L'ideadi fondo è questa : gli scienziatici dicono che per rispondere a i cambiamenti clima ticisi possono fare duecose - mitigazione e a da ttamento. Ogni a zienda , ogniorga nizzazione - semplice o complessa che sia - può, o meglio deve, reagire a i cambiamenti climatici. E può fa rlo attra verso mitigazione, a dattamento, o entra mbi. Adattamento vs Mitigazione Adattamento significa che io mi a datto: prendo ilcambiamento clima ticocome unfa ttore dato, che non sonoin grado di modifica re. Cosafa ccio? Cerco di a datta rmi.",
+    "page": 96,
+    "pages": [
+      96
+    ],
+    "keywords": [
+      "progetti",
+      "lmente",
+      "climatici",
+      "cambiamenti",
+      "mitigazione"
+    ]
+  },
+  {
+    "id": "chunk_96",
+    "text": "Per esempio: sonoun produttore divino, so che il cambiamento climatico impatta sul microclima della Valle dell’Adige; quindi, a cquisto terreni in a ltura perché so che fra qua lche annodovrò comunque coltiva repiù in a lto - a ltrimenti a vrò problemi dipara ssiti e insetti. Parla vo condegli imprenditori ola ndesi - ho vissuto molti anniin Olanda . Nel sud dell'Olanda , nel Braba nte, nella zonadi Eindhoven, come a nche nella zonadi Ma a stricht, stanno comincia ndo a pia ntare viti e ulivi. Cisono due colline, il punto più a lto arriva a 180 metri, ma comincia no a d esserci belle distese di vigneti e uliveti. Perché? Perché gli ola ndesi ci vedono lungo, vedono il business. Storicamente sonoun popolo di commercia nti - come i danesi - e hanno pensa to: dobbia mogua rdare a l futuro, alle opportunità di business del futuro. In Sicilia fa ranno fatica a produrre vino? Lofa remonoi. Del resto, in Sicilia stanno già tira ndogiù piante di a rance per pia ntare banani. Come riporta vail Corriere della Sera , nel 2016 sono arriva tele prime banane sicilia ne sul merca toita liano. Quindi, cosa faccio io? Faccio adattamento: mi adatto. Ma posso a nche pensa redifare mitigazione: se divento più sostenibile nel modo in cui produco - qua lunque cosaio produca - inrea ltàsto cerca ndodi impatta redimeno sul cambiamento climatico. Sto cerca ndodi mitiga rlo. Il Dilemma delle Aziende For-Profit Allora , gli scienziatici dicono che si può fa resia mitigazione che a da ttamento. Però, sepa rlate conmolte delle imprese for-profit in tutti i settori che potete immagina re, vi dicono: \"No, iofaccio mitigazione oppure a da ttamento - insieme non posso farli\". Sepa rlate congli ski resort, vi dicono: \"Ah sì, noifa cciamo a da ttamento. No, a spetta , noifa cciamo mitigazione.",
+    "page": 97,
+    "pages": [
+      97
+    ],
+    "keywords": [
+      "perché",
+      "sicilia",
+      "sonoun",
+      "cambiamento",
+      "climatico"
+    ]
+  },
+  {
+    "id": "chunk_97",
+    "text": "Entra mbe? Non ci riuscia mo\". Mase non riuscite a fare entra mbe, è come a vere una Ferra rila nciata a 300 all'ora che punta dritta controunmuro. Perché i clima tologi ti dicono: \"Guarda che nel 2050 non ci saràneve sotto i 2.000 metri\". E allora , che cosa riuscira nno a fare gli impia nti sciistici? Se non c'è neve? \"Sì, manoi spingia mo sulla tecnologia \". Eccoil ra pporto tra tecnologia e stra tegia . \"Noi spingia mo sulla tecnologia perché sappia mo che, se riuscia mo a progredire abba stanza, riusciremo a spara reneve - non chia matela artificia le, per ca ritàdi Dio - neve programmata, a una temperatura prossima allozero, magari 0,5 gradi, forse a nche sopralozero\". Cosa che fino a 15 annifa era inimma ginabile: potevi spara reneve solose c'erano meno 5 o meno 6 gradi. Quindi cosa fanno? Si adattano, ma non mitigano. \n[HEADER] EMBA - Strategia ed Internazionalizzazione 47\n Se invece parli con un clima tologo, tira cconta tutta un'a ltra storia : \"No, guarda , dovresti mitiga re e a da ttare, non solo uno dei due\". Allora , il nostro progetto di ricerca cercherà dica pirequa l è lana rrativa di entra mbele parti, per tira re fuoriuna sintesi. Per dire: \"Guarda te, ilmodo per uscirne è questo. Per continua re a d a vere business for-profit e, nel fra ttempo, tutela rela società nel suo insieme - society as a whole - dobbia mo metterci d'accordo\". Non basta pensare in termini di business model cosìcom'è, di business model for-profit, perché è come a vere una Ferra ri che punta dritta controilmuro. Progetto sulla Carne Coltivata L'a ltro progetto di ricerca è sempre sul lega me tra tecnologia e innovazione, ed è sulla carne coltiva ta .",
+    "page": 98,
+    "pages": [
+      98
+    ],
+    "keywords": [
+      "tecnologia",
+      "entra",
+      "perché",
+      "guarda",
+      "progetto"
+    ]
+  },
+  {
+    "id": "chunk_98",
+    "text": "Voisa pete, a vete letto i giorna li, suppongo, cos'è lacarne coltiva ta e ildiba ttito che c'è stato in Italia sulla cosiddetta \"carne sintetica\". Nel nostro Paese lacarne coltiva ta deriva da una serie di scoperte tecnologiche. Intanto, mentre vira cconto questa storia, non lo faccio solo per intrattenervi: inserisco a lcune parole chiave che ritroveremo più a vanti. Parlo di tecnologie, parlo di innovazione, parlo di strategie, e provo a collega re questi concetti. Uso \"innovazione\" e \"tecnologia \" inmodo quasi interca mbiabile: faccio riferimento alla tecnologia quando mi riferisco a qualcosa di preciso, e parlo di innovazione quando mi riferisco a qualcosa dipiù ampio. Lacarne coltiva ta è il risulta todi una serie di scoperte tecnologiche che risa lgono indietro nel tempo - se volete, fino a l microscopio a sca nsione elettronica di 150 annifa . Queste scoperte hanno portato, negli anni'80, ESA e NASA a ra giona recosì: \"Proba bilmente fra un po'riprendera nnole missioni spazia lidi lunga durata . Che cosa diamo dama ngiare a questi a strona uti? L'insala tina ? I fagioli insca tola ? No, provia mo a dargli la possibilità di coltiva re proteine a nimali direttamente sulla Stazione Spazia le Interna zionale, inmodo che, una volta arriva ti, possa nofa rsiun filetto di merluzzo o una bistecca alla fiorentina \". Comesi fa ? È possibile se abbiamo la tecnologia in vitro, ovvero la tecnologia per fa r replica rele cellule inlabora torio, inmodo controlla to. Dobbia mo risolvere qualche problema tecnico, oltre a qualche problema economico. Inna nzitutto, dobbia mo preleva rele cellule stamina lida gli a nimali.",
+    "page": 99,
+    "pages": [
+      99
+    ],
+    "keywords": [
+      "coltiva",
+      "parlo",
+      "lacarne",
+      "scoperte",
+      "innovazione"
+    ]
+  },
+  {
+    "id": "chunk_99",
+    "text": "Le cellule stamina lisono un'a ltra tecnologia fonda mentale per la carne coltiva ta : sono cellule indifferenzia te, che possono diventa requa lunque cosa - osso, ca rtila gine, muscolo, grasso. Seleziono le cellule che voglio fa r replica re. Quindi selezionerò cellule che possono diventa re muscolo, mami servono a nche cellule che devono diventa regra sso. Perché? Perché nessuno ma ngerebbe carne fatta solodi muscolo: sa rebbe imma sticabile. Ilsa poreci viene da l grasso presente nella carne - e nel pesce, in forma diversa , ma sempre da l grasso. Una volta seleziona tele cellule che mi servono, cosafa ccio? Devofa rle replica reinmodo controlla to, all'interno di biorea ttori - una sorta di frigorifero a l contra rio, che ma ntiene tempera tura e umidità costa nti, comenell'orga nismo a nimale: intorno a i 37 gradi, con il giusto grado di umidità e le stesse condizioni di crescita . Lefaccio replica re. Poi devo metterle insieme. Ho bisogno dicrea reun'intela iatura molecola re, uno scaffolding - sichia ma scaffolding technology. Vela dicoin modo molto semplifica to, perché sera cconta ssi questa storia così a l CIBIO, nel Dipa rtimento di Biologia , mi tirerebbero addosso qua lcosa . Però, per rendere la storia comprensibile: devo posiziona rele cellule inmodo taleda poter replica rela struttura della carne a nimale. Perché dalla struttura molecola re dipendono il colore, ilsapore, il gusto, la texture, la durezza , la morbidezza della carne. E cosìsi ottiene il prodotto finito.",
+    "page": 100,
+    "pages": [
+      100
+    ],
+    "keywords": [
+      "cellule",
+      "carne",
+      "replica",
+      "perché",
+      "diventa"
+    ]
+  }
+]

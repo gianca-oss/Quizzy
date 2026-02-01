@@ -1,0 +1,23 @@
+{
+  "version": "1.0",
+  "courseName": "strategia-internazionalizzazione",
+  "sourceFile": "source.pdf",
+  "processedAt": "2026-02-01T16:25:44.632Z",
+  "stats": {
+    "totalPages": 149,
+    "pagesWithContent": 1,
+    "totalChunks": 389,
+    "totalCharacters": 623871,
+    "avgChunkSize": 1603,
+    "totalKeywords": 976,
+    "totalFiles": 8
+  },
+  "config": {
+    "CHUNK_SIZE": 1500,
+    "CHUNK_OVERLAP": 300,
+    "MIN_PAGE_LENGTH": 50,
+    "CHUNKS_PER_FILE": 50,
+    "TOP_KEYWORDS": 5
+  },
+  "topTopics": []
+}
