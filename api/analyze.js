@@ -601,16 +601,44 @@ Risposta: B`;
         let analysisText = '';
         let foundAnalysis = false;
         const answers = {}; // Mappa numero domanda -> {letter, source}
+        let currentQuestion = null;
 
-        // Prima passa: cerca risposte nel formato "1. C [CITATO]" o "1. C [AI]" o "1. C [VERIFICATO]"
+        // Parse risposte e analisi
         lines.forEach(line => {
             if (line.includes('ANALISI:')) {
                 foundAnalysis = true;
                 analysisText = line.replace('ANALISI:', '').trim();
             } else if (foundAnalysis) {
                 analysisText += '\n' + line;
+
+                // Cerca numero domanda nell'analisi (es. **1. o **2.)
+                const questionMatch = line.match(/^\*\*(\d+)\./);
+                if (questionMatch) {
+                    currentQuestion = questionMatch[1];
+                }
+
+                // Cerca [CITATO] o [AI] nell'analisi per determinare la fonte
+                if (currentQuestion && !answers[currentQuestion]) {
+                    if (line.includes('[CITATO]')) {
+                        answers[currentQuestion] = { letter: '?', source: 'CITATO' };
+                    } else if (line.includes('[AI]')) {
+                        answers[currentQuestion] = { letter: '?', source: 'AI' };
+                    } else if (line.includes('[VERIFICATO]')) {
+                        answers[currentQuestion] = { letter: '?', source: 'VERIFICATO' };
+                    }
+                }
+
+                // Cerca "Risposta: X" nell'analisi
+                const respMatch = line.match(/Risposta:\s*([A-Da-d])/i);
+                if (respMatch && currentQuestion) {
+                    if (answers[currentQuestion]) {
+                        answers[currentQuestion].letter = respMatch[1].toUpperCase();
+                    } else {
+                        answers[currentQuestion] = { letter: respMatch[1].toUpperCase(), source: 'AI' };
+                    }
+                }
             } else {
-                // Parse risposte - formato "1. C [CITATO]" o "1. C [AI]" o "1. C [VERIFICATO]"
+                // Parse risposte nella sezione RISPOSTE - formato "1. C [CITATO]"
                 const match = line.match(/^(\d+)[.):]\s*([a-dA-D])\s*\[?(CITATO|VERIFICATO|AI)?\]?/i);
                 if (match) {
                     answers[match[1]] = {
