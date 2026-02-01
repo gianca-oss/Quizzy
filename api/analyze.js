@@ -495,6 +495,13 @@ C: [opzione]
             });
         }
 
+        // Limita a max 15 domande per evitare timeout
+        const MAX_QUESTIONS = 15;
+        if (questions.length > MAX_QUESTIONS) {
+            console.log(`⚠️ Troppe domande (${questions.length}), limito a ${MAX_QUESTIONS}`);
+            questions = questions.slice(0, MAX_QUESTIONS);
+        }
+
         // STEP 3: CERCA LE RISPOSTE NEL DOCUMENTO
         const searchResults = searchForAnswers(questions, data.textChunks);
 
