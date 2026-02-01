@@ -508,7 +508,8 @@ C: [opzione]
                 questionsWithContext.push(index + 1); // Domanda ha contesto
                 contextPerQuestion += `\nDOMANDA ${index + 1} - CONTESTO TROVATO:\n`;
                 result.matches.slice(0, 2).forEach(match => {
-                    contextPerQuestion += `[Pag ${match.page}] ${match.chunk.text.substring(0, 300)}...\n`;
+                    // Passa più testo (800 char) per includere informazioni complete
+                    contextPerQuestion += `[Pag ${match.page}] ${match.chunk.text.substring(0, 800)}...\n`;
                 });
             } else {
                 contextPerQuestion += `\nDOMANDA ${index + 1} - NESSUN CONTESTO NEL CORSO\n`;
