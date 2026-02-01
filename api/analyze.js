@@ -322,28 +322,24 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `LEGGI L'IMMAGINE DALL'ALTO VERSO IL BASSO, riga per riga.
+        const extractPrompt = `Estrai tutte le domande del quiz da questa immagine.
 
-ORDINE DI LETTURA CRITICO:
-- DOMANDA_1 = la PRIMA domanda che appare IN ALTO nell'immagine
-- DOMANDA_2 = la domanda SUBITO SOTTO la prima
-- DOMANDA_3 = la domanda SOTTO la seconda
-- E così via fino all'ULTIMA domanda IN FONDO
+Leggi dall'alto verso il basso. La prima domanda in alto è la numero 1.
 
-Per OGNI domanda, scrivi:
+Formato richiesto per ogni domanda:
+
 DOMANDA_1
-TESTO: [testo della domanda più in alto]
-OPZIONE_A: [opzione A]
-OPZIONE_B: [opzione B]
-OPZIONE_C: [opzione C]
-OPZIONE_D: [opzione D se presente]
+TESTO: testo della prima domanda
+OPZIONE_A: prima opzione
+OPZIONE_B: seconda opzione
+OPZIONE_C: terza opzione
+OPZIONE_D: quarta opzione (se presente)
 ---
+DOMANDA_2
+TESTO: testo della seconda domanda
+...
 
-REGOLE:
-- Procedi SEMPRE dall'ALTO verso il BASSO
-- NON cambiare l'ordine delle domande
-- La numerazione deve riflettere la posizione verticale nell'immagine
-- Estrai TUTTE le domande (spesso 5-10)`;
+Estrai TUTTE le domande visibili nell'immagine.`;
 
         let extractResponse;
         try {
@@ -571,21 +567,15 @@ C) ${q.options.C || ''}
 D) ${q.options.D || ''}
 `).join('\n')}
 
-IMPORTANTE: Usa il CONTESTO DAL CORSO sopra per rispondere.
-Rispondi SOLO così:
-1. [lettera]
-2. [lettera]
-(continua per tutte)
+Rispondi con la lettera corretta per ogni domanda:
+1. A/B/C/D
+2. A/B/C/D
+(una riga per domanda)
 
-Poi aggiungi la sezione ANALISI con questo formato ESATTO per ogni domanda:
-ANALISI:
-**1. [testo completo della domanda]**
-[spiegazione della risposta]
-
-**2. [testo completo della domanda]**
-[spiegazione della risposta]
-
-(continua per tutte le domande)`;
+Poi scrivi ANALISI: e per ogni domanda scrivi il testo della domanda in grassetto seguito dalla spiegazione.
+Esempio:
+**1. Testo della domanda qui**
+Spiegazione del perché la risposta è corretta.`;
 
         let analysisResponse;
         try {
