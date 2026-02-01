@@ -322,18 +322,24 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `Estrai TUTTE le domande dal quiz nell'immagine.
+        const extractPrompt = `ANALIZZA ATTENTAMENTE L'INTERA IMMAGINE e conta TUTTE le domande presenti.
+SCANSIONA DALL'INIZIO ALLA FINE per non perdere nessuna domanda.
 
-Per ogni domanda, scrivi ESATTAMENTE in questo formato:
+Per OGNI domanda trovata, scrivi ESATTAMENTE in questo formato:
 DOMANDA_1
 TESTO: [testo completo della domanda]
 OPZIONE_A: [testo opzione A]
 OPZIONE_B: [testo opzione B]
 OPZIONE_C: [testo opzione C]
-OPZIONE_D: [testo opzione D]
+OPZIONE_D: [testo opzione D se presente]
 ---
 
-IMPORTANTE: Separa ogni domanda con --- e NON aggiungere altro.`;
+REGOLE CRITICHE:
+- Conta OGNI domanda nell'immagine (spesso sono 5-10 domande)
+- NON fermarti prima di aver estratto TUTTE le domande
+- Alcune domande hanno 3 opzioni, altre 4 - estraile tutte
+- Separa ogni domanda con ---
+- Scorri fino in FONDO all'immagine`;
 
         let extractResponse;
         try {
@@ -346,7 +352,7 @@ IMPORTANTE: Separa ogni domanda con --- e NON aggiungere altro.`;
                 },
                 body: JSON.stringify({
                     model: 'claude-3-haiku-20240307',
-                    max_tokens: 2000,
+                    max_tokens: 4000,
                     temperature: 0,
                     messages: [{
                         role: 'user',
