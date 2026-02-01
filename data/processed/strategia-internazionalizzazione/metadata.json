@@ -2,14 +2,14 @@
   "version": "1.0",
   "courseName": "strategia-internazionalizzazione",
   "sourceFile": "source.pdf",
-  "processedAt": "2026-02-01T16:25:44.632Z",
+  "processedAt": "2026-02-01T16:37:48.966Z",
   "stats": {
     "totalPages": 149,
     "pagesWithContent": 1,
     "totalChunks": 389,
-    "totalCharacters": 623871,
-    "avgChunkSize": 1603,
-    "totalKeywords": 976,
+    "totalCharacters": 625707,
+    "avgChunkSize": 1607,
+    "totalKeywords": 960,
     "totalFiles": 8
   },
   "config": {
