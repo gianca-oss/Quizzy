@@ -659,7 +659,12 @@ Spiegazione del perché la risposta è corretta.`;
             '<h3 style="font-size: 16px;">Analisi:</h3>' +
             '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">' +
             (analysisText || finalResponse) +
-            '</div></div>';
+            '</div></div>' +
+            '<details style="margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 8px;">' +
+            '<summary style="cursor: pointer; font-weight: bold;">🔍 Debug: Risposta Claude (clicca per espandere)</summary>' +
+            '<pre style="white-space: pre-wrap; font-size: 11px; margin-top: 10px; max-height: 300px; overflow-y: auto;">' +
+            responseText.replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+            '</pre></details>';
 
         res.status(200).json({
             content: [{
@@ -667,11 +672,11 @@ Spiegazione del perché la risposta è corretta.`;
                 text: formattedContent
             }],
             metadata: {
-                model: 'claude-3-haiku-20240307',
+                model: 'claude-sonnet-4-20250514',
                 processingMethod: 'document-search',
                 chunksSearched: data.textChunks.length,
                 questionsAnalyzed: questions.length,
-                accuracy: 'high'
+                rawExtraction: responseText.substring(0, 2000) // DEBUG: mostra risposta raw
             }
         });
 
