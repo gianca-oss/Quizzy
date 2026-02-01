@@ -302,64 +302,52 @@
             box-shadow: none;
         }
         
-        /* Table wrapper for scroll on mobile */
+        /* Results container */
         .results {
             display: none;
-            padding: 10px;
-            border-top: none;
-            height: 100vh;
+            padding: 15px;
+            padding-top: 60px;
+            padding-bottom: 100px;
+            min-height: 100vh;
             overflow-y: auto;
-            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 80px;
         }
-        
-        /* Compact table cells for mobile optimization */
-        @media (max-width: 430px) {
-            .results-table th {
-                padding: 6px 8px;
-                font-size: 11px;
-            }
-            
-            .results-table td {
-                padding: 5px 8px;
-                font-size: 12px;
-                line-height: 1.2;
-            }
-            
-            .results-table td:first-child {
-                width: 50px;
-                padding: 5px;
-            }
-            
+
+        /* Mobile optimization */
+        @media (max-width: 500px) {
             .results {
-                height: 100vh;
-                padding: 0;
-                margin: 0;
+                padding: 10px;
+                padding-top: 55px;
+                padding-bottom: 120px;
             }
-            
+
             .results #resultsContent {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
+                width: 100%;
             }
-            
-            .results-table {
-                flex: 1;
-                margin: 0;
-                margin-top: 50px; /* Space for the fixed back button */
-                border-radius: 0;
-                border: none;
-                border-top: 1px solid var(--border-primary);
-                border-bottom: 1px solid var(--border-primary);
+
+            .results #resultsContent table {
+                width: 100% !important;
+                max-width: 100% !important;
+                font-size: 14px;
+                table-layout: fixed;
             }
-            
+
+            .results #resultsContent table th,
+            .results #resultsContent table td {
+                padding: 8px 5px !important;
+                word-wrap: break-word;
+            }
+
+            .results #resultsContent div {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
             .back-button {
                 position: fixed;
                 top: 10px;
                 left: 10px;
                 z-index: 1000;
-                margin: 0;
             }
         }
         
@@ -457,23 +445,20 @@
         .result-content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 0;
-            display: block;
-            overflow-x: auto;
+            margin: 0 0 15px 0;
         }
 
         .result-content th {
             background: #f5f5f7;
-            padding: 8px;
+            padding: 10px 8px;
             border: 1px solid #d2d2d7;
             text-align: center;
             font-weight: 600;
             color: #1d1d1f;
-            white-space: nowrap;
         }
 
         .result-content td {
-            padding: 8px;
+            padding: 10px 8px;
             border: 1px solid #d2d2d7;
             vertical-align: middle;
             text-align: center;
@@ -481,31 +466,6 @@
 
         .result-content tr:hover td {
             background: #f9f9f9;
-        }
-
-        /* Mobile fixes for results */
-        @media (max-width: 500px) {
-            #resultsContent {
-                padding: 10px;
-                padding-bottom: 100px;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .result-content table {
-                font-size: 14px;
-                margin-bottom: 15px;
-            }
-
-            .result-content th,
-            .result-content td {
-                padding: 10px 6px;
-            }
-
-            .result-content div {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
         }
         
         /* Styles for explanations sections */
