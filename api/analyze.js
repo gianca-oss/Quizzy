@@ -571,9 +571,9 @@ spiegazione
                     'anthropic-version': '2023-06-01'
                 },
                 body: JSON.stringify({
-                    model: 'claude-3-haiku-20240307',
-                    max_tokens: 3000,
-                    temperature: 0.1,
+                    model: 'claude-opus-4-20250514',
+                    max_tokens: 4000,
+                    temperature: 0,
                     messages: [{
                         role: 'user',
                         content: [{ type: 'text', text: analysisPrompt }]
