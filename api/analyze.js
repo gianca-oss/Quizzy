@@ -539,16 +539,19 @@ FORMATO RICHIESTO:
 RISPOSTE:
 1. C [CITATO]
 2. B [AI]
-(una riga per domanda, lettera + tag)
+3. A [CITATO]
+(IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
 ANALISI:
-**1. [domanda breve]**
-[CITATO] "copia qui il testo esatto dal contesto" [Pag. X]
+**1. [domanda]**
+[CITATO] "citazione esatta" [Pag. X]
 Risposta: C
 
-**2. [domanda breve]**
-[AI] Non presente nel contesto. [spiegazione breve]
-Risposta: B`;
+**2. [domanda]**
+[AI] Non nel contesto.
+Risposta: B (basata sulle mie conoscenze)
+
+(IMPORTANTE: scrivi SEMPRE "Risposta: X" con una lettera A/B/C/D)`;
 
         let analysisResponse;
         try {
