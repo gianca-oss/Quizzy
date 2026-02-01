@@ -321,32 +321,16 @@ export default async function handler(req, res) {
         
         await new Promise(resolve => setTimeout(resolve, 1000)); // Delay per rate limit
         
-        const extractPrompt = `Questa immagine contiene un quiz con MOLTE domande (probabilmente 5-10). Devi estrarre TUTTE le domande visibili.
+        const extractPrompt = `Quante domande ci sono in questa immagine? Elencale TUTTE.
 
-ISTRUZIONI:
-1. Scorri l'INTERA immagine dall'alto verso il basso
-2. Estrai OGNI singola domanda che vedi
-3. NON fermarti dopo 2-3 domande - continua fino alla FINE dell'immagine
-
-Formato per ogni domanda:
+Formato:
 DOMANDA_1
-TESTO: [prima domanda in alto]
-OPZIONE_A: [opzione]
-OPZIONE_B: [opzione]
-OPZIONE_C: [opzione]
+TESTO: [domanda]
+A: [opzione]
+B: [opzione]
+C: [opzione]
 ---
-DOMANDA_2
-TESTO: [seconda domanda]
-OPZIONE_A: [opzione]
-OPZIONE_B: [opzione]
-OPZIONE_C: [opzione]
----
-DOMANDA_3
-TESTO: [terza domanda]
-...continua...
----
-
-IMPORTANTE: Continua con DOMANDA_4, DOMANDA_5, DOMANDA_6, DOMANDA_7 ecc. fino all'ULTIMA domanda in fondo all'immagine. Non fermarti prima!`;
+(ripeti per ogni domanda fino all'ultima)`;
 
         let extractResponse;
         try {
