@@ -302,64 +302,51 @@
             box-shadow: none;
         }
         
-        /* Table wrapper for scroll on mobile */
+        /* Results container */
         .results {
             display: none;
-            padding: 10px;
-            border-top: none;
-            height: 100vh;
+            padding: 15px;
+            padding-top: 60px;
+            padding-bottom: 100px;
+            min-height: 100vh;
             overflow-y: auto;
-            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 80px;
         }
-        
-        /* Compact table cells for mobile optimization */
-        @media (max-width: 430px) {
-            .results-table th {
-                padding: 6px 8px;
-                font-size: 11px;
-            }
-            
-            .results-table td {
-                padding: 5px 8px;
-                font-size: 12px;
-                line-height: 1.2;
-            }
-            
-            .results-table td:first-child {
-                width: 50px;
-                padding: 5px;
-            }
-            
+
+        /* Mobile optimization */
+        @media (max-width: 500px) {
             .results {
-                height: 100vh;
-                padding: 0;
-                margin: 0;
+                padding: 10px;
+                padding-top: 55px;
+                padding-bottom: 120px;
             }
-            
+
             .results #resultsContent {
-                height: 100%;
-                display: flex;
-                flex-direction: column;
+                width: 100%;
             }
-            
-            .results-table {
-                flex: 1;
-                margin: 0;
-                margin-top: 50px; /* Space for the fixed back button */
-                border-radius: 0;
-                border: none;
-                border-top: 1px solid var(--border-primary);
-                border-bottom: 1px solid var(--border-primary);
+
+            .results #resultsContent table {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 auto 15px auto !important;
+                font-size: 13px;
             }
-            
+
+            .results #resultsContent table th,
+            .results #resultsContent table td {
+                padding: 8px 4px !important;
+            }
+
+            .results #resultsContent div {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
             .back-button {
                 position: fixed;
                 top: 10px;
                 left: 10px;
                 z-index: 1000;
-                margin: 0;
             }
         }
         
@@ -457,23 +444,20 @@
         .result-content table {
             width: 100%;
             border-collapse: collapse;
-            margin: 0;
-            display: block;
-            overflow-x: auto;
+            margin: 0 0 15px 0;
         }
 
         .result-content th {
             background: #f5f5f7;
-            padding: 8px;
+            padding: 10px 8px;
             border: 1px solid #d2d2d7;
             text-align: center;
             font-weight: 600;
             color: #1d1d1f;
-            white-space: nowrap;
         }
 
         .result-content td {
-            padding: 8px;
+            padding: 10px 8px;
             border: 1px solid #d2d2d7;
             vertical-align: middle;
             text-align: center;
@@ -481,31 +465,6 @@
 
         .result-content tr:hover td {
             background: #f9f9f9;
-        }
-
-        /* Mobile fixes for results */
-        @media (max-width: 500px) {
-            #resultsContent {
-                padding: 10px;
-                padding-bottom: 100px;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .result-content table {
-                font-size: 14px;
-                margin-bottom: 15px;
-            }
-
-            .result-content th,
-            .result-content td {
-                padding: 10px 6px;
-            }
-
-            .result-content div {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
         }
         
         /* Styles for explanations sections */
@@ -1273,84 +1232,25 @@
                 
                 // Calculate total questions for internal use
                 const totalQuestions = allResults.reduce((sum, r) => sum + r.parsed.questions.length, 0);
-                
-                // Direct table output - NO WRAPPERS
-                if (totalQuestions > 0) {
-                    consolidatedHTML += `
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 15%;">Domanda</th>
-                                    <th style="width: 85%;">Risposta</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    `;
-                    
-                    let questionCounter = 1;
-                    allResults.forEach(result => {
-                        result.parsed.questions.forEach(q => {
-                            consolidatedHTML += `
-                                <tr>
-                                    <td style="text-align: center; font-weight: 600;">${questionCounter}</td>
-                                    <td>${q.answer}</td>
-                                </tr>
-                            `;
-                            questionCounter++;
-                        });
-                    });
-                    
-                    consolidatedHTML += `
-                            </tbody>
-                        </table>
-                    `;
+
+                // Use API's HTML directly (contains table with FONTE column)
+                if (allResults.length > 0 && allResults[0].content) {
+                    consolidatedHTML += `<div class="result-content">${allResults[0].content}</div>`;
+                }
+
+                // Add additional images' content if multiple images
+                if (allResults.length > 1) {
+                    for (let i = 1; i < allResults.length; i++) {
+                        consolidatedHTML += `
+                            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                            <h4 style="color: #666; margin-bottom: 10px;">Immagine ${i + 1}</h4>
+                            <div class="result-content">${allResults[i].content}</div>
+                        `;
+                    }
                 }
                 
-                // Consolidated explanations - simplified
-                const allExplanations = allResults.flatMap((r, idx) => 
-                    r.parsed.explanations.length > 0 ? 
-                    { imageIndex: idx + 1, content: r.parsed.explanations.join('\n') } : []
-                );
-                
-                if (allExplanations.length > 0) {
-                    consolidatedHTML += `<div class="explanations-section">`;
-                    
-                    allExplanations.forEach(exp => {
-                        if (images.length > 1) {
-                            consolidatedHTML += `
-                                <div class="explanation-section">
-                                    <h4>IMMAGINE ${exp.imageIndex}</h4>
-                                    ${exp.content}
-                                </div>
-                            `;
-                        } else {
-                            consolidatedHTML += exp.content;
-                        }
-                    });
-                    
-                    consolidatedHTML += `</div>`;
-                }
-                
-                // If no parsed content, show raw results
-                if (totalQuestions === 0 && allExplanations.length === 0) {
-                    consolidatedHTML += `<div class="raw-results">`;
-                    
-                    allResults.forEach(result => {
-                        if (images.length > 1) {
-                            consolidatedHTML += `
-                                <div class="explanation-section">
-                                    <h4>IMMAGINE ${result.imageIndex}</h4>
-                                    ${result.content}
-                                </div>
-                            `;
-                        } else {
-                            consolidatedHTML += result.content;
-                        }
-                    });
-                    
-                    consolidatedHTML += `</div>`;
-                    consolidatedHTML += `</div>`;
-                }
+                // Close wrapper div
+                consolidatedHTML += `</div>`;
                 
                 // Display results
                 resultsContent.innerHTML = consolidatedHTML;
