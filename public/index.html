@@ -1232,84 +1232,25 @@
                 
                 // Calculate total questions for internal use
                 const totalQuestions = allResults.reduce((sum, r) => sum + r.parsed.questions.length, 0);
-                
-                // Direct table output - NO WRAPPERS
-                if (totalQuestions > 0) {
-                    consolidatedHTML += `
-                        <table class="results-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 15%;">Domanda</th>
-                                    <th style="width: 85%;">Risposta</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                    `;
-                    
-                    let questionCounter = 1;
-                    allResults.forEach(result => {
-                        result.parsed.questions.forEach(q => {
-                            consolidatedHTML += `
-                                <tr>
-                                    <td style="text-align: center; font-weight: 600;">${questionCounter}</td>
-                                    <td>${q.answer}</td>
-                                </tr>
-                            `;
-                            questionCounter++;
-                        });
-                    });
-                    
-                    consolidatedHTML += `
-                            </tbody>
-                        </table>
-                    `;
+
+                // Use API's HTML directly (contains table with FONTE column)
+                if (allResults.length > 0 && allResults[0].content) {
+                    consolidatedHTML += `<div class="result-content">${allResults[0].content}</div>`;
+                }
+
+                // Add additional images' content if multiple images
+                if (allResults.length > 1) {
+                    for (let i = 1; i < allResults.length; i++) {
+                        consolidatedHTML += `
+                            <hr style="margin: 20px 0; border: none; border-top: 1px solid #ddd;">
+                            <h4 style="color: #666; margin-bottom: 10px;">Immagine ${i + 1}</h4>
+                            <div class="result-content">${allResults[i].content}</div>
+                        `;
+                    }
                 }
                 
-                // Consolidated explanations - simplified
-                const allExplanations = allResults.flatMap((r, idx) => 
-                    r.parsed.explanations.length > 0 ? 
-                    { imageIndex: idx + 1, content: r.parsed.explanations.join('\n') } : []
-                );
-                
-                if (allExplanations.length > 0) {
-                    consolidatedHTML += `<div class="explanations-section">`;
-                    
-                    allExplanations.forEach(exp => {
-                        if (images.length > 1) {
-                            consolidatedHTML += `
-                                <div class="explanation-section">
-                                    <h4>IMMAGINE ${exp.imageIndex}</h4>
-                                    ${exp.content}
-                                </div>
-                            `;
-                        } else {
-                            consolidatedHTML += exp.content;
-                        }
-                    });
-                    
-                    consolidatedHTML += `</div>`;
-                }
-                
-                // If no parsed content, show raw results
-                if (totalQuestions === 0 && allExplanations.length === 0) {
-                    consolidatedHTML += `<div class="raw-results">`;
-                    
-                    allResults.forEach(result => {
-                        if (images.length > 1) {
-                            consolidatedHTML += `
-                                <div class="explanation-section">
-                                    <h4>IMMAGINE ${result.imageIndex}</h4>
-                                    ${result.content}
-                                </div>
-                            `;
-                        } else {
-                            consolidatedHTML += result.content;
-                        }
-                    });
-                    
-                    consolidatedHTML += `</div>`;
-                    consolidatedHTML += `</div>`;
-                }
+                // Close wrapper div
+                consolidatedHTML += `</div>`;
                 
                 // Display results
                 resultsContent.innerHTML = consolidatedHTML;
