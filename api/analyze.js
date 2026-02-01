@@ -657,7 +657,6 @@ ANALISI: [breve spiegazione basata sul corso]`;
         tableHtml += '</tbody></table>';
         
         const formattedContent = tableHtml +
-            '<hr style="margin: 20px 0; border: none; border-top: 1px solid #d2d2d7;">' +
             '<div style="margin-top: 20px;">' +
             '<h3 style="font-size: 16px; color: #1d1d1f;">Analisi:</h3>' +
             '<div style="white-space: pre-wrap; line-height: 1.5; color: #515154;">' +
