@@ -609,12 +609,12 @@ ANALISI: [breve spiegazione basata sul corso]`;
         
         console.log('RISPOSTA FINALE:', finalResponse.substring(0, 200) + '...');
 
-        // Parse risposte e crea tabella (mobile-friendly)
+        // Parse risposte e crea tabella (supporta dark mode)
         let tableHtml = '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">';
-        tableHtml += '<thead><tr style="background: #f5f5f7;">';
-        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">N°</th>';
-        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">RISPOSTA</th>';
-        tableHtml += '<th style="padding: 10px; border: 1px solid #ddd;">FONTE</th>';
+        tableHtml += '<thead><tr>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">N°</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">RISPOSTA</th>';
+        tableHtml += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600;">FONTE</th>';
         tableHtml += '</tr></thead><tbody>';
 
         const lines = finalResponse.split('\n');
@@ -646,9 +646,9 @@ ANALISI: [breve spiegazione basata sul corso]`;
                     }
 
                     tableHtml += '<tr>';
-                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid #ddd;">${num}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid #ddd;">${letter.toUpperCase()}</td>`;
-                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid #ddd;">${sourceIndicator}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3);">${num}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3);">${letter.toUpperCase()}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid rgba(128,128,128,0.3);">${sourceIndicator}</td>`;
                     tableHtml += '</tr>';
                 }
             }
@@ -658,8 +658,8 @@ ANALISI: [breve spiegazione basata sul corso]`;
         
         const formattedContent = tableHtml +
             '<div style="margin-top: 20px;">' +
-            '<h3 style="font-size: 16px; color: #1d1d1f;">Analisi:</h3>' +
-            '<div style="white-space: pre-wrap; line-height: 1.5; color: #515154;">' +
+            '<h3 style="font-size: 16px;">Analisi:</h3>' +
+            '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">' +
             (analysisText || finalResponse) +
             '</div></div>';
 
