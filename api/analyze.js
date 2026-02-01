@@ -520,7 +520,14 @@ C: [opzione]
         
         await new Promise(resolve => setTimeout(resolve, 2000)); // Delay per rate limit
         
-        const analysisPrompt = `CONTESTO DAL CORSO:
+        const analysisPrompt = `SEI UN ASSISTENTE CHE RISPONDE SOLO BASANDOSI SUL MATERIALE DEL CORSO.
+
+REGOLE FONDAMENTALI:
+1. Se trovi la risposta nel CONTESTO DAL CORSO, DEVI citare il passaggio esatto tra virgolette
+2. Se NON trovi informazioni sufficienti, scrivi "NON TROVATO NEL MATERIALE" e rispondi con la tua conoscenza
+3. Indica sempre [CITATO], [VERIFICATO] o [AI] per ogni risposta
+
+CONTESTO DAL CORSO:
 ${contextPerQuestion}
 
 DOMANDE DEL QUIZ:
@@ -535,18 +542,23 @@ D) ${q.options.D || ''}
 RISPONDI IN QUESTO FORMATO ESATTO:
 
 RISPOSTE:
-1. C
-2. B
-3. A
-(continua per tutte le ${questions.length} domande, una per riga)
+1. C [CITATO]
+2. B [AI]
+3. A [VERIFICATO]
+(continua per tutte le ${questions.length} domande)
 
 ANALISI:
 **1. testo domanda**
-spiegazione
+[CITATO] Dal corso: "citazione esatta dal PDF" (Pag. X)
+Quindi la risposta è C.
 
 **2. testo domanda**
-spiegazione
-(continua per tutte)`;
+[AI] Non trovato nel materiale. In base alle mie conoscenze...
+
+**3. testo domanda**
+[VERIFICATO] Il corso menziona questo concetto a Pag. X. La risposta è A.
+
+(continua per tutte le ${questions.length} domande)`;
 
         let analysisResponse;
         try {
@@ -598,39 +610,45 @@ spiegazione
         const lines = finalResponse.split('\n');
         let analysisText = '';
         let foundAnalysis = false;
-        const answers = {}; // Mappa numero domanda -> risposta
+        const answers = {}; // Mappa numero domanda -> {letter, source}
 
-        // Prima passa: cerca risposte nel formato "1. C" o "La risposta corretta è X"
+        // Prima passa: cerca risposte nel formato "1. C [CITATO]" o "1. C [AI]" o "1. C [VERIFICATO]"
         lines.forEach(line => {
             if (line.includes('ANALISI:')) {
                 foundAnalysis = true;
                 analysisText = line.replace('ANALISI:', '').trim();
             } else if (foundAnalysis) {
                 analysisText += '\n' + line;
-                // Cerca anche "La risposta corretta è X" nell'analisi
-                const altMatch = line.match(/risposta\s+(?:corretta\s+)?(?:è|e)\s+([A-Da-d])/i);
-                if (altMatch) {
-                    // Trova il numero della domanda dal contesto (es. **1. o **2.)
-                    const numMatch = analysisText.match(/\*\*(\d+)\.[^*]*$/);
-                    if (numMatch && !answers[numMatch[1]]) {
-                        answers[numMatch[1]] = altMatch[1].toUpperCase();
-                    }
-                }
             } else {
-                // Parse risposte - formato "1. C"
-                const match = line.match(/^(\d+)[.):]\s*([a-dA-D])\b/);
+                // Parse risposte - formato "1. C [CITATO]" o "1. C [AI]" o "1. C [VERIFICATO]"
+                const match = line.match(/^(\d+)[.):]\s*([a-dA-D])\s*\[?(CITATO|VERIFICATO|AI)?\]?/i);
                 if (match) {
-                    answers[match[1]] = match[2].toUpperCase();
+                    answers[match[1]] = {
+                        letter: match[2].toUpperCase(),
+                        source: match[3] ? match[3].toUpperCase() : 'AI'
+                    };
                 }
             }
         });
 
-        // Genera tabella con le risposte trovate
+        // Genera tabella con le risposte trovate e il livello di fonte da Claude
         for (let i = 1; i <= questions.length; i++) {
-            const letter = answers[i] || '?';
-            const hasContext = questionsWithContext.includes(i);
-            const sourceIndicator = hasContext ? '📚 PDF' : '⚠️ AI';
-            const sourceColor = hasContext ? '#34c759' : '#ff9500';
+            const answer = answers[i] || { letter: '?', source: 'AI' };
+            const letter = answer.letter;
+            const source = answer.source;
+
+            // Tre livelli di fonte con colori diversi
+            let sourceIndicator, sourceColor;
+            if (source === 'CITATO') {
+                sourceIndicator = '📚 CITATO';
+                sourceColor = '#34c759'; // Verde
+            } else if (source === 'VERIFICATO') {
+                sourceIndicator = '🔍 VERIFICATO';
+                sourceColor = '#007aff'; // Blu
+            } else {
+                sourceIndicator = '⚠️ AI';
+                sourceColor = '#ff9500'; // Arancione
+            }
 
             tableHtml += '<tr>';
             tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${i}</td>`;
@@ -640,8 +658,17 @@ spiegazione
         }
         
         tableHtml += '</tbody></table>';
-        
-        const formattedContent = tableHtml +
+
+        // Legenda dei livelli di fonte
+        const legendHtml = `
+        <div style="margin: 10px 0; padding: 10px; background: rgba(128,128,128,0.1); border-radius: 8px; font-size: 12px;">
+            <b>Legenda:</b>
+            <span style="color: #34c759; margin-left: 10px;">📚 CITATO</span> = citazione diretta dal PDF
+            <span style="color: #007aff; margin-left: 10px;">🔍 VERIFICATO</span> = trovato nel PDF, rielaborato
+            <span style="color: #ff9500; margin-left: 10px;">⚠️ AI</span> = non trovato nel materiale
+        </div>`;
+
+        const formattedContent = tableHtml + legendHtml +
             '<div style="margin-top: 20px;">' +
             '<h3 style="font-size: 16px;">Analisi:</h3>' +
             '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">' +
