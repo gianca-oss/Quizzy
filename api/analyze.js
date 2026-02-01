@@ -608,12 +608,12 @@ ANALISI: [breve spiegazione basata sul corso]`;
         
         console.log('RISPOSTA FINALE:', finalResponse.substring(0, 200) + '...');
 
-        // Parse risposte e crea tabella
-        let tableHtml = '<table style="width: 100%; max-width: 550px; margin: 20px auto; border-collapse: collapse;">';
+        // Parse risposte e crea tabella (mobile-friendly)
+        let tableHtml = '<table style="width: 100%; max-width: 400px; margin: 20px auto; border-collapse: collapse; table-layout: fixed;">';
         tableHtml += '<thead><tr style="background: #f5f5f7;">';
-        tableHtml += '<th style="padding: 12px;">DOMANDA</th>';
-        tableHtml += '<th style="padding: 12px;">RISPOSTA</th>';
-        tableHtml += '<th style="padding: 12px;">FONTE</th>';
+        tableHtml += '<th style="padding: 10px; width: 25%;">N°</th>';
+        tableHtml += '<th style="padding: 10px; width: 35%;">RISPOSTA</th>';
+        tableHtml += '<th style="padding: 10px; width: 40%;">FONTE</th>';
         tableHtml += '</tr></thead><tbody>';
 
         const lines = finalResponse.split('\n');
@@ -634,20 +634,20 @@ ANALISI: [breve spiegazione basata sul corso]`;
                     const questionNum = parseInt(num);
                     const hasContext = questionsWithContext.includes(questionNum);
 
-                    // Indicatore basato su se la risposta viene dal PDF
+                    // Indicatore compatto per mobile
                     let sourceIndicator, sourceColor;
                     if (hasContext) {
-                        sourceIndicator = '📚 Dal corso';
+                        sourceIndicator = '📚 PDF';
                         sourceColor = '#34c759'; // Verde
                     } else {
-                        sourceIndicator = '⚠️ Non nel PDF';
+                        sourceIndicator = '⚠️ AI';
                         sourceColor = '#ff9500'; // Arancione
                     }
 
                     tableHtml += '<tr>';
-                    tableHtml += `<td style="padding: 12px; text-align: center;">${num}</td>`;
-                    tableHtml += `<td style="padding: 12px; text-align: center; font-weight: bold; font-size: 18px;">${letter.toUpperCase()}</td>`;
-                    tableHtml += `<td style="padding: 12px; text-align: center; color: ${sourceColor}; font-weight: 600; font-size: 13px;">${sourceIndicator}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center;">${num}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 20px;">${letter.toUpperCase()}</td>`;
+                    tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; font-size: 14px;">${sourceIndicator}</td>`;
                     tableHtml += '</tr>';
                 }
             }
@@ -659,10 +659,10 @@ ANALISI: [breve spiegazione basata sul corso]`;
         const fromPdfCount = questionsWithContext.length;
         const notFoundCount = questions.length - fromPdfCount;
 
-        let legendHtml = '<div style="margin-top: 15px; padding: 10px; background: #f5f5f7; border-radius: 8px; font-size: 12px;">';
-        legendHtml += '<strong>Legenda:</strong> ';
-        legendHtml += '<span style="color: #34c759;">📚 Dal corso</span> = risposta trovata nel PDF | ';
-        legendHtml += '<span style="color: #ff9500;">⚠️ Non nel PDF</span> = risposta da AI (verifica!)';
+        let legendHtml = '<div style="margin-top: 15px; padding: 10px; background: #f5f5f7; border-radius: 8px; font-size: 13px; text-align: center;">';
+        legendHtml += '<span style="color: #34c759;">📚 PDF</span> = dal corso ';
+        legendHtml += '<span style="margin: 0 8px;">|</span> ';
+        legendHtml += '<span style="color: #ff9500;">⚠️ AI</span> = verifica!';
         legendHtml += '</div>';
 
         const formattedContent = tableHtml +
