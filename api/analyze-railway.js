@@ -501,11 +501,11 @@ RISPOSTE:
 (IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
 ANALISI:
-**1. Scrivi qui la domanda COMPLETA in grassetto**
+1. **Scrivi qui la domanda COMPLETA in grassetto**
 [CITATO] "citazione esatta" [Pag. X]
 Risposta: C
 
-**2. Scrivi qui la domanda COMPLETA in grassetto**
+2. **Scrivi qui la domanda COMPLETA in grassetto**
 [AI] Non nel contesto.
 Risposta: B (basata sulle mie conoscenze)
 
