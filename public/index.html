@@ -1004,9 +1004,9 @@
                     
                     debugLog(`Request size: ${Math.round(JSON.stringify(requestBody).length / 1024)}KB`);
                     
-                    // Make request with timeout
+                    // Make request with timeout (5 minuti per Railway + Opus)
                     const controller = new AbortController();
-                    const timeoutId = setTimeout(() => controller.abort(), 30000);
+                    const timeoutId = setTimeout(() => controller.abort(), 300000);
                     
                     try {
                         const response = await fetch(endpointToUse, {
