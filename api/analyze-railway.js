@@ -663,7 +663,7 @@ Risposta: B (basata sulle mie conoscenze)
 
         const formattedContent = tableHtml + legendHtml +
             '<div style="margin-top: 20px;">' +
-            '<h3 style="font-size: 16px;">Analisi:</h3>' +
+            '<h3 style="font-size: 16px; margin-bottom: 15px;">Analisi:</h3>' +
             '<div style="line-height: 1.8;">' +
             formatMarkdown(analysisText || finalResponse) +
             '</div></div>' +
