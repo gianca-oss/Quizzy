@@ -239,6 +239,10 @@ module.exports = async function handler(req, res) {
             });
         }
 
+        // Numero da cui partire per la numerazione (default: 1)
+        const startNumber = req.body.startNumber || 1;
+        console.log(`📊 Numerazione domande parte da: ${startNumber}`);
+
         if (!req.body || !req.body.messages || !Array.isArray(req.body.messages) || req.body.messages.length === 0) {
             return res.status(400).json({
                 error: 'Formato richiesta non valido: messages mancanti'
@@ -465,13 +469,14 @@ C: [opzione]
 
         let contextPerQuestion = '';
         searchResults.forEach((result, index) => {
+            const questionNum = startNumber + index;
             if (result.matches.length > 0) {
-                questionsWithContext.push(index + 1);
-                contextPerQuestion += `\nDOMANDA ${index + 1} - CONTESTO:\n`;
+                questionsWithContext.push(questionNum);
+                contextPerQuestion += `\nDOMANDA ${questionNum} - CONTESTO:\n`;
                 const bestMatch = result.matches[0];
                 contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 1500)}\n`;
             } else {
-                contextPerQuestion += `\nDOMANDA ${index + 1} - NO CONTESTO\n`;
+                contextPerQuestion += `\nDOMANDA ${questionNum} - NO CONTESTO\n`;
             }
         });
 
@@ -488,28 +493,28 @@ ISTRUZIONI CRITICHE:
 CONTESTO DAL CORSO:
 ${contextPerQuestion}
 
-DOMANDE (numerate da 1 a ${questions.length}):
-${questions.map((q, idx) => `${idx + 1}. ${q.text}
+DOMANDE (numerate da ${startNumber} a ${startNumber + questions.length - 1}):
+${questions.map((q, idx) => `${startNumber + idx}. ${q.text}
 A) ${q.options.A || ''} B) ${q.options.B || ''} C) ${q.options.C || ''} D) ${q.options.D || ''}`).join('\n')}
 
 FORMATO RICHIESTO:
 
-RISPOSTE (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
-1. C [CITATO]
-2. B [AI]
-3. A [CITATO]
+RISPOSTE (usa SEMPRE numeri da ${startNumber} a ${startNumber + questions.length - 1}, in ordine sequenziale):
+${startNumber}. C [CITATO]
+${startNumber + 1}. B [AI]
+${startNumber + 2}. A [CITATO]
 (IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
-ANALISI (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
-**1. Scrivi qui la domanda COMPLETA**
+ANALISI (usa SEMPRE numeri da ${startNumber} a ${startNumber + questions.length - 1}, in ordine sequenziale):
+**${startNumber}. Scrivi qui la domanda COMPLETA**
 [CITATO] "citazione esatta" [Pag. X]
 Risposta: C
 
-**2. Scrivi qui la domanda COMPLETA**
+**${startNumber + 1}. Scrivi qui la domanda COMPLETA**
 [AI] Non nel contesto.
 Risposta: B (basata sulle mie conoscenze)
 
-(IMPORTANTE: numera le domande da 1 a ${questions.length} in ordine. Il NUMERO e la DOMANDA devono essere ENTRAMBI in grassetto, es: **1. Domanda completa qui?**. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
+(IMPORTANTE: numera le domande da ${startNumber} a ${startNumber + questions.length - 1} in ordine. Il NUMERO e la DOMANDA devono essere ENTRAMBI in grassetto, es: **${startNumber}. Domanda completa qui?**. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
 
         let analysisResponse;
         try {
@@ -606,8 +611,9 @@ Risposta: B (basata sulle mie conoscenze)
             }
         });
 
-        for (let i = 1; i <= questions.length; i++) {
-            const answer = answers[i] || { letter: '?', source: 'AI' };
+        for (let i = 0; i < questions.length; i++) {
+            const questionNum = startNumber + i;
+            const answer = answers[questionNum] || { letter: '?', source: 'AI' };
             const letter = answer.letter;
             const source = answer.source;
 
@@ -624,7 +630,7 @@ Risposta: B (basata sulle mie conoscenze)
             }
 
             tableHtml += '<tr>';
-            tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${i}</td>`;
+            tableHtml += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${questionNum}</td>`;
             tableHtml += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${letter}</td>`;
             tableHtml += `<td style="padding: 10px; text-align: center; color: ${sourceColor}; font-weight: 600; border: 1px solid rgba(128,128,128,0.3);">${sourceIndicator}</td>`;
             tableHtml += '</tr>';
