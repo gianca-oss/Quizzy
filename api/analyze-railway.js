@@ -642,10 +642,17 @@ Risposta: B (basata sulle mie conoscenze)
 
         // Converti markdown **testo** in HTML <strong> e normalizza spaziatura
         const formatMarkdown = (text) => {
-            return text
+            // Rimuovi la sezione RISPOSTE che non deve essere mostrata
+            let cleanText = text
+                .replace(/RISPOSTE\s*\(usa SEMPRE[^:]*\):[\s\S]*?(?=\d+\.\s*\*\*|ANALISI|$)/gi, '')
+                .replace(/ANALISI\s*\(usa SEMPRE[^:]*\):/gi, '');
+
+            return cleanText
                 .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\n{2,}/g, '\n')  // Riduci righe vuote multiple a singola
-                .replace(/\n/g, '<br>');
+                .replace(/\n/g, '<br>')
+                .replace(/^(<br>)+/, '')   // Rimuovi <br> iniziali
+                .trim();
         };
 
         const formattedContent = tableHtml + legendHtml +
