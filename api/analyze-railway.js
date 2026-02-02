@@ -640,10 +640,11 @@ Risposta: B (basata sulle mie conoscenze)
             <span style="color: #ff9500; margin-left: 10px;">⚠️ AI</span> = non trovato nel materiale
         </div>`;
 
-        // Converti markdown **testo** in HTML <strong>
+        // Converti markdown **testo** in HTML <strong> e normalizza spaziatura
         const formatMarkdown = (text) => {
             return text
                 .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n{2,}/g, '\n')  // Riduci righe vuote multiple a singola
                 .replace(/\n/g, '<br>');
         };
 
