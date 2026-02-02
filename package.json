@@ -1,11 +1,12 @@
 {
   "name": "quizzy",
-  "version": "3.0.0",
-  "description": "Quiz analyzer with enhanced document processing",
+  "version": "3.1.0",
+  "description": "Quiz analyzer with semantic search and document processing",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "preprocess": "node preprocess.js"
+    "preprocess": "node preprocess.js",
+    "embeddings": "node preprocess-embeddings.js"
   },
   "engines": {
     "node": ">=18.0.0"
