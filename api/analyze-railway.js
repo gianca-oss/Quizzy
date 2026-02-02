@@ -469,7 +469,7 @@ C: [opzione]
                 questionsWithContext.push(index + 1);
                 contextPerQuestion += `\nDOMANDA ${index + 1} - CONTESTO:\n`;
                 const bestMatch = result.matches[0];
-                contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 1000)}\n`;
+                contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 1500)}\n`;
             } else {
                 contextPerQuestion += `\nDOMANDA ${index + 1} - NO CONTESTO\n`;
             }
@@ -501,15 +501,15 @@ RISPOSTE:
 (IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
 ANALISI:
-**1. [domanda]**
+**1. Scrivi qui la domanda COMPLETA in grassetto**
 [CITATO] "citazione esatta" [Pag. X]
 Risposta: C
 
-**2. [domanda]**
+**2. Scrivi qui la domanda COMPLETA in grassetto**
 [AI] Non nel contesto.
 Risposta: B (basata sulle mie conoscenze)
 
-(IMPORTANTE: scrivi SEMPRE "Risposta: X" con una lettera A/B/C/D)`;
+(IMPORTANTE: scrivi SEMPRE la domanda INTERA in grassetto, non troncarla. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
 
         let analysisResponse;
         try {
