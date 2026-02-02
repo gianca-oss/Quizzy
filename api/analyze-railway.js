@@ -1,4 +1,5 @@
 // api/analyze-railway.js - Quiz analyzer API for Railway (Express compatible)
+// Con ricerca semantica OpenAI Embeddings
 
 // Helper per gestire rate limits con retry automatico
 async function callClaudeWithRetry(url, options, maxRetries = 3) {
@@ -39,6 +40,223 @@ async function callClaudeWithRetry(url, options, maxRetries = 3) {
 
 // Cache per i dati
 let enhancedDataCache = null;
+let embeddingsCache = null;
+
+// ============================================
+// RICERCA SEMANTICA CON OPENAI EMBEDDINGS
+// ============================================
+
+/**
+ * Calcola la similarità coseno tra due vettori
+ */
+function cosineSimilarity(a, b) {
+    let dotProduct = 0;
+    let normA = 0;
+    let normB = 0;
+    for (let i = 0; i < a.length; i++) {
+        dotProduct += a[i] * b[i];
+        normA += a[i] * a[i];
+        normB += b[i] * b[i];
+    }
+    return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
+}
+
+/**
+ * Ottiene embedding da OpenAI per una query
+ */
+async function getQueryEmbedding(text) {
+    const openaiKey = process.env.OPENAI_API_KEY;
+    if (!openaiKey) {
+        console.log('⚠️ OPENAI_API_KEY non configurata, uso ricerca keyword');
+        return null;
+    }
+
+    try {
+        const response = await fetch('https://api.openai.com/v1/embeddings', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${openaiKey}`
+            },
+            body: JSON.stringify({
+                model: 'text-embedding-3-small',
+                input: text,
+                dimensions: 512
+            })
+        });
+
+        if (!response.ok) {
+            console.error('OpenAI Embeddings error:', response.status);
+            return null;
+        }
+
+        const data = await response.json();
+        return data.data[0].embedding;
+    } catch (error) {
+        console.error('Errore OpenAI Embeddings:', error.message);
+        return null;
+    }
+}
+
+/**
+ * Carica embeddings pre-calcolati da GitHub
+ */
+async function loadEmbeddings() {
+    if (embeddingsCache) return embeddingsCache;
+
+    try {
+        console.log('🧠 Caricamento embeddings semantici...');
+        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
+
+        const response = await fetch(GITHUB_BASE + 'embeddings.json');
+        if (!response.ok) {
+            console.log('⚠️ Embeddings non trovati, userò ricerca keyword');
+            return null;
+        }
+
+        const data = await response.json();
+        embeddingsCache = data;
+        console.log(`✅ Caricati embeddings per ${data.chunks?.length || 0} chunks`);
+        return data;
+    } catch (error) {
+        console.error('Errore caricamento embeddings:', error.message);
+        return null;
+    }
+}
+
+/**
+ * Ricerca semantica: trova i chunk più simili alla domanda
+ */
+async function semanticSearch(questionText, options, embeddingsData, topK = 3) {
+    // Costruisci query combinando domanda e opzioni
+    const queryText = `${questionText} ${Object.values(options).join(' ')}`;
+
+    // Ottieni embedding della query
+    const queryEmbedding = await getQueryEmbedding(queryText);
+    if (!queryEmbedding) return null;
+
+    // Calcola similarità con tutti i chunks
+    const similarities = embeddingsData.chunks.map(chunk => ({
+        chunk: chunk,
+        similarity: cosineSimilarity(queryEmbedding, chunk.embedding)
+    }));
+
+    // Ordina per similarità decrescente
+    similarities.sort((a, b) => b.similarity - a.similarity);
+
+    // Restituisci top K risultati
+    return similarities.slice(0, topK).map(s => ({
+        chunk: {
+            id: s.chunk.id,
+            text: s.chunk.text,
+            page: s.chunk.page,
+            pages: s.chunk.pages,
+            keywords: s.chunk.keywords
+        },
+        score: Math.round(s.similarity * 100),
+        similarity: s.similarity,
+        page: s.chunk.page
+    }));
+}
+
+/**
+ * Ricerca ibrida: semantica + keyword per migliori risultati
+ */
+async function hybridSearch(questions, chunks, embeddingsData) {
+    console.log(`🔍 Ricerca ibrida per ${questions.length} domande...`);
+
+    const results = [];
+    const useSemanticSearch = !!embeddingsData && !!process.env.OPENAI_API_KEY;
+
+    for (let qIndex = 0; qIndex < questions.length; qIndex++) {
+        const question = questions[qIndex];
+        let matches = [];
+
+        // 1. Prova ricerca semantica
+        if (useSemanticSearch) {
+            console.log(`  Domanda ${qIndex + 1}: ricerca semantica...`);
+            const semanticMatches = await semanticSearch(
+                question.text,
+                question.options,
+                embeddingsData,
+                3  // Top 3 risultati
+            );
+
+            if (semanticMatches && semanticMatches.length > 0) {
+                console.log(`    ✓ Semantica: ${semanticMatches.length} match (sim max: ${semanticMatches[0].score}%)`);
+                matches = semanticMatches;
+            }
+        }
+
+        // 2. Fallback o integrazione con keyword search
+        if (matches.length === 0) {
+            console.log(`  Domanda ${qIndex + 1}: fallback ricerca keyword...`);
+            const keywordMatches = keywordSearch(question, chunks);
+            matches = keywordMatches;
+        }
+
+        results.push({
+            question: question,
+            matches: matches,
+            searchMethod: matches.length > 0 && matches[0].similarity ? 'semantic' : 'keyword'
+        });
+    }
+
+    return results;
+}
+
+/**
+ * Ricerca keyword (fallback)
+ */
+function keywordSearch(question, chunks) {
+    const keywords = [];
+
+    const questionWords = question.text.toLowerCase()
+        .replace(/[^\w\sàèéìòù]/g, ' ')
+        .split(/\s+/)
+        .filter(word => word.length > 3 && !['della', 'delle', 'sono', 'quale', 'quali', 'come'].includes(word));
+
+    keywords.push(...questionWords);
+
+    Object.values(question.options).forEach(option => {
+        const optionWords = option.toLowerCase()
+            .replace(/[^\w\sàèéìòù]/g, ' ')
+            .split(/\s+/)
+            .filter(word => word.length > 4);
+        keywords.push(...optionWords.slice(0, 3));
+    });
+
+    const uniqueKeywords = [...new Set(keywords)].slice(0, 10);
+
+    const matches = [];
+    chunks.forEach(chunk => {
+        const text = chunk.text.toLowerCase();
+        let score = 0;
+
+        uniqueKeywords.forEach(keyword => {
+            if (text.includes(keyword)) {
+                score += 10;
+                if (text.includes(keyword + ' ') || text.includes(' ' + keyword)) {
+                    score += 5;
+                }
+            }
+        });
+
+        const matchCount = uniqueKeywords.filter(k => text.includes(k)).length;
+
+        if (matchCount >= 3 && score >= 30) {
+            matches.push({
+                chunk: chunk,
+                score: score,
+                matchCount: matchCount,
+                page: chunk.page
+            });
+        }
+    });
+
+    matches.sort((a, b) => b.score - a.score);
+    return matches.slice(0, 3);
+}
 
 async function loadEnhancedData() {
     if (enhancedDataCache) return enhancedDataCache;
@@ -126,79 +344,7 @@ async function loadTextChunks(baseUrl, totalFiles) {
     return chunks;
 }
 
-function searchForAnswers(questions, chunks) {
-    console.log(`🔍 Ricerca risposte per ${questions.length} domande...`);
-
-    const results = [];
-
-    questions.forEach((question, qIndex) => {
-        const keywords = [];
-
-        const questionWords = question.text.toLowerCase()
-            .replace(/[^\w\sàèéìòù]/g, ' ')
-            .split(/\s+/)
-            .filter(word => word.length > 3 && !['della', 'delle', 'sono', 'quale', 'quali', 'come'].includes(word));
-
-        keywords.push(...questionWords);
-
-        Object.values(question.options).forEach(option => {
-            const optionWords = option.toLowerCase()
-                .replace(/[^\w\sàèéìòù]/g, ' ')
-                .split(/\s+/)
-                .filter(word => word.length > 4);
-            keywords.push(...optionWords.slice(0, 3));
-        });
-
-        const uniqueKeywords = [...new Set(keywords)].slice(0, 10);
-
-        console.log(`  Domanda ${qIndex + 1}: cercando "${uniqueKeywords.join(', ')}"`);
-
-        const matches = [];
-        chunks.forEach(chunk => {
-            const text = chunk.text.toLowerCase();
-            let score = 0;
-
-            uniqueKeywords.forEach(keyword => {
-                if (text.includes(keyword)) {
-                    score += 10;
-                    if (text.includes(keyword + ' ') || text.includes(' ' + keyword)) {
-                        score += 5;
-                    }
-                }
-            });
-
-            const matchCount = uniqueKeywords.filter(k => text.includes(k)).length;
-
-            if (matchCount >= 3 && score >= 30) {
-                matches.push({
-                    chunk: chunk,
-                    score: score,
-                    matchCount: matchCount,
-                    page: chunk.page
-                });
-            }
-        });
-
-        matches.sort((a, b) => b.score - a.score);
-        const topMatches = matches.slice(0, 3);
-
-        if (topMatches.length > 0) {
-            console.log(`    ✓ Trovati ${topMatches.length} match (score max: ${topMatches[0].score})`);
-            results.push({
-                question: question,
-                matches: topMatches
-            });
-        } else {
-            console.log(`    ✗ Nessun match trovato`);
-            results.push({
-                question: question,
-                matches: []
-            });
-        }
-    });
-
-    return results;
-}
+// La vecchia searchForAnswers è stata sostituita da hybridSearch sopra
 
 // Express-compatible handler (req, res instead of Vercel's handler)
 module.exports = async function handler(req, res) {
@@ -271,7 +417,7 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // STEP 1: Carica il corso
+        // STEP 1: Carica il corso e embeddings
         const data = await loadEnhancedData();
         if (!data || !data.textChunks || data.textChunks.length === 0) {
             console.error('⌛ Nessun dato del corso disponibile!');
@@ -279,6 +425,9 @@ module.exports = async function handler(req, res) {
                 error: 'Impossibile caricare il corso'
             });
         }
+
+        // Carica embeddings per ricerca semantica (opzionale)
+        const embeddingsData = await loadEmbeddings();
 
         // STEP 2: Estrai le domande dall'immagine con OPUS (Railway ha timeout lungo!)
         console.log('🔍 Estrazione domande dal quiz...');
@@ -462,23 +611,39 @@ C: [opzione]
             questions = questions.slice(0, MAX_QUESTIONS);
         }
 
-        // STEP 3: CERCA LE RISPOSTE NEL DOCUMENTO
-        const searchResults = searchForAnswers(questions, data.textChunks);
+        // STEP 3: CERCA LE RISPOSTE NEL DOCUMENTO (ricerca ibrida: semantica + keyword)
+        const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
 
         const questionsWithContext = [];
+        let semanticCount = 0;
+        let keywordCount = 0;
 
         let contextPerQuestion = '';
         searchResults.forEach((result, index) => {
             const questionNum = startNumber + index;
+
+            // Conta metodi di ricerca usati
+            if (result.searchMethod === 'semantic') semanticCount++;
+            else keywordCount++;
+
             if (result.matches.length > 0) {
                 questionsWithContext.push(questionNum);
-                contextPerQuestion += `\nDOMANDA ${questionNum} - CONTESTO:\n`;
-                const bestMatch = result.matches[0];
-                contextPerQuestion += `[Pag ${bestMatch.page}] ${bestMatch.chunk.text.substring(0, 1500)}\n`;
+                contextPerQuestion += `\nDOMANDA ${questionNum} - CONTESTO (${result.searchMethod}):\n`;
+
+                // Usa fino a 3 match per più contesto
+                const contextsToUse = result.matches.slice(0, 2);
+                contextsToUse.forEach((match, mIdx) => {
+                    const scoreInfo = match.similarity
+                        ? `sim: ${Math.round(match.similarity * 100)}%`
+                        : `score: ${match.score}`;
+                    contextPerQuestion += `[Pag ${match.page}, ${scoreInfo}] ${match.chunk.text.substring(0, 1200)}\n`;
+                });
             } else {
                 contextPerQuestion += `\nDOMANDA ${questionNum} - NO CONTESTO\n`;
             }
         });
+
+        console.log(`📊 Ricerca completata: ${semanticCount} semantiche, ${keywordCount} keyword`);
 
         // STEP 4: Analisi finale con OPUS (Railway ha timeout lungo!)
         console.log('🎯 Analisi finale con contesto dal corso (usando Opus)...');
@@ -685,8 +850,13 @@ Risposta: B (basata sulle mie conoscenze)
             }],
             metadata: {
                 model: 'claude-opus-4-20250514',
-                processingMethod: 'document-search-railway',
+                processingMethod: embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway',
+                searchStats: {
+                    semantic: semanticCount,
+                    keyword: keywordCount
+                },
                 chunksSearched: data.textChunks.length,
+                embeddingsLoaded: !!embeddingsData,
                 questionsAnalyzed: questions.length,
                 rawExtraction: responseText.substring(0, 2000)
             }
