@@ -488,19 +488,19 @@ ISTRUZIONI CRITICHE:
 CONTESTO DAL CORSO:
 ${contextPerQuestion}
 
-DOMANDE:
-${questions.map(q => `${q.number}. ${q.text}
+DOMANDE (numerate da 1 a ${questions.length}):
+${questions.map((q, idx) => `${idx + 1}. ${q.text}
 A) ${q.options.A || ''} B) ${q.options.B || ''} C) ${q.options.C || ''} D) ${q.options.D || ''}`).join('\n')}
 
 FORMATO RICHIESTO:
 
-RISPOSTE:
+RISPOSTE (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
 1. C [CITATO]
 2. B [AI]
 3. A [CITATO]
 (IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
-ANALISI:
+ANALISI (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
 1. **Scrivi qui la domanda COMPLETA in grassetto**
 [CITATO] "citazione esatta" [Pag. X]
 Risposta: C
@@ -509,7 +509,7 @@ Risposta: C
 [AI] Non nel contesto.
 Risposta: B (basata sulle mie conoscenze)
 
-(IMPORTANTE: scrivi SEMPRE la domanda INTERA in grassetto, non troncarla. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
+(IMPORTANTE: numera le domande da 1 a ${questions.length} in ordine. Scrivi la domanda INTERA in grassetto. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
 
         let analysisResponse;
         try {
