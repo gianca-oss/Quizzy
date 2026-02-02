@@ -501,15 +501,15 @@ RISPOSTE (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
 (IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
 
 ANALISI (usa SEMPRE numeri da 1 a ${questions.length}, in ordine sequenziale):
-1. **Scrivi qui la domanda COMPLETA in grassetto**
+**1. Scrivi qui la domanda COMPLETA**
 [CITATO] "citazione esatta" [Pag. X]
 Risposta: C
 
-2. **Scrivi qui la domanda COMPLETA in grassetto**
+**2. Scrivi qui la domanda COMPLETA**
 [AI] Non nel contesto.
 Risposta: B (basata sulle mie conoscenze)
 
-(IMPORTANTE: numera le domande da 1 a ${questions.length} in ordine. Scrivi la domanda INTERA in grassetto. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
+(IMPORTANTE: numera le domande da 1 a ${questions.length} in ordine. Il NUMERO e la DOMANDA devono essere ENTRAMBI in grassetto, es: **1. Domanda completa qui?**. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
 
         let analysisResponse;
         try {
