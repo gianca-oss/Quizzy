@@ -640,11 +640,18 @@ Risposta: B (basata sulle mie conoscenze)
             <span style="color: #ff9500; margin-left: 10px;">⚠️ AI</span> = non trovato nel materiale
         </div>`;
 
+        // Converti markdown **testo** in HTML <strong>
+        const formatMarkdown = (text) => {
+            return text
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\n/g, '<br>');
+        };
+
         const formattedContent = tableHtml + legendHtml +
             '<div style="margin-top: 20px;">' +
             '<h3 style="font-size: 16px;">Analisi:</h3>' +
-            '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">' +
-            (analysisText || finalResponse) +
+            '<div style="line-height: 1.8;">' +
+            formatMarkdown(analysisText || finalResponse) +
             '</div></div>' +
             '<details style="margin-top: 20px; padding: 10px; background: #f5f5f5; border-radius: 8px;">' +
             '<summary style="cursor: pointer; font-weight: bold;">🔍 Debug: Parsing Info</summary>' +
