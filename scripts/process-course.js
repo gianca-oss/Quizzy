@@ -531,14 +531,30 @@ async function processCourse(courseName) {
     const sourceDir = path.join(baseDir, 'data', 'source', courseName);
     const outputDir = path.join(baseDir, 'data', 'processed', courseName);
 
-    // Trova il PDF sorgente
+    // Trova il PDF più recente nella cartella
     const sourceFiles = await fs.readdir(sourceDir).catch(() => []);
-    const pdfFile = sourceFiles.find(f => f.toLowerCase().endsWith('.pdf'));
+    const pdfFiles = sourceFiles.filter(f => f.toLowerCase().endsWith('.pdf'));
 
-    if (!pdfFile) {
+    if (pdfFiles.length === 0) {
         console.error(`\n❌ Nessun file PDF trovato in: ${sourceDir}`);
         console.error(`   Assicurati di avere un file .pdf nella cartella.\n`);
         process.exit(1);
+    }
+
+    // Se ci sono più PDF, prendi il più recente per data di modifica
+    let pdfFile;
+    if (pdfFiles.length === 1) {
+        pdfFile = pdfFiles[0];
+    } else {
+        const pdfStats = await Promise.all(
+            pdfFiles.map(async f => ({
+                name: f,
+                mtime: (await fs.stat(path.join(sourceDir, f))).mtime
+            }))
+        );
+        pdfStats.sort((a, b) => b.mtime - a.mtime);
+        pdfFile = pdfStats[0].name;
+        console.log(`⚠️  Trovati ${pdfFiles.length} PDF, uso il più recente: ${pdfFile}`);
     }
 
     const inputPdf = path.join(sourceDir, pdfFile);
