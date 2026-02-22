@@ -363,6 +363,11 @@ function createChunksBySize(text) {
     const chunks = [];
     let position = 0;
     let chunkNum = 0;
+    let lastKnownPage = 1; // Ultima pagina reale trovata
+
+    // Pattern per estrarre il numero di pagina reale dal testo
+    // Cerca marker tipo "EMBA - strategia ed Internazionalizzazione 6"
+    const PAGE_MARKER_PATTERN = /EMBA\s*-\s*[A-Za-zàèéìòù\s]+\s+(\d+)/gi;
 
     while (position < text.length) {
         let endPos = position + CONFIG.CHUNK_SIZE;
@@ -425,12 +430,22 @@ function createChunksBySize(text) {
             const titleMatch = chunkText.match(/\[(H\d|TITOLO)\]\s*(.+?)(?:\n|$)/);
             const chunkTitle = titleMatch ? titleMatch[2].trim() : null;
 
+            // Estrai numero di pagina reale dal marker nel testo
+            // Cerca l'ultimo marker di pagina nel chunk (es. "EMBA - strategia ed Internazionalizzazione 6")
+            const pageMatches = [...chunkText.matchAll(PAGE_MARKER_PATTERN)];
+            if (pageMatches.length > 0) {
+                const pageNum = parseInt(pageMatches[pageMatches.length - 1][1], 10);
+                if (pageNum > 0 && pageNum <= 500) { // Sanity check
+                    lastKnownPage = pageNum;
+                }
+            }
+
             chunks.push({
                 id: `chunk_${chunkNum}`,
                 text: chunkText,
-                pages: [chunkNum + 1],
-                startPage: chunkNum + 1,
-                endPage: chunkNum + 1,
+                pages: [lastKnownPage],
+                startPage: lastKnownPage,
+                endPage: lastKnownPage,
                 topics: [],
                 keywords: keywords,
                 length: chunkText.length,
@@ -447,6 +462,10 @@ function createChunksBySize(text) {
 
         position = endPos;
     }
+
+    // Report pagine estratte
+    const uniquePages = [...new Set(chunks.map(c => c.startPage))].sort((a, b) => a - b);
+    console.log(`  📄 Pagine reali estratte: ${uniquePages.length} (da ${uniquePages[0]} a ${uniquePages[uniquePages.length - 1]})`);
 
     return chunks;
 }
