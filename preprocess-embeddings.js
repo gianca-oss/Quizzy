@@ -1,11 +1,10 @@
 // preprocess-embeddings.js - Genera embeddings OpenAI per ricerca semantica
-// Esegui: node preprocess-embeddings.js
+// Esegui: node preprocess-embeddings.js <nome-corso>
+// Esempio: OPENAI_API_KEY=sk-... node preprocess-embeddings.js strategia-internazionalizzazione
 
 const fs = require('fs').promises;
 const path = require('path');
 
-const PROCESSED_DIR = './data/processed/strategia-internazionalizzazione';
-const OUTPUT_FILE = './data/processed/strategia-internazionalizzazione/embeddings.json';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 // Batch size per API OpenAI (max 2048 input per batch)
@@ -40,14 +39,14 @@ async function getEmbeddings(texts) {
 /**
  * Carica tutti i chunks dai file JSON
  */
-async function loadAllChunks() {
-    const files = await fs.readdir(PROCESSED_DIR);
+async function loadAllChunks(processedDir) {
+    const files = await fs.readdir(processedDir);
     const chunkFiles = files.filter(f => f.startsWith('chunks_') && f.endsWith('.json'));
 
     let allChunks = [];
 
     for (const file of chunkFiles.sort()) {
-        const content = await fs.readFile(path.join(PROCESSED_DIR, file), 'utf-8');
+        const content = await fs.readFile(path.join(processedDir, file), 'utf-8');
         const chunks = JSON.parse(content);
         allChunks = allChunks.concat(chunks);
     }
@@ -128,9 +127,13 @@ async function processInBatches(chunks) {
 /**
  * Main
  */
-async function main() {
+async function main(courseName) {
+    const PROCESSED_DIR = `./data/processed/${courseName}`;
+    const OUTPUT_FILE = `./data/processed/${courseName}/embeddings.json`;
+
     console.log('🚀 GENERAZIONE EMBEDDINGS OPENAI');
-    console.log('================================\n');
+    console.log('================================');
+    console.log(`📚 Corso: ${courseName}\n`);
 
     // Verifica API key
     if (!OPENAI_API_KEY) {
@@ -142,7 +145,7 @@ async function main() {
 
     // Carica chunks
     console.log('\n📖 Caricamento chunks...');
-    const chunks = await loadAllChunks();
+    const chunks = await loadAllChunks(PROCESSED_DIR);
     console.log(`✅ Caricati ${chunks.length} chunks`);
 
     // Genera embeddings
@@ -192,4 +195,22 @@ async function main() {
     console.log(`\n💰 Costo stimato: ~$${costEstimate} (${totalTokens.toLocaleString()} tokens)`);
 }
 
-main().catch(console.error);
+// CLI
+if (require.main === module) {
+    const courseName = process.argv[2];
+
+    if (!courseName) {
+        console.log(`
+🚀 Preprocess Embeddings - Genera embeddings OpenAI
+
+USO:
+  OPENAI_API_KEY=sk-... node preprocess-embeddings.js <nome-corso>
+
+ESEMPIO:
+  OPENAI_API_KEY=sk-... node preprocess-embeddings.js strategia-internazionalizzazione
+`);
+        process.exit(1);
+    }
+
+    main(courseName).catch(console.error);
+}

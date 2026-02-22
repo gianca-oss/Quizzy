@@ -1,11 +1,9 @@
 // clean-chunks.js - Pulisce i chunks esistenti da errori OCR e marker
-// Esegui: node clean-chunks.js
+// Esegui: node clean-chunks.js <nome-corso>
+// Esempio: node clean-chunks.js strategia-internazionalizzazione
 
 const fs = require('fs').promises;
 const path = require('path');
-
-const INPUT_DIR = './data/processed/strategia-internazionalizzazione';
-const OUTPUT_DIR = './data/processed/strategia-internazionalizzazione'; // Sovrascrive
 
 // ============================================
 // STEP 1: CORREZIONE ERRORI OCR
@@ -396,8 +394,12 @@ function extractTechnicalKeywords(text, maxKeywords = 10) {
 // MAIN PROCESSING
 // ============================================
 
-async function cleanAllChunks() {
+async function cleanAllChunks(courseName) {
+    const INPUT_DIR = `./data/processed/${courseName}`;
+    const OUTPUT_DIR = `./data/processed/${courseName}`;
+
     console.log('🧹 PULIZIA CHUNKS - Miglioramento qualità\n');
+    console.log(`📚 Corso: ${courseName}`);
     console.log('='.repeat(50));
 
     // Carica tutti i chunks
@@ -507,9 +509,24 @@ async function cleanAllChunks() {
     return cleanedChunks;
 }
 
-// Esegui
+// CLI
 if (require.main === module) {
-    cleanAllChunks().catch(console.error);
+    const courseName = process.argv[2];
+
+    if (!courseName) {
+        console.log(`
+🧹 Clean Chunks - Pulizia OCR e marker strutturali
+
+USO:
+  node clean-chunks.js <nome-corso>
+
+ESEMPIO:
+  node clean-chunks.js strategia-internazionalizzazione
+`);
+        process.exit(1);
+    }
+
+    cleanAllChunks(courseName).catch(console.error);
 }
 
 module.exports = { cleanAllChunks, fixOCRErrors, removeStructuralMarkers, extractTechnicalKeywords };
