@@ -1,16 +1,16 @@
 {
   "version": "2.0-cleaned",
   "courseName": "strategia-internazionalizzazione",
-  "sourceFile": "source.pdf",
-  "processedAt": "2026-02-01T16:37:48.966Z",
+  "sourceFile": "strategia-internazionalizzazione.pdf",
+  "processedAt": "2026-02-22T16:26:27.061Z",
   "stats": {
-    "totalPages": 149,
+    "totalPages": 226,
     "pagesWithContent": 1,
-    "totalChunks": 389,
-    "totalCharacters": 619227,
-    "avgChunkSize": 1607,
-    "totalKeywords": 960,
-    "totalFiles": 8
+    "totalChunks": 511,
+    "totalCharacters": 819030,
+    "avgChunkSize": 1610,
+    "totalKeywords": 1182,
+    "totalFiles": 11
   },
   "config": {
     "CHUNK_SIZE": 1500,
@@ -20,5 +20,5 @@
     "TOP_KEYWORDS": 5
   },
   "topTopics": [],
-  "cleanedAt": "2026-02-02T09:01:59.848Z"
+  "cleanedAt": "2026-02-22T16:26:38.003Z"
 }

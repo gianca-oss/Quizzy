@@ -106,7 +106,8 @@ async function loadEmbeddings() {
 
     try {
         console.log('🧠 Caricamento embeddings semantici...');
-        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
+        const courseName = process.env.COURSE_NAME || 'strategia-internazionalizzazione';
+        const GITHUB_BASE = `https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/${courseName}/`;
 
         const response = await fetch(GITHUB_BASE + 'embeddings.json');
         if (!response.ok) {
@@ -264,7 +265,8 @@ async function loadEnhancedData() {
     try {
         console.log('🚀 Caricamento dati del corso da GitHub...');
 
-        const GITHUB_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
+        const courseName = process.env.COURSE_NAME || 'strategia-internazionalizzazione';
+        const GITHUB_BASE = `https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/${courseName}/`;
 
         const metadataResponse = await fetch(GITHUB_BASE + 'metadata.json');
 
@@ -280,7 +282,7 @@ async function loadEnhancedData() {
             metadata,
             textChunks,
             version: metadata.version || '1.0',
-            courseName: metadata.courseName || 'strategia-internazionalizzazione'
+            courseName: metadata.courseName || courseName
         };
 
         console.log(`✅ Corso "${metadata.courseName}" caricato: ${textChunks.length} chunks`);
@@ -295,7 +297,8 @@ async function loadEnhancedData() {
 
 async function loadFallbackData() {
     try {
-        const FALLBACK_BASE = 'https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/strategia-internazionalizzazione/';
+        const courseName = process.env.COURSE_NAME || 'strategia-internazionalizzazione';
+        const FALLBACK_BASE = `https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/${courseName}/`;
         const chunks = [];
 
         for (let i = 0; i < 8; i++) {
@@ -311,7 +314,7 @@ async function loadFallbackData() {
         }
 
         return {
-            metadata: { version: 'fallback', courseName: 'strategia-internazionalizzazione' },
+            metadata: { version: 'fallback', courseName },
             textChunks: chunks,
             version: '1.0-fallback'
         };
