@@ -246,9 +246,8 @@
         /* Results container */
         .results {
             display: none;
-            padding: 15px;
-            padding-top: 60px;
-            padding-bottom: 100px;
+            padding: 10px;
+            padding-bottom: 10px;
             min-height: 100vh;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
@@ -257,9 +256,8 @@
         /* Mobile optimization */
         @media (max-width: 500px) {
             .results {
-                padding: 10px;
-                padding-top: 55px;
-                padding-bottom: 120px;
+                padding: 2px;
+                padding-bottom: 2px;
             }
 
             .results #resultsContent {
@@ -284,10 +282,8 @@
             }
 
             .back-button {
-                position: fixed;
-                top: 10px;
-                left: 10px;
-                z-index: 1000;
+                font-size: 13px;
+                padding: 6px 14px;
             }
         }
         
@@ -510,9 +506,6 @@
         
         /* Back button for results view */
         .back-button {
-            position: sticky;
-            top: 10px;
-            margin-bottom: 15px;
             padding: 8px 16px;
             background: var(--bg-secondary);
             color: var(--text-primary);
@@ -732,7 +725,7 @@
             const endpointStatus = await testEndpoint();
             if (endpointStatus) {
                 if (!endpointStatus.apiKeyConfigured) {
-                    alert('⚠️ ATTENZIONE: API Key non configurata su Vercel.\n\nVai su Vercel Dashboard → Settings → Environment Variables\ne aggiungi ANTHROPIC_API_KEY');
+                    alert('⚠️ ATTENZIONE: API Key non configurata su Railway.\n\nVai su Railway Dashboard → Variables\ne aggiungi ANTHROPIC_API_KEY_EVO');
                 }
             } else {
                 debugLog('Could not verify endpoint status', 'warn');
@@ -1059,14 +1052,7 @@
                 debugLog('Consolidating results...');
 
                 let consolidatedHTML = '';
-
-                // Add a floating back button and wrapper
-                consolidatedHTML += `
-                    <button onclick="backToUpload()" class="back-button">
-                        ← Nuova Analisi
-                    </button>
-                    <div style="padding-top: 10px;">
-                `;
+                consolidatedHTML += '<div>';
 
                 // Collect ALL questions from ALL images with sequential numbering
                 let globalQuestionNum = 0;
@@ -1115,25 +1101,26 @@
 
                 // Build ONE consolidated table
                 consolidatedHTML += '<div class="result-content">';
-                consolidatedHTML += '<table style="width: 100%; border-collapse: collapse; margin: 15px 0;">';
+                consolidatedHTML += '<table style="width: 100%; border-collapse: collapse; margin: 0;">';
                 consolidatedHTML += '<thead><tr>';
-                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">N°</th>';
-                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">RISPOSTA</th>';
-                consolidatedHTML += '<th style="padding: 10px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit;">FONTE</th>';
+                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">N°</th>';
+                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">RISPOSTA</th>';
+                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">FONTE</th>';
                 consolidatedHTML += '</tr></thead><tbody>';
 
                 allQuestions.forEach(q => {
                     consolidatedHTML += '<tr>';
-                    consolidatedHTML += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.num}</td>`;
-                    consolidatedHTML += `<td style="padding: 10px; text-align: center; font-weight: bold; font-size: 18px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.answer}</td>`;
-                    consolidatedHTML += `<td style="padding: 10px; text-align: center; border: 1px solid rgba(128,128,128,0.3);">${q.fonte}</td>`;
+                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit; font-size: 13px;">${q.num}</td>`;
+                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; font-weight: bold; font-size: 15px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.answer}</td>`;
+                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; border: 1px solid rgba(128,128,128,0.3); font-size: 12px;">${q.fonte}</td>`;
                     consolidatedHTML += '</tr>';
                 });
 
                 consolidatedHTML += '</tbody></table>';
 
-                // Add ONE consolidated analysis section
+                // Add ONE consolidated analysis section with back button at top
                 consolidatedHTML += '<div style="margin-top: 20px;">';
+                consolidatedHTML += `<button onclick="backToUpload()" class="back-button" style="display: block; margin: 0 auto 12px auto;">← Nuova Analisi</button>`;
                 consolidatedHTML += '<h3 style="font-size: 16px;">Analisi:</h3>';
                 consolidatedHTML += '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">';
                 consolidatedHTML += allAnalyses.join('\n\n');
@@ -1170,7 +1157,7 @@
                             <strong>${err.message}</strong>
                             <div class="error-note">
                                 <strong>Suggerimenti:</strong><br>
-                                1. Verifica la configurazione API su Vercel<br>
+                                1. Verifica la configurazione API su Railway<br>
                                 2. Ricarica la pagina e riprova<br>
                                 3. Usa Ctrl+Shift+D per la modalità debug
                             </div>

@@ -349,7 +349,7 @@ async function loadTextChunks(baseUrl, totalFiles) {
 
 // La vecchia searchForAnswers è stata sostituita da hybridSearch sopra
 
-// Express-compatible handler (req, res instead of Vercel's handler)
+// Express-compatible handler for Railway
 module.exports = async function handler(req, res) {
     // CORS headers
     res.setHeader('Access-Control-Allow-Origin', '*');
