@@ -256,8 +256,8 @@
         /* Mobile optimization */
         @media (max-width: 500px) {
             .results {
-                padding: 2px;
-                padding-bottom: 2px;
+                padding: 0;
+                padding-bottom: 0;
             }
 
             .results #resultsContent {
@@ -1101,18 +1101,18 @@
 
                 // Build ONE consolidated table
                 consolidatedHTML += '<div class="result-content">';
-                consolidatedHTML += '<table style="width: 100%; border-collapse: collapse; margin: 0;">';
+                consolidatedHTML += '<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1;">';
                 consolidatedHTML += '<thead><tr>';
-                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">N°</th>';
-                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">RISPOSTA</th>';
-                consolidatedHTML += '<th style="padding: 4px 8px; border: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 12px;">FONTE</th>';
+                consolidatedHTML += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 10px;">N°</th>';
+                consolidatedHTML += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 10px;">RISPOSTA</th>';
+                consolidatedHTML += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-weight: 600; color: inherit; font-size: 10px;">FONTE</th>';
                 consolidatedHTML += '</tr></thead><tbody>';
 
                 allQuestions.forEach(q => {
                     consolidatedHTML += '<tr>';
-                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; border: 1px solid rgba(128,128,128,0.3); color: inherit; font-size: 13px;">${q.num}</td>`;
-                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; font-weight: bold; font-size: 15px; border: 1px solid rgba(128,128,128,0.3); color: inherit;">${q.answer}</td>`;
-                    consolidatedHTML += `<td style="padding: 4px 8px; text-align: center; border: 1px solid rgba(128,128,128,0.3); font-size: 12px;">${q.fonte}</td>`;
+                    consolidatedHTML += `<td style="padding: 1px 4px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.15); color: inherit; font-size: 11px; line-height: 1;">${q.num}</td>`;
+                    consolidatedHTML += `<td style="padding: 1px 4px; text-align: center; font-weight: bold; font-size: 13px; border-bottom: 1px solid rgba(128,128,128,0.15); color: inherit; line-height: 1;">${q.answer}</td>`;
+                    consolidatedHTML += `<td style="padding: 1px 4px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.15); font-size: 10px; color: inherit; line-height: 1;">${q.fonte}</td>`;
                     consolidatedHTML += '</tr>';
                 });
 
