@@ -274,10 +274,11 @@ async function analyze() {
 
 function formatMarkdown(text) {
     return text
-        .replace(/RISPOSTE\s*\(usa SEMPRE[^:]*\):[\s\S]*?(?=\d+\.\s*\*\*|ANALISI|$)/gi, '')
-        .replace(/ANALISI\s*\(usa SEMPRE[^:]*\):/gi, '')
+        .replace(/RISPOSTE\s*\([^:]*\):[\s\S]*?(?=\*\*\d+\.|ANALISI|$)/gi, '')
+        .replace(/ANALISI\s*\([^:]*\):/gi, '')
+        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n{2,}/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
         .replace(/\n/g, '<br>')
         .replace(/^(<br>)+/, '')
         .trim();

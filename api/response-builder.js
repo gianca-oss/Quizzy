@@ -71,45 +71,38 @@ ${contextPerQuestion}
 DOMANDE (numerate da ${startNumber} a ${endNumber}):
 ${questionsText}
 
-FORMATO RICHIESTO - per OGNI domanda usa ESATTAMENTE questa struttura:
+DEVI restituire SOLO una lista di blocchi RISPOSTA, uno per ogni domanda.
+NON aggiungere intestazioni come "ANALISI:" o "RISPOSTE:".
 
-RISPOSTE (lista compatta da ${startNumber} a ${endNumber}):
-${startNumber}. C [CITATO]
-${startNumber + 1}. B [AI]
-(scrivi SEMPRE la lettera A/B/C/D)
-
-ANALISI (un blocco per ogni domanda, da ${startNumber} a ${endNumber}):
+Per OGNI domanda da ${startNumber} a ${endNumber} usa ESATTAMENTE questa struttura:
 
 **${startNumber}. [testo completo della domanda]**
 
-Opzioni:
 A) [testo opzione A]
 B) [testo opzione B]
-C) [testo opzione C] ✓
+C) [testo opzione C] [CORRETTA]
 D) [testo opzione D]
 
-Spiegazione: [CITATO] "citazione esatta dal corso" [Pag. X]
-La risposta corretta è C perché [spiegazione breve].
+Spiegazione: [CITATO] "citazione esatta dal corso" [Pag. X]. La risposta corretta è C perché [spiegazione breve].
 
 ---
 
 **${startNumber + 1}. [testo completo della domanda]**
 
-Opzioni:
-A) [testo opzione A] ✓
+A) [testo opzione A] [CORRETTA]
 B) [testo opzione B]
 C) [testo opzione C]
 
-Spiegazione: [AI] Non trovato nel materiale.
-La risposta corretta è A basata su conoscenze generali.
+Spiegazione: [AI] Non trovato nel materiale. La risposta corretta è A basata su conoscenze generali.
 
 ---
 
 REGOLE:
 - Il NUMERO e la DOMANDA devono essere in grassetto (**N. ...**)
-- Marca con ✓ SOLO l'opzione corretta
+- Aggiungi [CORRETTA] alla fine SOLO della riga con la risposta esatta
 - Usa --- tra una domanda e l'altra
-- Numera le domande da ${startNumber} a ${endNumber} in ordine`;
+- Numera le domande da ${startNumber} a ${endNumber} in ordine
+- NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
 }
 
 function parseAnswers(finalResponse) {
