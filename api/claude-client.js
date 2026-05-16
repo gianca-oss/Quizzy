@@ -42,7 +42,7 @@ async function extractQuestions(apiKey, imageContent, prompt) {
         method: 'POST',
         headers: buildHeaders(apiKey),
         body: JSON.stringify({
-            model: 'claude-sonnet-4-6-20250627',
+            model: 'claude-sonnet-4-20250514',
             max_tokens: 4000,
             temperature: 0,
             messages: [{
@@ -77,7 +77,7 @@ async function analyzeWithContext(apiKey, prompt) {
         method: 'POST',
         headers: buildHeaders(apiKey),
         body: JSON.stringify({
-            model: 'claude-opus-4-7-20250715',
+            model: 'claude-opus-4-20250514',
             max_tokens: 4000,
             temperature: 0,
             messages: [{
