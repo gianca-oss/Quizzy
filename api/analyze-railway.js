@@ -64,7 +64,6 @@ module.exports = async function handler(req, res) {
         const embeddingsData = await loadEmbeddings();
 
         // Step 1: Extract questions from image
-        await new Promise(resolve => setTimeout(resolve, 1000));
         const responseText = await extractQuestions(apiKey, imageContent, buildExtractionPrompt());
 
         // Step 2: Parse questions
