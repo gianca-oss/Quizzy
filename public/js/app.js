@@ -1,5 +1,8 @@
 let images = [];
 
+const HISTORY_KEY = 'quizzy_history';
+const MAX_HISTORY = 50;
+
 const imgUploadArea = document.getElementById('imgUploadArea');
 const imgInput = document.getElementById('imgInput');
 const imgLabel = document.getElementById('imgLabel');
@@ -7,9 +10,108 @@ const imgSublabel = document.getElementById('imgSublabel');
 const imgStatus = document.getElementById('imgStatus');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const clearBtn = document.getElementById('clearBtn');
+const historyBtn = document.getElementById('historyBtn');
 const loading = document.getElementById('loading');
 const results = document.getElementById('results');
 const resultsContent = document.getElementById('resultsContent');
+
+function loadHistory() {
+    try {
+        return JSON.parse(localStorage.getItem(HISTORY_KEY) || '[]');
+    } catch {
+        return [];
+    }
+}
+
+function saveToHistory(answers, analysis) {
+    const history = loadHistory();
+    history.unshift({
+        id: Date.now(),
+        date: new Date().toISOString(),
+        questionsCount: answers.length,
+        answers,
+        analysis
+    });
+    if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
+    try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        updateHistoryButton();
+    } catch (err) {
+        console.warn('Cannot save to history:', err.message);
+    }
+}
+
+function updateHistoryButton() {
+    if (!historyBtn) return;
+    const count = loadHistory().length;
+    historyBtn.style.display = count > 0 ? 'inline-block' : 'none';
+    historyBtn.textContent = count > 0 ? `Storico (${count})` : 'Storico';
+}
+
+function deleteHistoryItem(id) {
+    const history = loadHistory().filter(h => h.id !== id);
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+    updateHistoryButton();
+    showHistory();
+}
+
+function clearHistory() {
+    if (!confirm('Cancellare tutto lo storico?')) return;
+    localStorage.removeItem(HISTORY_KEY);
+    updateHistoryButton();
+    backToUpload();
+}
+
+function formatHistoryDate(iso) {
+    const d = new Date(iso);
+    const today = new Date();
+    const isToday = d.toDateString() === today.toDateString();
+    const time = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+    if (isToday) return `Oggi, ${time}`;
+    const date = d.toLocaleDateString('it-IT', { day: '2-digit', month: 'short' });
+    return `${date}, ${time}`;
+}
+
+function showHistory() {
+    const history = loadHistory();
+    let html = '<div class="result-content" style="padding: 8px;">';
+    html += '<h3 style="font-size: 16px; margin-bottom: 12px; text-align: center;">Storico Quiz</h3>';
+
+    if (history.length === 0) {
+        html += '<p style="text-align: center; opacity: 0.6; padding: 20px;">Nessun quiz salvato</p>';
+    } else {
+        html += '<div style="display: flex; flex-direction: column; gap: 8px;">';
+        history.forEach(item => {
+            html += `<div style="display: flex; align-items: center; gap: 8px; padding: 10px; background: rgba(128,128,128,0.08); border-radius: 8px;">`;
+            html += `<div style="flex: 1; cursor: pointer;" onclick="openHistoryItem(${item.id})">`;
+            html += `<div style="font-weight: 600; font-size: 14px;">${formatHistoryDate(item.date)}</div>`;
+            html += `<div style="font-size: 12px; opacity: 0.7;">${item.questionsCount} domande</div>`;
+            html += `</div>`;
+            html += `<button onclick="deleteHistoryItem(${item.id})" style="background: none; border: none; color: #ff3b30; font-size: 18px; cursor: pointer; padding: 4px 8px;">×</button>`;
+            html += `</div>`;
+        });
+        html += '</div>';
+    }
+
+    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px;">';
+    html += '<button onclick="backToUpload()" class="back-button">← Indietro</button>';
+    if (history.length > 0) {
+        html += '<button onclick="clearHistory()" class="back-button" style="color: #ff3b30;">Cancella tutto</button>';
+    }
+    html += '</div></div>';
+
+    resultsContent.innerHTML = html;
+    results.style.display = 'block';
+    document.querySelector('.main-content').style.display = 'none';
+    document.querySelector('.actions').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function openHistoryItem(id) {
+    const item = loadHistory().find(h => h.id === id);
+    if (!item) return;
+    displayResults([{ answers: item.answers, analysis: item.analysis }], { skipSave: true });
+}
 
 function setupDragAndDrop(element, handler) {
     element.addEventListener('dragover', (e) => {
@@ -284,9 +386,11 @@ function formatMarkdown(text) {
         .trim();
 }
 
-function displayResults(allResults) {
+function displayResults(allResults, opts = {}) {
     const allQuestions = [];
     const allAnalyses = [];
+    const flatAnswers = [];
+    const rawAnalyses = [];
 
     allResults.forEach(result => {
         result.answers.forEach(a => {
@@ -295,12 +399,18 @@ function displayResults(allResults) {
                 answer: a.letter,
                 fonte: formatSource(a.source)
             });
+            flatAnswers.push(a);
         });
 
         if (result.analysis) {
+            rawAnalyses.push(result.analysis);
             allAnalyses.push(formatMarkdown(result.analysis));
         }
     });
+
+    if (!opts.skipSave && flatAnswers.length > 0) {
+        saveToHistory(flatAnswers, rawAnalyses.join('\n\n---\n\n'));
+    }
 
     const rowH = Math.min(28, Math.floor(580 / Math.max(allQuestions.length, 1)));
     const fontSize = allQuestions.length > 15 ? '12px' : '13px';
@@ -359,5 +469,7 @@ document.addEventListener('DOMContentLoaded', () => {
     imgInput.addEventListener('change', handleImages);
     analyzeBtn.addEventListener('click', analyze);
     clearBtn.addEventListener('click', clearAll);
+    if (historyBtn) historyBtn.addEventListener('click', showHistory);
     setupDragAndDrop(imgUploadArea, handleImagesDrop);
+    updateHistoryButton();
 });
