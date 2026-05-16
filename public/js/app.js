@@ -8,7 +8,6 @@ const imgInput = document.getElementById('imgInput');
 const imgLabel = document.getElementById('imgLabel');
 const imgSublabel = document.getElementById('imgSublabel');
 const imgStatus = document.getElementById('imgStatus');
-const analyzeBtn = document.getElementById('analyzeBtn');
 const clearBtn = document.getElementById('clearBtn');
 const historyBtn = document.getElementById('historyBtn');
 const loading = document.getElementById('loading');
@@ -282,18 +281,16 @@ async function handleImages(e) {
         if (images.length > 0) {
             imgUploadArea.classList.add('loaded');
             imgLabel.textContent = `${images.length} ${images.length === 1 ? 'immagine' : 'immagini'}`;
-            imgSublabel.textContent = 'Pronte per l\'analisi';
+            imgSublabel.textContent = 'Avvio analisi...';
             imgStatus.textContent = '';
-            analyzeBtn.style.background = '';
-            analyzeBtn.style.borderColor = '';
+            analyze();
+            return;
         }
     } catch (err) {
         imgLabel.textContent = 'Errore';
         imgSublabel.textContent = err.message;
         images = [];
     }
-
-    checkReady();
 }
 
 function clearAll() {
@@ -307,13 +304,6 @@ function clearAll() {
     resultsContent.innerHTML = '';
     document.querySelector('.main-content').style.display = 'block';
     document.querySelector('.actions').style.display = 'flex';
-    analyzeBtn.style.background = '';
-    analyzeBtn.style.borderColor = '';
-    checkReady();
-}
-
-function checkReady() {
-    analyzeBtn.disabled = !images.length;
 }
 
 function toggleAnalysis() {
@@ -532,8 +522,6 @@ function displayResults(allResults, opts = {}) {
     document.querySelector('.main-content').style.display = 'none';
     document.querySelector('.actions').style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    analyzeBtn.style.background = '#34c759';
-    analyzeBtn.style.borderColor = '#34c759';
 }
 
 // Init
@@ -546,7 +534,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     imgInput.addEventListener('change', handleImages);
-    analyzeBtn.addEventListener('click', analyze);
     clearBtn.addEventListener('click', clearAll);
     if (historyBtn) historyBtn.addEventListener('click', showHistory);
     setupDragAndDrop(imgUploadArea, handleImagesDrop);
