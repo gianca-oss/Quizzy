@@ -84,19 +84,23 @@ module.exports = async function handler(req, res) {
 
         // Step 5: Build response
         const { answers, analysisText } = parseAnswers(finalResponse);
-        const questionBlocks = responseText.split(/---+/).filter(b => b.includes('TESTO:') || b.includes('DOMANDA')).length;
-        const formattedContent = buildFinalHtml(questions, answers, analysisText, finalResponse, questionBlocks, responseText);
+
+        const answersArray = questions.map((q, i) => {
+            const num = startNumber + i;
+            const answer = answers[num] || { letter: '?', source: 'AI' };
+            return { num, letter: answer.letter, source: answer.source };
+        });
 
         res.status(200).json({
-            content: [{ type: 'text', text: formattedContent }],
+            answers: answersArray,
+            analysis: analysisText || finalResponse,
             metadata: {
                 model: 'claude-opus-4-20250514',
                 processingMethod: embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway',
                 searchStats: { semantic: semanticCount, keyword: keywordCount },
                 chunksSearched: data.textChunks.length,
                 embeddingsLoaded: !!embeddingsData,
-                questionsAnalyzed: questions.length,
-                rawExtraction: responseText.substring(0, 2000)
+                questionsAnalyzed: questions.length
             }
         });
 

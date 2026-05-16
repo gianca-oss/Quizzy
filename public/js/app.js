@@ -158,26 +158,15 @@ function backToUpload() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function parseQuizContent(htmlContent) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = htmlContent;
+const SOURCE_STYLES = {
+    CITATO: { indicator: '📚 CITATO', color: '#34c759' },
+    VERIFICATO: { indicator: '🔍 VERIFICATO', color: '#007aff' },
+    AI: { indicator: '⚠️ AI', color: '#ff9500' }
+};
 
-    const questions = [];
-    tempDiv.querySelectorAll('table').forEach(table => {
-        table.querySelectorAll('tr').forEach((row, index) => {
-            if (index === 0) return;
-            const cells = row.querySelectorAll('td');
-            if (cells.length >= 2) {
-                questions.push({
-                    num: cells[0].textContent.trim(),
-                    answer: cells[1].textContent.trim(),
-                    row: row.cloneNode(true)
-                });
-            }
-        });
-    });
-
-    return { questions };
+function formatSource(source) {
+    const style = SOURCE_STYLES[source] || SOURCE_STYLES.AI;
+    return `<span style="color: ${style.color}">${style.indicator}</span>`;
 }
 
 const PROGRESS_STEPS = [
@@ -250,11 +239,10 @@ async function analyze() {
             }
 
             const data = await response.json();
-            const resultText = data.content?.[0]?.text || '';
 
             allResults.push({
-                content: resultText,
-                parsed: parseQuizContent(resultText)
+                answers: data.answers || [],
+                analysis: data.analysis || ''
             });
 
             questionStartNumber += data.metadata?.questionsAnalyzed || 0;
@@ -284,37 +272,32 @@ async function analyze() {
     }
 }
 
+function formatMarkdown(text) {
+    return text
+        .replace(/RISPOSTE\s*\(usa SEMPRE[^:]*\):[\s\S]*?(?=\d+\.\s*\*\*|ANALISI|$)/gi, '')
+        .replace(/ANALISI\s*\(usa SEMPRE[^:]*\):/gi, '')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n{2,}/g, '\n')
+        .replace(/\n/g, '<br>')
+        .replace(/^(<br>)+/, '')
+        .trim();
+}
+
 function displayResults(allResults) {
-    let globalQuestionNum = 0;
     const allQuestions = [];
     const allAnalyses = [];
 
     allResults.forEach(result => {
-        result.parsed.questions.forEach(q => {
-            globalQuestionNum++;
+        result.answers.forEach(a => {
             allQuestions.push({
-                num: globalQuestionNum,
-                answer: q.answer,
-                fonte: q.row.cells[2] ? q.row.cells[2].innerHTML : '⚠️ AI'
+                num: a.num,
+                answer: a.letter,
+                fonte: formatSource(a.source)
             });
         });
 
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = result.content;
-        const analysisHeader = tempDiv.querySelector('h3');
-        if (analysisHeader?.textContent.includes('Analisi')) {
-            const analysisDiv = analysisHeader.nextElementSibling;
-            if (analysisDiv) {
-                let analysisText = analysisDiv.innerHTML;
-                const baseNum = globalQuestionNum - result.parsed.questions.length;
-                result.parsed.questions.forEach((q, idx) => {
-                    analysisText = analysisText.replace(
-                        new RegExp(`\\*\\*${idx + 1}\\.`, 'g'),
-                        `**${baseNum + idx + 1}.`
-                    );
-                });
-                allAnalyses.push(analysisText);
-            }
+        if (result.analysis) {
+            allAnalyses.push(formatMarkdown(result.analysis));
         }
     });
 
