@@ -107,53 +107,44 @@ REGOLE:
 
 function parseAnswers(finalResponse) {
     const lines = finalResponse.split('\n');
-    let analysisText = '';
-    let foundAnalysis = false;
     const answers = {};
     let currentQuestion = null;
 
     lines.forEach(line => {
-        if (line.includes('ANALISI:')) {
-            foundAnalysis = true;
-            analysisText = line.replace('ANALISI:', '').trim();
-        } else if (foundAnalysis) {
-            analysisText += '\n' + line;
+        const questionMatch = line.match(/^\s*\*\*(\d+)\./);
+        if (questionMatch) {
+            currentQuestion = questionMatch[1];
+            if (!answers[currentQuestion]) {
+                answers[currentQuestion] = { letter: '?', source: 'AI' };
+            }
+            return;
+        }
 
-            const questionMatch = line.match(/^\*\*(\d+)\./);
-            if (questionMatch) {
-                currentQuestion = questionMatch[1];
-            }
+        if (!currentQuestion) return;
 
-            if (currentQuestion && !answers[currentQuestion]) {
-                if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i)) {
-                    answers[currentQuestion] = { letter: '?', source: 'CITATO' };
-                } else if (line.includes('[AI]')) {
-                    answers[currentQuestion] = { letter: '?', source: 'AI' };
-                } else if (line.includes('[VERIFICATO]')) {
-                    answers[currentQuestion] = { letter: '?', source: 'VERIFICATO' };
-                }
-            }
+        // Detect correct answer via [CORRETTA] marker on option line
+        const correctMatch = line.match(/^\s*([A-D])\)\s.*\[CORRETTA\]/i);
+        if (correctMatch) {
+            answers[currentQuestion].letter = correctMatch[1].toUpperCase();
+        }
 
-            const respMatch = line.match(/Risposta:\s*([A-Da-d])/i);
-            if (respMatch && currentQuestion) {
-                if (answers[currentQuestion]) {
-                    answers[currentQuestion].letter = respMatch[1].toUpperCase();
-                } else {
-                    answers[currentQuestion] = { letter: respMatch[1].toUpperCase(), source: 'AI' };
-                }
-            }
-        } else {
-            const match = line.match(/^(\d+)[.):]\s*([a-dA-D])\s*\[?(CITATO|VERIFICATO|AI)?\]?/i);
-            if (match) {
-                answers[match[1]] = {
-                    letter: match[2].toUpperCase(),
-                    source: match[3] ? match[3].toUpperCase() : 'AI'
-                };
-            }
+        // Detect source from explanation
+        if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i)) {
+            answers[currentQuestion].source = 'CITATO';
+        } else if (line.includes('[VERIFICATO]')) {
+            answers[currentQuestion].source = 'VERIFICATO';
+        } else if (line.includes('[AI]')) {
+            answers[currentQuestion].source = 'AI';
+        }
+
+        // Legacy fallback: "Risposta: X"
+        const respMatch = line.match(/Risposta:\s*([A-Da-d])/i);
+        if (respMatch && answers[currentQuestion].letter === '?') {
+            answers[currentQuestion].letter = respMatch[1].toUpperCase();
         }
     });
 
-    return { answers, analysisText };
+    return { answers, analysisText: finalResponse };
 }
 
 function buildTableHtml(questions, answers, startNumber) {
