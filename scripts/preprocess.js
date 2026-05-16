@@ -1,7 +1,7 @@
 // preprocess.js - Preprocessing ottimizzato per massima accuratezza
-// Uso: node preprocess.js <nome-corso> [pdf-filename]
-// Esempio: node preprocess.js supply-chain
-//          node preprocess.js supply-chain my-source.pdf
+// Uso: node scripts/preprocess.js <nome-corso> [pdf-filename]
+// Esempio: node scripts/preprocess.js supply-chain
+//          node scripts/preprocess.js supply-chain my-source.pdf
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -9,8 +9,8 @@ const pdfParse = require('pdf-parse');
 
 const COURSE_NAME = process.argv[2];
 if (!COURSE_NAME) {
-    console.error('❌ Uso: node preprocess.js <nome-corso> [pdf-filename]');
-    console.error('   Esempio: node preprocess.js supply-chain');
+    console.error('❌ Uso: node scripts/preprocess.js <nome-corso> [pdf-filename]');
+    console.error('   Esempio: node scripts/preprocess.js supply-chain');
     process.exit(1);
 }
 
