@@ -1,6 +1,7 @@
 let images = [];
 
 const HISTORY_KEY = 'quizzy_history';
+const PRECISION_KEY = 'quizzy_precision';
 const MAX_HISTORY = 50;
 
 const imgUploadArea = document.getElementById('imgUploadArea');
@@ -374,10 +375,12 @@ async function analyze() {
         for (let i = 0; i < images.length; i++) {
             const stopProgress = startProgressFeedback(i + 1, images.length);
 
+            const precision = document.getElementById('precisionInput')?.checked === true;
             const requestBody = {
                 model: 'claude-3-haiku-20240307',
                 max_tokens: 4000,
                 startNumber: questionStartNumber,
+                precision,
                 messages: [{
                     role: 'user',
                     content: [{
@@ -540,4 +543,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (historyBtn) historyBtn.addEventListener('click', showHistory);
     setupDragAndDrop(imgUploadArea, handleImagesDrop);
     updateHistoryButton();
+
+    const precisionInput = document.getElementById('precisionInput');
+    const precisionToggle = document.getElementById('precisionToggle');
+    if (precisionInput) {
+        precisionInput.checked = localStorage.getItem(PRECISION_KEY) === 'true';
+        if (precisionInput.checked) precisionToggle.classList.add('active');
+        precisionInput.addEventListener('change', () => {
+            localStorage.setItem(PRECISION_KEY, precisionInput.checked);
+            precisionToggle.classList.toggle('active', precisionInput.checked);
+        });
+    }
 });

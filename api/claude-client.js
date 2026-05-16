@@ -72,12 +72,18 @@ async function extractQuestions(apiKey, imageContent, prompt) {
     return data.content[0].text;
 }
 
-async function analyzeWithContext(apiKey, prompt) {
+const MODELS = {
+    sonnet: 'claude-sonnet-4-20250514',
+    opus: 'claude-opus-4-20250514'
+};
+
+async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
+    const model = MODELS[modelKey] || MODELS.sonnet;
     const response = await callWithRetry('https://api.anthropic.com/v1/messages', {
         method: 'POST',
         headers: buildHeaders(apiKey),
         body: JSON.stringify({
-            model: 'claude-opus-4-20250514',
+            model,
             max_tokens: 4000,
             temperature: 0,
             messages: [{
@@ -92,7 +98,7 @@ async function analyzeWithContext(apiKey, prompt) {
     }
 
     const data = await response.json();
-    return data.content[0].text;
+    return { text: data.content[0].text, model };
 }
 
 module.exports = { extractQuestions, analyzeWithContext };

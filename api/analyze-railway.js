@@ -42,6 +42,7 @@ module.exports = async function handler(req, res) {
         }
 
         const startNumber = req.body.startNumber || 1;
+        const modelKey = req.body.precision === true ? 'opus' : 'sonnet';
 
         if (!req.body?.messages?.[0]?.content) {
             return res.status(400).json({ error: 'Formato richiesta non valido' });
@@ -80,7 +81,7 @@ module.exports = async function handler(req, res) {
 
         // Step 4: Final analysis
         const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
-        const finalResponse = await analyzeWithContext(apiKey, analysisPrompt);
+        const { text: finalResponse, model: usedModel } = await analyzeWithContext(apiKey, analysisPrompt, modelKey);
 
         // Step 5: Build response
         const { answers, analysisText } = parseAnswers(finalResponse);
@@ -95,7 +96,7 @@ module.exports = async function handler(req, res) {
             answers: answersArray,
             analysis: analysisText || finalResponse,
             metadata: {
-                model: 'claude-opus-4-20250514',
+                model: usedModel,
                 processingMethod: embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway',
                 searchStats: { semantic: semanticCount, keyword: keywordCount },
                 chunksSearched: data.textChunks.length,
