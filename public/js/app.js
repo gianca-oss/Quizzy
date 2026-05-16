@@ -87,7 +87,8 @@ function showHistory() {
             html += `<div style="font-weight: 600; font-size: 14px;">${formatHistoryDate(item.date)}</div>`;
             html += `<div style="font-size: 12px; opacity: 0.7;">${item.questionsCount} domande</div>`;
             html += `</div>`;
-            html += `<button onclick="deleteHistoryItem(${item.id})" style="background: none; border: none; color: #ff3b30; font-size: 18px; cursor: pointer; padding: 4px 8px;">×</button>`;
+            html += `<button onclick="shareHistoryItem(${item.id})" style="background: none; border: none; color: var(--text-primary); font-size: 18px; cursor: pointer; padding: 4px 8px;" title="Condividi">⤴</button>`;
+            html += `<button onclick="deleteHistoryItem(${item.id})" style="background: none; border: none; color: #ff3b30; font-size: 18px; cursor: pointer; padding: 4px 8px;" title="Elimina">×</button>`;
             html += `</div>`;
         });
         html += '</div>';
@@ -111,6 +112,82 @@ function openHistoryItem(id) {
     const item = loadHistory().find(h => h.id === id);
     if (!item) return;
     displayResults([{ answers: item.answers, analysis: item.analysis }], { skipSave: true });
+}
+
+function buildReportHtml(item) {
+    const dateLabel = formatHistoryDate(item.date);
+    const sourceColors = { CITATO: '#34c759', VERIFICATO: '#007aff', AI: '#ff9500' };
+    const sourceLabels = { CITATO: '📚 CITATO', VERIFICATO: '🔍 VERIFICATO', AI: '⚠️ AI' };
+
+    let rows = '';
+    item.answers.forEach(a => {
+        const color = sourceColors[a.source] || sourceColors.AI;
+        const label = sourceLabels[a.source] || sourceLabels.AI;
+        rows += `<tr><td>${a.num}</td><td><strong>${a.letter}</strong></td><td style="color:${color}">${label}</td></tr>`;
+    });
+
+    const analysisHtml = (item.analysis || '')
+        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\n{3,}/g, '\n\n')
+        .replace(/\n/g, '<br>');
+
+    return `<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quizzy Report - ${dateLabel}</title>
+<style>
+body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; background: #fff; color: #111; max-width: 720px; margin: 0 auto; padding: 20px; line-height: 1.5; }
+h1 { font-size: 22px; margin-bottom: 4px; }
+.meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+th, td { padding: 8px 10px; border: 1px solid #ddd; text-align: center; }
+th { background: #f5f5f5; font-weight: 600; }
+h2 { font-size: 16px; margin-top: 24px; border-top: 1px solid #eee; padding-top: 16px; }
+.analysis { font-size: 14px; }
+hr { border: none; border-top: 1px dashed #ddd; margin: 16px 0; }
+</style>
+</head>
+<body>
+<h1>Quizzy — Risultati Quiz</h1>
+<div class="meta">${dateLabel} · ${item.questionsCount} domande</div>
+<table>
+<thead><tr><th>N°</th><th>Risposta</th><th>Fonte</th></tr></thead>
+<tbody>${rows}</tbody>
+</table>
+<h2>Analisi</h2>
+<div class="analysis">${analysisHtml}</div>
+</body>
+</html>`;
+}
+
+async function shareHistoryItem(id) {
+    const item = loadHistory().find(h => h.id === id);
+    if (!item) return;
+
+    const html = buildReportHtml(item);
+    const blob = new Blob([html], { type: 'text/html' });
+    const fileName = `quizzy-${new Date(item.date).toISOString().slice(0, 16).replace(/[:T]/g, '-')}.html`;
+    const file = new File([blob], fileName, { type: 'text/html' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+            await navigator.share({ files: [file], title: 'Quizzy Report' });
+            return;
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+        }
+    }
+
+    // Fallback: download
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 function setupDragAndDrop(element, handler) {
