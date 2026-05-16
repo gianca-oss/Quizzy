@@ -167,6 +167,26 @@ function parseQuizContent(htmlContent) {
     return { questions };
 }
 
+const PROGRESS_STEPS = [
+    { text: 'Lettura immagine...', delay: 0 },
+    { text: 'Estrazione domande...', delay: 2000 },
+    { text: 'Ricerca nel materiale...', delay: 8000 },
+    { text: 'Analisi con AI...', delay: 14000 },
+    { text: 'Quasi fatto...', delay: 30000 }
+];
+
+function startProgressFeedback(imageIndex, totalImages) {
+    const loadingText = document.querySelector('.loading-text');
+    if (!loadingText) return null;
+
+    const prefix = totalImages > 1 ? `[${imageIndex}/${totalImages}] ` : '';
+    const timers = PROGRESS_STEPS.map(step =>
+        setTimeout(() => { loadingText.textContent = prefix + step.text; }, step.delay)
+    );
+
+    return () => timers.forEach(clearTimeout);
+}
+
 async function analyze() {
     if (images.length === 0) return;
 
@@ -179,10 +199,7 @@ async function analyze() {
         let questionStartNumber = 1;
 
         for (let i = 0; i < images.length; i++) {
-            const loadingText = document.querySelector('.loading-text');
-            if (loadingText) {
-                loadingText.textContent = `Analisi immagine ${i + 1} di ${images.length}`;
-            }
+            const stopProgress = startProgressFeedback(i + 1, images.length);
 
             const requestBody = {
                 model: 'claude-3-haiku-20240307',
@@ -212,6 +229,7 @@ async function analyze() {
             });
 
             clearTimeout(timeoutId);
+            stopProgress();
 
             if (!response.ok) {
                 const errorText = await response.text();
