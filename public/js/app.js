@@ -105,6 +105,8 @@ function showHistory() {
     results.style.display = 'block';
     document.querySelector('.main-content').style.display = 'none';
     document.querySelector('.actions').style.display = 'none';
+    const pt = document.getElementById('precisionToggle');
+    if (pt) pt.style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -307,6 +309,8 @@ function clearAll() {
     resultsContent.innerHTML = '';
     document.querySelector('.main-content').style.display = 'block';
     document.querySelector('.actions').style.display = 'flex';
+    const pt = document.getElementById('precisionToggle');
+    if (pt) pt.style.display = 'flex';
 }
 
 function backToUpload() {
@@ -314,6 +318,8 @@ function backToUpload() {
     resultsContent.innerHTML = '';
     document.querySelector('.main-content').style.display = 'block';
     document.querySelector('.actions').style.display = 'flex';
+    const pt = document.getElementById('precisionToggle');
+    if (pt) pt.style.display = 'flex';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -515,6 +521,8 @@ function displayResults(allResults, opts = {}) {
     results.style.display = 'block';
     document.querySelector('.main-content').style.display = 'none';
     document.querySelector('.actions').style.display = 'none';
+    const pt = document.getElementById('precisionToggle');
+    if (pt) pt.style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
