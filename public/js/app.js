@@ -137,6 +137,19 @@ function checkReady() {
     analyzeBtn.disabled = !images.length;
 }
 
+function toggleAnalysis() {
+    const section = document.getElementById('analysisSection');
+    const btn = document.getElementById('toggleAnalysisBtn');
+    if (section.style.display === 'none') {
+        section.style.display = 'block';
+        btn.textContent = 'Dettagli ▲';
+    } else {
+        section.style.display = 'none';
+        btn.textContent = 'Dettagli ▼';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
 function backToUpload() {
     results.style.display = 'none';
     resultsContent.innerHTML = '';
@@ -305,27 +318,39 @@ function displayResults(allResults) {
         }
     });
 
+    const rowH = Math.min(28, Math.floor(580 / Math.max(allQuestions.length, 1)));
+    const fontSize = allQuestions.length > 15 ? '12px' : '13px';
+    const numSize = allQuestions.length > 15 ? '10px' : '11px';
+    const fonteSize = allQuestions.length > 15 ? '9px' : '10px';
+    const pad = allQuestions.length > 15 ? '0px 3px' : '1px 4px';
+
     let html = '<div class="result-content">';
-    html += '<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1;">';
+    html += `<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1; table-layout: fixed;">`;
+    html += '<colgroup><col style="width: 28px"><col style="width: 50%"><col></colgroup>';
     html += '<thead><tr>';
-    html += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: 10px;">N°</th>';
-    html += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: 10px;">RISPOSTA</th>';
-    html += '<th style="padding: 1px 4px; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: 10px;">FONTE</th>';
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">N°</th>`;
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">RISPOSTA</th>`;
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">FONTE</th>`;
     html += '</tr></thead><tbody>';
 
     allQuestions.forEach(q => {
-        html += '<tr>';
-        html += `<td style="padding: 1px 4px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.15); font-size: 11px; line-height: 1;">${q.num}</td>`;
-        html += `<td style="padding: 1px 4px; text-align: center; font-weight: bold; font-size: 13px; border-bottom: 1px solid rgba(128,128,128,0.15); line-height: 1;">${q.answer}</td>`;
-        html += `<td style="padding: 1px 4px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.15); font-size: 10px; line-height: 1;">${q.fonte}</td>`;
+        html += `<tr style="height: ${rowH}px;">`;
+        html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${numSize}; line-height: 1;">${q.num}</td>`;
+        html += `<td style="padding: ${pad}; text-align: center; font-weight: bold; font-size: ${fontSize}; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;">${q.answer}</td>`;
+        html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${fonteSize}; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${q.fonte}</td>`;
         html += '</tr>';
     });
 
     html += '</tbody></table>';
-    html += '<div style="margin-top: 20px;">';
-    html += '<button onclick="backToUpload()" class="back-button" style="display: block; margin: 0 auto 12px auto;">← Nuova Analisi</button>';
-    html += '<h3 style="font-size: 16px;">Analisi:</h3>';
-    html += '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85;">';
+
+    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px;">';
+    html += '<button onclick="backToUpload()" class="back-button">← Nuova</button>';
+    html += '<button onclick="toggleAnalysis()" class="back-button" id="toggleAnalysisBtn">Dettagli ▼</button>';
+    html += '</div>';
+
+    html += '<div id="analysisSection" style="display: none; margin-top: 12px;">';
+    html += '<h3 style="font-size: 15px; margin-bottom: 8px;">Analisi:</h3>';
+    html += '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85; font-size: 13px;">';
     html += allAnalyses.join('\n\n');
     html += '</div></div></div>';
 
