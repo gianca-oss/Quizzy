@@ -91,7 +91,7 @@ module.exports = async function handler(req, res) {
         res.status(200).json({
             content: [{ type: 'text', text: formattedContent }],
             metadata: {
-                model: 'claude-opus-4-20250514',
+                model: 'claude-opus-4-7-20250715',
                 processingMethod: embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway',
                 searchStats: { semantic: semanticCount, keyword: keywordCount },
                 chunksSearched: data.textChunks.length,
