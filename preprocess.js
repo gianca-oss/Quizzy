@@ -1,11 +1,22 @@
-// advanced-text-preprocessing.js - Preprocessing ottimizzato per massima accuratezza
+// preprocess.js - Preprocessing ottimizzato per massima accuratezza
+// Uso: node preprocess.js <nome-corso> [pdf-filename]
+// Esempio: node preprocess.js supply-chain
+//          node preprocess.js supply-chain my-source.pdf
 
 const fs = require('fs').promises;
 const path = require('path');
 const pdfParse = require('pdf-parse');
 
-const INPUT_PDF = './data/source/corso_completo.pdf';
-const OUTPUT_DIR = './data/processed-v3';
+const COURSE_NAME = process.argv[2];
+if (!COURSE_NAME) {
+    console.error('❌ Uso: node preprocess.js <nome-corso> [pdf-filename]');
+    console.error('   Esempio: node preprocess.js supply-chain');
+    process.exit(1);
+}
+
+const PDF_FILENAME = process.argv[3] || 'source.pdf';
+const INPUT_PDF = path.join('./data/source', COURSE_NAME, PDF_FILENAME);
+const OUTPUT_DIR = path.join('./data/processed', COURSE_NAME);
 const CHUNK_SIZE = 1500; // Aumentato per contesto migliore
 const CHUNK_OVERLAP = 300; // Overlap maggiore per non perdere informazioni
 
@@ -301,6 +312,7 @@ async function processDocument() {
         const metadata = {
             version: '3.0-text-only',
             processedAt: new Date().toISOString(),
+            courseName: COURSE_NAME,
             document: INPUT_PDF,
             stats: {
                 totalPages: pdfData.numpages,
