@@ -151,7 +151,7 @@ hr { border: none; border-top: 1px dashed #ddd; margin: 16px 0; }
 </style>
 </head>
 <body>
-<h1>Quizzy — Risultati Quiz</h1>
+<h1>Quizzy - Risultati Quiz</h1>
 <div class="meta">${dateLabel} · ${item.questionsCount} domande</div>
 <table>
 <thead><tr><th>N°</th><th>Risposta</th><th>Fonte</th></tr></thead>
