@@ -97,9 +97,10 @@ Spiegazione: [AI] Non trovato nel materiale. La risposta corretta è A basata su
 
 ---
 
-REGOLE:
+REGOLE OBBLIGATORIE:
 - Il NUMERO e la DOMANDA devono essere in grassetto (**N. ...**)
-- Aggiungi [CORRETTA] alla fine SOLO della riga con la risposta esatta
+- Aggiungi LETTERALMENTE la stringa "[CORRETTA]" (incluse le parentesi quadre) alla fine SOLO della riga con la risposta esatta
+- NON usare ✓, V, (V), ✔ o altri simboli al posto di [CORRETTA]
 - Usa --- tra una domanda e l'altra
 - Numera le domande da ${startNumber} a ${endNumber} in ordine
 - NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
@@ -122,8 +123,8 @@ function parseAnswers(finalResponse) {
 
         if (!currentQuestion) return;
 
-        // Detect correct answer via [CORRETTA] marker on option line
-        const correctMatch = line.match(/^\s*([A-D])\)\s.*\[CORRETTA\]/i);
+        // Detect correct answer via marker on option line: [CORRETTA], ✓, ✔, (V), V
+        const correctMatch = line.match(/^\s*([A-D])\)\s.*(\[CORRETTA\]|\(V\)|[✓✔])\s*$/i);
         if (correctMatch) {
             answers[currentQuestion].letter = correctMatch[1].toUpperCase();
         }

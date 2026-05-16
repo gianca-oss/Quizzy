@@ -127,7 +127,7 @@ function buildReportHtml(item) {
     });
 
     const analysisHtml = (item.analysis || '')
-        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:6px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">')
@@ -450,7 +450,7 @@ function formatMarkdown(text) {
     return text
         .replace(/RISPOSTE\s*\([^:]*\):[\s\S]*?(?=\*\*\d+\.|ANALISI|$)/gi, '')
         .replace(/ANALISI\s*\([^:]*\):/gi, '')
-        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:4px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid rgba(128,128,128,0.25)">')
