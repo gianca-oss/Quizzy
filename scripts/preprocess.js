@@ -239,15 +239,51 @@ async function processDocument() {
         // Estrai testo per pagina
         console.log('📄 Estrazione e pulizia testo...');
         const pages = [];
-        const pageTexts = pdfData.text.split(/\f/);
-        
+        let pageTexts = pdfData.text.split(/\f/);
+
+        // Fallback: se il PDF non ha form-feed, dividi per lunghezza simulando pagine
+        if (pageTexts.length <= 1 && pdfData.text.length > CHUNK_SIZE) {
+            console.log('  ⚠️ Nessun separatore di pagina trovato, divisione per blocchi...');
+            const CHARS_PER_PAGE = 3000;
+            const fullText = pdfData.text;
+            pageTexts = [];
+            for (let pos = 0; pos < fullText.length; pos += CHARS_PER_PAGE) {
+                // Cerca un punto di interruzione naturale (fine frase/paragrafo)
+                let end = Math.min(pos + CHARS_PER_PAGE, fullText.length);
+                if (end < fullText.length) {
+                    const breakPoint = fullText.lastIndexOf('\n', end);
+                    if (breakPoint > pos + CHARS_PER_PAGE * 0.7) {
+                        end = breakPoint + 1;
+                    }
+                }
+                pageTexts.push(fullText.substring(pos, end));
+                pos = end - CHARS_PER_PAGE; // Adjust loop variable since we override end
+            }
+            // Simpler approach: just split evenly at newlines
+            pageTexts = [];
+            const lines = fullText.split('\n');
+            let currentBlock = '';
+            let charCount = 0;
+            for (const line of lines) {
+                currentBlock += line + '\n';
+                charCount += line.length + 1;
+                if (charCount >= CHARS_PER_PAGE) {
+                    pageTexts.push(currentBlock);
+                    currentBlock = '';
+                    charCount = 0;
+                }
+            }
+            if (currentBlock.trim()) pageTexts.push(currentBlock);
+            console.log(`  ✅ Creati ${pageTexts.length} blocchi virtuali`);
+        }
+
         let processedPages = 0;
         let totalChars = 0;
-        
+
         for (let i = 0; i < pageTexts.length; i++) {
             const cleanedText = cleanText(pageTexts[i]);
-            
-            if (cleanedText.length > 50) { // Ignora pagine quasi vuote
+
+            if (cleanedText.length > 50) {
                 pages.push({
                     page: i + 1,
                     text: cleanedText,
@@ -257,7 +293,7 @@ async function processDocument() {
                 totalChars += cleanedText.length;
                 processedPages++;
             }
-            
+
             if ((i + 1) % 100 === 0) {
                 console.log(`  Processate ${i + 1}/${pageTexts.length} pagine...`);
             }

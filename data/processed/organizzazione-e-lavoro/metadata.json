@@ -1,0 +1,103 @@
+{
+  "version": "3.0-text-only",
+  "processedAt": "2026-05-16T17:11:43.753Z",
+  "courseName": "organizzazione-e-lavoro",
+  "document": "data/source/organizzazione-e-lavoro/Organizzazione_E_Lavoro.pdf",
+  "stats": {
+    "totalPages": 204,
+    "pagesWithContent": 250,
+    "totalChunks": 250,
+    "totalCharacters": 741409,
+    "avgChunkSize": 3279,
+    "totalKeywords": 1713,
+    "chunksPerFile": 50,
+    "totalFiles": 5
+  },
+  "config": {
+    "chunkSize": 1500,
+    "chunkOverlap": 300,
+    "minPageLength": 50
+  },
+  "topTopics": [
+    {
+      "topic": "come",
+      "count": 63
+    },
+    {
+      "topic": "dell",
+      "count": 60
+    },
+    {
+      "topic": "lavoro",
+      "count": 48
+    },
+    {
+      "topic": "competenze",
+      "count": 32
+    },
+    {
+      "topic": "modello",
+      "count": 31
+    },
+    {
+      "topic": "processo",
+      "count": 29
+    },
+    {
+      "topic": "gestione",
+      "count": 24
+    },
+    {
+      "topic": "cambiamento",
+      "count": 21
+    },
+    {
+      "topic": "dati",
+      "count": 21
+    },
+    {
+      "topic": "valore",
+      "count": 20
+    },
+    {
+      "topic": "azienda",
+      "count": 20
+    },
+    {
+      "topic": "data",
+      "count": 18
+    },
+    {
+      "topic": "analytics",
+      "count": 18
+    },
+    {
+      "topic": "degli",
+      "count": 17
+    },
+    {
+      "topic": "cosa",
+      "count": 16
+    },
+    {
+      "topic": "lavoratori",
+      "count": 16
+    },
+    {
+      "topic": "anche",
+      "count": 16
+    },
+    {
+      "topic": "sistema",
+      "count": 15
+    },
+    {
+      "topic": "contratto",
+      "count": 14
+    },
+    {
+      "topic": "sostenibilità",
+      "count": 13
+    }
+  ]
+}
