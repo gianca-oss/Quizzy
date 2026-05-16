@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "preprocess": "node preprocess.js",
-    "embeddings": "node preprocess-embeddings.js"
+    "preprocess": "node scripts/preprocess.js",
+    "embeddings": "node scripts/preprocess-embeddings.js",
+    "clean-chunks": "node scripts/clean-chunks.js"
   },
   "engines": {
     "node": ">=18.0.0"
