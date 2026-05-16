@@ -11,11 +11,11 @@ function buildContextFromSearchResults(searchResults, startNumber) {
 
         if (result.matches.length > 0) {
             contextPerQuestion += `\nDOMANDA ${questionNum} - CONTESTO (${result.searchMethod}):\n`;
-            result.matches.slice(0, 2).forEach(match => {
+            result.matches.slice(0, 4).forEach(match => {
                 const scoreInfo = match.similarity
                     ? `sim: ${Math.round(match.similarity * 100)}%`
                     : `score: ${match.score}`;
-                contextPerQuestion += `[Pag ${match.page}, ${scoreInfo}] ${match.chunk.text.substring(0, 1200)}\n`;
+                contextPerQuestion += `[${scoreInfo}] ${match.chunk.text.substring(0, 1500)}\n`;
             });
         } else {
             contextPerQuestion += `\nDOMANDA ${questionNum} - NO CONTESTO\n`;

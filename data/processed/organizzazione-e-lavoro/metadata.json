@@ -1,103 +1,494 @@
 {
-  "version": "3.0-text-only",
-  "processedAt": "2026-05-16T17:11:43.753Z",
+  "version": "4.0-section-based",
+  "processedAt": "2026-05-16T17:22:05.493Z",
   "courseName": "organizzazione-e-lavoro",
   "document": "data/source/organizzazione-e-lavoro/Organizzazione_E_Lavoro.pdf",
   "stats": {
     "totalPages": 204,
-    "pagesWithContent": 250,
-    "totalChunks": 250,
-    "totalCharacters": 741409,
-    "avgChunkSize": 3279,
-    "totalKeywords": 1713,
+    "totalSections": 119,
+    "totalChunks": 253,
+    "totalCharacters": 732056,
+    "avgChunkSize": 2894,
+    "totalKeywords": 1583,
     "chunksPerFile": 50,
-    "totalFiles": 5
+    "totalFiles": 6
   },
-  "config": {
-    "chunkSize": 1500,
-    "chunkOverlap": 300,
-    "minPageLength": 50
-  },
-  "topTopics": [
+  "sections": [
     {
-      "topic": "come",
-      "count": 63
+      "title": "1.1 Introduzione e contesto accademico",
+      "level": "section"
     },
     {
-      "topic": "dell",
-      "count": 60
+      "title": "1.2 Il gruppo di ricerca e le linee di lavoro",
+      "level": "section"
     },
     {
-      "topic": "lavoro",
-      "count": 48
+      "title": "1.3 Struttura del corso",
+      "level": "section"
     },
     {
-      "topic": "competenze",
-      "count": 32
+      "title": "1.4 Perché parlare di sostenibilità oggi: le cause dell’urgenza",
+      "level": "section"
     },
     {
-      "topic": "modello",
-      "count": 31
+      "title": "1.5 L’Earth Overshoot Day e la misura della scarsità",
+      "level": "section"
     },
     {
-      "topic": "processo",
-      "count": 29
+      "title": "1.6 Cambiamenti climatici: i dati fondamentali",
+      "level": "section"
     },
     {
-      "topic": "gestione",
-      "count": 24
+      "title": "1.7 L’impresa e la sostenibilità: ritorni economici e costi evitabili",
+      "level": "section"
     },
     {
-      "topic": "cambiamento",
-      "count": 21
+      "title": "1.8 Le tre sfide della sostenibilità nell’impresa",
+      "level": "section"
     },
     {
-      "topic": "dati",
-      "count": 21
+      "title": "1.9 Le transizioni sostenibili",
+      "level": "section"
     },
     {
-      "topic": "valore",
-      "count": 20
+      "title": "1.10 Modelli teorici: i Planetary Boundaries",
+      "level": "section"
     },
     {
-      "topic": "azienda",
-      "count": 20
+      "title": "1.11 Esempi dal mondo delle imprese",
+      "level": "section"
     },
     {
-      "topic": "data",
-      "count": 18
+      "title": "1.12 La risposta delle politiche: il sistema ETS e il fondo Loss and",
+      "level": "section"
     },
     {
-      "topic": "analytics",
-      "count": 18
+      "title": "1.13 Definizioni fondamentali: sviluppo sostenibile e sostenibilità",
+      "level": "section"
     },
     {
-      "topic": "degli",
-      "count": 17
+      "title": "1.14 Sostenibilità e innovazione: la relazione chiave",
+      "level": "section"
     },
     {
-      "topic": "cosa",
-      "count": 16
+      "title": "1.15 Il modello di maturità dell’innovazione sostenibile (SOI)",
+      "level": "section"
     },
     {
-      "topic": "lavoratori",
-      "count": 16
+      "title": "1.16 Scenario 1: Anticipare e orientare la regolamentazione",
+      "level": "section"
     },
     {
-      "topic": "anche",
-      "count": 16
+      "title": "1.17 Scenario 2: Sviluppare nuovi mercati e prodotti",
+      "level": "section"
     },
     {
-      "topic": "sistema",
-      "count": 15
+      "title": "1.18 Scenario 3: Passare a modelli di produzione ispirati dalla natura -",
+      "level": "section"
     },
     {
-      "topic": "contratto",
-      "count": 14
+      "title": "1.19 Gli SDGs: Obiettivi di Sviluppo Sostenibile delle Nazioni Unite",
+      "level": "section"
     },
     {
-      "topic": "sostenibilità",
-      "count": 13
+      "title": "1.20 Strategie climatiche: mitigazione e adattamento",
+      "level": "section"
+    },
+    {
+      "title": "1.21 La classificazione SCOPE delle emissioni di CO",
+      "level": "section"
+    },
+    {
+      "title": "1.22 Science Based Targets Initiative (SBTi)",
+      "level": "section"
+    },
+    {
+      "title": "1.23 L’economia circolare: principi e strategie",
+      "level": "section"
+    },
+    {
+      "title": "1.24 Caso studio: Caviro Extra e il modello circolare biologico",
+      "level": "section"
+    },
+    {
+      "title": "1.25 L’impatto ambientale dei comportamenti quotidiani e digitali",
+      "level": "section"
+    },
+    {
+      "title": "1.26 Le policy europee sull’economia circolare",
+      "level": "section"
+    },
+    {
+      "title": "1.27 Conclusione della prima giornata",
+      "level": "section"
+    },
+    {
+      "title": "1.28 Riepilogo della prima giornata",
+      "level": "section"
+    },
+    {
+      "title": "1.29 Apertura della seconda giornata: struttura e obiettivi",
+      "level": "section"
+    },
+    {
+      "title": "1.30 Strategie climatiche: mitigazione e adattamento",
+      "level": "section"
+    },
+    {
+      "title": "4.1 I gas a effetto serra e il protocollo GHG",
+      "level": "section"
+    },
+    {
+      "title": "1.32 Le tre strategie di mitigazione: eliminazione, neutralizzazione e",
+      "level": "section"
+    },
+    {
+      "title": "1.33 I crediti di carbonio nel mercato volontario",
+      "level": "section"
+    },
+    {
+      "title": "1.34 L’Emissions Trading System (ETS) europeo",
+      "level": "section"
+    },
+    {
+      "title": "1.35 Il costo della neutralizzazione e lo stoccaggio come servizio",
+      "level": "section"
+    },
+    {
+      "title": "1.36 Nuovi sviluppi: biometano, cattura biologica e crediti locali",
+      "level": "section"
+    },
+    {
+      "title": "1.37 Il caso critico dell’industria ceramica e l’ETS",
+      "level": "section"
+    },
+    {
+      "title": "1.38 Le policy europee: ETS, CBAM e CS3D",
+      "level": "section"
+    },
+    {
+      "title": "12.1 Perché l’adattamento è diverso dalla mitigazione",
+      "level": "section"
+    },
+    {
+      "title": "1.40 La misurazione della sostenibilità nell’impresa",
+      "level": "section"
+    },
+    {
+      "title": "1.41 I Key Performance Indicators per la sostenibilità e il target setting",
+      "level": "section"
+    },
+    {
+      "title": "15.1 Le tre direttive fondamentali",
+      "level": "section"
+    },
+    {
+      "title": "1.43 Il contesto internazionale: Stati Uniti, Cina ed Emirati",
+      "level": "section"
+    },
+    {
+      "title": "1.44 Il processo completo di misurazione della sostenibilità: sintesi",
+      "level": "section"
+    },
+    {
+      "title": "1.45 Il sustainability reporting e i rating ESG",
+      "level": "section"
+    },
+    {
+      "title": "1.46 Lavoro di gruppo: applicazione del modello SOI",
+      "level": "section"
+    },
+    {
+      "title": "2.1 Il docente e il contesto del corso",
+      "level": "section"
+    },
+    {
+      "title": "2.2 Obiettivi della lezione",
+      "level": "section"
+    },
+    {
+      "title": "2.3 Big Data: volume, valore e potenziale",
+      "level": "section"
+    },
+    {
+      "title": "2.4 Il valore strategico del dato",
+      "level": "section"
+    },
+    {
+      "title": "2.5 La Data Economy e il contesto regolamentare",
+      "level": "section"
+    },
+    {
+      "title": "2.6 Le sfide nella gestione del panorama Big Data",
+      "level": "section"
+    },
+    {
+      "title": "2.7 Data Governance",
+      "level": "section"
+    },
+    {
+      "title": "2.8 Industry 4.0 e Industry 5.0",
+      "level": "section"
+    },
+    {
+      "title": "2.9 La qualità del dato e il ruolo del Data Engineer",
+      "level": "section"
+    },
+    {
+      "title": "150.000 dollari all’anno, con punte molto superiori. Eppure, le indagini sul campo hanno mostrato",
+      "level": "section"
+    },
+    {
+      "title": "2.10 Le quattro tipologie di Analytics",
+      "level": "section"
+    },
+    {
+      "title": "2.11 Il modello multidimensionale: Data Warehouse e OLAP",
+      "level": "section"
+    },
+    {
+      "title": "2.12 Strumenti tecnici: Python e librerie open source",
+      "level": "section"
+    },
+    {
+      "title": "2.13 Il Digital Twin come strumento decisionale",
+      "level": "section"
+    },
+    {
+      "title": "2.15 Casi studio applicativi",
+      "level": "section"
+    },
+    {
+      "title": "2.16 Costruire una cultura del dato e della Digital Analytics",
+      "level": "section"
+    },
+    {
+      "title": "2.17 Esercitazione: applicare i concetti alla propria azienda",
+      "level": "section"
+    },
+    {
+      "title": "2.18 Sintesi conclusiva",
+      "level": "section"
+    },
+    {
+      "title": "3.1 Obiettivi dell’incontro",
+      "level": "section"
+    },
+    {
+      "title": "3.2 Piano di lavoro",
+      "level": "section"
+    },
+    {
+      "title": "3.3 Crescente importanza del cambiamento",
+      "level": "section"
+    },
+    {
+      "title": "3.4 Le paure nel cambiamento: una mappa dal vivo",
+      "level": "section"
+    },
+    {
+      "title": "3.5 Cos’è il cambiamento?",
+      "level": "section"
+    },
+    {
+      "title": "3.6 Gli approcci al cambiamento: due tradizioni a confronto",
+      "level": "section"
+    },
+    {
+      "title": "3.7 Perché i progetti di cambiamento falliscono",
+      "level": "section"
+    },
+    {
+      "title": "3.8 Gli otto passi di Kotter per la trasformazione",
+      "level": "section"
+    },
+    {
+      "title": "3.9 Le persone e la resistenza al cambiamento",
+      "level": "section"
+    },
+    {
+      "title": "3.10 Le persone come agenti di cambiamento",
+      "level": "section"
+    },
+    {
+      "title": "3.11 Esecuzione e misurazione del cambiamento",
+      "level": "section"
+    },
+    {
+      "title": "3.12 Strumenti operativi: le checklist",
+      "level": "section"
+    },
+    {
+      "title": "3.13 Sintesi conclusiva",
+      "level": "section"
+    },
+    {
+      "title": "4.1 Competenze al lavoro",
+      "level": "section"
+    },
+    {
+      "title": "4.2 Di quali competenze trasversali ha bisogno oggi un manager?",
+      "level": "section"
+    },
+    {
+      "title": "1.500 executive in oltre 90 paesi + roundtable con 200 dirigenti propone un framework specifico per il leader",
+      "level": "section"
+    },
+    {
+      "title": "4.3 Cos’è una competenza trasversale?",
+      "level": "section"
+    },
+    {
+      "title": "4.4 Apprendere le competenze",
+      "level": "section"
+    },
+    {
+      "title": "4.5 Competenze e intelligenza sociale ed emotiva",
+      "level": "section"
+    },
+    {
+      "title": "6.300 metri. Il compagno di scalata ceco, bravissimo, e’ rimasto disperso (morto). Moro era ferito gravemente:",
+      "level": "section"
+    },
+    {
+      "title": "4.6 In sintesi - Caratteristiche delle competenze",
+      "level": "section"
+    },
+    {
+      "title": "4.7 Come riconoscere le competenze negli altri",
+      "level": "section"
+    },
+    {
+      "title": "4.8 Conclusioni",
+      "level": "section"
+    },
+    {
+      "title": "4.9 Giornata 2 - Intelligenza sociale ed emotiva e intelligenza artificiale",
+      "level": "section"
+    },
+    {
+      "title": "5.1 Apertura e ripasso della lezione precedente",
+      "level": "section"
+    },
+    {
+      "title": "5.2 Presentazione dei lavori di gruppo (processi as-is)",
+      "level": "section"
+    },
+    {
+      "title": "5.3 Analisi del processo",
+      "level": "section"
+    },
+    {
+      "title": "5.4 Redesign dei processi",
+      "level": "section"
+    },
+    {
+      "title": "5.5 Esercitazione finale sul redesign",
+      "level": "section"
+    },
+    {
+      "title": "5.6 Sintesi conclusiva",
+      "level": "section"
+    },
+    {
+      "title": "6.1 Le fonti del diritto del lavoro",
+      "level": "section"
+    },
+    {
+      "title": "6.2 Tipologie contrattuali: il principio di indisponibilità del tipo",
+      "level": "section"
+    },
+    {
+      "title": "6.3 I contratti di lavoro subordinato flessibili",
+      "level": "section"
+    },
+    {
+      "title": "6.4 Contribuzione previdenziale, incentivi e ispezione del lavoro",
+      "level": "section"
+    },
+    {
+      "title": "6.5 Il quadro normativo nazionale",
+      "level": "section"
+    },
+    {
+      "title": "6.6 Evoluzione storica e quadro normativo",
+      "level": "section"
+    },
+    {
+      "title": "6.7 Il d.lgs. n. 104/2022: il Decreto Trasparenza",
+      "level": "section"
+    },
+    {
+      "title": "6.8 Premessa",
+      "level": "section"
+    },
+    {
+      "title": "6.9 Il quadro europeo",
+      "level": "section"
+    },
+    {
+      "title": "6.10 Il quadro nazionale",
+      "level": "section"
+    },
+    {
+      "title": "6.11 Gli incentivi per singole categorie di soggetti svantaggiati",
+      "level": "section"
+    },
+    {
+      "title": "7.1 Che cosa sono le relazioni industriali",
+      "level": "section"
+    },
+    {
+      "title": "7.2 I tre soggetti del sistema",
+      "level": "section"
+    },
+    {
+      "title": "7.3 Il contratto collettivo: tipologie, efficacia e limiti",
+      "level": "section"
+    },
+    {
+      "title": "7.4 Le rappresentanze sindacali in azienda: RSA, RSU e i diritti",
+      "level": "section"
+    },
+    {
+      "title": "7.5 La condotta antisindacale: l’art. 28 dello Statuto dei Lavoratori",
+      "level": "section"
+    },
+    {
+      "title": "7.6 L’architettura della contrattazione collettiva italiana",
+      "level": "section"
+    },
+    {
+      "title": "7.7 Il contesto storico: perché il sistema italiano e così",
+      "level": "section"
+    },
+    {
+      "title": "7.8 La trasparenza salariale: la Direttiva UE 2023/970",
+      "level": "section"
+    },
+    {
+      "title": "50.000 euro, e la Prassi UNI/PdR 125:2022 fornisce sei aree di valutazione e KPI dettagliati. Le imprese che si",
+      "level": "section"
+    },
+    {
+      "title": "7.9 Sintesi e punti chiave",
+      "level": "section"
+    },
+    {
+      "title": "7.10 Esercitazione: la negoziazione della flessibilità oraria",
+      "level": "section"
+    },
+    {
+      "title": "7.11 Il caso",
+      "level": "section"
+    },
+    {
+      "title": "7.12 Istruzioni",
+      "level": "section"
+    },
+    {
+      "title": "50.000 euro/anno.",
+      "level": "section"
     }
   ]
 }

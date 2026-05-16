@@ -121,7 +121,7 @@ async function hybridSearch(questions, chunks, embeddingsData) {
 
         if (useSemanticSearch) {
             const semanticMatches = await semanticSearch(
-                question.text, question.options, embeddingsData, 3
+                question.text, question.options, embeddingsData, 5
             );
             if (semanticMatches && semanticMatches.length > 0) {
                 matches = semanticMatches;

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "chunk_250",
+    "text": "[50.000 euro/anno.]\nmantenibilita’ di un modello BPMN. [Cap. 5 - Orzes]\nQualita’ semantica— Aderenza del modello BPMN al processo reale; richiede il coinvolgimento degli attori\nche conoscono il dominio. [Cap. 5 - Orzes]\nGlossario unificato192\nQualita’ sintattica— Corretto uso dei simboli della notazione BPMN. Esempio di errore: un gateway che\napre e chiude lo stesso flusso. [Cap. 5 - Orzes]\nQuattro dimensioni prestazionali— Le quattro dimensioni su cui si misura un processo:  Tempo, Costo,\nQualita’, Flessibilita’. Alcune teorie aggiungono la Sostenibilita’ come quinta dimensione on-top. [Cap. 5 -\nOrzes]\nQuick Win— Vittoria rapida e visibile nei primi mesi del cambiamento, fondamentale per mantenere slancio,\nfiducia e morale del team. [Cap. 3 - Zamarian]\nR\nRDA / RDO— Richiesta di Acquisto (interna, dal richiedente all’ufficio acquisti) e Richiesta di Offerta\n(esterna, dall’ufficio acquisti ai fornitori). [Cap. 5 - Orzes]\nRecruitment AI-assisted— Insieme di applicazioni AI al processo di selezione: sourcing, screening dei CV,\nchatbot di interazione, automazione delle valutazioni di video di autopresentazione. [Cap. 4 - Comacchio]\nReference model— Modello di riferimento esterno utilizzabile come check-list per identificare i processi\naziendali (es. APQC). [Cap. 5 - Orzes]\nReframing— Tecnica di riformulazione delle obiezioni che cambia la prospettiva senza negare il contenuto\ndella resistenza. [Cap. 3 - Zamarian]\nRegola del 70%— Principio operativo: prendere una decisione quando si dispone del 70% delle informazioni\nrilevanti, anziché’ aspettare la completezza. [Cap. 3 - Zamarian]\nResponsible AI— Governance dell’AI che bilancia innovazione e tutela: trasparenza, equita’, accountability,\nsicurezza, privacy. Solo il 6% delle aziende ha una governance Responsible AI pienamente robusta (Accenture\n2023). [Cap. 4 - Comacchio]\nReverse Mentoring— Pratica in cui un dipendente piu’ giovane mentora uno piu’ senior su competenze\ndigitali, tecnologiche o culturali. Inverte la gerarchia tradizionale del mentoring, valorizzando il know-how\ngenerazionale. [Cap. 4 - Comacchio]\nRisorse trasformanti— Fattori che operano la trasformazione nel processo: competenze individuali, fattori\ntecnologici, competenze organizzative. [Cap. 5 - Orzes]\nRisorse trasformate— Materiali, informazioni o clienti che attraversano il processo e ne escono modificati.\n[Cap. 5 - Orzes]\nS\nSBTi— Science Based Targets initiative: standard per definire target di riduzione delle emissioni allineati\nagli Accordi di Parigi. [Cap. 1 - Mura]\nScope 1, 2, 3— Classificazione GHG Protocol:  emissioni dirette (1), da energia acquistata (2), resto della\ncatena del valore (3). [Cap. 1 - Mura]\nSCOR— Supply Chain Operations Reference Model. Modello di riferimento per i processi di supply chain.\n[Cap. 5 - Orzes]\nSDGs— Sustainable Development Goals: 17 obiettivi ONU al 2030, con 169 target e oltre 240 indicatori. [Cap.\n1 - Mura]\nSelf-awareness— Termine inglese per consapevolezza di sé: capacità di riconoscere ciò che si prova e di\nvalutare realisticamente le proprie abilità e i propri limiti. [Cap. 4 - Comacchio]\nSelf-efficacy— Senso di fiducia nelle proprie capacità di affrontare compiti e sfide e di raggiungere risultati.\n[Cap. 4 - Comacchio]\nSense-Making— Capacità  del  manager  di  attribuire  e  trasmettere  significato  in  contesti  ambigui.   Si\ncontrappone al modello Command & Control. [Cap. 3 - Zamarian]\nSentiment analysis— Tecnica di affective computing che valuta l’intento emotivo nei testi scritti - recensioni,\ncommenti social, cover letter di un curriculum. [Cap. 4 - Comacchio]\nSFDR— Sustainable Finance Disclosure Regulation: obbligo per fondi e banche di dichiarare la quota di\ninvestimenti sostenibili. [Cap. 1 - Mura]\nSicurezza psicologica— Concetto di Edmondson: condizione in cui i membri di un team possono prendere\nrischi interpersonali (chiedere aiuto, ammettere errori) senza temere conseguenze. [Cap. 3 - Zamarian] (anche\nCap. 4 - Comacchio)",
+    "section": "50.000 euro/anno.",
+    "page": 0,
+    "pages": [],
+    "keywords": [
+      "orzes",
+      "comacchio",
+      "modello",
+      "processo",
+      "zamarian",
+      "mura",
+      "bpmn",
+      "qualita",
+      "competenze",
+      "capacità",
+      "quattro",
+      "dimensioni",
+      "fiducia",
+      "team",
+      "richiesta"
+    ]
+  },
+  {
+    "id": "chunk_251",
+    "text": "[50.000 euro/anno.]\no di Edmondson: condizione in cui i membri di un team possono prendere\nrischi interpersonali (chiedere aiuto, ammettere errori) senza temere conseguenze. [Cap. 3 - Zamarian] (anche\nCap. 4 - Comacchio)\nGlossario unificato193\nSistema limbico— Area cerebrale che governa le emozioni, la memoria emotiva, la motivazione. Comprende\nl’amigdala (riconoscimento minacce/ricompense) e l’ippocampo (memoria). Si attiva piu’ velocemente della\ncorteccia prefrontale. [Cap. 4 - Comacchio] (anche Cap. 4 - Comacchio)\nSMED— Single Minute Exchange of Die: tecnica Lean per ridurre i tempi di cambio stampo, abilitando lotti\npiu’ piccoli senza penalizzazioni di setup. [Cap. 5 - Orzes]\nSoft skills— Sinonimo di competenze trasversali: competenze non legate a uno specifico ruolo professionale\nma utilizzabili in contesti diversi. [Cap. 4 - Comacchio]\nSOI— Sustainability-Oriented Innovation: modello a tre fasi (ottimizzazione, trasformazione, ridefinizione\ndel sistema). [Cap. 1 - Mura]\nSotto-processo— Attivita’ che racchiude un processo dettagliato. Collapsed = compatto con ’+’ che rinvia al\ndettaglio altrove; Expanded = aperto inline nel modello principale. [Cap. 5 - Orzes]\nStakeholder— Gruppi o individui influenzati dalle attività dell’organizzazione o che possono influenzarle\n(Freeman, 1984). [Cap. 1 - Mura]\nStakeholder analysis— Tecnica di analisi che intervista o raccoglie informazioni dai diversi soggetti coinvolti\nnel processo per costruire il registro problemi. [Cap. 5 - Orzes]\nStakeholder  Matrix— Matrice  Potere  x  Interesse  per  classificare  gli  stakeholder  di  un  progetto  di\ncambiamento e calibrare l’attenzione da dedicare a ciascuno. [Cap. 3 - Zamarian]\nSTAR— Schema di racconto strutturato di un episodio in una BEI: Situation, Task, Action, Result. Aiuta a far\nemergere le competenze in azione. [Cap. 4 - Comacchio]\nStay hungry, stay foolish— Esortazione di Steve Jobs nel commencement speech di Stanford 2005. Sintesi del\ncluster ’consapevolezza di se” nel modello SEI: conoscere le proprie passioni, mantenere apertura all’errore\ncreativo. [Cap. 4 - Comacchio]\nStorytelling Passato/Presente/Futuro— Struttura narrativa per il cambiamento: onorare l’eredità (passato),\ndichiarare la sfida (presente), prefigurare i benefici (futuro). [Cap. 3 - Zamarian]\nSviluppo degli altri— Competenza del cluster Gestione delle relazioni: stimolare qualcuno a sviluppare le\nproprie capacità o a migliorare le proprie prestazioni. [Cap. 4 - Comacchio]\nT\nTassonomia Europea— Regolamento UE che definisce quali attività economiche possono essere considerate\nsostenibili (tre criteri). [Cap. 1 - Mura]\nTermine— **Definizione** [Cap. 1 - Mura] (anche Cap. 2 - Fiore, Cap. 3 - Zamarian, Cap. 4 - Comacchio, Cap.\n5 - Orzes, Cap. 6 - Garofalo, Cap. 7 - Zilli)\nThis is Water— Commencement speech di David Foster Wallace al Kenyon College 2005. L’aneddoto del\n’cos’e’ l’acqua?’ fissa il cluster ’consapevolezza sociale’: accorgersi del contesto, riconoscere gli altri come\ncentri autonomi di esperienza. [Cap. 4 - Comacchio]\nToken— In BPMN, oggetto concettuale che attraversa il processo durante l’esecuzione:  viene generato\ndall’evento iniziale (token source) e consumato dall’evento finale (token sink). [Cap. 5 - Orzes]\nTre intelligenze (QI, ISE, AI)— Framework per analizzare la complementarita’:  il QI misura capacita’\ncognitive astratte, l’ISE governa l’interazione umana, l’AI estende le capacita’ analitiche e generative. Il leader\ncontemporaneo orchestra le tre. [Cap. 4 - Comacchio]\nTriage— Tecnica di classificazione dei casi per complessità o priorità, tipica del pronto soccorso, applicabile\ncome euristica per differenziare le varianti del processo. [Cap. 5 - Orzes]\nTriple Bottom Line— Concetto di Elkington (1997): Profit, People, Planet – le tre dimensioni della sostenibilità\nd’impresa. [Cap. 1 - Mura]\nV\nVA business— Step necessario all’azienda anche se non percepito dal cliente: serve a raccogliere entrate,\nridurre rischi, rispettare normative. [Cap. 5 - Orzes]\nVA cliente— Step per cui il cliente e’ disposto a pagare, riconosce come fondamentale, o di cui noterebbe\nl’assenza. [Cap. 5 - Orzes]\nValle della depressione (o disperazione)— Fase iniziale del cambiamento in cui l’efficienza cala perché’ si\nsta imparando il nuovo modo. Va attesa e comunicata onestamente, non confusa con un fallimento. [Cap. 3 -\nZamarian]",
+    "section": "50.000 euro/anno.",
+    "page": 0,
+    "pages": [],
+    "keywords": [
+      "comacchio",
+      "orzes",
+      "zamarian",
+      "mura",
+      "processo",
+      "stakeholder",
+      "possono",
+      "tecnica",
+      "competenze",
+      "modello",
+      "cambiamento",
+      "cluster",
+      "proprie",
+      "token",
+      "cliente"
+    ]
+  },
+  {
+    "id": "chunk_252",
+    "text": "[50.000 euro/anno.]\n(o disperazione)— Fase iniziale del cambiamento in cui l’efficienza cala perché’ si\nsta imparando il nuovo modo. Va attesa e comunicata onestamente, non confusa con un fallimento. [Cap. 3 -\nZamarian]\nGlossario unificato194\nValore aggiunto— Caratteristica di uno step che aggiunge valore percepibile al cliente. Si distingue da valore\naggiunto per il business e da non-valore aggiunto. [Cap. 5 - Orzes]\nViscosità (del dato)— Grado di difficoltà nel navigare e correlare dati da fonti diverse. [Cap. 2 - Fiore]\nVUCA— Volatility, Uncertainty, Complexity, Ambiguity.  Framework classico per descrivere il contesto\nturbolento dal punto di vista esterno. [Cap. 3 - Zamarian]\nW\nWalk the Talk— Agire coerentemente con ciò che si comunica. Essere esempio vivente del cambiamento che\nsi chiede agli altri. [Cap. 3 - Zamarian]\nWork augmentation— Approccio alla relazione uomo-AI in cui l’intelligenza artificiale potenzia (anziché\nsostituire) le capacità umane, abilitando nuove forme di collaborazione. [Cap. 4 - Comacchio]\nX\nXAB / BEN / ORFOR— Nel caso Ford: nota di accompagnamento (XAB), buono entrata (BEN), ordine al\nfornitore (ORFOR). I tre documenti che la contabilità fornitori doveva accoppiare nel processo as-is. [Cap. 5 -\nOrzes]\nY\nYes-men— Sotto-categoria di sabotatori travestiti: dicono sì a parole ma nei fatti resistono. Particolarmente\ndifficili da gestire perché la resistenza è invisibile fino al risultato mancato. [Cap. 3 - Zamarian]",
+    "section": "50.000 euro/anno.",
+    "page": 0,
+    "pages": [],
+    "keywords": [
+      "zamarian",
+      "valore",
+      "aggiunto",
+      "cambiamento",
+      "perché",
+      "orzes",
+      "orfor",
+      "disperazione",
+      "fase",
+      "iniziale",
+      "efficienza",
+      "cala",
+      "imparando",
+      "nuovo",
+      "modo"
+    ]
+  }
+]
