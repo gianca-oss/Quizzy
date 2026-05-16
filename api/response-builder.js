@@ -54,15 +54,16 @@ REGOLE:
 function buildAnalysisPrompt(contextPerQuestion, questions, startNumber) {
     const endNumber = startNumber + questions.length - 1;
     const questionsText = questions.map((q, idx) =>
-        `${startNumber + idx}. ${q.text}\nA) ${q.options.A || ''} B) ${q.options.B || ''} C) ${q.options.C || ''} D) ${q.options.D || ''}`
-    ).join('\n');
+        `${startNumber + idx}. ${q.text}\nA) ${q.options.A || ''}\nB) ${q.options.B || ''}\nC) ${q.options.C || ''}\nD) ${q.options.D || ''}`
+    ).join('\n\n');
 
-    return `Analizza le domande del quiz usando ESCLUSIVAMENTE il contesto fornito.
+    return `Analizza le domande del quiz usando il contesto fornito dal corso.
 
 ISTRUZIONI CRITICHE:
-- Per ogni risposta DEVI copiare il testo esatto dal contesto tra virgolette "..."
-- Indica la pagina [Pag. X]
+- Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
+- Indica la pagina [Pag. X] quando disponibile
 - Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
+- Marca SEMPRE quale risposta è esatta con "✓"
 
 CONTESTO DAL CORSO:
 ${contextPerQuestion}
@@ -70,24 +71,45 @@ ${contextPerQuestion}
 DOMANDE (numerate da ${startNumber} a ${endNumber}):
 ${questionsText}
 
-FORMATO RICHIESTO:
+FORMATO RICHIESTO - per OGNI domanda usa ESATTAMENTE questa struttura:
 
-RISPOSTE (usa SEMPRE numeri da ${startNumber} a ${endNumber}, in ordine sequenziale):
+RISPOSTE (lista compatta da ${startNumber} a ${endNumber}):
 ${startNumber}. C [CITATO]
 ${startNumber + 1}. B [AI]
-${startNumber + 2}. A [CITATO]
-(IMPORTANTE: scrivi SEMPRE la lettera A/B/C/D, anche per [AI])
+(scrivi SEMPRE la lettera A/B/C/D)
 
-ANALISI (usa SEMPRE numeri da ${startNumber} a ${endNumber}, in ordine sequenziale):
-**${startNumber}. Scrivi qui la domanda COMPLETA**
-[CITATO] "citazione esatta" [Pag. X]
-Risposta: C
+ANALISI (un blocco per ogni domanda, da ${startNumber} a ${endNumber}):
 
-**${startNumber + 1}. Scrivi qui la domanda COMPLETA**
-[AI] Non nel contesto.
-Risposta: B (basata sulle mie conoscenze)
+**${startNumber}. [testo completo della domanda]**
 
-(IMPORTANTE: numera le domande da ${startNumber} a ${endNumber} in ordine. Il NUMERO e la DOMANDA devono essere ENTRAMBI in grassetto, es: **${startNumber}. Domanda completa qui?**. Poi scrivi "Risposta: X" con una lettera A/B/C/D)`;
+Opzioni:
+A) [testo opzione A]
+B) [testo opzione B]
+C) [testo opzione C] ✓
+D) [testo opzione D]
+
+Spiegazione: [CITATO] "citazione esatta dal corso" [Pag. X]
+La risposta corretta è C perché [spiegazione breve].
+
+---
+
+**${startNumber + 1}. [testo completo della domanda]**
+
+Opzioni:
+A) [testo opzione A] ✓
+B) [testo opzione B]
+C) [testo opzione C]
+
+Spiegazione: [AI] Non trovato nel materiale.
+La risposta corretta è A basata su conoscenze generali.
+
+---
+
+REGOLE:
+- Il NUMERO e la DOMANDA devono essere in grassetto (**N. ...**)
+- Marca con ✓ SOLO l'opzione corretta
+- Usa --- tra una domanda e l'altra
+- Numera le domande da ${startNumber} a ${endNumber} in ordine`;
 }
 
 function parseAnswers(finalResponse) {
