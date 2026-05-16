@@ -309,19 +309,6 @@ function clearAll() {
     document.querySelector('.actions').style.display = 'flex';
 }
 
-function toggleAnalysis() {
-    const section = document.getElementById('analysisSection');
-    const btn = document.getElementById('toggleAnalysisBtn');
-    if (section.style.display === 'none') {
-        section.style.display = 'block';
-        btn.textContent = 'Dettagli ▲';
-    } else {
-        section.style.display = 'none';
-        btn.textContent = 'Dettagli ▼';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-}
-
 function backToUpload() {
     results.style.display = 'none';
     resultsContent.innerHTML = '';
@@ -511,16 +498,18 @@ function displayResults(allResults, opts = {}) {
 
     html += '</tbody></table>';
 
-    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 10px;">';
+    html += '<div style="display: flex; justify-content: center; margin-top: 10px;">';
     html += '<button onclick="backToUpload()" class="back-button">← Nuova</button>';
-    html += '<button onclick="toggleAnalysis()" class="back-button" id="toggleAnalysisBtn">Dettagli ▼</button>';
     html += '</div>';
 
-    html += '<div id="analysisSection" style="display: none; margin-top: 12px;">';
-    html += '<h3 style="font-size: 15px; margin-bottom: 8px;">Analisi:</h3>';
-    html += '<div style="white-space: pre-wrap; line-height: 1.5; opacity: 0.85; font-size: 13px;">';
-    html += allAnalyses.join('\n\n');
-    html += '</div></div></div>';
+    if (allAnalyses.length) {
+        html += '<div style="margin-top: 14px;">';
+        html += '<h3 style="font-size: 15px; margin-bottom: 8px;">Analisi:</h3>';
+        html += '<div style="line-height: 1.5; opacity: 0.85; font-size: 13px;">';
+        html += allAnalyses.join('\n\n');
+        html += '</div></div>';
+    }
+    html += '</div>';
 
     resultsContent.innerHTML = html;
     results.style.display = 'block';
