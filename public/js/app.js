@@ -34,15 +34,24 @@ function handleImagesDrop(files) {
 }
 
 function compressImage(file) {
+    const isScreenshot = file.type === 'image/png';
+
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
+            // Screenshots (PNG): send as-is if under 5MB, already sharp
+            if (isScreenshot && file.size < 5 * 1024 * 1024) {
+                resolve(e.target.result.split(',')[1]);
+                return;
+            }
+
             const img = new Image();
             img.onload = () => {
                 try {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
-                    const maxDim = 1200;
+                    const maxDim = 1800;
+                    const quality = 0.92;
 
                     let width = img.width;
                     let height = img.height;
@@ -61,7 +70,7 @@ function compressImage(file) {
                     ctx.fillRect(0, 0, width, height);
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const dataUrl = canvas.toDataURL('image/jpeg', 0.75);
+                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
                     resolve(dataUrl.split(',')[1]);
                 } catch (err) {
                     reject(err);
