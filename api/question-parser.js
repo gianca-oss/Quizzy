@@ -1,7 +1,11 @@
 const MAX_QUESTIONS = 20;
 
 function parseQuestions(responseText) {
-    let questions = parseWithSeparators(responseText);
+    let questions = parseJSON(responseText);
+
+    if (questions.length === 0) {
+        questions = parseWithSeparators(responseText);
+    }
 
     if (questions.length === 0) {
         questions = parseAlternative(responseText);
@@ -12,6 +16,27 @@ function parseQuestions(responseText) {
     }
 
     return questions;
+}
+
+function parseJSON(responseText) {
+    try {
+        // Extract JSON from response (handle markdown code blocks)
+        const jsonMatch = responseText.match(/\{[\s\S]*"questions"[\s\S]*\}/);
+        if (!jsonMatch) return [];
+
+        const data = JSON.parse(jsonMatch[0]);
+        if (!data.questions || !Array.isArray(data.questions)) return [];
+
+        return data.questions
+            .filter(q => q.text && q.options && Object.keys(q.options).length >= 2)
+            .map((q, index) => ({
+                number: index + 1,
+                text: q.text,
+                options: q.options
+            }));
+    } catch {
+        return [];
+    }
 }
 
 function parseWithSeparators(responseText) {

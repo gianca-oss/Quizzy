@@ -26,16 +26,29 @@ function buildContextFromSearchResults(searchResults, startNumber) {
 }
 
 function buildExtractionPrompt() {
-    return `Quante domande ci sono in questa immagine? Elencale TUTTE.
+    return `Estrai TUTTE le domande del quiz da questa immagine.
 
-Formato:
-DOMANDA_1
-TESTO: [domanda]
-A: [opzione]
-B: [opzione]
-C: [opzione]
----
-(ripeti per ogni domanda fino all'ultima)`;
+Rispondi ESCLUSIVAMENTE con un JSON valido, senza altro testo prima o dopo.
+
+Formato richiesto:
+{
+  "questions": [
+    {
+      "text": "testo completo della domanda",
+      "options": {
+        "A": "testo opzione A",
+        "B": "testo opzione B",
+        "C": "testo opzione C"
+      }
+    }
+  ]
+}
+
+REGOLE:
+- Includi TUTTE le domande visibili nell'immagine
+- Trascrivi il testo ESATTAMENTE come appare
+- Se un'opzione ha la lettera D, includila
+- Non aggiungere spiegazioni, solo il JSON`;
 }
 
 function buildAnalysisPrompt(contextPerQuestion, questions, startNumber) {
