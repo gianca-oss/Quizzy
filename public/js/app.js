@@ -115,6 +115,15 @@ function openHistoryItem(id) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
+    const sourceColors = { CITATO: '#34c759', VERIFICATO: '#007aff', AI: '#ff9500' };
+    const sourceLabels = { CITATO: '📚 CITATO', VERIFICATO: '🔍 VERIFICATO', AI: '⚠️ AI' };
+
+    let rows = '';
+    item.answers.forEach(a => {
+        const color = sourceColors[a.source] || sourceColors.AI;
+        const label = sourceLabels[a.source] || sourceLabels.AI;
+        rows += `<tr><td>${a.num}</td><td><strong>${a.letter}</strong></td><td style="color:${color}">${label}</td></tr>`;
+    });
 
     const analysisHtml = (item.analysis || '')
         .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
@@ -134,12 +143,22 @@ function buildReportHtml(item) {
 body { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif; background: #fff; color: #111; max-width: 720px; margin: 0 auto; padding: 20px; line-height: 1.5; }
 h1 { font-size: 22px; margin-bottom: 4px; }
 .meta { color: #888; font-size: 13px; margin-bottom: 20px; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+th, td { padding: 8px 10px; border: 1px solid #ddd; text-align: center; }
+th { background: #f5f5f5; font-weight: 600; }
+h2 { font-size: 16px; margin-top: 24px; border-top: 1px solid #eee; padding-top: 16px; }
 .analysis { font-size: 14px; }
+hr { border: none; border-top: 1px dashed #ddd; margin: 16px 0; }
 </style>
 </head>
 <body>
 <h1>Quizzy - Risultati Quiz</h1>
 <div class="meta">${dateLabel} · ${item.questionsCount} domande</div>
+<table>
+<thead><tr><th>N°</th><th>Risposta</th><th>Fonte</th></tr></thead>
+<tbody>${rows}</tbody>
+</table>
+<h2>Analisi</h2>
 <div class="analysis">${analysisHtml}</div>
 </body>
 </html>`;
