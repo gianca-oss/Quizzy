@@ -126,9 +126,11 @@ function buildReportHtml(item) {
     });
 
     const analysisHtml = (item.analysis || '')
-        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*\[CORRETTA\]\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
+        .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:6px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\n{3,}/g, '\n\n')
+        .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">')
+        .replace(/\n{2,}/g, '\n')
         .replace(/\n/g, '<br>');
 
     return `<!DOCTYPE html>
