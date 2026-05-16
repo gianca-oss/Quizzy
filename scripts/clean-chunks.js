@@ -1,6 +1,6 @@
 // clean-chunks.js - Pulisce i chunks esistenti da errori OCR e marker
-// Esegui: node clean-chunks.js <nome-corso>
-// Esempio: node clean-chunks.js strategia-internazionalizzazione
+// Esegui: node scripts/clean-chunks.js <nome-corso>
+// Esempio: node scripts/clean-chunks.js strategia-internazionalizzazione
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -518,10 +518,10 @@ if (require.main === module) {
 🧹 Clean Chunks - Pulizia OCR e marker strutturali
 
 USO:
-  node clean-chunks.js <nome-corso>
+  node scripts/clean-chunks.js <nome-corso>
 
 ESEMPIO:
-  node clean-chunks.js strategia-internazionalizzazione
+  node scripts/clean-chunks.js strategia-internazionalizzazione
 `);
         process.exit(1);
     }

@@ -1,6 +1,6 @@
 // preprocess-embeddings.js - Genera embeddings OpenAI per ricerca semantica
-// Esegui: node preprocess-embeddings.js <nome-corso>
-// Esempio: OPENAI_API_KEY=sk-... node preprocess-embeddings.js strategia-internazionalizzazione
+// Esegui: node scripts/preprocess-embeddings.js <nome-corso>
+// Esempio: OPENAI_API_KEY=sk-... node scripts/preprocess-embeddings.js strategia-internazionalizzazione
 
 const fs = require('fs').promises;
 const path = require('path');
@@ -204,10 +204,10 @@ if (require.main === module) {
 🚀 Preprocess Embeddings - Genera embeddings OpenAI
 
 USO:
-  OPENAI_API_KEY=sk-... node preprocess-embeddings.js <nome-corso>
+  OPENAI_API_KEY=sk-... node scripts/preprocess-embeddings.js <nome-corso>
 
 ESEMPIO:
-  OPENAI_API_KEY=sk-... node preprocess-embeddings.js strategia-internazionalizzazione
+  OPENAI_API_KEY=sk-... node scripts/preprocess-embeddings.js strategia-internazionalizzazione
 `);
         process.exit(1);
     }
