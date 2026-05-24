@@ -47,9 +47,10 @@ function configureBudget() {
 function updateSpentDisplay() {
     const el = document.getElementById('spentCounter');
     if (!el) return;
-    // Hide entirely while analysis is running
+    // Hide entirely while analysis is running OR results are shown
     const analyzing = document.getElementById('loading')?.classList.contains('show');
-    if (analyzing) {
+    const resultsShown = document.getElementById('results')?.style.display === 'block';
+    if (analyzing || resultsShown) {
         el.style.display = 'none';
         return;
     }
@@ -250,6 +251,7 @@ function showHistory() {
     document.querySelector('.actions').style.display = 'none';
     const pt = document.getElementById('precisionToggle');
     if (pt) pt.style.display = 'none';
+    updateSpentDisplay();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -545,6 +547,7 @@ function backToUpload() {
     if (document.activeElement && document.activeElement !== document.body) {
         document.activeElement.blur?.();
     }
+    updateSpentDisplay();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -886,6 +889,7 @@ function displayResults(allResults, opts = {}) {
     document.querySelector('.actions').style.display = 'none';
     const pt = document.getElementById('precisionToggle');
     if (pt) pt.style.display = 'none';
+    updateSpentDisplay();
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
