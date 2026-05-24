@@ -118,8 +118,8 @@ function openHistoryItem(id) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceColors = { CITATO: '#111111', VERIFICATO: '#111111', AI: '#111111' };
-    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI' };
+    const sourceColors = { CITATO: '#34c759', VERIFICATO: '#007aff', AI: '#ff9500' };
+    const sourceLabels = { CITATO: '📚 CITATO', VERIFICATO: '🔍 VERIFICATO', AI: '⚠️ AI' };
 
     let rows = '';
     item.answers.forEach(a => {
@@ -129,7 +129,7 @@ function buildReportHtml(item) {
     });
 
     const analysisHtml = (item.analysis || '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#b8860b;font-weight:700">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:6px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">')
@@ -536,7 +536,7 @@ function displayResults(allResults, opts = {}) {
         html += `<tr style="height: ${rowH}px;">`;
         html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${numSize}; line-height: 1;">${q.num}</td>`;
         html += `<td style="padding: 0 3px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;"><span style="display: inline-block; min-width: 36px; padding: 1px 8px; background: #ffffff; color: #000000; font-weight: 800; font-size: ${fontSize}; letter-spacing: 0.05em; border-radius: 4px;">${q.answer}</span></td>`;
-        html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${fonteSize}; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${q.fonte}</td>`;
+        html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${fonteSize}; font-weight: 700; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${q.fonte}</td>`;
         html += '</tr>';
     });
 
