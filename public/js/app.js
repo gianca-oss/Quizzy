@@ -388,7 +388,6 @@ function hideMainView() {
 async function analyze() {
     if (images.length === 0) return;
 
-    hideMainView();
     buildProgressUI(images.length);
     loading.classList.add('show');
     results.style.display = 'none';
