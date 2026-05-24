@@ -118,7 +118,7 @@ function openHistoryItem(id) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceColors = { CITATO: '#111111', VERIFICATO: '#111111', AI: '#007aff' };
+    const sourceColors = { CITATO: '#111111', VERIFICATO: '#111111', AI: '#111111' };
     const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI' };
 
     let rows = '';
@@ -129,7 +129,7 @@ function buildReportHtml(item) {
     });
 
     const analysisHtml = (item.analysis || '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#007aff;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#b8860b;font-weight:700">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:6px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">')
@@ -326,7 +326,7 @@ function backToUpload() {
 const SOURCE_STYLES = {
     CITATO: { indicator: 'CITATO', color: '#ffffff' },
     VERIFICATO: { indicator: 'VERIFICATO', color: '#ffffff' },
-    AI: { indicator: 'AI', color: '#007aff' }
+    AI: { indicator: 'AI', color: '#ffffff' }
 };
 
 function formatSource(source) {
@@ -480,7 +480,7 @@ function formatMarkdown(text) {
     return text
         .replace(/RISPOSTE\s*\([^:]*\):[\s\S]*?(?=\*\*\d+\.|ANALISI|$)/gi, '')
         .replace(/ANALISI\s*\([^:]*\):/gi, '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#007aff;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#ffcc00;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:4px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid rgba(128,128,128,0.25)">')
@@ -519,16 +519,17 @@ function displayResults(allResults, opts = {}) {
     const rowH = Math.min(28, Math.floor(580 / Math.max(allQuestions.length, 1)));
     const fontSize = allQuestions.length > 15 ? '12px' : '13px';
     const numSize = allQuestions.length > 15 ? '10px' : '11px';
-    const fonteSize = allQuestions.length > 15 ? '9px' : '10px';
+    const fonteSize = allQuestions.length > 15 ? '11px' : '12px';
+    const headerSize = allQuestions.length > 15 ? '9px' : '10px';
     const pad = allQuestions.length > 15 ? '0px 3px' : '1px 4px';
 
     let html = '<div class="result-content">';
     html += `<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1; table-layout: fixed;">`;
     html += '<colgroup><col style="width: 28px"><col style="width: 50%"><col></colgroup>';
     html += '<thead><tr>';
-    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">N°</th>`;
-    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">RISPOSTA</th>`;
-    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${fonteSize};">FONTE</th>`;
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${headerSize};">N°</th>`;
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${headerSize};">RISPOSTA</th>`;
+    html += `<th style="padding: ${pad}; border-bottom: 1px solid rgba(128,128,128,0.3); font-size: ${headerSize};">FONTE</th>`;
     html += '</tr></thead><tbody>';
 
     allQuestions.forEach(q => {
