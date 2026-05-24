@@ -497,7 +497,7 @@ function displayResults(allResults, opts = {}) {
     allQuestions.forEach(q => {
         html += `<tr style="height: ${rowH}px;">`;
         html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${numSize}; line-height: 1;">${q.num}</td>`;
-        html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;"><span style="display: inline-block; min-width: 22px; padding: 2px 6px; background: #ffffff; color: #000000; font-weight: 700; font-size: ${fontSize}; border-radius: 4px;">${q.answer}</span></td>`;
+        html += `<td style="padding: 0 3px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;"><span style="display: inline-block; min-width: 36px; padding: 1px 8px; background: #ffffff; color: #000000; font-weight: 800; font-size: ${fontSize}; letter-spacing: 0.05em; border-radius: 4px;">${q.answer}</span></td>`;
         html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${fonteSize}; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${q.fonte}</td>`;
         html += '</tr>';
     });
