@@ -276,17 +276,18 @@ body {
 .img-row {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 12px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-secondary);
     border-radius: 10px;
-    padding: 10px 12px;
+    padding: 12px 14px;
 }
 
 .img-row-header {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
+    font-size: 13px;
+    margin-bottom: 8px;
 }
 
 .img-row-name {
@@ -299,9 +300,9 @@ body {
 }
 
 .img-row-bar {
-    height: 4px;
-    background: rgba(128, 128, 128, 0.2);
-    border-radius: 2px;
+    height: 22px;
+    background: rgba(128, 128, 128, 0.18);
+    border-radius: 11px;
     overflow: hidden;
     position: relative;
 }
@@ -309,9 +310,11 @@ body {
 .img-row-bar-fill {
     height: 100%;
     background: var(--text-primary);
-    border-radius: 2px;
+    border-radius: 11px;
     transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     width: 0;
+    position: relative;
+    overflow: hidden;
 }
 
 .img-row.done .img-row-bar-fill {
@@ -329,14 +332,20 @@ body {
 }
 
 .img-row.active .img-row-bar-fill {
-    background: linear-gradient(90deg, var(--text-primary) 0%, rgba(255,255,255,0.4) 50%, var(--text-primary) 100%);
-    background-size: 200% 100%;
-    animation: progress-shimmer 1.4s linear infinite;
+    background: rgba(245, 245, 247, 0.92);
+}
+
+.img-row.active .img-row-bar-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
+    animation: progress-shimmer 2.6s ease-in-out infinite;
 }
 
 @keyframes progress-shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 }
 
 @keyframes spin {
