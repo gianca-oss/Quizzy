@@ -263,6 +263,82 @@ body {
     color: var(--text-secondary);
 }
 
+/* Per-image progress */
+.image-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 12px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.img-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 10px;
+    padding: 10px 12px;
+}
+
+.img-row-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+.img-row-name {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.img-row-status {
+    color: var(--text-secondary);
+}
+
+.img-row-bar {
+    height: 4px;
+    background: rgba(128, 128, 128, 0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+.img-row-bar-fill {
+    height: 100%;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 0;
+}
+
+.img-row.done .img-row-bar-fill {
+    background: var(--success-color);
+    width: 100%;
+}
+
+.img-row.error .img-row-bar-fill {
+    background: #ff3b30;
+    width: 100%;
+}
+
+.img-row.error .img-row-status {
+    color: #ff3b30;
+}
+
+.img-row.active .img-row-bar-fill {
+    background: linear-gradient(90deg, var(--text-primary) 0%, rgba(255,255,255,0.4) 50%, var(--text-primary) 100%);
+    background-size: 200% 100%;
+    animation: progress-shimmer 1.4s linear infinite;
+}
+
+@keyframes progress-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 @keyframes spin {
     to { transform: rotate(360deg); }
 }

@@ -335,28 +335,53 @@ function formatSource(source) {
 }
 
 const PROGRESS_STEPS = [
-    { text: 'Lettura immagine...', delay: 0 },
-    { text: 'Estrazione domande...', delay: 2000 },
-    { text: 'Ricerca nel materiale...', delay: 8000 },
-    { text: 'Analisi con AI...', delay: 14000 },
-    { text: 'Quasi fatto...', delay: 30000 }
+    { text: 'Lettura immagine', pct: 8, delay: 0 },
+    { text: 'Estrazione domande', pct: 30, delay: 2000 },
+    { text: 'Ricerca nel materiale', pct: 55, delay: 8000 },
+    { text: 'Analisi con AI', pct: 80, delay: 14000 },
+    { text: 'Quasi fatto', pct: 92, delay: 30000 }
 ];
 
-function startProgressFeedback(imageIndex, totalImages) {
-    const loadingText = document.querySelector('.loading-text');
-    if (!loadingText) return null;
+function buildProgressUI(count) {
+    const container = document.getElementById('imageProgress');
+    if (!container) return;
+    container.innerHTML = '';
+    for (let i = 0; i < count; i++) {
+        const row = document.createElement('div');
+        row.className = 'img-row';
+        row.id = `imgRow_${i}`;
+        row.innerHTML = `
+            <div class="img-row-header">
+                <span class="img-row-name">Immagine ${i + 1}</span>
+                <span class="img-row-status">In attesa</span>
+            </div>
+            <div class="img-row-bar"><div class="img-row-bar-fill"></div></div>
+        `;
+        container.appendChild(row);
+    }
+}
 
-    const prefix = totalImages > 1 ? `[${imageIndex}/${totalImages}] ` : '';
+function setImageState(index, status, pct, state = 'active') {
+    const row = document.getElementById(`imgRow_${index}`);
+    if (!row) return;
+    row.classList.remove('active', 'done', 'error');
+    if (state) row.classList.add(state);
+    row.querySelector('.img-row-status').textContent = status;
+    const fill = row.querySelector('.img-row-bar-fill');
+    if (pct != null) fill.style.width = pct + '%';
+}
+
+function startProgressFeedback(imageIndex) {
     const timers = PROGRESS_STEPS.map(step =>
-        setTimeout(() => { loadingText.textContent = prefix + step.text; }, step.delay)
+        setTimeout(() => setImageState(imageIndex, step.text, step.pct, 'active'), step.delay)
     );
-
     return () => timers.forEach(clearTimeout);
 }
 
 async function analyze() {
     if (images.length === 0) return;
 
+    buildProgressUI(images.length);
     loading.classList.add('show');
     results.style.display = 'none';
     resultsContent.innerHTML = '';
@@ -366,7 +391,7 @@ async function analyze() {
         let questionStartNumber = 1;
 
         for (let i = 0; i < images.length; i++) {
-            const stopProgress = startProgressFeedback(i + 1, images.length);
+            const stopProgress = startProgressFeedback(i);
 
             const precision = document.getElementById('precisionInput')?.checked === true;
             const requestBody = {
@@ -401,18 +426,21 @@ async function analyze() {
             stopProgress();
 
             if (!response.ok) {
+                setImageState(i, 'Errore', 100, 'error');
                 const errorText = await response.text();
                 throw new Error(`HTTP ${response.status}: ${errorText}`);
             }
 
             const data = await response.json();
+            const qCount = data.metadata?.questionsAnalyzed || 0;
+            setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
 
             allResults.push({
                 answers: data.answers || [],
                 analysis: data.analysis || ''
             });
 
-            questionStartNumber += data.metadata?.questionsAnalyzed || 0;
+            questionStartNumber += qCount;
         }
 
         displayResults(allResults);
@@ -434,8 +462,6 @@ async function analyze() {
         results.style.display = 'block';
     } finally {
         loading.classList.remove('show');
-        const loadingText = document.querySelector('.loading-text');
-        if (loadingText) loadingText.textContent = 'Analisi in corso';
     }
 }
 
