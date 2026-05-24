@@ -346,17 +346,29 @@ function buildProgressUI(count) {
     const container = document.getElementById('imageProgress');
     if (!container) return;
     container.innerHTML = '';
+    const RING_SIZE = 48;
+    const RING_STROKE = 5;
+    const RING_R = (RING_SIZE - RING_STROKE) / 2;
+    const RING_CIRC = 2 * Math.PI * RING_R;
+
     for (let i = 0; i < count; i++) {
         const row = document.createElement('div');
         row.className = 'img-row';
         row.id = `imgRow_${i}`;
         row.innerHTML = `
-            <div class="img-row-header">
-                <span class="img-row-name">Immagine ${i + 1}</span>
-                <span class="img-row-status">In attesa</span>
+            <svg class="img-row-ring" width="${RING_SIZE}" height="${RING_SIZE}" viewBox="0 0 ${RING_SIZE} ${RING_SIZE}">
+                <circle class="ring-track" cx="${RING_SIZE/2}" cy="${RING_SIZE/2}" r="${RING_R}" fill="none" stroke-width="${RING_STROKE}"/>
+                <circle class="ring-fill" cx="${RING_SIZE/2}" cy="${RING_SIZE/2}" r="${RING_R}" fill="none" stroke-width="${RING_STROKE}"
+                    stroke-linecap="round" transform="rotate(-90 ${RING_SIZE/2} ${RING_SIZE/2})"
+                    stroke-dasharray="${RING_CIRC}" stroke-dashoffset="${RING_CIRC}"/>
+            </svg>
+            <div class="img-row-info">
+                <div class="img-row-name">Immagine ${i + 1}</div>
+                <div class="img-row-status">In attesa</div>
             </div>
-            <div class="img-row-bar"><div class="img-row-bar-fill"></div></div>
         `;
+        // Store circumference on row for later updates
+        row.dataset.circ = RING_CIRC;
         container.appendChild(row);
     }
 }
@@ -367,8 +379,11 @@ function setImageState(index, status, pct, state = 'active') {
     row.classList.remove('active', 'done', 'error');
     if (state) row.classList.add(state);
     row.querySelector('.img-row-status').textContent = status;
-    const fill = row.querySelector('.img-row-bar-fill');
-    if (pct != null) fill.style.width = pct + '%';
+    const fill = row.querySelector('.ring-fill');
+    if (fill && pct != null) {
+        const circ = parseFloat(row.dataset.circ);
+        fill.style.strokeDashoffset = circ * (1 - pct / 100);
+    }
 }
 
 function startProgressFeedback(imageIndex) {

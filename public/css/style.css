@@ -275,77 +275,60 @@ body {
 
 .img-row {
     display: flex;
-    flex-direction: column;
-    gap: 12px;
+    align-items: center;
+    gap: 14px;
     background: var(--bg-secondary);
     border: 1px solid var(--border-secondary);
     border-radius: 10px;
     padding: 12px 14px;
 }
 
-.img-row-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    margin-bottom: 8px;
+.img-row-ring {
+    flex-shrink: 0;
+}
+
+.img-row-ring .ring-track {
+    stroke: rgba(255, 255, 255, 0.1);
+}
+
+.img-row-ring .ring-fill {
+    stroke: rgba(245, 245, 247, 0.92);
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.4, 0, 0.2, 1), stroke 0.3s;
+}
+
+.img-row.done .ring-fill {
+    stroke: var(--success-color);
+}
+
+.img-row.error .ring-fill {
+    stroke: #ff3b30;
+    stroke-dashoffset: 0 !important;
+}
+
+.img-row.active .ring-fill {
+    stroke: #ffcc00;
+}
+
+.img-row-info {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
 }
 
 .img-row-name {
     color: var(--text-primary);
     font-weight: 600;
+    font-size: 14px;
 }
 
 .img-row-status {
     color: var(--text-secondary);
-}
-
-.img-row-bar {
-    height: 22px;
-    background: rgba(128, 128, 128, 0.18);
-    border-radius: 11px;
-    overflow: hidden;
-    position: relative;
-}
-
-.img-row-bar-fill {
-    height: 100%;
-    background: var(--text-primary);
-    border-radius: 11px;
-    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    width: 0;
-    position: relative;
-    overflow: hidden;
-}
-
-.img-row.done .img-row-bar-fill {
-    background: var(--success-color);
-    width: 100%;
-}
-
-.img-row.error .img-row-bar-fill {
-    background: #ff3b30;
-    width: 100%;
+    font-size: 12px;
+    margin-top: 2px;
 }
 
 .img-row.error .img-row-status {
     color: #ff3b30;
-}
-
-.img-row.active .img-row-bar-fill {
-    background: rgba(245, 245, 247, 0.92);
-}
-
-.img-row.active .img-row-bar-fill::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.55) 50%, transparent 100%);
-    animation: progress-shimmer 2.6s ease-in-out infinite;
-}
-
-@keyframes progress-shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
 }
 
 @keyframes spin {
