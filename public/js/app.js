@@ -118,8 +118,8 @@ function openHistoryItem(id) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceColors = { CITATO: '#34c759', VERIFICATO: '#007aff', AI: '#ff9500' };
-    const sourceLabels = { CITATO: '📚 CITATO', VERIFICATO: '🔍 VERIFICATO', AI: '⚠️ AI' };
+    const sourceColors = { CITATO: '#111111', VERIFICATO: '#111111', AI: '#007aff' };
+    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI' };
 
     let rows = '';
     item.answers.forEach(a => {
@@ -129,7 +129,7 @@ function buildReportHtml(item) {
     });
 
     const analysisHtml = (item.analysis || '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#1a8d3a;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#007aff;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:6px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid #ddd">')
@@ -324,9 +324,9 @@ function backToUpload() {
 }
 
 const SOURCE_STYLES = {
-    CITATO: { indicator: '📚 CITATO', color: '#34c759' },
-    VERIFICATO: { indicator: '🔍 VERIFICATO', color: '#007aff' },
-    AI: { indicator: '⚠️ AI', color: '#ff9500' }
+    CITATO: { indicator: 'CITATO', color: '#ffffff' },
+    VERIFICATO: { indicator: 'VERIFICATO', color: '#ffffff' },
+    AI: { indicator: 'AI', color: '#007aff' }
 };
 
 function formatSource(source) {
@@ -378,9 +378,17 @@ function startProgressFeedback(imageIndex) {
     return () => timers.forEach(clearTimeout);
 }
 
+function hideMainView() {
+    document.querySelector('.main-content').style.display = 'none';
+    document.querySelector('.actions').style.display = 'none';
+    const pt = document.getElementById('precisionToggle');
+    if (pt) pt.style.display = 'none';
+}
+
 async function analyze() {
     if (images.length === 0) return;
 
+    hideMainView();
     buildProgressUI(images.length);
     loading.classList.add('show');
     results.style.display = 'none';
@@ -454,8 +462,11 @@ async function analyze() {
                     <strong>${message}</strong>
                     <div class="error-note">
                         <strong>Suggerimenti:</strong><br>
-                        1. Verifica la configurazione API su Railway<br>
-                        2. Ricarica la pagina e riprova
+                        1. Riprova tra qualche secondo (Railway potrebbe essere in cold-start)<br>
+                        2. Verifica la connessione internet
+                    </div>
+                    <div style="text-align: center; margin-top: 16px;">
+                        <button onclick="backToUpload()" class="back-button">← Riprova</button>
                     </div>
                 </div>
             </div>`;
@@ -469,7 +480,7 @@ function formatMarkdown(text) {
     return text
         .replace(/RISPOSTE\s*\([^:]*\):[\s\S]*?(?=\*\*\d+\.|ANALISI|$)/gi, '')
         .replace(/ANALISI\s*\([^:]*\):/gi, '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#34c759;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#007aff;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:4px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid rgba(128,128,128,0.25)">')
