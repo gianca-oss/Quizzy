@@ -476,9 +476,16 @@ input[type="file"] {
         font-size: 13px;
     }
 
-    .results #resultsContent table th,
     .results #resultsContent table td {
-        padding: 8px 4px !important;
+        padding: 0 3px !important;
+        line-height: 1 !important;
+    }
+
+    .results #resultsContent table th {
+        padding: 12px 3px !important;
+        line-height: 1 !important;
+        font-size: 12px !important;
+        letter-spacing: 0.05em !important;
     }
 
     .results #resultsContent div {
