@@ -3,10 +3,15 @@ let images = [];
 const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
 const SPENT_KEY = 'quizzy_spent_usd';
+const BUDGET_KEY = 'quizzy_budget_usd';
 const MAX_HISTORY = 50;
 
 function getSpent() {
     return parseFloat(localStorage.getItem(SPENT_KEY) || '0') || 0;
+}
+
+function getBudget() {
+    return parseFloat(localStorage.getItem(BUDGET_KEY) || '0') || 0;
 }
 
 function addSpent(amount) {
@@ -16,18 +21,50 @@ function addSpent(amount) {
     updateSpentDisplay();
 }
 
-function resetSpent() {
-    if (!confirm('Azzerare il contatore di spesa? (Fallo dopo aver ricaricato i crediti)')) return;
-    localStorage.removeItem(SPENT_KEY);
+function configureBudget() {
+    const current = getBudget();
+    const promptMsg = current > 0
+        ? `Aggiorna il credito disponibile (USD).\nAttuale: $${current.toFixed(2)}\nLascia vuoto per azzerare solo lo speso.`
+        : 'Inserisci il credito ricaricato in USD (es. 10):';
+    const input = prompt(promptMsg, current > 0 ? current.toFixed(2) : '');
+    if (input === null) return; // user cancelled
+    const trimmed = input.trim();
+    if (trimmed === '') {
+        // Reset spent only, keep existing budget
+        localStorage.setItem(SPENT_KEY, '0');
+    } else {
+        const value = parseFloat(trimmed.replace(',', '.'));
+        if (!isFinite(value) || value < 0) {
+            alert('Importo non valido.');
+            return;
+        }
+        localStorage.setItem(BUDGET_KEY, value.toString());
+        localStorage.setItem(SPENT_KEY, '0');
+    }
     updateSpentDisplay();
 }
 
 function updateSpentDisplay() {
     const el = document.getElementById('spentCounter');
     if (!el) return;
-    const total = getSpent();
-    el.textContent = `Speso: $${total.toFixed(2)}`;
-    el.style.display = total > 0 ? 'block' : 'none';
+    const spent = getSpent();
+    const budget = getBudget();
+    if (budget > 0) {
+        const remaining = Math.max(0, budget - spent);
+        el.textContent = `Resta $${remaining.toFixed(2)} di $${budget.toFixed(2)}`;
+        el.style.display = 'block';
+        // Color hint as remaining approaches zero
+        const pct = remaining / budget;
+        el.dataset.level = pct < 0.1 ? 'critical' : pct < 0.25 ? 'low' : 'ok';
+    } else if (spent > 0) {
+        el.textContent = `Speso $${spent.toFixed(2)} · tocca per impostare credito`;
+        el.style.display = 'block';
+        el.dataset.level = 'ok';
+    } else {
+        el.textContent = 'Imposta credito disponibile';
+        el.style.display = 'block';
+        el.dataset.level = 'ok';
+    }
 }
 const RETRY_DELAYS = [2000, 5000]; // up to 3 attempts total for transient errors
 

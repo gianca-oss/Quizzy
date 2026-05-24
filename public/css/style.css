@@ -262,7 +262,7 @@ body {
     color: var(--text-secondary);
 }
 
-/* Spent counter — sober, tap to reset */
+/* Spent / remaining budget counter — sober, tap to configure */
 .spent-counter {
     text-align: center;
     font-size: 11px;
@@ -275,6 +275,16 @@ body {
 }
 
 .spent-counter:active {
+    opacity: 1;
+}
+
+.spent-counter[data-level="low"] {
+    color: #ffcc00;
+    opacity: 1;
+}
+
+.spent-counter[data-level="critical"] {
+    color: #ff3b30;
     opacity: 1;
 }
 
