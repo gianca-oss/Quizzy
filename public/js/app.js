@@ -540,6 +540,11 @@ function backToUpload() {
     document.querySelector('.actions').style.display = 'flex';
     const pt = document.getElementById('precisionToggle');
     if (pt) pt.style.display = 'flex';
+    // Drop any lingering focus so the upload area doesn't render its
+    // focus-visible outline after the user navigates back.
+    if (document.activeElement && document.activeElement !== document.body) {
+        document.activeElement.blur?.();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
