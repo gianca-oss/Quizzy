@@ -1,4 +1,4 @@
-const MAX_QUESTIONS = 20;
+const MAX_QUESTIONS = 30;
 
 function parseQuestions(responseText) {
     let questions = parseJSON(responseText);

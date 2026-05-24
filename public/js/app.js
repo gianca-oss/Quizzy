@@ -515,7 +515,11 @@ function displayResults(allResults, opts = {}) {
         saveToHistory(flatAnswers, rawAnalyses.join('\n\n---\n\n'));
     }
 
-    const rowH = Math.min(28, Math.floor(580 / Math.max(allQuestions.length, 1)));
+    // Distribute available viewport across rows for an evenly-filled table
+    const HEADER_H = 32;
+    const BUTTON_H = 52;
+    const available = Math.max(280, window.innerHeight - HEADER_H - BUTTON_H);
+    const rowH = Math.max(28, Math.floor(available / Math.max(allQuestions.length, 1)));
     const fontSize = allQuestions.length > 15 ? '12px' : '13px';
     const numSize = allQuestions.length > 15 ? '10px' : '11px';
     const fonteSize = allQuestions.length > 15 ? '11px' : '12px';
