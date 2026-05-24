@@ -106,8 +106,17 @@ module.exports = async function handler(req, res) {
         });
 
     } catch (error) {
-        res.status(500).json({
+        // Map permanent Anthropic errors to proper HTTP codes so the frontend
+        // can show a tailored message AND skip auto-retry.
+        const statusMap = {
+            no_credits: 402,
+            auth: 401,
+            rate_limit: 429
+        };
+        const status = statusMap[error.kind] || 500;
+        res.status(status).json({
             error: error.message || 'Errore interno',
+            kind: error.kind || 'unknown',
             timestamp: new Date().toISOString()
         });
     }

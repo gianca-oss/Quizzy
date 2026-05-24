@@ -3,13 +3,21 @@ let images = [];
 const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
 const MAX_HISTORY = 50;
-const RETRY_DELAYS = [2000, 5000, 10000]; // up to 4 attempts total
+const RETRY_DELAYS = [2000, 5000]; // up to 3 attempts total for transient errors
+
+// HTTP codes that mean "don't bother retrying — fix the cause first"
+const PERMANENT_STATUSES = new Set([400, 401, 402, 403, 404, 422]);
 
 async function fetchWithRetry(url, options, onRetry) {
     let lastError;
     for (let attempt = 0; attempt <= RETRY_DELAYS.length; attempt++) {
         try {
             const response = await fetch(url, options);
+            // Permanent error → bail without retrying
+            if (PERMANENT_STATUSES.has(response.status)) {
+                return response;
+            }
+            // Transient server error → retry
             if (response.status >= 500 && response.status < 600) {
                 lastError = new Error(`HTTP ${response.status}`);
                 if (attempt < RETRY_DELAYS.length) {
@@ -571,7 +579,19 @@ async function analyzeOneImage(imageData, index, startNumber, precision) {
 
         if (!response.ok) {
             const text = await response.text();
-            throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
+            let kind = 'unknown';
+            let message = `HTTP ${response.status}`;
+            try {
+                const parsed = JSON.parse(text);
+                kind = parsed.kind || 'unknown';
+                message = parsed.error || message;
+            } catch {
+                message = `${message}: ${text.substring(0, 100)}`;
+            }
+            const err = new Error(message);
+            err.kind = kind;
+            err.status = response.status;
+            throw err;
         }
         return await response.json();
     } catch (err) {
@@ -601,6 +621,7 @@ async function analyze() {
     let questionStartNumber = 1;
     const precision = document.getElementById('precisionInput')?.checked === true;
 
+    let permanentErrorKind = null;
     for (let i = 0; i < images.length; i++) {
         const stopProgress = startProgressFeedback(i);
         try {
@@ -612,9 +633,24 @@ async function analyze() {
             questionStartNumber += qCount;
         } catch (err) {
             stopProgress();
-            const msg = err.name === 'AbortError' ? 'Timeout server' : (err.message || 'Errore sconosciuto');
-            setImageState(i, `Errore: ${msg.substring(0, 60)}`, 100, 'error');
+            const isPermanent = err.kind && err.kind !== 'unknown';
+            let label;
+            if (err.kind === 'no_credits') label = 'Credito Anthropic esaurito';
+            else if (err.kind === 'auth') label = 'API Key non valida';
+            else if (err.kind === 'rate_limit') label = 'Rate limit superato';
+            else if (err.name === 'AbortError') label = 'Timeout server';
+            else label = (err.message || 'Errore sconosciuto').substring(0, 60);
+            setImageState(i, label, 100, 'error');
             failedIndexes.push(i);
+            if (isPermanent) {
+                permanentErrorKind = err.kind;
+                // Don't waste credits on the remaining images
+                for (let j = i + 1; j < images.length; j++) {
+                    setImageState(j, 'Saltata', 100, 'error');
+                    failedIndexes.push(j);
+                }
+                break;
+            }
         }
     }
 
@@ -623,27 +659,41 @@ async function analyze() {
     if (allResults.length > 0) {
         displayResults(allResults, { failedCount: failedIndexes.length });
     } else {
-        // Reset stale upload-area text since analysis failed.
-        // Clear imgInput.value too — otherwise re-selecting the same image
-        // won't fire `change` and the user sees nothing happen.
+        const totalImages = images.length;
         imgLabel.textContent = 'Seleziona immagini';
         imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
         imgUploadArea.classList.remove('loaded');
         imgInput.value = '';
         images = [];
-        const failMsg = images.length === 1
-            ? "L'analisi è fallita."
-            : `Tutte le ${images.length} analisi sono fallite.`;
+
+        // Tailored messages per error type
+        let title, body, note;
+        if (permanentErrorKind === 'no_credits') {
+            title = 'Credito Anthropic esaurito';
+            body = "L'API key configurata su Railway ha esaurito i crediti.";
+            note = 'Vai su <a href="https://platform.claude.com" target="_blank" style="color:#ffcc00">platform.claude.com → Billing</a> e ricarica per riprendere a usare l\'app.';
+        } else if (permanentErrorKind === 'auth') {
+            title = 'API Key non valida';
+            body = "L'API key Anthropic configurata su Railway non è valida o è stata revocata.";
+            note = 'Aggiorna la variabile <code>ANTHROPIC_API_KEY_EVO</code> nelle Variables di Railway.';
+        } else if (permanentErrorKind === 'rate_limit') {
+            title = 'Limite di velocità superato';
+            body = "Troppe richieste in poco tempo verso Anthropic.";
+            note = 'Aspetta qualche minuto e riprova.';
+        } else {
+            title = 'Nessuna immagine analizzata';
+            body = totalImages === 1 ? "L'analisi è fallita." : `Tutte le ${totalImages} analisi sono fallite.`;
+            note = 'Railway potrebbe essere in cold-start. Riprova tra qualche secondo.';
+        }
+
         resultsContent.innerHTML = `
             <div class="error-message">
-                <div class="error-title">Nessuna immagine analizzata</div>
+                <div class="error-title">${title}</div>
                 <div class="error-content">
-                    <strong>${failMsg}</strong>
-                    <div class="error-note">
-                        Railway potrebbe essere in cold-start. Riprova tra qualche secondo.
-                    </div>
+                    <strong>${body}</strong>
+                    <div class="error-note">${note}</div>
                     <div style="text-align: center; margin-top: 16px;">
-                        <button onclick="backToUpload()" class="back-button">← Riprova</button>
+                        <button onclick="backToUpload()" class="back-button">← Indietro</button>
                     </div>
                 </div>
             </div>`;
