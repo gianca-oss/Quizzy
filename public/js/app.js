@@ -3,24 +3,43 @@ let images = [];
 const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
 const MAX_HISTORY = 50;
-const RETRY_DELAY = 3000;
+const RETRY_DELAYS = [2000, 5000, 10000]; // up to 4 attempts total
 
 async function fetchWithRetry(url, options, onRetry) {
-    try {
-        const response = await fetch(url, options);
-        // Retry on transient server errors
-        if (response.status >= 500 && response.status < 600) {
-            if (onRetry) onRetry();
-            await new Promise(r => setTimeout(r, RETRY_DELAY));
-            return await fetch(url, options);
+    let lastError;
+    for (let attempt = 0; attempt <= RETRY_DELAYS.length; attempt++) {
+        try {
+            const response = await fetch(url, options);
+            if (response.status >= 500 && response.status < 600) {
+                lastError = new Error(`HTTP ${response.status}`);
+                if (attempt < RETRY_DELAYS.length) {
+                    if (onRetry) onRetry(attempt + 1, RETRY_DELAYS.length + 1);
+                    await new Promise(r => setTimeout(r, RETRY_DELAYS[attempt]));
+                    continue;
+                }
+                return response;
+            }
+            return response;
+        } catch (err) {
+            if (err.name === 'AbortError') throw err;
+            lastError = err;
+            if (attempt < RETRY_DELAYS.length) {
+                if (onRetry) onRetry(attempt + 1, RETRY_DELAYS.length + 1);
+                await new Promise(r => setTimeout(r, RETRY_DELAYS[attempt]));
+                continue;
+            }
         }
-        return response;
-    } catch (err) {
-        if (err.name === 'AbortError') throw err;
-        // Network error → silently retry once
-        if (onRetry) onRetry();
-        await new Promise(r => setTimeout(r, RETRY_DELAY));
-        return await fetch(url, options);
+    }
+    throw lastError;
+}
+
+// Warm Railway with a tiny GET request before posting the heavy image — this
+// often makes the first real request hit a warm container.
+async function warmupBackend() {
+    try {
+        await fetch('/api/analyze', { method: 'GET', cache: 'no-store' });
+    } catch {
+        // Best-effort; ignore failures
     }
 }
 
@@ -546,7 +565,7 @@ async function analyzeOneImage(imageData, index, startNumber, precision) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
             signal: controller.signal
-        }, () => setImageState(index, 'Ritento dopo errore di rete...', null, 'active'));
+        }, (attempt, total) => setImageState(index, `Ritento (${attempt}/${total - 1})...`, null, 'active'));
 
         clearTimeout(timeoutId);
 
@@ -572,6 +591,10 @@ async function analyze() {
     loading.classList.add('show');
     results.style.display = 'none';
     resultsContent.innerHTML = '';
+
+    // Pre-warm Railway so the first POST has a better chance of hitting
+    // a warm container (cuts cold-start failures dramatically).
+    warmupBackend();
 
     const allResults = [];
     const failedIndexes = [];
