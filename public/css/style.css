@@ -80,9 +80,8 @@ body {
 }
 
 .upload-area.loaded {
-    background: var(--bg-primary);
-    border-color: var(--success-color);
-    border-width: 2px;
+    background: var(--bg-secondary);
+    border-color: var(--border-primary);
 }
 
 .upload-area.dragover {
