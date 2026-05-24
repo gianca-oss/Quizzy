@@ -92,36 +92,60 @@ function formatHistoryDate(iso) {
     return `${date}, ${time}`;
 }
 
+let historyEditMode = false;
+
 function showHistory() {
     const history = loadHistory();
-    let html = '<div class="result-content" style="padding: 8px;">';
-    html += '<h3 style="font-size: 16px; margin-bottom: 12px; text-align: center;">Storico Quiz</h3>';
+    let html = '<div class="result-content history-view">';
 
-    if (history.length === 0) {
-        html += '<p style="text-align: center; opacity: 0.6; padding: 20px;">Nessun quiz salvato</p>';
-    } else {
-        html += '<div style="display: flex; flex-direction: column; gap: 8px;">';
-        history.forEach(item => {
-            html += `<div style="display: flex; align-items: center; gap: 8px; padding: 10px; background: rgba(128,128,128,0.08); border-radius: 8px;">`;
-            html += `<div style="flex: 1; cursor: pointer;" onclick="openHistoryItem(${item.id})">`;
-            html += `<div style="font-weight: 600; font-size: 14px;">${formatHistoryDate(item.date)}</div>`;
-            html += `<div style="font-size: 12px; opacity: 0.7;">${item.questionsCount} domande</div>`;
-            html += `</div>`;
-            html += `<button onclick="shareHistoryItem(${item.id})" style="background: none; border: none; color: var(--text-primary); font-size: 18px; cursor: pointer; padding: 4px 8px;" title="Condividi">⤴</button>`;
-            html += `<button onclick="deleteHistoryItem(${item.id})" style="background: none; border: none; color: #ff3b30; font-size: 18px; cursor: pointer; padding: 4px 8px;" title="Elimina">×</button>`;
-            html += `</div>`;
-        });
-        html += '</div>';
-    }
-
-    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">';
-    html += '<button onclick="backToUpload()" class="back-button">← Indietro</button>';
-    html += '<button onclick="importHistoryClick()" class="back-button" style="color: #007aff; border-color: #007aff;">↓ Importa</button>';
+    // Top bar: chevron-back · Storico · Modifica
+    html += '<div class="history-topbar">';
+    html += '<button class="history-topbar-btn back" onclick="backToUpload()" aria-label="Indietro">';
+    html += '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+    html += '<span>Indietro</span></button>';
+    html += '<div class="history-title">Storico</div>';
     if (history.length > 0) {
-        html += '<button onclick="exportHistory()" class="back-button" style="color: #007aff; border-color: #007aff;">↑ Esporta</button>';
-        html += '<button onclick="clearHistory()" class="back-button" style="color: #ff3b30;">Cancella tutto</button>';
+        html += `<button class="history-topbar-btn edit" onclick="toggleHistoryEdit()">${historyEditMode ? 'Fine' : 'Modifica'}</button>`;
+    } else {
+        html += '<span class="history-topbar-btn-placeholder"></span>';
     }
     html += '</div>';
+
+    if (history.length === 0) {
+        html += '<div class="history-empty">Nessun quiz salvato</div>';
+    } else {
+        history.forEach(item => {
+            html += `<div class="history-card${historyEditMode ? ' editing' : ''}">`;
+            if (historyEditMode) {
+                html += `<button class="history-delete-btn" onclick="event.stopPropagation();deleteHistoryItem(${item.id})" aria-label="Elimina">`;
+                html += '<svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="#ff3b30"/><rect x="6" y="11" width="12" height="2" fill="white" rx="1"/></svg>';
+                html += '</button>';
+            }
+            html += `<div class="history-card-body" onclick="openHistoryItem(${item.id})">`;
+            html += `<div class="history-badge">${item.questionsCount}</div>`;
+            html += `<div class="history-card-info">`;
+            html += `<div class="history-card-title">${formatHistoryDate(item.date)}</div>`;
+            html += `<div class="history-card-sub">${item.questionsCount} domande</div>`;
+            html += `</div>`;
+            html += `<button class="history-share-inline" onclick="event.stopPropagation();shareHistoryItem(${item.id})" aria-label="Condividi">`;
+            html += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>';
+            html += '</button>';
+            html += '<div class="history-chevron">›</div>';
+            html += '</div></div>';
+        });
+    }
+
+    // Bottom action bar appears only in edit mode
+    if (historyEditMode && history.length > 0) {
+        html += '<div class="history-edit-toolbar">';
+        html += '<button onclick="importHistoryClick()">Importa</button>';
+        html += '<button onclick="exportHistory()">Esporta</button>';
+        html += '<button class="danger" onclick="clearHistory()">Cancella tutto</button>';
+        html += '</div>';
+    } else if (history.length === 0) {
+        html += '<div class="history-edit-toolbar"><button onclick="importHistoryClick()">Importa</button></div>';
+    }
+
     html += '<input type="file" id="historyImportInput" accept="application/json" style="display:none">';
     html += '</div>';
 
@@ -132,6 +156,11 @@ function showHistory() {
     const pt = document.getElementById('precisionToggle');
     if (pt) pt.style.display = 'none';
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleHistoryEdit() {
+    historyEditMode = !historyEditMode;
+    showHistory();
 }
 
 function openHistoryItem(id) {

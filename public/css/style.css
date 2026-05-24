@@ -519,6 +519,188 @@ body {
     padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 }
 
+/* History view (B-style with yellow accent) */
+.history-view {
+    padding: 0 0 80px;
+}
+
+.history-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 8px 14px;
+    gap: 8px;
+}
+
+.history-topbar-btn {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 4px 6px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 60px;
+}
+
+.history-topbar-btn.edit {
+    color: #ffcc00;
+    font-weight: 500;
+    justify-content: flex-end;
+}
+
+.history-topbar-btn-placeholder {
+    min-width: 60px;
+    display: inline-block;
+}
+
+.history-title {
+    flex: 1;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.history-empty {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px 16px;
+    font-size: 14px;
+}
+
+.history-card {
+    margin: 0 12px 8px;
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.history-card.editing {
+    animation: history-card-shake 0.2s ease-in-out;
+}
+
+@keyframes history-card-shake {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(2px); }
+}
+
+.history-delete-btn {
+    background: none;
+    border: none;
+    padding: 0 4px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: inherit;
+}
+
+.history-delete-btn:active { transform: scale(0.92); }
+
+.history-card-body {
+    flex: 1;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.history-card-body:active {
+    background: var(--bg-hover);
+}
+
+.history-badge {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 204, 0, 0.18);
+    color: #ffcc00;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 15px;
+    flex-shrink: 0;
+}
+
+.history-card-info {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+}
+
+.history-card-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.history-card-sub {
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.history-share-inline {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    padding: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.history-share-inline:active { transform: scale(0.92); }
+
+.history-chevron {
+    color: var(--text-secondary);
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.history-edit-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    padding: 14px 12px calc(14px + env(safe-area-inset-bottom, 0px));
+    background: rgba(20, 20, 20, 0.96);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.history-edit-toolbar button {
+    background: none;
+    border: none;
+    color: #ffcc00;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.history-edit-toolbar button.danger {
+    color: #ff3b30;
+}
+
+.history-edit-toolbar button:active { transform: scale(0.97); }
+
 /* Back button */
 .back-button {
     padding: 8px 16px;
