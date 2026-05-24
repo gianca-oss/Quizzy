@@ -66,8 +66,9 @@ function updateSpentDisplay() {
         el.style.display = 'block';
         el.dataset.level = 'ok';
     } else {
-        // Nothing tracked yet → don't show the counter at all
-        el.style.display = 'none';
+        el.textContent = 'Imposta credito disponibile';
+        el.style.display = 'block';
+        el.dataset.level = 'ok';
     }
 }
 const RETRY_DELAYS = [2000, 5000]; // up to 3 attempts total for transient errors
