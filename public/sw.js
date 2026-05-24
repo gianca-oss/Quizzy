@@ -1,10 +1,9 @@
-const CACHE_NAME = 'quizzy-v1';
+const CACHE_NAME = 'quizzy-v3';
 const STATIC_ASSETS = [
-    '/',
-    '/index.html',
-    '/css/style.css',
-    '/js/app.js',
-    '/manifest.json'
+    '/manifest.json',
+    '/icons/icon-192.png',
+    '/icons/icon-512.png',
+    '/icons/apple-touch-icon.png'
 ];
 
 self.addEventListener('install', (event) => {
@@ -27,22 +26,36 @@ self.addEventListener('fetch', (event) => {
     const { request } = event;
     const url = new URL(request.url);
 
-    // Never cache API calls — always go to network
-    if (url.pathname.startsWith('/api/')) {
-        return;
-    }
+    if (request.method !== 'GET') return;
+    if (url.pathname.startsWith('/api/')) return;
 
-    // Cache-first for static assets, falling back to network
-    event.respondWith(
-        caches.match(request).then((cached) => {
-            if (cached) return cached;
-            return fetch(request).then((response) => {
-                if (response.ok && request.method === 'GET') {
+    // Network-first for HTML / CSS / JS so updates land immediately.
+    // Fall back to cache only when offline.
+    const isAppCode = /\.(?:html|css|js)$/.test(url.pathname) || url.pathname === '/';
+    if (isAppCode) {
+        event.respondWith(
+            fetch(request).then((response) => {
+                if (response.ok) {
                     const copy = response.clone();
                     caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
                 }
                 return response;
-            }).catch(() => cached);
+            }).catch(() => caches.match(request))
+        );
+        return;
+    }
+
+    // Cache-first for static assets (icons, manifest)
+    event.respondWith(
+        caches.match(request).then((cached) => {
+            if (cached) return cached;
+            return fetch(request).then((response) => {
+                if (response.ok) {
+                    const copy = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
+                }
+                return response;
+            });
         })
     );
 });
