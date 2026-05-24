@@ -239,14 +239,12 @@ async function importHistory(file) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceColors = { CITATO: '#34c759', VERIFICATO: '#007aff', AI: '#ff9500' };
-    const sourceLabels = { CITATO: '📚 CITATO', VERIFICATO: '🔍 VERIFICATO', AI: '⚠️ AI' };
+    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI' };
 
     let rows = '';
     item.answers.forEach(a => {
-        const color = sourceColors[a.source] || sourceColors.AI;
         const label = sourceLabels[a.source] || sourceLabels.AI;
-        rows += `<tr><td>${a.num}</td><td><strong>${a.letter}</strong></td><td style="color:${color}">${label}</td></tr>`;
+        rows += `<tr><td>${a.num}</td><td><strong>${a.letter}</strong></td><td style="font-weight:700;color:#000">${label}</td></tr>`;
     });
 
     const analysisHtml = (item.analysis || '')
