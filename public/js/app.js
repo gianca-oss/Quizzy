@@ -433,6 +433,12 @@ function clearAll() {
 }
 
 function backToUpload() {
+    images = [];
+    imgInput.value = '';
+    imgUploadArea.classList.remove('loaded');
+    imgLabel.textContent = 'Seleziona immagini';
+    imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
+    imgStatus.textContent = '';
     results.style.display = 'none';
     resultsContent.innerHTML = '';
     document.querySelector('.main-content').style.display = 'block';
@@ -594,10 +600,14 @@ async function analyze() {
     if (allResults.length > 0) {
         displayResults(allResults, { failedCount: failedIndexes.length });
     } else {
-        // Reset stale upload-area text since analysis failed
+        // Reset stale upload-area text since analysis failed.
+        // Clear imgInput.value too — otherwise re-selecting the same image
+        // won't fire `change` and the user sees nothing happen.
         imgLabel.textContent = 'Seleziona immagini';
         imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
         imgUploadArea.classList.remove('loaded');
+        imgInput.value = '';
+        images = [];
         const failMsg = images.length === 1
             ? "L'analisi è fallita."
             : `Tutte le ${images.length} analisi sono fallite.`;
