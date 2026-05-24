@@ -47,13 +47,18 @@ function configureBudget() {
 function updateSpentDisplay() {
     const el = document.getElementById('spentCounter');
     if (!el) return;
+    // Hide entirely while analysis is running
+    const analyzing = document.getElementById('loading')?.classList.contains('show');
+    if (analyzing) {
+        el.style.display = 'none';
+        return;
+    }
     const spent = getSpent();
     const budget = getBudget();
     if (budget > 0) {
         const remaining = Math.max(0, budget - spent);
-        el.textContent = `Resta $${remaining.toFixed(2)} di $${budget.toFixed(2)}`;
+        el.textContent = `Speso $${spent.toFixed(2)} · Resta $${remaining.toFixed(2)}`;
         el.style.display = 'block';
-        // Color hint as remaining approaches zero
         const pct = remaining / budget;
         el.dataset.level = pct < 0.1 ? 'critical' : pct < 0.25 ? 'low' : 'ok';
     } else if (spent > 0) {
@@ -61,9 +66,8 @@ function updateSpentDisplay() {
         el.style.display = 'block';
         el.dataset.level = 'ok';
     } else {
-        el.textContent = 'Imposta credito disponibile';
-        el.style.display = 'block';
-        el.dataset.level = 'ok';
+        // Nothing tracked yet → don't show the counter at all
+        el.style.display = 'none';
     }
 }
 const RETRY_DELAYS = [2000, 5000]; // up to 3 attempts total for transient errors
@@ -672,6 +676,7 @@ async function analyze() {
 
     buildProgressUI(images.length);
     loading.classList.add('show');
+    updateSpentDisplay();
     results.style.display = 'none';
     resultsContent.innerHTML = '';
 
@@ -719,6 +724,7 @@ async function analyze() {
     }
 
     loading.classList.remove('show');
+    updateSpentDisplay();
 
     if (allResults.length > 0) {
         displayResults(allResults, { failedCount: failedIndexes.length });
