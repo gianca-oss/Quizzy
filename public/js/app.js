@@ -594,11 +594,18 @@ async function analyze() {
     if (allResults.length > 0) {
         displayResults(allResults, { failedCount: failedIndexes.length });
     } else {
+        // Reset stale upload-area text since analysis failed
+        imgLabel.textContent = 'Seleziona immagini';
+        imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
+        imgUploadArea.classList.remove('loaded');
+        const failMsg = images.length === 1
+            ? "L'analisi è fallita."
+            : `Tutte le ${images.length} analisi sono fallite.`;
         resultsContent.innerHTML = `
             <div class="error-message">
                 <div class="error-title">Nessuna immagine analizzata</div>
                 <div class="error-content">
-                    <strong>Tutte le ${images.length} analisi sono fallite.</strong>
+                    <strong>${failMsg}</strong>
                     <div class="error-note">
                         Railway potrebbe essere in cold-start. Riprova tra qualche secondo.
                     </div>
