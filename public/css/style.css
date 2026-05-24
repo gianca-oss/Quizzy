@@ -263,6 +263,62 @@ body {
     color: var(--text-secondary);
 }
 
+/* Status banners (offline / update available) */
+.status-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-family: inherit;
+}
+
+.status-banner[hidden] { display: none; }
+
+.status-banner.offline {
+    background: rgba(255, 59, 48, 0.15);
+    border: 1px solid rgba(255, 59, 48, 0.4);
+    color: #ff3b30;
+}
+
+.status-banner.update {
+    background: rgba(0, 122, 255, 0.15);
+    border: 1px solid rgba(0, 122, 255, 0.4);
+    color: #007aff;
+}
+
+.status-banner svg { flex-shrink: 0; }
+
+.status-banner-text { flex: 1; }
+
+.status-banner-title {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.status-banner-sub {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+}
+
+.status-banner-action {
+    background: #007aff;
+    color: #fff;
+    border: none;
+    border-radius: 18px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.status-banner-action:active {
+    transform: scale(0.97);
+}
+
 /* Per-image progress */
 .image-progress {
     display: flex;

@@ -3,6 +3,26 @@ let images = [];
 const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
 const MAX_HISTORY = 50;
+const RETRY_DELAY = 3000;
+
+async function fetchWithRetry(url, options, onRetry) {
+    try {
+        const response = await fetch(url, options);
+        // Retry on transient server errors
+        if (response.status >= 500 && response.status < 600) {
+            if (onRetry) onRetry();
+            await new Promise(r => setTimeout(r, RETRY_DELAY));
+            return await fetch(url, options);
+        }
+        return response;
+    } catch (err) {
+        if (err.name === 'AbortError') throw err;
+        // Network error → silently retry once
+        if (onRetry) onRetry();
+        await new Promise(r => setTimeout(r, RETRY_DELAY));
+        return await fetch(url, options);
+    }
+}
 
 const imgUploadArea = document.getElementById('imgUploadArea');
 const imgInput = document.getElementById('imgInput');
@@ -94,12 +114,16 @@ function showHistory() {
         html += '</div>';
     }
 
-    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px;">';
+    html += '<div style="display: flex; gap: 8px; justify-content: center; margin-top: 16px; flex-wrap: wrap;">';
     html += '<button onclick="backToUpload()" class="back-button">← Indietro</button>';
+    html += '<button onclick="importHistoryClick()" class="back-button" style="color: #007aff; border-color: #007aff;">↓ Importa</button>';
     if (history.length > 0) {
+        html += '<button onclick="exportHistory()" class="back-button" style="color: #007aff; border-color: #007aff;">↑ Esporta</button>';
         html += '<button onclick="clearHistory()" class="back-button" style="color: #ff3b30;">Cancella tutto</button>';
     }
-    html += '</div></div>';
+    html += '</div>';
+    html += '<input type="file" id="historyImportInput" accept="application/json" style="display:none">';
+    html += '</div>';
 
     resultsContent.innerHTML = html;
     results.style.display = 'block';
@@ -114,6 +138,74 @@ function openHistoryItem(id) {
     const item = loadHistory().find(h => h.id === id);
     if (!item) return;
     displayResults([{ answers: item.answers, analysis: item.analysis }], { skipSave: true });
+}
+
+async function exportHistory() {
+    const history = loadHistory();
+    if (!history.length) return;
+    const payload = { app: 'quizzy', version: 1, exportedAt: new Date().toISOString(), history };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const fileName = `quizzy-storico-${new Date().toISOString().slice(0, 10)}.json`;
+    const file = new File([blob], fileName, { type: 'application/json' });
+
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        try {
+            await navigator.share({ files: [file], title: 'Storico Quizzy' });
+            return;
+        } catch (err) {
+            if (err.name === 'AbortError') return;
+        }
+    }
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+function importHistoryClick() {
+    const input = document.getElementById('historyImportInput');
+    if (!input) return;
+    input.value = '';
+    input.onchange = (e) => {
+        const file = e.target.files?.[0];
+        if (file) importHistory(file);
+    };
+    input.click();
+}
+
+async function importHistory(file) {
+    try {
+        const text = await file.text();
+        const payload = JSON.parse(text);
+        const incoming = Array.isArray(payload) ? payload : payload.history;
+        if (!Array.isArray(incoming)) throw new Error('Formato non valido');
+
+        const valid = incoming.filter(it =>
+            it && Array.isArray(it.answers) && typeof it.date === 'string'
+        );
+        if (!valid.length) throw new Error('Nessun quiz valido nel file');
+
+        const existing = loadHistory();
+        const existingIds = new Set(existing.map(h => h.id));
+        const merged = [...existing];
+        let added = 0;
+        for (const it of valid) {
+            if (!existingIds.has(it.id)) {
+                merged.push(it);
+                added++;
+            }
+        }
+        merged.sort((a, b) => b.id - a.id);
+        if (merged.length > MAX_HISTORY) merged.length = MAX_HISTORY;
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(merged));
+        updateHistoryButton();
+        showHistory();
+        alert(`Importati ${added} quiz su ${valid.length} (i duplicati sono stati ignorati).`);
+    } catch (err) {
+        alert('Errore importazione: ' + err.message);
+    }
 }
 
 function buildReportHtml(item) {
@@ -400,84 +492,88 @@ function hideMainView() {
     if (pt) pt.style.display = 'none';
 }
 
+async function analyzeOneImage(imageData, index, startNumber, precision) {
+    const requestBody = {
+        model: 'claude-3-haiku-20240307',
+        max_tokens: 4000,
+        startNumber,
+        precision,
+        messages: [{
+            role: 'user',
+            content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageData } }]
+        }]
+    };
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 300000);
+
+    try {
+        const response = await fetchWithRetry('/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(requestBody),
+            signal: controller.signal
+        }, () => setImageState(index, 'Ritento dopo errore di rete...', null, 'active'));
+
+        clearTimeout(timeoutId);
+
+        if (!response.ok) {
+            const text = await response.text();
+            throw new Error(`HTTP ${response.status}: ${text.substring(0, 100)}`);
+        }
+        return await response.json();
+    } catch (err) {
+        clearTimeout(timeoutId);
+        throw err;
+    }
+}
+
 async function analyze() {
     if (images.length === 0) return;
+    if (!navigator.onLine) {
+        showOfflineWarning();
+        return;
+    }
 
     buildProgressUI(images.length);
     loading.classList.add('show');
     results.style.display = 'none';
     resultsContent.innerHTML = '';
 
-    try {
-        const allResults = [];
-        let questionStartNumber = 1;
+    const allResults = [];
+    const failedIndexes = [];
+    let questionStartNumber = 1;
+    const precision = document.getElementById('precisionInput')?.checked === true;
 
-        for (let i = 0; i < images.length; i++) {
-            const stopProgress = startProgressFeedback(i);
-
-            const precision = document.getElementById('precisionInput')?.checked === true;
-            const requestBody = {
-                model: 'claude-3-haiku-20240307',
-                max_tokens: 4000,
-                startNumber: questionStartNumber,
-                precision,
-                messages: [{
-                    role: 'user',
-                    content: [{
-                        type: 'image',
-                        source: {
-                            type: 'base64',
-                            media_type: 'image/jpeg',
-                            data: images[i]
-                        }
-                    }]
-                }]
-            };
-
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 300000);
-
-            const response = await fetch('/api/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestBody),
-                signal: controller.signal
-            });
-
-            clearTimeout(timeoutId);
+    for (let i = 0; i < images.length; i++) {
+        const stopProgress = startProgressFeedback(i);
+        try {
+            const data = await analyzeOneImage(images[i], i, questionStartNumber, precision);
             stopProgress();
-
-            if (!response.ok) {
-                setImageState(i, 'Errore', 100, 'error');
-                const errorText = await response.text();
-                throw new Error(`HTTP ${response.status}: ${errorText}`);
-            }
-
-            const data = await response.json();
             const qCount = data.metadata?.questionsAnalyzed || 0;
             setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
-
-            allResults.push({
-                answers: data.answers || [],
-                analysis: data.analysis || ''
-            });
-
+            allResults.push({ answers: data.answers || [], analysis: data.analysis || '' });
             questionStartNumber += qCount;
+        } catch (err) {
+            stopProgress();
+            const msg = err.name === 'AbortError' ? 'Timeout server' : (err.message || 'Errore sconosciuto');
+            setImageState(i, `Errore: ${msg.substring(0, 60)}`, 100, 'error');
+            failedIndexes.push(i);
         }
+    }
 
-        displayResults(allResults);
+    loading.classList.remove('show');
 
-    } catch (err) {
-        const message = err.name === 'AbortError' ? 'Timeout: server non risponde' : err.message;
+    if (allResults.length > 0) {
+        displayResults(allResults, { failedCount: failedIndexes.length });
+    } else {
         resultsContent.innerHTML = `
             <div class="error-message">
-                <div class="error-title">Errore durante l'analisi</div>
+                <div class="error-title">Nessuna immagine analizzata</div>
                 <div class="error-content">
-                    <strong>${message}</strong>
+                    <strong>Tutte le ${images.length} analisi sono fallite.</strong>
                     <div class="error-note">
-                        <strong>Suggerimenti:</strong><br>
-                        1. Riprova tra qualche secondo (Railway potrebbe essere in cold-start)<br>
-                        2. Verifica la connessione internet
+                        Railway potrebbe essere in cold-start. Riprova tra qualche secondo.
                     </div>
                     <div style="text-align: center; margin-top: 16px;">
                         <button onclick="backToUpload()" class="back-button">← Riprova</button>
@@ -485,9 +581,21 @@ async function analyze() {
                 </div>
             </div>`;
         results.style.display = 'block';
-    } finally {
-        loading.classList.remove('show');
     }
+}
+
+function showOfflineWarning() {
+    resultsContent.innerHTML = `
+        <div class="error-message">
+            <div class="error-title">Nessuna connessione</div>
+            <div class="error-content">
+                <strong>Sei offline.</strong> Lo storico è ancora consultabile, ma non si possono avviare nuove analisi.
+                <div style="text-align: center; margin-top: 16px;">
+                    <button onclick="backToUpload()" class="back-button">← Indietro</button>
+                </div>
+            </div>
+        </div>`;
+    results.style.display = 'block';
 }
 
 function formatMarkdown(text) {
@@ -542,6 +650,11 @@ function displayResults(allResults, opts = {}) {
     const pad = allQuestions.length > 15 ? '0px 3px' : '1px 4px';
 
     let html = '<div class="result-content">';
+    if (opts.failedCount) {
+        html += `<div style="background:rgba(255,204,0,0.12);border:1px solid rgba(255,204,0,0.35);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#ffcc00">
+            ${opts.failedCount} immagine${opts.failedCount > 1 ? 'i' : ''} non analizzata${opts.failedCount > 1 ? 'e' : ''}, ${allResults.length} salvata${allResults.length > 1 ? 'e' : ''} nello storico
+        </div>`;
+    }
     html += `<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1; table-layout: fixed;">`;
     html += '<colgroup><col style="width: 28px"><col style="width: 50%"><col></colgroup>';
     html += '<thead><tr>';
@@ -608,7 +721,37 @@ document.addEventListener('DOMContentLoaded', () => {
             precisionToggle.classList.toggle('active', precisionInput.checked);
         });
     }
+
+    setupOfflineBanner();
+    setupUpdateBanner();
 });
+
+// --- Offline indicator ---
+function setupOfflineBanner() {
+    const banner = document.getElementById('offlineBanner');
+    if (!banner) return;
+    const update = () => { banner.hidden = navigator.onLine; };
+    update();
+    window.addEventListener('online', update);
+    window.addEventListener('offline', update);
+}
+
+// --- Service worker update notification ---
+function setupUpdateBanner() {
+    const banner = document.getElementById('updateBanner');
+    const btn = document.getElementById('updateReloadBtn');
+    if (!banner || !btn) return;
+    btn.addEventListener('click', () => window.location.reload());
+    let firstActivation = true;
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', (event) => {
+            if (event.data?.type === 'SW_UPDATED') {
+                if (firstActivation) { firstActivation = false; return; }
+                banner.hidden = false;
+            }
+        });
+    }
+}
 
 // PWA service worker registration
 if ('serviceWorker' in navigator) {
