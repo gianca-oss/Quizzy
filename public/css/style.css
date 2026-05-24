@@ -430,6 +430,38 @@ body {
     border: 1px solid var(--border-primary);
 }
 
+/* Full-width "Nuova analisi" button (acts as separator between table and analysis) */
+.new-analysis-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    margin: 12px -10px 0;
+    width: calc(100% + 20px);
+    padding: 14px 12px;
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    border-top: 1px solid var(--border-secondary);
+    border-bottom: 1px solid var(--border-secondary);
+    border-radius: 0;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.2s;
+}
+
+.new-analysis-btn:hover {
+    background: var(--bg-hover);
+}
+
+.new-analysis-btn:active {
+    background: var(--bg-hover);
+    transform: scale(0.995);
+}
+
 /* Back button */
 .back-button {
     padding: 8px 16px;
@@ -477,12 +509,12 @@ input[type="file"] {
     }
 
     .results #resultsContent table td {
-        padding: 0 3px !important;
+        padding: 4px 3px !important;
         line-height: 1 !important;
     }
 
     .results #resultsContent table th {
-        padding: 12px 3px !important;
+        padding: 10px 3px !important;
         line-height: 1 !important;
         font-size: 12px !important;
         letter-spacing: 0.05em !important;

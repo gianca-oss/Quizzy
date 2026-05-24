@@ -542,9 +542,10 @@ function displayResults(allResults, opts = {}) {
 
     html += '</tbody></table>';
 
-    html += '<div style="display: flex; justify-content: center; margin-top: 10px;">';
-    html += '<button onclick="backToUpload()" class="back-button">← Nuova</button>';
-    html += '</div>';
+    html += '<button onclick="backToUpload()" class="new-analysis-btn">';
+    html += '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>';
+    html += '<span>Nuova analisi</span>';
+    html += '</button>';
 
     if (allAnalyses.length) {
         html += '<div style="margin-top: 14px;">';
