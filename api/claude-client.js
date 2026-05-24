@@ -5,6 +5,18 @@ const MODELS = {
     opus: 'claude-opus-4-20250514'
 };
 
+// USD per million tokens (Anthropic public pricing)
+const PRICING = {
+    'claude-sonnet-4-20250514': { input: 3, output: 15 },
+    'claude-opus-4-20250514': { input: 15, output: 75 }
+};
+
+function computeCost(model, usage) {
+    if (!usage) return 0;
+    const p = PRICING[model] || PRICING['claude-sonnet-4-20250514'];
+    return (usage.input_tokens * p.input + usage.output_tokens * p.output) / 1_000_000;
+}
+
 // Errors that won't be fixed by retrying — bail immediately to save cost & time.
 function isPermanentError(status, body) {
     if (status === 401 || status === 402 || status === 403) return true;
@@ -103,7 +115,7 @@ async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet
         throw new Error('Risposta API incompleta');
     }
 
-    return data.content[0].text;
+    return { text: data.content[0].text, cost: computeCost(model, data.usage) };
 }
 
 async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
@@ -141,7 +153,7 @@ async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
     }
 
     const data = await response.json();
-    return { text: data.content[0].text, model };
+    return { text: data.content[0].text, model, cost: computeCost(model, data.usage) };
 }
 
 module.exports = { extractQuestions, analyzeWithContext };

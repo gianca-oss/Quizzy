@@ -2,7 +2,33 @@ let images = [];
 
 const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
+const SPENT_KEY = 'quizzy_spent_usd';
 const MAX_HISTORY = 50;
+
+function getSpent() {
+    return parseFloat(localStorage.getItem(SPENT_KEY) || '0') || 0;
+}
+
+function addSpent(amount) {
+    if (!amount || amount <= 0) return;
+    const total = getSpent() + amount;
+    localStorage.setItem(SPENT_KEY, total.toString());
+    updateSpentDisplay();
+}
+
+function resetSpent() {
+    if (!confirm('Azzerare il contatore di spesa? (Fallo dopo aver ricaricato i crediti)')) return;
+    localStorage.removeItem(SPENT_KEY);
+    updateSpentDisplay();
+}
+
+function updateSpentDisplay() {
+    const el = document.getElementById('spentCounter');
+    if (!el) return;
+    const total = getSpent();
+    el.textContent = `Speso: $${total.toFixed(2)}`;
+    el.style.display = total > 0 ? 'block' : 'none';
+}
 const RETRY_DELAYS = [2000, 5000]; // up to 3 attempts total for transient errors
 
 // HTTP codes that mean "don't bother retrying — fix the cause first"
@@ -631,6 +657,7 @@ async function analyze() {
             setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
             allResults.push({ answers: data.answers || [], analysis: data.analysis || '' });
             questionStartNumber += qCount;
+            if (data.metadata?.cost) addSpent(data.metadata.cost);
         } catch (err) {
             stopProgress();
             const isPermanent = err.kind && err.kind !== 'unknown';
@@ -841,6 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setupOfflineBanner();
     setupUpdateBanner();
+    updateSpentDisplay();
 });
 
 // --- Offline indicator ---

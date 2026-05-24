@@ -65,7 +65,8 @@ module.exports = async function handler(req, res) {
         const embeddingsData = await loadEmbeddings();
 
         // Step 1: Extract questions from image
-        const responseText = await extractQuestions(apiKey, imageContent, buildExtractionPrompt(), modelKey);
+        const extraction = await extractQuestions(apiKey, imageContent, buildExtractionPrompt(), modelKey);
+        const responseText = extraction.text;
 
         // Step 2: Parse questions
         const questions = parseQuestions(responseText);
@@ -81,7 +82,10 @@ module.exports = async function handler(req, res) {
 
         // Step 4: Final analysis
         const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
-        const { text: finalResponse, model: usedModel } = await analyzeWithContext(apiKey, analysisPrompt, modelKey);
+        const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, modelKey);
+        const finalResponse = analysisResult.text;
+        const usedModel = analysisResult.model;
+        const totalCost = (extraction.cost || 0) + (analysisResult.cost || 0);
 
         // Step 5: Build response
         const { answers, analysisText } = parseAnswers(finalResponse);
@@ -101,7 +105,8 @@ module.exports = async function handler(req, res) {
                 searchStats: { semantic: semanticCount, keyword: keywordCount },
                 chunksSearched: data.textChunks.length,
                 embeddingsLoaded: !!embeddingsData,
-                questionsAnalyzed: questions.length
+                questionsAnalyzed: questions.length,
+                cost: totalCost
             }
         });
 
