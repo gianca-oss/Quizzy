@@ -440,25 +440,35 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
+    gap: 10px;
     width: 100%;
-    padding: 14px 12px env(safe-area-inset-bottom, 14px);
-    background: rgba(26, 26, 26, 0.92);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    padding-top: 18px;
+    padding-bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+    padding-left: 16px;
+    padding-right: 16px;
+    background: rgba(20, 20, 20, 0.96);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
     color: var(--text-primary);
     border: none;
-    border-top: 1px solid var(--border-secondary);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 0;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1;
     cursor: pointer;
     font-family: inherit;
     transition: background 0.2s;
 }
 
+.new-analysis-btn svg {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+}
+
 .new-analysis-btn:hover {
-    background: rgba(42, 42, 42, 0.92);
+    background: rgba(40, 40, 40, 0.96);
 }
 
 .new-analysis-btn:active {
@@ -467,7 +477,7 @@ body {
 
 /* Reserve space at bottom of results so analysis isn't hidden under sticky button */
 .results {
-    padding-bottom: 70px;
+    padding-bottom: calc(80px + env(safe-area-inset-bottom, 0px));
 }
 
 /* Back button */
