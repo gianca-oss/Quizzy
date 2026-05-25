@@ -4,7 +4,34 @@ const HISTORY_KEY = 'quizzy_history';
 const PRECISION_KEY = 'quizzy_precision';
 const SPENT_KEY = 'quizzy_spent_usd';
 const BUDGET_KEY = 'quizzy_budget_usd';
+const SESSION_KEY = 'quizzy_current_session';
 const MAX_HISTORY = 50;
+
+// --- Wake Lock helpers ---
+let wakeLockSentinel = null;
+async function acquireWakeLock() {
+    if (!('wakeLock' in navigator)) return;
+    try {
+        wakeLockSentinel = await navigator.wakeLock.request('screen');
+        wakeLockSentinel.addEventListener('release', () => { wakeLockSentinel = null; });
+    } catch {
+        // Best effort; permissions denied or browser refused
+    }
+}
+
+async function releaseWakeLock() {
+    if (wakeLockSentinel) {
+        try { await wakeLockSentinel.release(); } catch {}
+        wakeLockSentinel = null;
+    }
+}
+
+// Re-acquire if iOS dropped it while the page was hidden
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && document.getElementById('loading')?.classList.contains('show')) {
+        acquireWakeLock();
+    }
+});
 
 function getSpent() {
     return parseFloat(localStorage.getItem(SPENT_KEY) || '0') || 0;
@@ -139,15 +166,24 @@ function loadHistory() {
     }
 }
 
-function saveToHistory(answers, analysis) {
+function saveToHistory(answers, analysis, sessionId = null) {
     const history = loadHistory();
-    history.unshift({
-        id: Date.now(),
+    const existingIdx = sessionId ? history.findIndex(h => h.id === sessionId) : -1;
+    const id = sessionId || Date.now();
+    const entry = {
+        id,
         date: new Date().toISOString(),
         questionsCount: answers.length,
         answers,
         analysis
-    });
+    };
+    if (existingIdx >= 0) {
+        // Progressive update: keep the original creation date
+        entry.date = history[existingIdx].date;
+        history[existingIdx] = entry;
+    } else {
+        history.unshift(entry);
+    }
     if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
     try {
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
@@ -689,8 +725,20 @@ async function analyze() {
     results.style.display = 'none';
     resultsContent.innerHTML = '';
 
-    // Pre-warm Railway so the first POST has a better chance of hitting
-    // a warm container (cuts cold-start failures dramatically).
+    // Robustness: keep the screen on so iOS doesn't kill the in-flight fetch
+    acquireWakeLock();
+
+    // Robustness: persist the in-progress session so we can detect interruption
+    // (app killed, reload, etc.) on next load.
+    const sessionId = Date.now();
+    const session = {
+        id: sessionId,
+        totalImages: images.length,
+        startedAt: new Date().toISOString(),
+        completed: 0
+    };
+    localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
     warmupBackend();
 
     const allResults = [];
@@ -709,6 +757,14 @@ async function analyze() {
             allResults.push({ answers: data.answers || [], analysis: data.analysis || '' });
             questionStartNumber += qCount;
             if (data.metadata?.cost) addSpent(data.metadata.cost);
+
+            // Progressive save: persist what we have after every successful image
+            // so a mid-batch crash doesn't lose work.
+            const partialAnswers = allResults.flatMap(r => r.answers);
+            const partialAnalysis = allResults.map(r => r.analysis).filter(Boolean).join('\n\n---\n\n');
+            saveToHistory(partialAnswers, partialAnalysis, sessionId);
+            session.completed = i + 1;
+            localStorage.setItem(SESSION_KEY, JSON.stringify(session));
         } catch (err) {
             stopProgress();
             const isPermanent = err.kind && err.kind !== 'unknown';
@@ -734,10 +790,22 @@ async function analyze() {
 
     loading.classList.remove('show');
     updateSpentDisplay();
+    // Analysis ended (success or all-failed) — clean up robustness state
+    releaseWakeLock();
+    localStorage.removeItem(SESSION_KEY);
 
     if (allResults.length > 0) {
-        displayResults(allResults, { failedCount: failedIndexes.length });
+        // displayResults will call saveToHistory again with the same sessionId
+        // → it updates the existing entry instead of creating a duplicate.
+        displayResults(allResults, { failedCount: failedIndexes.length, sessionId });
     } else {
+        // No image succeeded → drop any partial entry that may have been saved
+        // earlier in this session (shouldn't happen since we save only on
+        // success, but be defensive).
+        const history = loadHistory().filter(h => h.id !== sessionId);
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        updateHistoryButton();
+
         const totalImages = images.length;
         imgLabel.textContent = 'Seleziona immagini';
         imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
@@ -831,7 +899,7 @@ function displayResults(allResults, opts = {}) {
     });
 
     if (!opts.skipSave && flatAnswers.length > 0) {
-        saveToHistory(flatAnswers, rawAnalyses.join('\n\n---\n\n'));
+        saveToHistory(flatAnswers, rawAnalyses.join('\n\n---\n\n'), opts.sessionId || null);
     }
 
     // Distribute available viewport across rows for an evenly-filled table
@@ -922,7 +990,37 @@ document.addEventListener('DOMContentLoaded', () => {
     setupOfflineBanner();
     setupUpdateBanner();
     updateSpentDisplay();
+    checkInterruptedSession();
 });
+
+function checkInterruptedSession() {
+    let session;
+    try { session = JSON.parse(localStorage.getItem(SESSION_KEY) || 'null'); } catch { session = null; }
+    if (!session) return;
+    localStorage.removeItem(SESSION_KEY);
+    // Was there partial work saved?
+    const saved = loadHistory().find(h => h.id === session.id);
+    const savedCount = saved?.questionsCount || 0;
+    const total = session.totalImages || 0;
+    const completed = session.completed || 0;
+    const lost = Math.max(0, total - completed);
+    const msg = savedCount > 0
+        ? `Analisi interrotta. ${completed} immagine/i salvate nello storico (${savedCount} domande). ${lost > 0 ? lost + ' non analizzate.' : ''}`
+        : `Analisi interrotta prima del primo risultato.`;
+    showToast(msg);
+}
+
+function showToast(message, durationMs = 6000) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = message;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => {
+        t.classList.remove('show');
+        setTimeout(() => t.remove(), 300);
+    }, durationMs);
+}
 
 // --- Offline indicator ---
 function setupOfflineBanner() {
