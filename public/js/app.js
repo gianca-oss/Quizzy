@@ -9,6 +9,7 @@ const MAX_HISTORY = 50;
 
 // --- Wake Lock helpers ---
 let wakeLockSentinel = null;
+let activeAnalysis = null; // { controller: AbortController, cancelled: boolean }
 async function acquireWakeLock() {
     if (!('wakeLock' in navigator)) return;
     try {
@@ -26,10 +27,17 @@ async function releaseWakeLock() {
     }
 }
 
-// Re-acquire if iOS dropped it while the page was hidden
+// Re-acquire wake lock if iOS dropped it while the page was hidden,
+// and refresh history view in case a date boundary (midnight) crossed.
 document.addEventListener('visibilitychange', () => {
-    if (document.visibilityState === 'visible' && document.getElementById('loading')?.classList.contains('show')) {
+    if (document.visibilityState !== 'visible') return;
+    if (document.getElementById('loading')?.classList.contains('show')) {
         acquireWakeLock();
+    }
+    // If user is currently looking at the history view, re-render so
+    // labels like "Oggi" don't go stale across midnight.
+    if (document.querySelector('.history-view')) {
+        showHistory();
     }
 });
 
@@ -185,11 +193,24 @@ function saveToHistory(answers, analysis, sessionId = null) {
         history.unshift(entry);
     }
     if (history.length > MAX_HISTORY) history.length = MAX_HISTORY;
-    try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-        updateHistoryButton();
-    } catch (err) {
-        console.warn('Cannot save to history:', err.message);
+    let attempt = history;
+    while (attempt.length > 0) {
+        try {
+            localStorage.setItem(HISTORY_KEY, JSON.stringify(attempt));
+            updateHistoryButton();
+            if (attempt.length < history.length) {
+                showToast(`Storico quasi pieno: rimosse ${history.length - attempt.length} voci più vecchie`);
+            }
+            return;
+        } catch (err) {
+            // QuotaExceededError or similar — drop the oldest entry and retry
+            if (attempt.length <= 1) {
+                console.warn('Cannot save to history:', err.message);
+                showToast('Impossibile salvare nello storico: spazio esaurito');
+                return;
+            }
+            attempt = attempt.slice(0, -1);
+        }
     }
 }
 
@@ -468,25 +489,38 @@ function handleImagesDrop(files) {
     }
 }
 
+const MIN_IMAGE_DIM = 300;       // px on the shorter side
+const MIN_IMAGE_BYTES = 20 * 1024; // 20 KB
+
 function compressImage(file) {
     const isScreenshot = file.type === 'image/png';
 
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (e) => {
-            // Screenshots (PNG): send as-is if under 5MB, already sharp
-            if (isScreenshot && file.size < 5 * 1024 * 1024) {
-                resolve(e.target.result.split(',')[1]);
-                return;
-            }
-
             const img = new Image();
             img.onload = () => {
                 try {
+                    // Quality pre-check on natural dimensions
+                    const shortSide = Math.min(img.naturalWidth || img.width, img.naturalHeight || img.height);
+                    const quality = {
+                        tooSmallDim: shortSide < MIN_IMAGE_DIM,
+                        tooSmallBytes: file.size < MIN_IMAGE_BYTES,
+                        width: img.naturalWidth || img.width,
+                        height: img.naturalHeight || img.height,
+                        bytes: file.size
+                    };
+
+                    // Screenshots (PNG) under 5MB: send as-is, already sharp
+                    if (isScreenshot && file.size < 5 * 1024 * 1024) {
+                        resolve({ data: e.target.result.split(',')[1], quality });
+                        return;
+                    }
+
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     const maxDim = 1800;
-                    const quality = 0.92;
+                    const jpegQ = 0.92;
 
                     let width = img.width;
                     let height = img.height;
@@ -505,8 +539,8 @@ function compressImage(file) {
                     ctx.fillRect(0, 0, width, height);
                     ctx.drawImage(img, 0, 0, width, height);
 
-                    const dataUrl = canvas.toDataURL('image/jpeg', quality);
-                    resolve(dataUrl.split(',')[1]);
+                    const dataUrl = canvas.toDataURL('image/jpeg', jpegQ);
+                    resolve({ data: dataUrl.split(',')[1], quality });
                 } catch (err) {
                     reject(err);
                 }
@@ -520,6 +554,9 @@ function compressImage(file) {
 }
 
 async function handleImages(e) {
+    // Guard against duplicate trigger while already analyzing
+    if (activeAnalysis) return;
+
     const files = Array.from(e.target.files);
     images = [];
     imgLabel.textContent = 'Elaborazione...';
@@ -527,22 +564,48 @@ async function handleImages(e) {
     imgStatus.textContent = '';
 
     try {
+        const lowQuality = [];
         for (let i = 0; i < files.length; i++) {
             const file = files[i];
             if (!file.type.startsWith('image/')) continue;
 
             imgStatus.textContent = `Immagine ${i + 1} di ${files.length}`;
-            images.push(await compressImage(file));
+            const result = await compressImage(file);
+            images.push(result.data);
+            if (result.quality.tooSmallDim || result.quality.tooSmallBytes) {
+                lowQuality.push({ idx: i + 1, ...result.quality });
+            }
         }
 
-        if (images.length > 0) {
-            imgUploadArea.classList.add('loaded');
-            imgLabel.textContent = `${images.length} ${images.length === 1 ? 'immagine' : 'immagini'}`;
-            imgSublabel.textContent = 'Avvio analisi...';
-            imgStatus.textContent = '';
-            analyze();
-            return;
+        if (images.length === 0) return;
+
+        // Pre-check warning — let user back out before spending credits
+        if (lowQuality.length > 0) {
+            const detail = lowQuality.map(q => {
+                const reasons = [];
+                if (q.tooSmallDim) reasons.push(`${q.width}×${q.height}px`);
+                if (q.tooSmallBytes) reasons.push(`${Math.round(q.bytes / 1024)}KB`);
+                return `#${q.idx}: ${reasons.join(', ')}`;
+            }).join('\n');
+            const proceed = confirm(
+                `Qualità immagine sospetta (potrebbe non essere leggibile):\n\n${detail}\n\n` +
+                `Procedere comunque con l'analisi? L'estrazione consumerà credito anche se l'immagine è illeggibile.`
+            );
+            if (!proceed) {
+                images = [];
+                imgLabel.textContent = 'Seleziona immagini';
+                imgSublabel.textContent = 'Puoi selezionare più file contemporaneamente';
+                imgStatus.textContent = '';
+                imgInput.value = '';
+                return;
+            }
         }
+
+        imgUploadArea.classList.add('loaded');
+        imgLabel.textContent = `${images.length} ${images.length === 1 ? 'immagine' : 'immagini'}`;
+        imgSublabel.textContent = 'Avvio analisi...';
+        imgStatus.textContent = '';
+        analyze();
     } catch (err) {
         imgLabel.textContent = 'Errore';
         imgSublabel.textContent = err.message;
@@ -664,7 +727,7 @@ function hideMainView() {
     if (pt) pt.style.display = 'none';
 }
 
-async function analyzeOneImage(imageData, index, startNumber, precision) {
+async function analyzeOneImage(imageData, index, startNumber, precision, externalSignal) {
     const requestBody = {
         model: 'claude-3-haiku-20240307',
         max_tokens: 4000,
@@ -678,6 +741,8 @@ async function analyzeOneImage(imageData, index, startNumber, precision) {
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 300000);
+    const onAbort = () => controller.abort();
+    if (externalSignal) externalSignal.addEventListener('abort', onAbort, { once: true });
 
     try {
         const response = await fetchWithRetry('/api/analyze', {
@@ -708,19 +773,46 @@ async function analyzeOneImage(imageData, index, startNumber, precision) {
         return await response.json();
     } catch (err) {
         clearTimeout(timeoutId);
+        if (externalSignal) externalSignal.removeEventListener('abort', onAbort);
         throw err;
     }
 }
 
+function updateClearBtnMode() {
+    if (!clearBtn) return;
+    if (activeAnalysis && !activeAnalysis.cancelled) {
+        clearBtn.textContent = 'Annulla';
+        clearBtn.dataset.mode = 'cancel';
+    } else {
+        clearBtn.textContent = 'Cancella';
+        clearBtn.dataset.mode = 'clear';
+    }
+}
+
+function cancelAnalysis() {
+    if (!activeAnalysis) return;
+    activeAnalysis.cancelled = true;
+    activeAnalysis.controller.abort();
+    updateClearBtnMode();
+}
+
 async function analyze() {
     if (images.length === 0) return;
+    if (activeAnalysis) {
+        // Already running — ignore duplicate trigger (e.g. accidental double tap)
+        return;
+    }
     if (!navigator.onLine) {
         showOfflineWarning();
         return;
     }
 
+    const controller = new AbortController();
+    activeAnalysis = { controller, cancelled: false };
+
     buildProgressUI(images.length);
     loading.classList.add('show');
+    updateClearBtnMode();
     updateSpentDisplay();
     results.style.display = 'none';
     resultsContent.innerHTML = '';
@@ -748,9 +840,17 @@ async function analyze() {
 
     let permanentErrorKind = null;
     for (let i = 0; i < images.length; i++) {
+        if (activeAnalysis?.cancelled) {
+            // Mark remaining as cancelled and bail out of the loop
+            for (let j = i; j < images.length; j++) {
+                setImageState(j, 'Annullata', 100, 'error');
+                failedIndexes.push(j);
+            }
+            break;
+        }
         const stopProgress = startProgressFeedback(i);
         try {
-            const data = await analyzeOneImage(images[i], i, questionStartNumber, precision);
+            const data = await analyzeOneImage(images[i], i, questionStartNumber, precision, controller.signal);
             stopProgress();
             const qCount = data.metadata?.questionsAnalyzed || 0;
             setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
@@ -767,6 +867,16 @@ async function analyze() {
             localStorage.setItem(SESSION_KEY, JSON.stringify(session));
         } catch (err) {
             stopProgress();
+            // User-initiated abort?
+            if (activeAnalysis?.cancelled) {
+                setImageState(i, 'Annullata', 100, 'error');
+                failedIndexes.push(i);
+                for (let j = i + 1; j < images.length; j++) {
+                    setImageState(j, 'Annullata', 100, 'error');
+                    failedIndexes.push(j);
+                }
+                break;
+            }
             const isPermanent = err.kind && err.kind !== 'unknown';
             let label;
             if (err.kind === 'no_credits') label = 'Credito Anthropic esaurito';
@@ -789,6 +899,8 @@ async function analyze() {
     }
 
     loading.classList.remove('show');
+    activeAnalysis = null;
+    updateClearBtnMode();
     updateSpentDisplay();
     // Analysis ended (success or all-failed) — clean up robustness state
     releaseWakeLock();
@@ -971,7 +1083,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     imgInput.addEventListener('change', handleImages);
-    clearBtn.addEventListener('click', clearAll);
+    clearBtn.addEventListener('click', () => {
+        if (clearBtn.dataset.mode === 'cancel') cancelAnalysis();
+        else clearAll();
+    });
     if (historyBtn) historyBtn.addEventListener('click', showHistory);
     setupDragAndDrop(imgUploadArea, handleImagesDrop);
     updateHistoryButton();
