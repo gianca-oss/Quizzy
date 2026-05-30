@@ -574,15 +574,18 @@ body {
 
 /* History view (B-style with yellow accent) */
 .history-view {
-    padding: 0 0 80px;
+    padding: 0 0 calc(80px + env(safe-area-inset-bottom, 0px));
 }
 
+/* iOS-style navigation bar */
 .history-topbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 8px 8px 14px;
+    padding: 10px 12px;
     gap: 8px;
+    border-bottom: 0.5px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 16px;
 }
 
 .history-topbar-btn {
@@ -590,23 +593,28 @@ body {
     border: none;
     color: var(--text-primary);
     font-size: 15px;
+    font-weight: 400;
     font-family: inherit;
     cursor: pointer;
     padding: 4px 6px;
     display: flex;
     align-items: center;
     gap: 4px;
-    min-width: 60px;
+    min-width: 70px;
+    transition: opacity 0.15s;
+}
+
+.history-topbar-btn:active {
+    opacity: 0.5;
 }
 
 .history-topbar-btn.edit {
-    color: #ffcc00;
-    font-weight: 500;
+    color: var(--text-primary);
     justify-content: flex-end;
 }
 
 .history-topbar-btn-placeholder {
-    min-width: 60px;
+    min-width: 70px;
     display: inline-block;
 }
 
@@ -616,20 +624,22 @@ body {
     font-size: 17px;
     font-weight: 600;
     color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
 .history-empty {
     text-align: center;
     color: var(--text-secondary);
-    padding: 40px 16px;
-    font-size: 14px;
+    padding: 60px 16px;
+    font-size: 15px;
 }
 
+/* iOS-style grouped list cards */
 .history-card {
-    margin: 0 12px 8px;
+    margin: 0 14px 10px;
     display: flex;
     align-items: stretch;
-    gap: 8px;
+    gap: 6px;
 }
 
 .history-card.editing {
@@ -644,7 +654,7 @@ body {
 .history-delete-btn {
     background: none;
     border: none;
-    padding: 0 4px;
+    padding: 0 2px;
     display: flex;
     align-items: center;
     cursor: pointer;
@@ -661,7 +671,7 @@ body {
     padding: 12px 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     cursor: pointer;
     transition: background 0.15s;
 }
@@ -670,18 +680,20 @@ body {
     background: var(--bg-hover);
 }
 
+/* Subtle monochrome badge — Apple SF Symbol style */
 .history-badge {
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 204, 0, 0.18);
-    color: #ffcc00;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text-primary);
     border-radius: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 15px;
     flex-shrink: 0;
+    letter-spacing: -0.01em;
 }
 
 .history-card-info {
@@ -694,6 +706,7 @@ body {
     font-size: 15px;
     font-weight: 500;
     color: var(--text-primary);
+    letter-spacing: -0.01em;
 }
 
 .history-card-sub {
@@ -710,17 +723,21 @@ body {
     cursor: pointer;
     display: flex;
     align-items: center;
+    opacity: 0.7;
+    transition: opacity 0.15s;
 }
 
-.history-share-inline:active { transform: scale(0.92); }
+.history-share-inline:hover { opacity: 1; }
+.history-share-inline:active { transform: scale(0.92); opacity: 1; }
 
 .history-chevron {
-    color: var(--text-secondary);
-    font-size: 20px;
+    color: rgba(255, 255, 255, 0.3);
+    font-size: 18px;
     font-weight: 400;
     line-height: 1;
 }
 
+/* iOS-style bottom toolbar */
 .history-edit-toolbar {
     position: fixed;
     bottom: 0;
@@ -728,31 +745,32 @@ body {
     right: 0;
     z-index: 100;
     display: flex;
-    gap: 8px;
-    justify-content: center;
-    padding: 14px 12px calc(14px + env(safe-area-inset-bottom, 0px));
-    background: rgba(20, 20, 20, 0.96);
+    justify-content: space-around;
+    align-items: center;
+    padding: 12px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    background: rgba(20, 20, 20, 0.92);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     backdrop-filter: saturate(180%) blur(20px);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 0.5px solid rgba(255, 255, 255, 0.1);
 }
 
 .history-edit-toolbar button {
     background: none;
     border: none;
-    color: #ffcc00;
-    font-size: 14px;
-    font-weight: 500;
-    padding: 6px 12px;
+    color: var(--text-primary);
+    font-size: 15px;
+    font-weight: 400;
+    padding: 8px 16px;
     cursor: pointer;
     font-family: inherit;
+    transition: opacity 0.15s;
 }
+
+.history-edit-toolbar button:active { opacity: 0.5; }
 
 .history-edit-toolbar button.danger {
     color: #ff3b30;
 }
-
-.history-edit-toolbar button:active { transform: scale(0.97); }
 
 /* Back button */
 .back-button {
