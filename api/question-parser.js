@@ -20,8 +20,14 @@ function parseQuestions(responseText) {
 
 function parseJSON(responseText) {
     try {
-        // Extract JSON from response (handle markdown code blocks)
-        const jsonMatch = responseText.match(/\{[\s\S]*"questions"[\s\S]*\}/);
+        // 1. Strip markdown code fences if present (```json ... ```)
+        let cleaned = responseText.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, '$1');
+        // 2. Normalize "smart quotes" Opus sometimes emits into ASCII quotes
+        cleaned = cleaned
+            .replace(/[“”]/g, '"')
+            .replace(/[‘’]/g, "'");
+        // 3. Extract first JSON object containing "questions"
+        const jsonMatch = cleaned.match(/\{[\s\S]*"questions"[\s\S]*\}/);
         if (!jsonMatch) return [];
 
         const data = JSON.parse(jsonMatch[0]);
@@ -29,11 +35,23 @@ function parseJSON(responseText) {
 
         return data.questions
             .filter(q => q.text && q.options && Object.keys(q.options).length >= 2)
-            .map((q, index) => ({
-                number: index + 1,
-                text: q.text,
-                options: q.options
-            }));
+            .map((q, index) => {
+                // Filter out empty / illeggibile options so the analysis prompt
+                // doesn't end up with `B) ` lines that look broken
+                const cleanOptions = {};
+                for (const [k, v] of Object.entries(q.options)) {
+                    const text = String(v || '').trim();
+                    if (text && text.toLowerCase() !== '[illeggibile]') {
+                        cleanOptions[k] = text;
+                    }
+                }
+                return {
+                    number: index + 1,
+                    text: String(q.text).trim(),
+                    options: cleanOptions
+                };
+            })
+            .filter(q => Object.keys(q.options).length >= 2);
     } catch {
         return [];
     }

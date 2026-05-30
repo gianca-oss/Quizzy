@@ -26,29 +26,35 @@ function buildContextFromSearchResults(searchResults, startNumber) {
 }
 
 function buildExtractionPrompt() {
-    return `Estrai TUTTE le domande del quiz da questa immagine.
+    return `Sei un sistema OCR: il tuo unico compito è ESTRARRE il testo dall'immagine.
+NON interpretare, NON correggere, NON riformulare, NON tradurre, NON abbreviare.
+Copia il testo VERBATIM, esattamente come appare nell'immagine, parola per parola.
 
-Rispondi ESCLUSIVAMENTE con un JSON valido, senza altro testo prima o dopo.
+Rispondi SOLO con JSON valido — niente testo prima/dopo, niente markdown, niente \`\`\`.
 
-Formato richiesto:
+Schema esatto:
 {
   "questions": [
     {
-      "text": "testo completo della domanda",
+      "text": "testo COMPLETO e VERBATIM della domanda",
       "options": {
-        "A": "testo opzione A",
-        "B": "testo opzione B",
-        "C": "testo opzione C"
+        "A": "testo VERBATIM dell'opzione A",
+        "B": "testo VERBATIM dell'opzione B",
+        "C": "testo VERBATIM dell'opzione C",
+        "D": "testo VERBATIM dell'opzione D (se presente)"
       }
     }
   ]
 }
 
-REGOLE:
-- Includi TUTTE le domande visibili nell'immagine
-- Trascrivi il testo ESATTAMENTE come appare
-- Se un'opzione ha la lettera D, includila
-- Non aggiungere spiegazioni, solo il JSON`;
+REGOLE CRITICHE:
+1. Una entry "questions" per OGNI domanda visibile. Anche quelle parziali alla fine.
+2. Per ogni domanda, includi TUTTE le opzioni presenti (A, B, C, D, anche E se c'è).
+3. Trascrivi ogni opzione INTEGRALMENTE: non tagliare, non parafrasare, non "ottimizzare".
+4. Se un'opzione contiene numeri, simboli, parentesi, virgolette, formule: copiali esattamente.
+5. Se NON sei sicuro che una stringa sia un'opzione o parte della domanda, includila comunque nel campo dove appare visivamente nell'immagine.
+6. NON aggiungere mai commenti, spiegazioni o note. Solo il JSON.
+7. Se l'immagine è illeggibile per una sezione, scrivi "[illeggibile]" come valore, mai vuoto.`;
 }
 
 function buildAnalysisPrompt(contextPerQuestion, questions, startNumber) {
