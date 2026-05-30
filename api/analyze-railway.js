@@ -138,11 +138,54 @@ module.exports = async function handler(req, res) {
         let usedModel = 'question-bank';
 
         if (unmatched.length > 0) {
-            const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
-            const { contextPerQuestion } = buildContextFromSearchResults(searchResults, startNumber);
+            // Extract only unmatched questions for RAG — avoid processing bank-resolved ones
+            const unmatchedQuestions = unmatched.map(idx => questions[idx]);
+            const unmatchedNums = unmatched.map(idx => startNumber + idx);
 
-            const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
-            const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, analysisModelKey);
+            // Search context only for unmatched questions
+            const searchResults = await hybridSearch(unmatchedQuestions, data.textChunks, embeddingsData);
+
+            // Build context with original question numbers
+            let ragContext = '';
+            unmatchedQuestions.forEach((q, i) => {
+                const num = unmatchedNums[i];
+                const result = searchResults[i];
+                if (result?.searchMethod === 'semantic') {}
+                if (result?.matches?.length > 0) {
+                    ragContext += `\nDOMANDA ${num} - CONTESTO (${result.searchMethod}):\n`;
+                    result.matches.slice(0, 4).forEach(match => {
+                        const section = match.chunk.section || `chunk ${match.chunk.id}`;
+                        ragContext += `[Sez. ${section}] ${match.chunk.text.substring(0, 1500)}\n`;
+                    });
+                } else {
+                    ragContext += `\nDOMANDA ${num} - NO CONTESTO\n`;
+                }
+            });
+
+            // Build questions text with original numbers
+            const questionsText = unmatchedQuestions.map((q, i) =>
+                `${unmatchedNums[i]}. ${q.text}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
+            ).join('\n\n');
+
+            const ragPrompt = `Analizza le domande del quiz usando il contesto fornito dal corso.
+
+ISTRUZIONI CRITICHE:
+- Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
+- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y]
+- Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
+- Marca SEMPRE quale risposta è esatta con "✓"
+
+CONTESTO DAL CORSO:
+${ragContext}
+
+DOMANDE (${unmatchedQuestions.length} domande):
+${questionsText}
+
+DEVI restituire SOLO una lista di blocchi RISPOSTA, uno per ogni domanda.
+NON aggiungere intestazioni come "ANALISI:" o "RISPOSTE:".
+Formato per ogni risposta: DOMANDA N: LETTERA) testo [CITAZIONE o AI]`;
+
+            const analysisResult = await analyzeWithContext(apiKey, ragPrompt, analysisModelKey);
             usedModel = analysisResult.model;
             totalCost += (analysisResult.cost || 0);
 
