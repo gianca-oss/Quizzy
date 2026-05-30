@@ -1,4 +1,4 @@
-const CACHE_NAME = 'quizzy-v12';
+const CACHE_NAME = 'quizzy-v13';
 const STATIC_ASSETS = [
     '/manifest.json',
     '/icons/icon-192.png',
