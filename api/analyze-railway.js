@@ -8,11 +8,11 @@ const {
     parseHaikuResponse
 } = require('./question-bank');
 const {
-    buildContextFromSearchResults,
     buildExtractionPrompt,
     buildAnalysisPrompt,
-    parseAnswers,
-    buildFinalHtml
+    buildRagContext,
+    stripLeadingNum,
+    parseAnswers
 } = require('./response-builder');
 
 module.exports = async function handler(req, res) {
@@ -88,9 +88,41 @@ module.exports = async function handler(req, res) {
         let totalCost = extraction.cost || 0;
         const resolvedAnswers = {};  // num → { letter, source, analysis }
 
-        // Some OCR'd questions already start with their number (e.g. "5. La sanzione...").
-        // Strip a leading "N." / "N)" so we don't render a double number ("5. 5. ...").
-        const stripLeadingNum = (text) => (text || '').replace(/^\s*\d{1,3}[.)]\s+/, '');
+        // Run one RAG pass over a set of question indices with a given model.
+        // Shares the single prompt builder (response-builder) so the format
+        // stays in lockstep with the parser. With forceAnswer=true the model
+        // is told to never leave a question without a [CORRETTA] line — used
+        // for the "?" recovery retry. Returns { answersByNum, blocksByNum }.
+        const resolveWithRag = async (indices, modelKey, forceAnswer = false) => {
+            const qs = indices.map(idx => questions[idx]);
+            const nums = indices.map(idx => startNumber + idx);
+
+            const searchResults = await hybridSearch(qs, data.textChunks, embeddingsData);
+            const ragItems = qs.map((q, i) => ({ num: nums[i], result: searchResults[i] }));
+            const ragContext = buildRagContext(ragItems);
+
+            const numberedQuestions = qs.map((q, i) => ({
+                num: nums[i], text: q.text, options: q.options
+            }));
+            const ragPrompt = buildAnalysisPrompt(ragContext, numberedQuestions, { forceAnswer });
+
+            const analysisResult = await analyzeWithContext(apiKey, ragPrompt, modelKey);
+            totalCost += (analysisResult.cost || 0);
+
+            const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text);
+
+            // Split the RAG response into per-question blocks so each can be
+            // stored next to its answer and re-ordered by question number.
+            const blocksByNum = {};
+            (analysisText || analysisResult.text)
+                .split(/\n\s*---\s*\n/)
+                .forEach(block => {
+                    const m = block.match(/\*\*\s*(\d+)\./);
+                    if (m) blocksByNum[parseInt(m[1], 10)] = block.trim();
+                });
+
+            return { answersByNum: aiAnswers, blocksByNum, model: analysisResult.model };
+        };
 
         // Render an analysis block in the same format the RAG/UI expects:
         // **N. domanda** + opzioni con [CORRETTA] sulla risposta giusta + spiegazione.
@@ -160,112 +192,56 @@ module.exports = async function handler(req, res) {
         let usedModel = 'question-bank';
 
         if (unmatched.length > 0) {
-            // Extract only unmatched questions for RAG — avoid processing bank-resolved ones
-            const unmatchedQuestions = unmatched.map(idx => questions[idx]);
-            const unmatchedNums = unmatched.map(idx => startNumber + idx);
-
-            // Search context only for unmatched questions
-            const searchResults = await hybridSearch(unmatchedQuestions, data.textChunks, embeddingsData);
-
-            // Build context with original question numbers
-            let ragContext = '';
-            unmatchedQuestions.forEach((q, i) => {
-                const num = unmatchedNums[i];
-                const result = searchResults[i];
-                if (result?.searchMethod === 'semantic') {}
-                if (result?.matches?.length > 0) {
-                    ragContext += `\nDOMANDA ${num} - CONTESTO (${result.searchMethod}):\n`;
-                    result.matches.slice(0, 4).forEach(match => {
-                        const section = match.chunk.section || `chunk ${match.chunk.id}`;
-                        ragContext += `[Sez. ${section}] ${match.chunk.text.substring(0, 1500)}\n`;
-                    });
-                } else {
-                    ragContext += `\nDOMANDA ${num} - NO CONTESTO\n`;
-                }
-            });
-
-            // Build questions text with original numbers
-            const questionsText = unmatchedQuestions.map((q, i) =>
-                `${unmatchedNums[i]}. ${stripLeadingNum(q.text)}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
-            ).join('\n\n');
-
-            const exampleNum1 = unmatchedNums[0] || 1;
-            const exampleNum2 = unmatchedNums[1] || exampleNum1 + 1;
-
-            const ragPrompt = `Analizza le domande del quiz usando il contesto fornito dal corso.
-
-ISTRUZIONI CRITICHE:
-- Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
-- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è indicata all'inizio di ogni chunk di contesto. Non usare mai "Pag." o "non specificata".
-- Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
-- Marca SEMPRE quale risposta è esatta con "✓"
-
-CONTESTO DAL CORSO:
-${ragContext}
-
-DOMANDE (${unmatchedQuestions.length} domande):
-${questionsText}
-
-DEVI restituire SOLO una lista di blocchi RISPOSTA, uno per ogni domanda.
-NON aggiungere intestazioni come "ANALISI:" o "RISPOSTE:".
-
-Per OGNI domanda usa ESATTAMENTE questa struttura:
-
-**${exampleNum1}. [testo completo della domanda]**
-
-A) [testo opzione A]
-B) [testo opzione B]
-C) [testo opzione C] [CORRETTA]
-D) [testo opzione D]
-
-Spiegazione: [CITATO] "citazione esatta dal corso" [Sez. 1.9]. La risposta corretta è C perché [spiegazione breve].
-
----
-
-**${exampleNum2}. [testo completo della domanda]**
-
-A) [testo opzione A] [CORRETTA]
-B) [testo opzione B]
-C) [testo opzione C]
-
-Spiegazione: [AI] Non trovato nel materiale. La risposta corretta è A basata su conoscenze generali.
-
----
-
-REGOLE OBBLIGATORIE:
-- Il NUMERO e la DOMANDA devono essere in grassetto (**N. ...**)
-- Aggiungi LETTERALMENTE la stringa "[CORRETTA]" (incluse le parentesi quadre) alla fine SOLO della riga con la risposta esatta
-- NON usare ✓, V, (V), ✔ o altri simboli al posto di [CORRETTA]
-- Usa --- tra una domanda e l'altra
-- NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
-
-            const analysisResult = await analyzeWithContext(apiKey, ragPrompt, analysisModelKey);
-            usedModel = analysisResult.model;
-            totalCost += (analysisResult.cost || 0);
-
-            const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text);
-
-            // Split the RAG response into per-question blocks so each can be
-            // stored next to its answer and re-ordered by question number.
-            const ragBlocks = {};
-            (analysisText || analysisResult.text)
-                .split(/\n\s*---\s*\n/)
-                .forEach(block => {
-                    const m = block.match(/\*\*\s*(\d+)\./);
-                    if (m) ragBlocks[parseInt(m[1], 10)] = block.trim();
-                });
+            // First RAG pass over all unmatched questions.
+            const { answersByNum, blocksByNum, model } = await resolveWithRag(unmatched, analysisModelKey);
+            usedModel = model;
 
             unmatched.forEach(idx => {
                 const num = startNumber + idx;
                 if (!resolvedAnswers[num]) {
-                    const answer = aiAnswers[num] || { letter: '?', source: 'AI' };
+                    const answer = answersByNum[num] || { letter: '?', source: 'AI' };
                     resolvedAnswers[num] = {
                         letter: answer.letter,
                         source: answer.source,
-                        analysis: ragBlocks[num] || ''
+                        analysis: blocksByNum[num] || ''
                     };
                 }
             });
+
+            // --- Intervention D: "?" recovery ---
+            // Any question still without a confident letter gets one retry with
+            // an escalated model + forceAnswer prompt. Re-querying the SAME model
+            // at temperature 0 is pointless (identical output), so escalate
+            // sonnet→opus; if already opus, retry opus with forceAnswer only.
+            const stillUnknown = unmatched.filter(idx => {
+                const r = resolvedAnswers[startNumber + idx];
+                return !r || r.letter === '?';
+            });
+
+            if (stillUnknown.length > 0) {
+                // Escalate to the strongest model for the recovery pass. (At
+                // temperature 0, re-querying the same model yields identical
+                // output, so the retry only helps if it differs — escalate.)
+                const retryModel = 'opus';
+                console.log(`[Recovery] Retrying ${stillUnknown.length} unresolved question(s) with ${retryModel} + forceAnswer`);
+                try {
+                    const retry = await resolveWithRag(stillUnknown, retryModel, true);
+                    stillUnknown.forEach(idx => {
+                        const num = startNumber + idx;
+                        const answer = retry.answersByNum[num];
+                        if (answer && answer.letter !== '?') {
+                            resolvedAnswers[num] = {
+                                letter: answer.letter,
+                                source: answer.source || 'AI',
+                                analysis: retry.blocksByNum[num] || resolvedAnswers[num]?.analysis || ''
+                            };
+                        }
+                    });
+                    usedModel = retry.model || usedModel;
+                } catch (err) {
+                    console.error('[Recovery] Retry failed:', err.message);
+                }
+            }
         }
 
         // Build final response — table source and analysis both come from the

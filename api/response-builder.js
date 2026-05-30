@@ -55,32 +55,68 @@ REGOLE CRITICHE:
 7. Se l'immagine è illeggibile per una sezione, scrivi "[illeggibile]" come valore, mai vuoto.`;
 }
 
-function buildAnalysisPrompt(contextPerQuestion, questions, startNumber) {
-    const endNumber = startNumber + questions.length - 1;
-    const questionsText = questions.map((q, idx) =>
-        `${startNumber + idx}. ${q.text}\nA) ${q.options.A || ''}\nB) ${q.options.B || ''}\nC) ${q.options.C || ''}\nD) ${q.options.D || ''}`
+// Strip a leading "N." / "N)" question number from OCR'd text so we never
+// render a double number ("5. 5. ..."). Requires trailing whitespace so that
+// decimals (3.5) and years (1990) are left intact.
+const stripLeadingNum = (text) => (text || '').replace(/^\s*\d{1,3}[.)]\s+/, '');
+
+// Build per-question RAG context preserving the ORIGINAL question numbers.
+// items: [{ num, result }] where result is a hybridSearch result.
+function buildRagContext(items) {
+    let ctx = '';
+    items.forEach(({ num, result }) => {
+        if (result?.matches?.length > 0) {
+            ctx += `\nDOMANDA ${num} - CONTESTO (${result.searchMethod}):\n`;
+            result.matches.slice(0, 4).forEach(match => {
+                const section = match.chunk.section || `chunk ${match.chunk.id}`;
+                ctx += `[Sez. ${section}] ${match.chunk.text.substring(0, 1500)}\n`;
+            });
+        } else {
+            ctx += `\nDOMANDA ${num} - NO CONTESTO\n`;
+        }
+    });
+    return ctx;
+}
+
+// Single source of truth for the analysis prompt. Accepts questions with
+// EXPLICIT numbers (not necessarily sequential), so the same builder serves
+// both the full quiz and a targeted retry of only the unresolved questions.
+// numberedQuestions: [{ num, text, options }]
+// opts.forceAnswer: when true, forbid "?"/"not found" and demand a best guess.
+function buildAnalysisPrompt(contextText, numberedQuestions, opts = {}) {
+    const { forceAnswer = false } = opts;
+    const nums = numberedQuestions.map(q => q.num);
+    const ex1 = nums[0] ?? 1;
+    const ex2 = nums[1] ?? ex1 + 1;
+
+    const questionsText = numberedQuestions.map(q =>
+        `${q.num}. ${stripLeadingNum(q.text)}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
     ).join('\n\n');
+
+    const notFoundRule = forceAnswer
+        ? `- Anche se il contesto NON contiene la risposta, scegli SEMPRE l'opzione più probabile in base alle tue conoscenze. NON lasciare MAI una domanda senza la riga [CORRETTA].`
+        : `- Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente — ma scegli COMUNQUE l'opzione più probabile e marcala con [CORRETTA].`;
 
     return `Analizza le domande del quiz usando il contesto fornito dal corso.
 
 ISTRUZIONI CRITICHE:
 - Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
 - Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è indicata all'inizio di ogni chunk di contesto. Non usare mai "Pag." o "non specificata".
-- Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
-- Marca SEMPRE quale risposta è esatta con "✓"
+${notFoundRule}
+- Marca SEMPRE una e una sola risposta come esatta.
 
 CONTESTO DAL CORSO:
-${contextPerQuestion}
+${contextText}
 
-DOMANDE (numerate da ${startNumber} a ${endNumber}):
+DOMANDE (${numberedQuestions.length} domande):
 ${questionsText}
 
 DEVI restituire SOLO una lista di blocchi RISPOSTA, uno per ogni domanda.
 NON aggiungere intestazioni come "ANALISI:" o "RISPOSTE:".
 
-Per OGNI domanda da ${startNumber} a ${endNumber} usa ESATTAMENTE questa struttura:
+Per OGNI domanda usa ESATTAMENTE questa struttura:
 
-**${startNumber}. [testo completo della domanda]**
+**${ex1}. [testo completo della domanda]**
 
 A) [testo opzione A]
 B) [testo opzione B]
@@ -91,13 +127,13 @@ Spiegazione: [CITATO] "citazione esatta dal corso" [Sez. 1.9]. La risposta corre
 
 ---
 
-**${startNumber + 1}. [testo completo della domanda]**
+**${ex2}. [testo completo della domanda]**
 
 A) [testo opzione A] [CORRETTA]
 B) [testo opzione B]
 C) [testo opzione C]
 
-Spiegazione: [AI] Non trovato nel materiale. La risposta corretta è A basata su conoscenze generali.
+Spiegazione: [AI] La risposta corretta è A perché [spiegazione breve].
 
 ---
 
@@ -106,7 +142,7 @@ REGOLE OBBLIGATORIE:
 - Aggiungi LETTERALMENTE la stringa "[CORRETTA]" (incluse le parentesi quadre) alla fine SOLO della riga con la risposta esatta
 - NON usare ✓, V, (V), ✔ o altri simboli al posto di [CORRETTA]
 - Usa --- tra una domanda e l'altra
-- Numera le domande da ${startNumber} a ${endNumber} in ordine
+- Usa per OGNI domanda il SUO numero originale: ${nums.join(', ')}
 - NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
 }
 
@@ -146,6 +182,16 @@ function parseAnswers(finalResponse) {
         const respMatch = line.match(/Risposta:\s*([A-Da-d])/i);
         if (respMatch && answers[currentQuestion].letter === '?') {
             answers[currentQuestion].letter = respMatch[1].toUpperCase();
+        }
+
+        // Prose fallback: "la risposta corretta è X" (è / e' / :) when no
+        // [CORRETTA] marker survived. Lets us recover a letter from the
+        // explanation sentence instead of leaving a "?".
+        if (answers[currentQuestion].letter === '?') {
+            const phrase = line.match(/risposta\s+corretta\s+(?:è|e'|e|:)?\s*([A-D])\b/i);
+            if (phrase) {
+                answers[currentQuestion].letter = phrase[1].toUpperCase();
+            }
         }
     });
 
@@ -231,6 +277,8 @@ module.exports = {
     buildContextFromSearchResults,
     buildExtractionPrompt,
     buildAnalysisPrompt,
+    buildRagContext,
+    stripLeadingNum,
     parseAnswers,
     buildFinalHtml
 };
