@@ -86,17 +86,32 @@ module.exports = async function handler(req, res) {
         const { direct, needsHaiku, unmatched } = lookupQuestions(questions, 'organizzazione-e-lavoro');
 
         let totalCost = extraction.cost || 0;
-        const resolvedAnswers = {};  // num → { letter, source, explanation }
-        const analysisParts = [];
+        const resolvedAnswers = {};  // num → { letter, source, analysis }
+
+        // Render an analysis block in the same format the RAG/UI expects:
+        // **N. domanda** + opzioni con [CORRETTA] sulla risposta giusta + spiegazione.
+        const renderBankBlock = (num, q, correctLetter, explanation, tag) => {
+            let block = `**${num}. ${q.text}**\n\n`;
+            ['A', 'B', 'C', 'D'].forEach(L => {
+                if (q.options?.[L]) {
+                    block += `${L}) ${q.options[L]}${L === correctLetter ? ' [CORRETTA]' : ''}\n`;
+                }
+            });
+            block += `\nSpiegazione: ${explanation} ${tag}`;
+            return block;
+        };
 
         // --- Tier 1: Direct matches (mechanical remap, zero cost) ---
         direct.forEach(({ questionIndex, score, bankMatch, remappedLetter }) => {
             const num = startNumber + questionIndex;
-            resolvedAnswers[num] = { letter: remappedLetter, source: 'QuestionBank' };
-            analysisParts.push(
-                `DOMANDA ${num}: ${remappedLetter}) ✅ [Question Bank – ${Math.round(score * 100)}% match]\n` +
-                `${bankMatch.explanation}\n`
-            );
+            resolvedAnswers[num] = {
+                letter: remappedLetter,
+                source: 'QuestionBank',
+                analysis: renderBankBlock(
+                    num, questions[questionIndex], remappedLetter,
+                    bankMatch.explanation, `[Question Bank – ${Math.round(score * 100)}% match]`
+                )
+            };
         });
         console.log(`[QuestionBank] Tier 1 (direct): ${direct.length} questions`);
 
@@ -115,11 +130,14 @@ module.exports = async function handler(req, res) {
                     const haikuAnswer = haikuAnswers.get(num);
 
                     if (haikuAnswer) {
-                        resolvedAnswers[num] = { letter: haikuAnswer.letter, source: 'QuestionBank+Haiku' };
-                        analysisParts.push(
-                            `DOMANDA ${num}: ${haikuAnswer.letter}) ✅ [Question Bank + Haiku – ${Math.round(score * 100)}% match]\n` +
-                            `${haikuAnswer.explanation}\n`
-                        );
+                        resolvedAnswers[num] = {
+                            letter: haikuAnswer.letter,
+                            source: 'QuestionBank+Haiku',
+                            analysis: renderBankBlock(
+                                num, questions[questionIndex], haikuAnswer.letter,
+                                haikuAnswer.explanation, `[Question Bank + Haiku – ${Math.round(score * 100)}% match]`
+                            )
+                        };
                     } else {
                         // Haiku said NO_MATCH — demote to Tier 3
                         unmatched.push(questionIndex);
@@ -223,27 +241,40 @@ REGOLE OBBLIGATORIE:
 
             const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text);
 
+            // Split the RAG response into per-question blocks so each can be
+            // stored next to its answer and re-ordered by question number.
+            const ragBlocks = {};
+            (analysisText || analysisResult.text)
+                .split(/\n\s*---\s*\n/)
+                .forEach(block => {
+                    const m = block.match(/\*\*\s*(\d+)\./);
+                    if (m) ragBlocks[parseInt(m[1], 10)] = block.trim();
+                });
+
             unmatched.forEach(idx => {
                 const num = startNumber + idx;
                 if (!resolvedAnswers[num]) {
                     const answer = aiAnswers[num] || { letter: '?', source: 'AI' };
-                    resolvedAnswers[num] = { letter: answer.letter, source: answer.source };
+                    resolvedAnswers[num] = {
+                        letter: answer.letter,
+                        source: answer.source,
+                        analysis: ragBlocks[num] || ''
+                    };
                 }
             });
-
-            if (analysisText) {
-                analysisParts.push(analysisText);
-            } else {
-                analysisParts.push(analysisResult.text);
-            }
         }
 
-        // Build final response
+        // Build final response — table source and analysis both come from the
+        // same per-question entry, assembled strictly in question-number order.
         const finalAnswersArray = questions.map((q, i) => {
             const num = startNumber + i;
             const resolved = resolvedAnswers[num] || { letter: '?', source: 'unknown' };
             return { num, letter: resolved.letter, source: resolved.source };
         });
+
+        const analysisParts = finalAnswersArray
+            .map(a => resolvedAnswers[a.num]?.analysis)
+            .filter(Boolean);
 
         const bankResolved = direct.length + needsHaiku.filter(h => resolvedAnswers[startNumber + h.questionIndex]?.source?.includes('Haiku')).length;
 
