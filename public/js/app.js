@@ -557,6 +557,11 @@ async function handleImages(e) {
     // Guard against duplicate trigger while already analyzing
     if (activeAnalysis) return;
 
+    // Clear any leftover error / results from a previous attempt so the
+    // user sees a clean state while the new upload is being processed.
+    results.style.display = 'none';
+    resultsContent.innerHTML = '';
+
     const files = Array.from(e.target.files);
     images = [];
     imgLabel.textContent = 'Elaborazione...';

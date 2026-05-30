@@ -495,7 +495,8 @@ body {
     border: 1px solid #c00;
     border-radius: 18px;
     padding: 24px;
-    margin-bottom: 16px;
+    margin: 0 auto 16px;
+    max-width: 500px;
 }
 
 .error-title {
