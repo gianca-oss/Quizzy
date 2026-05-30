@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "course": "organizzazione-e-lavoro",
-  "count": 900,
+  "count": 915,
   "questions": [
     {
       "question": "Che cos'è l'Earth Overshoot Day?",
@@ -10802,6 +10802,171 @@
       "correct": "C",
       "explanation": "La modularità rompe l'unità dell'azienda fordista, rendendo difficile l'applicazione di un unico CCNL a tutta la filiera.",
       "chapter": "Zilli - Diritto del Lavoro e Relazioni Industriali"
+    },
+    {
+      "question": "Per aversi lavoro subordinato occorre:",
+      "options": {
+        "A": "Rispettare le direttive del datore di lavoro",
+        "B": "Garantire una certa produzione giornaliera",
+        "C": "Garantire la continuita' della presenza in azienda"
+      },
+      "correct": "A",
+      "explanation": "Il lavoro subordinato si caratterizza per l'eterodirezione: il lavoratore e' tenuto a rispettare le direttive del datore di lavoro nell'esecuzione della prestazione.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Nel lavoro parasubordinato il collaboratore viene:",
+      "options": {
+        "A": "Eterodiretto",
+        "B": "Etero-organizzato",
+        "C": "Lasciato libero di auto-organizzarsi"
+      },
+      "correct": "C",
+      "explanation": "Nel lavoro parasubordinato il collaboratore mantiene autonomia organizzativa, a differenza del subordinato (eterodiretto) e del collaboratore coordinato (etero-organizzato).",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Nel contratto d'opera rileva:",
+      "options": {
+        "A": "Solo il risultato",
+        "B": "Il risultato e il tempo impiegato",
+        "C": "Solo il tempo impiegato"
+      },
+      "correct": "A",
+      "explanation": "Nel contratto d'opera (lavoro autonomo, art. 2222 c.c.) rileva esclusivamente il risultato della prestazione, non il tempo impiegato per conseguirlo.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Nel lavoro a tempo parziale e' possibile variare l'orario:",
+      "options": {
+        "A": "Sempre",
+        "B": "Mai",
+        "C": "Solo se viene concordata una clausola elastica"
+      },
+      "correct": "C",
+      "explanation": "La variazione dell'orario nel part-time e' possibile solo con clausole elastiche concordate tra le parti, che consentono la modifica della collocazione temporale o la variazione in aumento della durata.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Per la valida stipulazione del contratto a termine serve una causale:",
+      "options": {
+        "A": "Sempre",
+        "B": "Mai",
+        "C": "Solo dopo i primi 12 mesi"
+      },
+      "correct": "C",
+      "explanation": "Il D.Lgs. 81/2015 consente il contratto a termine acausale per i primi 12 mesi. Oltre tale durata e' necessaria una causale tra quelle tassativamente previste dalla legge.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "La somministrazione puo' essere legittimamente effettuata:",
+      "options": {
+        "A": "Solo dalle agenzie per il lavoro",
+        "B": "Dalle agenzie per il lavoro e i comuni",
+        "C": "Dai comuni e dalle universita'"
+      },
+      "correct": "A",
+      "explanation": "La somministrazione di lavoro puo' essere esercitata solo dalle agenzie per il lavoro autorizzate e iscritte nell'apposito albo tenuto dall'ANPAL.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Il lavoro agile e' consentito:",
+      "options": {
+        "A": "Su esclusiva iniziativa del datore di lavoro",
+        "B": "Su esclusiva iniziativa del lavoratore",
+        "C": "Su accordo tra le parti"
+      },
+      "correct": "C",
+      "explanation": "Il lavoro agile (L. 81/2017) si basa su un accordo individuale tra datore e lavoratore, non puo' essere imposto unilateralmente da nessuna delle due parti.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Negli appalti privati la responsabilita' solidale ricade:",
+      "options": {
+        "A": "Solo sull'appaltatore con esclusione dei subappaltatori",
+        "B": "Solo sui subappaltatori con esclusione dell'appaltatore",
+        "C": "Su committente, appaltatore e tutti i subappaltatori"
+      },
+      "correct": "C",
+      "explanation": "L'art. 29 D.Lgs. 276/2003 prevede la responsabilita' solidale di committente, appaltatore e subappaltatori per i trattamenti retributivi e contributivi dei lavoratori.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Nell'offerta di gara e' proponibile un contratto collettivo diverso da quello indicato nel bando:",
+      "options": {
+        "A": "Si' sempre",
+        "B": "No mai",
+        "C": "Si' se e' equivalente a quello indicato nel bando di gara"
+      },
+      "correct": "C",
+      "explanation": "Il Codice dei contratti pubblici consente l'applicazione di un CCNL diverso purche' garantisca trattamenti equivalenti a quello indicato nel bando.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Perche' sussista un ramo di azienda cedibile occorre:",
+      "options": {
+        "A": "Che esso sia tale prima della cessione",
+        "B": "Che esso sia tale al momento della cessione",
+        "C": "Che esso sia tale dopo la cessione"
+      },
+      "correct": "B",
+      "explanation": "L'art. 2112 c.c. richiede che il ramo d'azienda sia un'articolazione funzionalmente autonoma al momento della cessione, non creata ad hoc ne' valutata ex post.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Il contratto collettivo leader puo' essere sottoscritto solo:",
+      "options": {
+        "A": "Dai sindacati confederali",
+        "B": "Solo dai sindacati autonomi",
+        "C": "Solo dai sindacati comparativamente piu' rappresentativi"
+      },
+      "correct": "C",
+      "explanation": "Il contratto collettivo leader e' quello sottoscritto dai sindacati comparativamente piu' rappresentativi, che funge da parametro per i trattamenti minimi.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Il contratto di prossimita' quali istituti puo' riguardare:",
+      "options": {
+        "A": "Solo la retribuzione",
+        "B": "Tutti eccetto la retribuzione",
+        "C": "Solo quelli previsti dall'art. 8 d.l. 138/2011"
+      },
+      "correct": "C",
+      "explanation": "I contratti di prossimita' possono derogare a legge e CCNL solo nelle materie tassativamente elencate dall'art. 8 D.L. 138/2011 (orario, mansioni, contratti a termine, ecc.).",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "In quanti anni si prescrivono i contributi obbligatori:",
+      "options": {
+        "A": "In dieci anni",
+        "B": "In sette anni",
+        "C": "In cinque anni"
+      },
+      "correct": "C",
+      "explanation": "I contributi previdenziali obbligatori si prescrivono in cinque anni dalla data in cui avrebbero dovuto essere versati (art. 3 L. 335/1995).",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "Che differenza c'e' tra omissione ed evasione contributiva:",
+      "options": {
+        "A": "Rileva l'importo dei contributi non versati",
+        "B": "Rileva la volonta' di occultare l'imponibile contributivo",
+        "C": "Rileva la tipologia di contributi non versati"
+      },
+      "correct": "B",
+      "explanation": "L'evasione si distingue dall'omissione per la volonta' di occultare l'imponibile contributivo mediante denunce obbligatorie omesse o non conformi al vero.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
+    },
+    {
+      "question": "La sanzione per l'omesso versamento previdenziale:",
+      "options": {
+        "A": "E' sempre di natura penale",
+        "B": "E' di natura penale se si supera l'importo di 10.000,00 euro nell'anno",
+        "C": "E' sempre di natura amministrativa"
+      },
+      "correct": "B",
+      "explanation": "L'omesso versamento delle ritenute previdenziali e' punito penalmente solo se l'importo supera i 10.000 euro annui; al di sotto e' illecito amministrativo.",
+      "chapter": "Garofalo - Contratti di Lavoro, Incentivi e Contributi"
     }
   ]
 }
