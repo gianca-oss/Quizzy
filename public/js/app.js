@@ -659,8 +659,8 @@ const SOURCE_STYLES = {
     CITATO: { indicator: 'CITATO', color: '#ffffff' },
     VERIFICATO: { indicator: 'VERIFICATO', color: '#ffffff' },
     AI: { indicator: 'AI', color: '#ffffff' },
-    QuestionBank: { indicator: 'BANK', color: '#4ade80' },
-    'QuestionBank+Haiku': { indicator: 'BANK+AI', color: '#60a5fa' }
+    QuestionBank: { indicator: 'BANK', color: '#ffffff' },
+    'QuestionBank+Haiku': { indicator: 'BANK+AI', color: '#ffffff' }
 };
 
 function formatSource(source) {
@@ -985,7 +985,7 @@ function formatMarkdown(text) {
     return text
         .replace(/RISPOSTE\s*\([^:]*\):[\s\S]*?(?=\*\*\d+\.|ANALISI|$)/gi, '')
         .replace(/ANALISI\s*\([^:]*\):/gi, '')
-        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#ffcc00;font-weight:600">$1</span>')
+        .replace(/^([A-D]\).*?)\s*(?:\[CORRETTA\]|\(V\)|[✓✔])\s*$/gm, '<span style="color:#4ade80;font-weight:600">$1</span>')
         .replace(/\*\*(\d+\..+?)\*\*/g, '<strong style="display:inline-block;margin-top:4px">$1</strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
         .replace(/\n\s*---\s*\n/g, '<hr style="margin:10px 0;border:none;border-top:1px solid rgba(128,128,128,0.25)">')
@@ -1049,7 +1049,7 @@ function displayResults(allResults, opts = {}) {
     allQuestions.forEach(q => {
         html += `<tr style="height: ${rowH}px;">`;
         html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${numSize}; line-height: 1;">${q.num}</td>`;
-        html += `<td style="padding: 0 3px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;"><span style="color: #ffcc00; font-weight: 900; font-size: ${allQuestions.length > 15 ? '17px' : '19px'}; letter-spacing: 0.08em;">${q.answer}</span></td>`;
+        html += `<td style="padding: 0 3px; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); line-height: 1;"><span style="color: #ffffff; font-weight: 900; font-size: ${allQuestions.length > 15 ? '17px' : '19px'}; letter-spacing: 0.08em;">${q.answer}</span></td>`;
         html += `<td style="padding: ${pad}; text-align: center; border-bottom: 1px solid rgba(128,128,128,0.1); font-size: ${fonteSize}; font-weight: 700; line-height: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${q.fonte}</td>`;
         html += '</tr>';
     });
