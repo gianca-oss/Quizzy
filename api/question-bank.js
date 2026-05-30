@@ -23,13 +23,18 @@ function loadQuestionBank(courseName) {
 /**
  * Normalize text for fuzzy matching: lowercase, strip accents,
  * remove punctuation, collapse whitespace.
+ *
+ * Apostrophes are stripped entirely so that the bank's apostrophe-style
+ * accents ("puo'", "perche'", "responsabilita'") collapse to the same
+ * token as the OCR's real accents ("può", "perché", "responsabilità"),
+ * which become "puo"/"perche"/"responsabilita" after accent removal.
  */
 function normalize(text) {
     return text
         .toLowerCase()
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
-        .replace(/[''`]/g, "'")
-        .replace(/[^\w\s']/g, ' ')
+        .replace(/[''`´]/g, '')
+        .replace(/[^\w\s]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
 }
