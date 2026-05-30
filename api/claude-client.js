@@ -1,12 +1,14 @@
 const MAX_RETRIES = 3;
 
 const MODELS = {
+    haiku: 'claude-haiku-3-5-20241022',
     sonnet: 'claude-sonnet-4-20250514',
     opus: 'claude-opus-4-20250514'
 };
 
 // USD per million tokens (Anthropic public pricing)
 const PRICING = {
+    'claude-haiku-3-5-20241022': { input: 0.80, output: 4 },
     'claude-sonnet-4-20250514': { input: 3, output: 15 },
     'claude-opus-4-20250514': { input: 15, output: 75 }
 };

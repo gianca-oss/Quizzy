@@ -2,7 +2,11 @@ const { loadEnhancedData, loadEmbeddings } = require('./data-loader');
 const { hybridSearch } = require('./search');
 const { extractQuestions, analyzeWithContext } = require('./claude-client');
 const { parseQuestions } = require('./question-parser');
-const { lookupQuestions } = require('./question-bank');
+const {
+    lookupQuestions,
+    buildHaikuVerificationPrompt,
+    parseHaikuResponse
+} = require('./question-bank');
 const {
     buildContextFromSearchResults,
     buildExtractionPrompt,
@@ -43,9 +47,6 @@ module.exports = async function handler(req, res) {
         }
 
         const startNumber = req.body.startNumber || 1;
-        // Hybrid policy: Sonnet always handles image extraction (more reliable
-        // at VERBATIM OCR), Opus is reserved for the reasoning step when
-        // Modalità precisione is on.
         const extractionModelKey = 'sonnet';
         const analysisModelKey = req.body.precision === true ? 'opus' : 'sonnet';
 
@@ -81,73 +82,110 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // Step 2.5: Check question bank for instant answers
-        const bankMatches = lookupQuestions(questions, 'organizzazione-e-lavoro');
-        const bankAnswers = {};
-        const bankAnalysisParts = [];
-        bankMatches.forEach(({ questionIndex, score, bankMatch }) => {
+        // Step 2.5: Three-tier question bank lookup
+        const { direct, needsHaiku, unmatched } = lookupQuestions(questions, 'organizzazione-e-lavoro');
+
+        let totalCost = extraction.cost || 0;
+        const resolvedAnswers = {};  // num → { letter, source, explanation }
+        const analysisParts = [];
+
+        // --- Tier 1: Direct matches (mechanical remap, zero cost) ---
+        direct.forEach(({ questionIndex, score, bankMatch, remappedLetter }) => {
             const num = startNumber + questionIndex;
-            bankAnswers[num] = { letter: bankMatch.correct, source: 'QuestionBank' };
-            bankAnalysisParts.push(
-                `DOMANDA ${num}: ${bankMatch.correct}) ✅ [Question Bank – ${Math.round(score * 100)}% match]\n` +
+            resolvedAnswers[num] = { letter: remappedLetter, source: 'QuestionBank' };
+            analysisParts.push(
+                `DOMANDA ${num}: ${remappedLetter}) ✅ [Question Bank – ${Math.round(score * 100)}% match]\n` +
                 `${bankMatch.explanation}\n`
             );
         });
+        console.log(`[QuestionBank] Tier 1 (direct): ${direct.length} questions`);
 
-        // Find questions NOT matched by the bank
-        const unmatchedIndices = questions
-            .map((_, i) => i)
-            .filter(i => !bankAnswers[startNumber + i]);
+        // --- Tier 2: Haiku verification (low cost, semantic matching) ---
+        if (needsHaiku.length > 0) {
+            console.log(`[QuestionBank] Tier 2 (Haiku): ${needsHaiku.length} questions`);
+            try {
+                const haikuPrompt = buildHaikuVerificationPrompt(needsHaiku, questions, startNumber);
+                const haikuResult = await analyzeWithContext(apiKey, haikuPrompt, 'haiku');
+                totalCost += (haikuResult.cost || 0);
 
-        let finalAnswersArray;
-        let finalAnalysis;
-        let totalCost = extraction.cost || 0;
+                const haikuAnswers = parseHaikuResponse(haikuResult.text, needsHaiku, questions, startNumber);
+
+                needsHaiku.forEach(({ questionIndex, score, bankMatch }) => {
+                    const num = startNumber + questionIndex;
+                    const haikuAnswer = haikuAnswers.get(num);
+
+                    if (haikuAnswer) {
+                        resolvedAnswers[num] = { letter: haikuAnswer.letter, source: 'QuestionBank+Haiku' };
+                        analysisParts.push(
+                            `DOMANDA ${num}: ${haikuAnswer.letter}) ✅ [Question Bank + Haiku – ${Math.round(score * 100)}% match]\n` +
+                            `${haikuAnswer.explanation}\n`
+                        );
+                    } else {
+                        // Haiku said NO_MATCH — demote to Tier 3
+                        unmatched.push(questionIndex);
+                    }
+                });
+            } catch (err) {
+                console.error('[QuestionBank] Haiku verification failed, falling back to RAG:', err.message);
+                // On Haiku failure, demote all to Tier 3
+                needsHaiku.forEach(({ questionIndex }) => unmatched.push(questionIndex));
+            }
+        }
+
+        // --- Tier 3: Full RAG pipeline (unmatched questions) ---
+        console.log(`[QuestionBank] Tier 3 (RAG): ${unmatched.length} questions`);
+
         let usedModel = 'question-bank';
 
-        if (unmatchedIndices.length === 0) {
-            // All questions answered from the bank — no API call needed
-            finalAnswersArray = questions.map((q, i) => {
-                const num = startNumber + i;
-                return { num, letter: bankAnswers[num].letter, source: 'QuestionBank' };
-            });
-            finalAnalysis = bankAnalysisParts.join('\n');
-        } else {
-            // Step 3: Search for answers (only unmatched questions)
+        if (unmatched.length > 0) {
             const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
-            const { contextPerQuestion, semanticCount, keywordCount } = buildContextFromSearchResults(searchResults, startNumber);
+            const { contextPerQuestion } = buildContextFromSearchResults(searchResults, startNumber);
 
-            // Step 4: Final analysis (Sonnet by default, Opus if precision is on)
             const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
             const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, analysisModelKey);
-            const finalResponse = analysisResult.text;
             usedModel = analysisResult.model;
             totalCost += (analysisResult.cost || 0);
 
-            // Step 5: Build response — merge bank + AI answers
-            const { answers: aiAnswers, analysisText } = parseAnswers(finalResponse);
+            const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text);
 
-            finalAnswersArray = questions.map((q, i) => {
-                const num = startNumber + i;
-                if (bankAnswers[num]) {
-                    return { num, letter: bankAnswers[num].letter, source: 'QuestionBank' };
+            unmatched.forEach(idx => {
+                const num = startNumber + idx;
+                if (!resolvedAnswers[num]) {
+                    const answer = aiAnswers[num] || { letter: '?', source: 'AI' };
+                    resolvedAnswers[num] = { letter: answer.letter, source: answer.source };
                 }
-                const answer = aiAnswers[num] || { letter: '?', source: 'AI' };
-                return { num, letter: answer.letter, source: answer.source };
             });
 
-            // Merge analysis text: bank answers first, then AI analysis
-            finalAnalysis = bankAnalysisParts.length > 0
-                ? bankAnalysisParts.join('\n') + '\n---\n' + (analysisText || finalResponse)
-                : (analysisText || finalResponse);
+            if (analysisText) {
+                analysisParts.push(analysisText);
+            } else {
+                analysisParts.push(analysisResult.text);
+            }
         }
+
+        // Build final response
+        const finalAnswersArray = questions.map((q, i) => {
+            const num = startNumber + i;
+            const resolved = resolvedAnswers[num] || { letter: '?', source: 'unknown' };
+            return { num, letter: resolved.letter, source: resolved.source };
+        });
+
+        const bankResolved = direct.length + needsHaiku.filter(h => resolvedAnswers[startNumber + h.questionIndex]?.source?.includes('Haiku')).length;
 
         res.status(200).json({
             answers: finalAnswersArray,
-            analysis: finalAnalysis,
+            analysis: analysisParts.join('\n---\n'),
             metadata: {
-                model: usedModel,
-                processingMethod: unmatchedIndices.length === 0 ? 'question-bank' : (embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway'),
-                searchStats: { bankMatched: bankMatches.length, bankTotal: questions.length },
+                model: unmatched.length > 0 ? usedModel : (needsHaiku.length > 0 ? 'haiku' : 'question-bank'),
+                processingMethod: unmatched.length === 0
+                    ? (needsHaiku.length > 0 ? 'question-bank+haiku' : 'question-bank')
+                    : (embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway'),
+                searchStats: {
+                    tier1_direct: direct.length,
+                    tier2_haiku: bankResolved - direct.length,
+                    tier3_rag: unmatched.length,
+                    total: questions.length
+                },
                 chunksSearched: data.textChunks.length,
                 embeddingsLoaded: !!embeddingsData,
                 questionsAnalyzed: questions.length,
@@ -156,8 +194,6 @@ module.exports = async function handler(req, res) {
         });
 
     } catch (error) {
-        // Map permanent Anthropic errors to proper HTTP codes so the frontend
-        // can show a tailored message AND skip auto-retry.
         const statusMap = {
             no_credits: 402,
             auth: 401,

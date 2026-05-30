@@ -27,7 +27,7 @@ function loadQuestionBank(courseName) {
 function normalize(text) {
     return text
         .toLowerCase()
-        .normalize('NFD').replace(/[̀-ͯ]/g, '')  // strip accents
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[''`]/g, "'")
         .replace(/[^\w\s']/g, ' ')
         .replace(/\s+/g, ' ')
@@ -36,12 +36,11 @@ function normalize(text) {
 
 /**
  * Compute similarity between two normalized strings using
- * longest common substring ratio + token overlap.
+ * token overlap (Jaccard) + length ratio.
  */
 function similarity(a, b) {
     if (a === b) return 1;
 
-    // Token overlap (Jaccard)
     const tokA = new Set(a.split(' ').filter(t => t.length > 2));
     const tokB = new Set(b.split(' ').filter(t => t.length > 2));
     if (tokA.size === 0 || tokB.size === 0) return 0;
@@ -51,24 +50,58 @@ function similarity(a, b) {
         if (tokB.has(t)) intersection++;
     }
     const jaccard = intersection / (tokA.size + tokB.size - intersection);
-
-    // Length similarity penalty
     const lenRatio = Math.min(a.length, b.length) / Math.max(a.length, b.length);
 
     return jaccard * 0.7 + lenRatio * 0.3;
 }
 
 /**
- * Look up extracted questions in the question bank.
- * Returns an array of { questionIndex, bankMatch } for matched questions.
- * bankMatch contains { correct, explanation, chapter, question, options }.
- * Threshold: 0.65 similarity.
+ * Try to mechanically remap the correct answer letter from the bank
+ * to the photo's option ordering, by fuzzy-matching option texts.
+ * Returns the remapped letter or null if no confident match.
+ */
+function mechanicalRemap(bankMatch, photoOptions) {
+    const correctText = normalize(bankMatch.options[bankMatch.correct] || '');
+    if (!correctText) return null;
+
+    let bestLetter = null;
+    let bestScore = 0;
+
+    for (const [letter, text] of Object.entries(photoOptions)) {
+        const normText = normalize(text);
+        const score = similarity(correctText, normText);
+        if (score > bestScore) {
+            bestScore = score;
+            bestLetter = letter;
+        }
+    }
+
+    // Only accept if option text match is very high
+    return bestScore >= 0.85 ? bestLetter : null;
+}
+
+/**
+ * Three-tier lookup:
+ *
+ * Tier 1 (score >= 0.90): Direct match — remap letter mechanically.
+ *   If remap succeeds → instant answer, zero API cost.
+ *   If remap fails (options too different) → demote to Tier 2.
+ *
+ * Tier 2 (score >= 0.65, or Tier 1 remap failure): Haiku verification.
+ *   Send question + bank candidate to Haiku for semantic confirmation
+ *   and letter remapping.
+ *
+ * Tier 3 (score < 0.65): No match — full RAG pipeline.
+ *
+ * Returns { direct: [...], needsHaiku: [...], unmatched: [...] }
  */
 function lookupQuestions(questions, courseName) {
     const bank = loadQuestionBank(courseName || 'organizzazione-e-lavoro');
-    if (!bank) return [];
+    if (!bank) return { direct: [], needsHaiku: [], unmatched: questions.map((_, i) => i) };
 
-    const matches = [];
+    const direct = [];
+    const needsHaiku = [];
+    const unmatched = [];
 
     questions.forEach((q, idx) => {
         const normQ = normalize(q.text);
@@ -76,25 +109,120 @@ function lookupQuestions(questions, courseName) {
         let bestMatch = null;
 
         for (const bankQ of bank.questions) {
-            const normBankQ = normalize(bankQ.question);
-            const score = similarity(normQ, normBankQ);
-
+            const score = similarity(normQ, normalize(bankQ.question));
             if (score > bestScore) {
                 bestScore = score;
                 bestMatch = bankQ;
             }
         }
 
-        if (bestScore >= 0.65 && bestMatch) {
-            matches.push({
-                questionIndex: idx,
-                score: bestScore,
-                bankMatch: bestMatch
-            });
+        if (bestScore >= 0.90 && bestMatch) {
+            // Tier 1: try mechanical remap
+            const remapped = mechanicalRemap(bestMatch, q.options || {});
+            if (remapped) {
+                direct.push({ questionIndex: idx, score: bestScore, bankMatch: bestMatch, remappedLetter: remapped });
+            } else {
+                // Options too different — need Haiku to remap
+                needsHaiku.push({ questionIndex: idx, score: bestScore, bankMatch: bestMatch });
+            }
+        } else if (bestScore >= 0.65 && bestMatch) {
+            // Tier 2: needs Haiku semantic verification
+            needsHaiku.push({ questionIndex: idx, score: bestScore, bankMatch: bestMatch });
+        } else {
+            // Tier 3: no match
+            unmatched.push(idx);
         }
     });
 
-    return matches;
+    return { direct, needsHaiku, unmatched };
 }
 
-module.exports = { loadQuestionBank, lookupQuestions, normalize, similarity };
+/**
+ * Build a prompt for Haiku to verify bank matches and remap letters.
+ * Handles multiple questions in a single call for efficiency.
+ */
+function buildHaikuVerificationPrompt(haikuCandidates, questions, startNumber) {
+    let prompt = `Sei un assistente per quiz universitari. Per ogni domanda sotto, ti fornisco:
+- La DOMANDA DALLA FOTO (con le sue opzioni A/B/C/D)
+- Una DOMANDA CANDIDATA dal nostro database con la RISPOSTA CORRETTA
+
+Il tuo compito:
+1. Verifica se le due domande chiedono la stessa cosa (anche se formulate diversamente)
+2. Se sì, trova quale lettera nelle opzioni della FOTO corrisponde alla risposta corretta del database
+3. Se no, rispondi "NO_MATCH"
+
+Rispondi SOLO con JSON valido, niente altro:
+{"results": [{"num": N, "match": true/false, "letter": "A/B/C/D o null"}]}
+
+`;
+
+    haikuCandidates.forEach(({ questionIndex, bankMatch }) => {
+        const q = questions[questionIndex];
+        const num = startNumber + questionIndex;
+        const correctText = bankMatch.options[bankMatch.correct];
+
+        prompt += `---
+DOMANDA ${num} DALLA FOTO:
+${q.text}
+`;
+        if (q.options) {
+            Object.entries(q.options).forEach(([letter, text]) => {
+                prompt += `${letter}) ${text}\n`;
+            });
+        }
+
+        prompt += `
+CANDIDATA DAL DATABASE:
+"${bankMatch.question}"
+RISPOSTA CORRETTA: ${bankMatch.correct}) ${correctText}
+SPIEGAZIONE: ${bankMatch.explanation}
+
+`;
+    });
+
+    return prompt;
+}
+
+/**
+ * Parse Haiku's verification response.
+ * Returns Map<questionNum, { letter, explanation }>
+ */
+function parseHaikuResponse(responseText, haikuCandidates, questions, startNumber) {
+    const results = new Map();
+
+    try {
+        const cleaned = responseText.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, '$1');
+        const jsonMatch = cleaned.match(/\{[\s\S]*"results"[\s\S]*\}/);
+        if (!jsonMatch) return results;
+
+        const data = JSON.parse(jsonMatch[0]);
+        if (!Array.isArray(data.results)) return results;
+
+        data.results.forEach(r => {
+            if (r.match && r.letter && r.letter !== 'null') {
+                // Find the corresponding bank match for the explanation
+                const candidate = haikuCandidates.find(c => startNumber + c.questionIndex === r.num);
+                if (candidate) {
+                    results.set(r.num, {
+                        letter: r.letter,
+                        explanation: candidate.bankMatch.explanation
+                    });
+                }
+            }
+        });
+    } catch (err) {
+        console.error('[QuestionBank] Haiku parse error:', err.message);
+    }
+
+    return results;
+}
+
+module.exports = {
+    loadQuestionBank,
+    lookupQuestions,
+    mechanicalRemap,
+    buildHaikuVerificationPrompt,
+    parseHaikuResponse,
+    normalize,
+    similarity
+};
