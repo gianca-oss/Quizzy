@@ -393,7 +393,7 @@ async function importHistory(file) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI' };
+    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI', QuestionBank: 'BANK', 'QuestionBank+Haiku': 'BANK+AI' };
 
     let rows = '';
     item.answers.forEach(a => {
@@ -658,7 +658,9 @@ function backToUpload() {
 const SOURCE_STYLES = {
     CITATO: { indicator: 'CITATO', color: '#ffffff' },
     VERIFICATO: { indicator: 'VERIFICATO', color: '#ffffff' },
-    AI: { indicator: 'AI', color: '#ffffff' }
+    AI: { indicator: 'AI', color: '#ffffff' },
+    QuestionBank: { indicator: 'BANK', color: '#4ade80' },
+    'QuestionBank+Haiku': { indicator: 'BANK+AI', color: '#60a5fa' }
 };
 
 function formatSource(source) {
