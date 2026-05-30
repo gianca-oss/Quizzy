@@ -2,6 +2,7 @@ const { loadEnhancedData, loadEmbeddings } = require('./data-loader');
 const { hybridSearch } = require('./search');
 const { extractQuestions, analyzeWithContext } = require('./claude-client');
 const { parseQuestions } = require('./question-parser');
+const { lookupQuestions } = require('./question-bank');
 const {
     buildContextFromSearchResults,
     buildExtractionPrompt,
@@ -80,33 +81,73 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // Step 3: Search for answers
-        const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
-        const { contextPerQuestion, semanticCount, keywordCount } = buildContextFromSearchResults(searchResults, startNumber);
-
-        // Step 4: Final analysis (Sonnet by default, Opus if precision is on)
-        const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
-        const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, analysisModelKey);
-        const finalResponse = analysisResult.text;
-        const usedModel = analysisResult.model;
-        const totalCost = (extraction.cost || 0) + (analysisResult.cost || 0);
-
-        // Step 5: Build response
-        const { answers, analysisText } = parseAnswers(finalResponse);
-
-        const answersArray = questions.map((q, i) => {
-            const num = startNumber + i;
-            const answer = answers[num] || { letter: '?', source: 'AI' };
-            return { num, letter: answer.letter, source: answer.source };
+        // Step 2.5: Check question bank for instant answers
+        const bankMatches = lookupQuestions(questions, 'organizzazione-e-lavoro');
+        const bankAnswers = {};
+        const bankAnalysisParts = [];
+        bankMatches.forEach(({ questionIndex, score, bankMatch }) => {
+            const num = startNumber + questionIndex;
+            bankAnswers[num] = { letter: bankMatch.correct, source: 'QuestionBank' };
+            bankAnalysisParts.push(
+                `DOMANDA ${num}: ${bankMatch.correct}) ✅ [Question Bank – ${Math.round(score * 100)}% match]\n` +
+                `${bankMatch.explanation}\n`
+            );
         });
 
+        // Find questions NOT matched by the bank
+        const unmatchedIndices = questions
+            .map((_, i) => i)
+            .filter(i => !bankAnswers[startNumber + i]);
+
+        let finalAnswersArray;
+        let finalAnalysis;
+        let totalCost = extraction.cost || 0;
+        let usedModel = 'question-bank';
+
+        if (unmatchedIndices.length === 0) {
+            // All questions answered from the bank — no API call needed
+            finalAnswersArray = questions.map((q, i) => {
+                const num = startNumber + i;
+                return { num, letter: bankAnswers[num].letter, source: 'QuestionBank' };
+            });
+            finalAnalysis = bankAnalysisParts.join('\n');
+        } else {
+            // Step 3: Search for answers (only unmatched questions)
+            const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
+            const { contextPerQuestion, semanticCount, keywordCount } = buildContextFromSearchResults(searchResults, startNumber);
+
+            // Step 4: Final analysis (Sonnet by default, Opus if precision is on)
+            const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
+            const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, analysisModelKey);
+            const finalResponse = analysisResult.text;
+            usedModel = analysisResult.model;
+            totalCost += (analysisResult.cost || 0);
+
+            // Step 5: Build response — merge bank + AI answers
+            const { answers: aiAnswers, analysisText } = parseAnswers(finalResponse);
+
+            finalAnswersArray = questions.map((q, i) => {
+                const num = startNumber + i;
+                if (bankAnswers[num]) {
+                    return { num, letter: bankAnswers[num].letter, source: 'QuestionBank' };
+                }
+                const answer = aiAnswers[num] || { letter: '?', source: 'AI' };
+                return { num, letter: answer.letter, source: answer.source };
+            });
+
+            // Merge analysis text: bank answers first, then AI analysis
+            finalAnalysis = bankAnalysisParts.length > 0
+                ? bankAnalysisParts.join('\n') + '\n---\n' + (analysisText || finalResponse)
+                : (analysisText || finalResponse);
+        }
+
         res.status(200).json({
-            answers: answersArray,
-            analysis: analysisText || finalResponse,
+            answers: finalAnswersArray,
+            analysis: finalAnalysis,
             metadata: {
                 model: usedModel,
-                processingMethod: embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway',
-                searchStats: { semantic: semanticCount, keyword: keywordCount },
+                processingMethod: unmatchedIndices.length === 0 ? 'question-bank' : (embeddingsData ? 'semantic-search-railway' : 'keyword-search-railway'),
+                searchStats: { bankMatched: bankMatches.length, bankTotal: questions.length },
                 chunksSearched: data.textChunks.length,
                 embeddingsLoaded: !!embeddingsData,
                 questionsAnalyzed: questions.length,
