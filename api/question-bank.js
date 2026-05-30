@@ -114,7 +114,11 @@ function lookupQuestions(questions, courseName) {
         let bestMatch = null;
 
         for (const bankQ of bank.questions) {
-            const score = similarity(normQ, normalize(bankQ.question));
+            // Prefer the build-time precomputed `normalized` field (scripts/
+            // normalize-bank.js); fall back to normalizing on the fly so the
+            // code still works against a not-yet-normalized bank.
+            const bankNorm = bankQ.normalized || normalize(bankQ.question);
+            const score = similarity(normQ, bankNorm);
             if (score > bestScore) {
                 bestScore = score;
                 bestMatch = bankQ;
