@@ -12,10 +12,8 @@ function buildContextFromSearchResults(searchResults, startNumber) {
         if (result.matches.length > 0) {
             contextPerQuestion += `\nDOMANDA ${questionNum} - CONTESTO (${result.searchMethod}):\n`;
             result.matches.slice(0, 4).forEach(match => {
-                const scoreInfo = match.similarity
-                    ? `sim: ${Math.round(match.similarity * 100)}%`
-                    : `score: ${match.score}`;
-                contextPerQuestion += `[${scoreInfo}] ${match.chunk.text.substring(0, 1500)}\n`;
+                const section = match.chunk.section || `chunk ${match.chunk.id}`;
+                contextPerQuestion += `[Sez. ${section}] ${match.chunk.text.substring(0, 1500)}\n`;
             });
         } else {
             contextPerQuestion += `\nDOMANDA ${questionNum} - NO CONTESTO\n`;
@@ -67,7 +65,7 @@ function buildAnalysisPrompt(contextPerQuestion, questions, startNumber) {
 
 ISTRUZIONI CRITICHE:
 - Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
-- Indica la pagina [Pag. X] quando disponibile
+- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è indicata all'inizio di ogni chunk di contesto. Non usare mai "Pag." o "non specificata".
 - Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
 - Marca SEMPRE quale risposta è esatta con "✓"
 
@@ -89,7 +87,7 @@ B) [testo opzione B]
 C) [testo opzione C] [CORRETTA]
 D) [testo opzione D]
 
-Spiegazione: [CITATO] "citazione esatta dal corso" [Pag. X]. La risposta corretta è C perché [spiegazione breve].
+Spiegazione: [CITATO] "citazione esatta dal corso" [Sez. 1.9]. La risposta corretta è C perché [spiegazione breve].
 
 ---
 
@@ -136,7 +134,7 @@ function parseAnswers(finalResponse) {
         }
 
         // Detect source from explanation
-        if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i)) {
+        if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i) || line.match(/\[Sez\.?\s*[\d.]+\]/i)) {
             answers[currentQuestion].source = 'CITATO';
         } else if (line.includes('[VERIFICATO]')) {
             answers[currentQuestion].source = 'VERIFICATO';
