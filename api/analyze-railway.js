@@ -167,11 +167,14 @@ module.exports = async function handler(req, res) {
                 `${unmatchedNums[i]}. ${q.text}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
             ).join('\n\n');
 
+            const exampleNum1 = unmatchedNums[0] || 1;
+            const exampleNum2 = unmatchedNums[1] || exampleNum1 + 1;
+
             const ragPrompt = `Analizza le domande del quiz usando il contesto fornito dal corso.
 
 ISTRUZIONI CRITICHE:
 - Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
-- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y]
+- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è indicata all'inizio di ogni chunk di contesto. Non usare mai "Pag." o "non specificata".
 - Se il contesto non contiene la risposta, scrivi [AI] e spiega brevemente
 - Marca SEMPRE quale risposta è esatta con "✓"
 
@@ -183,7 +186,36 @@ ${questionsText}
 
 DEVI restituire SOLO una lista di blocchi RISPOSTA, uno per ogni domanda.
 NON aggiungere intestazioni come "ANALISI:" o "RISPOSTE:".
-Formato per ogni risposta: DOMANDA N: LETTERA) testo [CITAZIONE o AI]`;
+
+Per OGNI domanda usa ESATTAMENTE questa struttura:
+
+**${exampleNum1}. [testo completo della domanda]**
+
+A) [testo opzione A]
+B) [testo opzione B]
+C) [testo opzione C] [CORRETTA]
+D) [testo opzione D]
+
+Spiegazione: [CITATO] "citazione esatta dal corso" [Sez. 1.9]. La risposta corretta è C perché [spiegazione breve].
+
+---
+
+**${exampleNum2}. [testo completo della domanda]**
+
+A) [testo opzione A] [CORRETTA]
+B) [testo opzione B]
+C) [testo opzione C]
+
+Spiegazione: [AI] Non trovato nel materiale. La risposta corretta è A basata su conoscenze generali.
+
+---
+
+REGOLE OBBLIGATORIE:
+- Il NUMERO e la DOMANDA devono essere in grassetto (**N. ...**)
+- Aggiungi LETTERALMENTE la stringa "[CORRETTA]" (incluse le parentesi quadre) alla fine SOLO della riga con la risposta esatta
+- NON usare ✓, V, (V), ✔ o altri simboli al posto di [CORRETTA]
+- Usa --- tra una domanda e l'altra
+- NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
 
             const analysisResult = await analyzeWithContext(apiKey, ragPrompt, analysisModelKey);
             usedModel = analysisResult.model;
