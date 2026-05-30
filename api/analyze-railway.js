@@ -88,10 +88,14 @@ module.exports = async function handler(req, res) {
         let totalCost = extraction.cost || 0;
         const resolvedAnswers = {};  // num → { letter, source, analysis }
 
+        // Some OCR'd questions already start with their number (e.g. "5. La sanzione...").
+        // Strip a leading "N." / "N)" so we don't render a double number ("5. 5. ...").
+        const stripLeadingNum = (text) => (text || '').replace(/^\s*\d{1,3}[.)]\s+/, '');
+
         // Render an analysis block in the same format the RAG/UI expects:
         // **N. domanda** + opzioni con [CORRETTA] sulla risposta giusta + spiegazione.
         const renderBankBlock = (num, q, correctLetter, explanation, tag) => {
-            let block = `**${num}. ${q.text}**\n\n`;
+            let block = `**${num}. ${stripLeadingNum(q.text)}**\n\n`;
             ['A', 'B', 'C', 'D'].forEach(L => {
                 if (q.options?.[L]) {
                     block += `${L}) ${q.options[L]}${L === correctLetter ? ' [CORRETTA]' : ''}\n`;
@@ -182,7 +186,7 @@ module.exports = async function handler(req, res) {
 
             // Build questions text with original numbers
             const questionsText = unmatchedQuestions.map((q, i) =>
-                `${unmatchedNums[i]}. ${q.text}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
+                `${unmatchedNums[i]}. ${stripLeadingNum(q.text)}\nA) ${q.options?.A || ''}\nB) ${q.options?.B || ''}\nC) ${q.options?.C || ''}\nD) ${q.options?.D || ''}`
             ).join('\n\n');
 
             const exampleNum1 = unmatchedNums[0] || 1;
