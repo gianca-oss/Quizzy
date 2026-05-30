@@ -42,7 +42,11 @@ module.exports = async function handler(req, res) {
         }
 
         const startNumber = req.body.startNumber || 1;
-        const modelKey = req.body.precision === true ? 'opus' : 'sonnet';
+        // Hybrid policy: Sonnet always handles image extraction (more reliable
+        // at VERBATIM OCR), Opus is reserved for the reasoning step when
+        // Modalità precisione is on.
+        const extractionModelKey = 'sonnet';
+        const analysisModelKey = req.body.precision === true ? 'opus' : 'sonnet';
 
         if (!req.body?.messages?.[0]?.content) {
             return res.status(400).json({ error: 'Formato richiesta non valido' });
@@ -64,8 +68,8 @@ module.exports = async function handler(req, res) {
 
         const embeddingsData = await loadEmbeddings();
 
-        // Step 1: Extract questions from image
-        const extraction = await extractQuestions(apiKey, imageContent, buildExtractionPrompt(), modelKey);
+        // Step 1: Extract questions from image (always Sonnet)
+        const extraction = await extractQuestions(apiKey, imageContent, buildExtractionPrompt(), extractionModelKey);
         const responseText = extraction.text;
 
         // Step 2: Parse questions
@@ -80,9 +84,9 @@ module.exports = async function handler(req, res) {
         const searchResults = await hybridSearch(questions, data.textChunks, embeddingsData);
         const { contextPerQuestion, semanticCount, keywordCount } = buildContextFromSearchResults(searchResults, startNumber);
 
-        // Step 4: Final analysis
+        // Step 4: Final analysis (Sonnet by default, Opus if precision is on)
         const analysisPrompt = buildAnalysisPrompt(contextPerQuestion, questions, startNumber);
-        const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, modelKey);
+        const analysisResult = await analyzeWithContext(apiKey, analysisPrompt, analysisModelKey);
         const finalResponse = analysisResult.text;
         const usedModel = analysisResult.model;
         const totalCost = (extraction.cost || 0) + (analysisResult.cost || 0);
