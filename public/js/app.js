@@ -513,7 +513,7 @@ function compressImage(file) {
 
                     // Screenshots (PNG) under 5MB: send as-is, already sharp
                     if (isScreenshot && file.size < 5 * 1024 * 1024) {
-                        resolve({ data: e.target.result.split(',')[1], quality });
+                        resolve({ data: e.target.result.split(',')[1], mediaType: 'image/png', quality });
                         return;
                     }
 
@@ -540,7 +540,7 @@ function compressImage(file) {
                     ctx.drawImage(img, 0, 0, width, height);
 
                     const dataUrl = canvas.toDataURL('image/jpeg', jpegQ);
-                    resolve({ data: dataUrl.split(',')[1], quality });
+                    resolve({ data: dataUrl.split(',')[1], mediaType: 'image/jpeg', quality });
                 } catch (err) {
                     reject(err);
                 }
@@ -576,7 +576,7 @@ async function handleImages(e) {
 
             imgStatus.textContent = `Immagine ${i + 1} di ${files.length}`;
             const result = await compressImage(file);
-            images.push(result.data);
+            images.push({ data: result.data, mediaType: result.mediaType });
             if (result.quality.tooSmallDim || result.quality.tooSmallBytes) {
                 lowQuality.push({ idx: i + 1, ...result.quality });
             }
@@ -732,7 +732,7 @@ function hideMainView() {
     if (pt) pt.style.display = 'none';
 }
 
-async function analyzeOneImage(imageData, index, startNumber, precision, externalSignal) {
+async function analyzeOneImage(image, index, startNumber, precision, externalSignal) {
     const requestBody = {
         model: 'claude-3-haiku-20240307',
         max_tokens: 4000,
@@ -740,7 +740,7 @@ async function analyzeOneImage(imageData, index, startNumber, precision, externa
         precision,
         messages: [{
             role: 'user',
-            content: [{ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: imageData } }]
+            content: [{ type: 'image', source: { type: 'base64', media_type: image.mediaType || 'image/jpeg', data: image.data } }]
         }]
     };
 
