@@ -739,9 +739,13 @@ function hideMainView() {
 
 // How many images are analysed at the same time. Sequential analysis meant a
 // 4-photo quiz took four times as long as one; going wide is the single
-// biggest win on wall-clock time. Capped so a large batch doesn't trip
-// Anthropic's rate limits (and each lane is a separate backend request).
-const MAX_PARALLEL_IMAGES = 3;
+// biggest win on wall-clock time. Four covers the common "one quiz, four
+// photos" case in a single wave; beyond that the account's per-minute token
+// budget, not the app, is the limit — and a 429 now slows the batch down
+// instead of breaking it.
+const MAX_PARALLEL_IMAGES = 4;
+// How long a lane waits before taking new work after a 429.
+const RATE_LIMIT_COOLDOWN_MS = 5000;
 
 /**
  * Re-base question numbers across images.
@@ -893,6 +897,9 @@ async function analyze() {
     // A permanent failure (no credit, dead model) makes the remaining images
     // pointless: abort them instead of firing more doomed calls.
     let circuitBroken = false;
+    // Set when Anthropic returns 429: the remaining images start staggered
+    // rather than all at once, so the batch slows down instead of failing.
+    let rateLimited = false;
 
     const orderedResults = () => resultByIndex.filter(Boolean);
 
@@ -951,7 +958,13 @@ async function analyze() {
                 failedIndexes.push(i);
                 return;
             }
-            const isPermanent = err.kind && err.kind !== 'unknown';
+            // A rate limit is transient — the backend already retried it with
+            // exponential backoff. Treating it as permanent would abort the
+            // whole batch for a problem that fixes itself in seconds; instead
+            // we stagger the remaining starts to let the per-minute budget
+            // recover.
+            if (err.kind === 'rate_limit') rateLimited = true;
+            const isPermanent = err.kind && err.kind !== 'unknown' && err.kind !== 'rate_limit';
             let label;
             if (err.kind === 'no_credits') label = 'Credito Anthropic esaurito';
             else if (err.kind === 'auth') label = 'API Key non valida';
@@ -976,6 +989,11 @@ async function analyze() {
     let nextIndex = 0;
     const worker = async () => {
         while (nextIndex < images.length) {
+            if (rateLimited && !circuitBroken) {
+                // Back off before claiming another lane: the account's
+                // per-minute token budget needs a moment to refill.
+                await new Promise(r => setTimeout(r, RATE_LIMIT_COOLDOWN_MS));
+            }
             await processImage(nextIndex++);
         }
     };
