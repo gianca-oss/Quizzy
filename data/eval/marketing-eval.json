@@ -1,0 +1,441 @@
+{
+  "course": "marketing",
+  "version": 1,
+  "purpose": "Retrieval evaluation set. Each question is answerable from goldChunkId. Questions are phrased as an exam would phrase them and deliberately avoid the source wording, so that retrieval is not trivially solved by verbatim overlap.",
+  "authoredFrom": "data/processed/marketing/chunks_*.json",
+  "questions": [
+    {
+      "id": "eval_01",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_27",
+      "goldSection": "1.1 Le origini del concetto di sostenibilità",
+      "text": "Su quale ambito si concentrarono le prime normative ambientali moderne, a partire dagli anni Sessanta?",
+      "options": {
+        "A": "Lo smaltimento dei rifiuti industriali",
+        "B": "La qualità dell'aria nelle grandi città",
+        "C": "La tutela delle acque superficiali",
+        "D": "La bonifica dei suoli contaminati"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_02",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_28",
+      "goldSection": "1.2 I tre pilastri",
+      "text": "Quale teoria viene richiamata per ripensare l'accumulazione capitalistica in modo che il valore creato dall'impresa non sia soltanto per sé?",
+      "options": {
+        "A": "La teoria del valore condiviso di Porter",
+        "B": "La teoria degli stakeholder di Freeman",
+        "C": "La teoria dei costi di transazione di Williamson",
+        "D": "La teoria della distruzione creatrice di Schumpeter"
+      },
+      "correct": "A"
+    },
+    {
+      "id": "eval_03",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_40",
+      "goldSection": "1.8 Il decoupling e l'economia circolare",
+      "text": "Un'economia continua a crescere mentre il consumo di risorse ed energia aumenta molto meno o resta fermo. Con quale termine si indica questa divaricazione?",
+      "options": {
+        "A": "Effetto rimbalzo",
+        "B": "Disaccoppiamento (decoupling)",
+        "C": "Curva di Kuznets ambientale",
+        "D": "Sviluppo endogeno"
+      },
+      "correct": "B",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_04",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_47",
+      "goldSection": "2.1 Il Global Compact delle Nazioni Unite",
+      "text": "In quale sede e da chi fu lanciata la principale iniziativa mondiale di corporate sustainability delle Nazioni Unite?",
+      "options": {
+        "A": "Alla conferenza di Rio de Janeiro del 1992, dalla Commissione Brundtland",
+        "B": "Al World Economic Forum di Davos del 1999, dal Segretario Generale ONU",
+        "C": "Con l'adozione dell'Agenda 2030 nel 2015, dall'Assemblea Generale",
+        "D": "Alla conferenza Rio+20 del 2012, dall'UNEP"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_05",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_65",
+      "goldSection": "4.2 Perceived Consumer Effectiveness",
+      "text": "Come si chiama la percezione, da parte di chi acquista, di poter realmente incidere con le proprie scelte sui risultati ambientali?",
+      "options": {
+        "A": "Perceived Consumer Effectiveness",
+        "B": "Attitude-behavior gap",
+        "C": "Scetticismo verde",
+        "D": "Norma soggettiva"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_06",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_74",
+      "goldSection": "5.2 LCA, EPD e tipi di etichette",
+      "text": "Qual è l'aspetto qualificante dell'analisi del ciclo di vita che permette di evitare l'illusione del beneficio assoluto?",
+      "options": {
+        "A": "Considera l'intera filiera produttiva a monte del prodotto",
+        "B": "Valuta l'impatto su una pluralità di parametri anziché su uno solo",
+        "C": "È l'unica metodologia certificabile da un ente terzo",
+        "D": "Esprime tutti gli impatti in tonnellate di CO2 equivalente"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_07",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_82",
+      "goldSection": "6.2 Il greenwashing",
+      "text": "Da quale accostamento di parole nasce il neologismo greenwashing?",
+      "options": {
+        "A": "Green e washing, nel senso di lavare",
+        "B": "Green e whitewash, nel senso di imbiancare o mascherare",
+        "C": "Green e brainwashing, nel senso di manipolare",
+        "D": "Green e bleaching, nel senso di sbiancare"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_08",
+      "area": "sostenibilita",
+      "goldChunkId": "chunk_85",
+      "goldSection": "6.5 Il caso Acqua Sant'Anna Bio Bottle",
+      "text": "Nel provvedimento sulla bottiglia in bioplastica, quale fu il vizio principale contestato alla comunicazione dell'azienda?",
+      "options": {
+        "A": "I risparmi di emissioni erano riferiti a una produzione ipotetica e non a quella reale",
+        "B": "La bioplastica utilizzata non era in realtà biodegradabile",
+        "C": "Il marchio ecologico apposto non era registrato presso alcun ente",
+        "D": "L'azienda non aveva commissionato alcuno studio a supporto del claim"
+      },
+      "correct": "A"
+    },
+    {
+      "id": "eval_09",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_106",
+      "goldSection": "2.4 La Conjoint analysis",
+      "text": "Si vuole capire quanto pesa ciascuna caratteristica di un prodotto nella decisione e tradurre quel peso in valore monetario. Quale tecnica di ricerca si impiega?",
+      "options": {
+        "A": "L'analisi congiunta",
+        "B": "La cluster analysis",
+        "C": "La tecnica di Fishbein",
+        "D": "L'analisi fattoriale"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_10",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_112",
+      "goldSection": "2.7 Le catene mezzi-fine (laddering)",
+      "text": "In un'intervista si chiede ripetutamente al cliente perche una cosa e importante, risalendo dai dettagli concreti fino ai valori personali. In quale direzione si sta percorrendo la scala?",
+      "options": {
+        "A": "Dal basso verso l'alto",
+        "B": "Dall'alto verso il basso",
+        "C": "Dal prezzo agli attributi",
+        "D": "Dal beneficio al sacrificio"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_11",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_121",
+      "goldSection": "3.2 La gestione del reclamo",
+      "text": "Quale tipo di cliente rappresenta il vero problema per l'impresa nella gestione dei disservizi?",
+      "options": {
+        "A": "Il cliente che reclama con toni accesi e ripetuti",
+        "B": "Il cliente che non reclama, se ne va in silenzio e non torna più",
+        "C": "Il cliente che pretende sempre un rimborso integrale",
+        "D": "Il cliente che pubblica recensioni negative online"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_12",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_122",
+      "goldSection": "3.2 Rispondere ai reclami pubblici",
+      "text": "Perché conviene rispondere con cura a una recensione negativa pubblicata online?",
+      "options": {
+        "A": "Perché induce quasi sempre l'autore a ritirare la recensione",
+        "B": "Perché la risposta è letta soprattutto dagli altri utenti che stanno valutando il fornitore",
+        "C": "Perché le piattaforme premiano con un punteggio più alto chi risponde",
+        "D": "Perché consente di ottenere la rimozione del commento offensivo"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_13",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_128",
+      "goldSection": "4.3 I quattro tipi di giustizia percepita",
+      "text": "Dopo un disservizio il cliente valuta se il rimborso ottenuto e proporzionato a quanto ha subito, a prescindere da come e stata gestita la pratica. Quale dimensione dell'equita sta pesando?",
+      "options": {
+        "A": "Quella distributiva",
+        "B": "Quella procedurale",
+        "C": "Quella interpersonale",
+        "D": "Quella informativa"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_14",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_135",
+      "goldSection": "5.1 Le cinque ragioni dello switching",
+      "text": "Nella maggioranza dei casi, che cosa spinge un cliente a cambiare fornitore?",
+      "options": {
+        "A": "Ha trovato altrove una riduzione del rischio percepito",
+        "B": "Ha subito un cambiamento nella propria struttura organizzativa",
+        "C": "Ha perso il referente commerciale di riferimento",
+        "D": "Ha ricevuto una campagna promozionale da un concorrente"
+      },
+      "correct": "A"
+    },
+    {
+      "id": "eval_15",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_146",
+      "goldSection": "6.5 L'effetto compromesso",
+      "text": "Che cosa accade alle preferenze quando a un insieme di due alternative se ne aggiunge una terza?",
+      "options": {
+        "A": "Aumentano le preferenze verso l'opzione intermedia",
+        "B": "Aumentano le preferenze verso l'opzione più economica",
+        "C": "La scelta si polarizza verso gli estremi",
+        "D": "Le preferenze restano invariate perché la terza opzione è irrilevante"
+      },
+      "correct": "A"
+    },
+    {
+      "id": "eval_16",
+      "area": "consumer-behavior",
+      "goldChunkId": "chunk_153",
+      "goldSection": "6.8 L'effetto Fantasma: phantom decoy",
+      "text": "In vetrina compare un pezzo con il cartellino \"non in vendita\", eppure la sua presenza modifica la scelta del cliente tra i prodotti effettivamente acquistabili. Come si chiama un'alternativa di questo tipo?",
+      "options": {
+        "A": "Esca per compromesso",
+        "B": "Esca fantasma",
+        "C": "Esca per attrazione",
+        "D": "Esca di sfondo"
+      },
+      "correct": "B",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_17",
+      "area": "branding",
+      "goldChunkId": "chunk_161",
+      "goldSection": "1.1 Che cos'è un marchio: le definizioni",
+      "text": "Che cosa mette in evidenza il confronto tra il numero di risultati delle ricerche su 'brand: definition' e su termini come strategy o accounting?",
+      "options": {
+        "A": "Che il brand è il concetto più studiato nella letteratura accademica",
+        "B": "Che il termine brand non ha una definizione univoca ma molteplici accezioni",
+        "C": "Che il brand è un concetto recente rispetto agli altri",
+        "D": "Che le definizioni di brand sono in larga parte contraddittorie tra loro"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_18",
+      "area": "branding",
+      "goldChunkId": "chunk_167",
+      "goldSection": "1.6 Le funzioni del brand",
+      "text": "Riconoscere un marchio noto evita al cliente di confrontare analiticamente prezzo, dotazioni e caratteristiche tecniche delle alternative. Su quale concetto economico si fonda questo risparmio di sforzo decisionale?",
+      "options": {
+        "A": "L'asimmetria informativa",
+        "B": "La razionalita limitata",
+        "C": "L'utilita marginale decrescente",
+        "D": "Il costo opportunita"
+      },
+      "correct": "B",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_19",
+      "area": "branding",
+      "goldChunkId": "chunk_189",
+      "goldSection": "3.1 Identità, immagine, reputazione",
+      "text": "Come viene definita la brand image rispetto alla brand identity?",
+      "options": {
+        "A": "È il modo in cui l'azienda vuole essere percepita, quindi guidata dall'impresa",
+        "B": "È il modo in cui il pubblico percepisce il marchio, quindi guidata dal consumatore",
+        "C": "È la considerazione favorevole accordata nel tempo, quindi socialmente costruita",
+        "D": "È l'insieme degli elementi visivi che rendono riconoscibile il marchio"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_20",
+      "area": "branding",
+      "goldChunkId": "chunk_196",
+      "goldSection": "4.1 Brand equity: definizione",
+      "text": "Per quale ragione il valore complessivo associato a un marchio puo risultare negativo?",
+      "options": {
+        "A": "Perche comprende sia attivita sia passivita legate al nome e al simbolo",
+        "B": "Perche si ottiene sottraendo i costi di comunicazione ai ricavi",
+        "C": "Perche segue l'andamento del titolo in borsa",
+        "D": "Perche sconta gli ammortamenti sugli intangibili"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_21",
+      "area": "branding",
+      "goldChunkId": "chunk_203",
+      "goldSection": "4.7 Le componenti della brand equity (Aaker)",
+      "text": "Quali sono le quattro componenti che alimentano la brand equity nello schema di Aaker?",
+      "options": {
+        "A": "Notorietà, reputazione, identità e immagine",
+        "B": "Fedeltà, notorietà, qualità percepita e associazioni di marca",
+        "C": "Posizionamento, differenziazione, rilevanza e stima",
+        "D": "Quota di mercato, premium price, penetrazione e retention"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_22",
+      "area": "branding",
+      "goldChunkId": "chunk_209",
+      "goldSection": "5.3 Il Customer Lifetime Value",
+      "text": "Nel calcolare quanto vale un cliente lungo l'intera durata della relazione, perche si parte dai ricavi anziche dal margine?",
+      "options": {
+        "A": "Perche i margini non sono disponibili per singolo cliente",
+        "B": "Perche altrimenti i costi di relazione verrebbero conteggiati due volte",
+        "C": "Perche solo i ricavi sono attualizzabili",
+        "D": "Perche il margine oscilla troppo tra i periodi"
+      },
+      "correct": "B",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_23",
+      "area": "branding",
+      "goldChunkId": "chunk_211",
+      "goldSection": "6.1 La Corporate Brand Identity Matrix (Urde)",
+      "text": "Come è strutturata la matrice di identità di marca proposta da Urde?",
+      "options": {
+        "A": "In quattro quadranti incrociando notorietà e fedeltà",
+        "B": "In nove blocchi organizzati su tre livelli: esterno, ponte e interno",
+        "C": "In sei livelli gerarchici dal prodotto al valore",
+        "D": "In tre cerchi concentrici attorno all'essenza di marca"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_24",
+      "area": "branding",
+      "goldChunkId": "chunk_234",
+      "goldSection": "9.1 Il modello del cultural branding",
+      "text": "Secondo il modello di Holt, in quale momento un marchio conquista forza culturale?",
+      "options": {
+        "A": "Quando ribadisce con costanza i benefici funzionali del prodotto",
+        "B": "Quando intercetta la tensione aperta da una rottura sociale e presidia lo spazio ideologico che ne deriva",
+        "C": "Quando si adegua al linguaggio consolidato della categoria",
+        "D": "Quando affida l'immagine a un testimonial riconoscibile"
+      },
+      "correct": "B",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_25",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_261",
+      "goldSection": "1.4 La segmentazione",
+      "text": "Rispetto ai due approcci estremi al mercato, dove si colloca il marketing segmentato?",
+      "options": {
+        "A": "Coincide con il marketing di massa, applicato a più mercati geografici",
+        "B": "Si colloca tra il marketing indifferenziato e quello individualizzato",
+        "C": "Coincide con il marketing individualizzato applicato ai clienti maggiori",
+        "D": "Si colloca al di fuori del continuum, come approccio alternativo"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_26",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_272",
+      "goldSection": "1.6 Il posizionamento",
+      "text": "Definire la propria offerta perche occupi una collocazione distinta nella mente del cliente richiede un confronto costante tra quali tre elementi?",
+      "options": {
+        "A": "La nostra offerta, i clienti-target e i concorrenti",
+        "B": "Il prodotto, il prezzo e la distribuzione",
+        "C": "Quota di mercato, notorieta e fedelta",
+        "D": "Punti di forza, opportunita e minacce"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    },
+    {
+      "id": "eval_27",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_282",
+      "goldSection": "1.8 L'analisi SWOT",
+      "text": "Nell'analisi SWOT, come vengono definite le opportunità?",
+      "options": {
+        "A": "I fattori interni su cui l'impresa può fare leva",
+        "B": "I fattori che possono rafforzare la nostra posizione sul mercato",
+        "C": "I segmenti di mercato non ancora presidiati dai concorrenti",
+        "D": "Le risorse distintive non imitabili dell'impresa"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_28",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_285",
+      "goldSection": "1.9 La Value Proposition",
+      "text": "Con quale indicazione si apre la struttura articolata con cui si costruisce la value proposition?",
+      "options": {
+        "A": "Con il segmento-obiettivo a cui ci si rivolge",
+        "B": "Con la categoria di prodotto o servizio offerta",
+        "C": "Con l'elemento principale di differenziazione",
+        "D": "Con le alternative competitive di riferimento"
+      },
+      "correct": "A"
+    },
+    {
+      "id": "eval_29",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_291",
+      "goldSection": "2.3 Il piano di marketing",
+      "text": "Che cosa si afferma riguardo al formato del piano di marketing?",
+      "options": {
+        "A": "Deve seguire lo schema standard definito dalle associazioni di categoria",
+        "B": "Non esiste un formato unico: varia secondo il pubblico di destinazione e gli obiettivi",
+        "C": "Deve sempre contenere gli stessi otto capitoli, in quell'ordine",
+        "D": "È stabilito dai principi contabili quando serve ad attrarre investimenti"
+      },
+      "correct": "B"
+    },
+    {
+      "id": "eval_30",
+      "area": "marketing-strategico",
+      "goldChunkId": "chunk_300",
+      "goldSection": "2.5 KPI e cruscotto di controllo",
+      "text": "Quale indicatore digitale mette in rapporto il numero di volte in cui un annuncio viene mostrato e quello in cui viene cliccato?",
+      "options": {
+        "A": "Il click-through rate",
+        "B": "Il costo per click",
+        "C": "Il tasso di conversione",
+        "D": "La frequenza di rimbalzo"
+      },
+      "correct": "A",
+      "style": "descriptive"
+    }
+  ],
+  "note": "Half the stems are deliberately descriptive (the technical term sits among the options) so the set is not solvable by keyword overlap alone and can discriminate between retrieval strategies."
+}
