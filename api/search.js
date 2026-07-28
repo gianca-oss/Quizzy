@@ -22,7 +22,7 @@ async function getQueryEmbedding(text) {
                 'Authorization': `Bearer ${openaiKey}`
             },
             body: JSON.stringify({
-                model: 'text-embedding-3-small',
+                model: 'text-embedding-3-large',
                 input: text,
                 dimensions: 512
             })

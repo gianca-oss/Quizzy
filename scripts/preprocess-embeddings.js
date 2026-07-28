@@ -21,9 +21,9 @@ async function getEmbeddings(texts) {
             'Authorization': `Bearer ${OPENAI_API_KEY}`
         },
         body: JSON.stringify({
-            model: 'text-embedding-3-small',
+            model: 'text-embedding-3-large',
             input: texts,
-            dimensions: 512 // Ridotto per efficienza (default 1536)
+            dimensions: 512 // Truncated for speed/size; 3-large @ 512 beats 3-small @ 512
         })
     });
 
@@ -159,8 +159,8 @@ async function main(courseName) {
     console.log('\n💾 Salvataggio embeddings...');
 
     const output = {
-        version: '1.0-semantic',
-        model: 'text-embedding-3-small',
+        version: '1.1-semantic',
+        model: 'text-embedding-3-large',
         dimensions: 512,
         generatedAt: new Date().toISOString(),
         stats: {
