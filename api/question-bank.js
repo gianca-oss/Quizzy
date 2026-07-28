@@ -1,21 +1,30 @@
 const fs = require('fs');
 const path = require('path');
 
-let bankCache = null;
+// Cache keyed by course: a single shared slot would pin whichever course
+// happened to load first and serve it to every other course.
+const bankCache = new Map();
 
 function loadQuestionBank(courseName) {
-    if (bankCache) return bankCache;
+    if (!courseName) return null;
+    if (bankCache.has(courseName)) return bankCache.get(courseName);
 
     const bankPath = path.join(__dirname, '..', 'data', 'processed', courseName, 'question-bank.json');
-    if (!fs.existsSync(bankPath)) return null;
+    if (!fs.existsSync(bankPath)) {
+        console.log(`[QuestionBank] Nessun bank per "${courseName}" — si procede con la sola pipeline RAG`);
+        bankCache.set(courseName, null);
+        return null;
+    }
 
     try {
         const raw = fs.readFileSync(bankPath, 'utf-8');
-        bankCache = JSON.parse(raw);
-        console.log(`[QuestionBank] Loaded ${bankCache.count} questions for ${courseName}`);
-        return bankCache;
+        const bank = JSON.parse(raw);
+        bankCache.set(courseName, bank);
+        console.log(`[QuestionBank] Loaded ${bank.count} questions for ${courseName}`);
+        return bank;
     } catch (err) {
         console.error('[QuestionBank] Error loading:', err.message);
+        bankCache.set(courseName, null);
         return null;
     }
 }
@@ -101,7 +110,7 @@ function mechanicalRemap(bankMatch, photoOptions) {
  * Returns { direct: [...], needsHaiku: [...], unmatched: [...] }
  */
 function lookupQuestions(questions, courseName) {
-    const bank = loadQuestionBank(courseName || 'organizzazione-e-lavoro');
+    const bank = loadQuestionBank(courseName);
     if (!bank) return { direct: [], needsHaiku: [], unmatched: questions.map((_, i) => i) };
 
     const direct = [];

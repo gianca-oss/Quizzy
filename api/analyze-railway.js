@@ -82,8 +82,13 @@ module.exports = async function handler(req, res) {
             });
         }
 
-        // Step 2.5: Three-tier question bank lookup
-        const { direct, needsHaiku, unmatched } = lookupQuestions(questions, 'organizzazione-e-lavoro');
+        // Step 2.5: Three-tier question bank lookup.
+        // Must follow the course actually in use: with the course hardcoded,
+        // a Marketing quiz was matched against the Organizzazione e Lavoro
+        // bank (915 useless comparisons per request) and a future Marketing
+        // bank would never have been consulted at all.
+        const courseName = data.courseName || process.env.COURSE_NAME;
+        const { direct, needsHaiku, unmatched } = lookupQuestions(questions, courseName);
 
         let totalCost = extraction.cost || 0;
         const resolvedAnswers = {};  // num → { letter, source, analysis }
