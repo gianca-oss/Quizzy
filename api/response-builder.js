@@ -60,22 +60,123 @@ REGOLE CRITICHE:
 // decimals (3.5) and years (1990) are left intact.
 const stripLeadingNum = (text) => (text || '').replace(/^\s*\d{1,3}[.)]\s+/, '');
 
-// Build per-question RAG context preserving the ORIGINAL question numbers.
-// items: [{ num, result }] where result is a hybridSearch result.
-function buildRagContext(items) {
-    let ctx = '';
+// Per-chunk cap by relevance rank. The top hit is where the answer almost
+// always is, so it gets the full text (p90 of the corpus ≈ 4.9k chars);
+// rank 2-3 are weak corroboration and stay short. This concentrates the
+// token budget on the evidence that actually decides the answer instead of
+// truncating everything at 1500 like before.
+const CHUNK_CAP_BY_RANK = [6000, 4000, 1500, 1500];
+const DEFAULT_CHUNK_CAP = 1500;
+// Global ceiling, sized on the previous worst case (20 questions x 4 chunks
+// x 1500 chars) so a full quiz is never more expensive than it used to be.
+const CONTEXT_BUDGET_CHARS = 120000;
+
+// Section labels come from the PDF's table of contents and often carry the
+// page number glued to the end ("...fornitore88"). Strip it for readability.
+const cleanSection = (section) => (section || '').replace(/(\D)\d{1,3}$/, '$1').trim();
+
+/**
+ * Build the RAG context for a set of questions.
+ *
+ * Each retrieved chunk is emitted ONCE in a numbered library ([M1], [M2]...)
+ * and questions reference it by id. On a themed quiz many questions retrieve
+ * the same chunks, so this removes a large amount of duplicated text — and
+ * the tokens saved are spent on giving the model the FULL chunk instead of
+ * the first 1500 characters (which used to discard ~54% of the material).
+ *
+ * items: [{ num, result }] where result is a hybridSearch result.
+ * Returns { context, stats }.
+ */
+function buildRagContextWithStats(items) {
+    // 1. Deduplicate, remembering the best rank/similarity each chunk reached.
+    const entries = new Map();
     items.forEach(({ num, result }) => {
-        if (result?.matches?.length > 0) {
-            ctx += `\nDOMANDA ${num} - CONTESTO (${result.searchMethod}):\n`;
-            result.matches.slice(0, 4).forEach(match => {
-                const section = match.chunk.section || `chunk ${match.chunk.id}`;
-                ctx += `[Sez. ${section}] ${match.chunk.text.substring(0, 1500)}\n`;
-            });
+        (result?.matches || []).forEach((match, rank) => {
+            const chunk = match.chunk || {};
+            const key = chunk.id || `${chunk.section || ''}::${(chunk.text || '').slice(0, 60)}`;
+            const existing = entries.get(key);
+            if (existing) {
+                existing.bestRank = Math.min(existing.bestRank, rank);
+                existing.bestSim = Math.max(existing.bestSim, match.similarity || 0);
+                existing.questions.add(num);
+            } else {
+                entries.set(key, {
+                    chunk,
+                    bestRank: rank,
+                    bestSim: match.similarity || 0,
+                    questions: new Set([num])
+                });
+            }
+        });
+    });
+
+    // 2. Most important first: chunks that were someone's top hit, then by
+    //    similarity. Budget exhaustion therefore drops the weakest evidence.
+    const ranked = [...entries.values()].sort((a, b) =>
+        a.bestRank - b.bestRank || b.bestSim - a.bestSim
+    );
+
+    // 3. Fill the budget, assigning a stable [M#] id to what fits.
+    const idByKey = new Map();
+    let library = '';
+    let usedChars = 0;
+    let dropped = 0;
+
+    ranked.forEach((entry) => {
+        const cap = CHUNK_CAP_BY_RANK[entry.bestRank] ?? DEFAULT_CHUNK_CAP;
+        const text = (entry.chunk.text || '').slice(0, cap);
+        if (usedChars + text.length > CONTEXT_BUDGET_CHARS) {
+            dropped++;
+            return;
+        }
+        const id = `M${idByKey.size + 1}`;
+        const key = entry.chunk.id || `${entry.chunk.section || ''}::${(entry.chunk.text || '').slice(0, 60)}`;
+        idByKey.set(key, id);
+        const section = cleanSection(entry.chunk.section) || `chunk ${entry.chunk.id}`;
+        library += `\n[${id} | Sez. ${section}]\n${text}\n`;
+        usedChars += text.length;
+    });
+
+    // 4. Per-question reference list (original numbering preserved).
+    let refs = '';
+    items.forEach(({ num, result }) => {
+        const ids = (result?.matches || [])
+            .map(match => {
+                const chunk = match.chunk || {};
+                const key = chunk.id || `${chunk.section || ''}::${(chunk.text || '').slice(0, 60)}`;
+                return idByKey.get(key);
+            })
+            .filter(Boolean);
+
+        if (ids.length > 0) {
+            refs += `DOMANDA ${num} - CONTESTO (${result.searchMethod}): ${ids.join(', ')}\n`;
         } else {
-            ctx += `\nDOMANDA ${num} - NO CONTESTO\n`;
+            refs += `DOMANDA ${num} - NO CONTESTO\n`;
         }
     });
-    return ctx;
+
+    const context = library
+        ? `=== MATERIALE DAL CORSO ===${library}\n=== ESTRATTI RILEVANTI PER OGNI DOMANDA ===\n${refs}`
+        : `\n${refs}`;
+
+    // What the old one-chunk-per-question-inline format would have cost.
+    const naiveChars = items.reduce((sum, { result }) =>
+        sum + (result?.matches || []).reduce((s, m) => s + Math.min((m.chunk?.text || '').length, 1500), 0), 0);
+
+    return {
+        context,
+        stats: {
+            uniqueChunks: idByKey.size,
+            totalRefs: items.reduce((s, { result }) => s + (result?.matches?.length || 0), 0),
+            contextChars: context.length,
+            naiveChars,
+            droppedChunks: dropped
+        }
+    };
+}
+
+function buildRagContext(items) {
+    return buildRagContextWithStats(items).context;
 }
 
 // Single source of truth for the analysis prompt. Accepts questions with
@@ -101,11 +202,15 @@ function buildAnalysisPrompt(contextText, numberedQuestions, opts = {}) {
 
 ISTRUZIONI CRITICHE:
 - Per ogni risposta cerca il testo esatto dal contesto tra virgolette "..."
-- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è indicata all'inizio di ogni chunk di contesto. Non usare mai "Pag." o "non specificata".
+- Indica SEMPRE la sezione di provenienza nel formato [Sez. X.Y] (es. [Sez. 1.9]) — la sezione è nell'intestazione di ogni estratto. Non usare mai "Pag." o "non specificata".
 ${notFoundRule}
 - Marca SEMPRE una e una sola risposta come esatta.
 
-CONTESTO DAL CORSO:
+COME LEGGERE IL CONTESTO:
+Gli estratti del corso sono elencati UNA SOLA VOLTA, ciascuno con un id [M1], [M2], ...
+e la sua sezione. Sotto trovi, per ogni domanda, quali estratti sono rilevanti.
+Usa SOLO gli estratti indicati per quella domanda; se ne cerchi altri, ignorali.
+
 ${contextText}
 
 DOMANDE (${numberedQuestions.length} domande):
@@ -278,6 +383,7 @@ module.exports = {
     buildExtractionPrompt,
     buildAnalysisPrompt,
     buildRagContext,
+    buildRagContextWithStats,
     stripLeadingNum,
     parseAnswers,
     buildFinalHtml

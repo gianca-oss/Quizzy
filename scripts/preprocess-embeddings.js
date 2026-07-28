@@ -82,6 +82,7 @@ async function processInBatches(chunks) {
             batch.forEach((chunk, idx) => {
                 results.push({
                     id: chunk.id,
+                    section: chunk.section,
                     page: chunk.page,
                     pages: chunk.pages,
                     text: chunk.text,

@@ -10,7 +10,7 @@ const {
 const {
     buildExtractionPrompt,
     buildAnalysisPrompt,
-    buildRagContext,
+    buildRagContextWithStats,
     stripLeadingNum,
     parseAnswers
 } = require('./response-builder');
@@ -99,7 +99,12 @@ module.exports = async function handler(req, res) {
 
             const searchResults = await hybridSearch(qs, data.textChunks, embeddingsData);
             const ragItems = qs.map((q, i) => ({ num: nums[i], result: searchResults[i] }));
-            const ragContext = buildRagContext(ragItems);
+            const { context: ragContext, stats } = buildRagContextWithStats(ragItems);
+            console.log(
+                `[RAG] ${qs.length} domande · ${stats.uniqueChunks} estratti unici su ${stats.totalRefs} riferimenti · ` +
+                `${Math.round(stats.contextChars / 1000)}k char di contesto (formato precedente: ~${Math.round(stats.naiveChars / 1000)}k)` +
+                (stats.droppedChunks ? ` · ${stats.droppedChunks} estratti oltre budget` : '')
+            );
 
             const numberedQuestions = qs.map((q, i) => ({
                 num: nums[i], text: q.text, options: q.options

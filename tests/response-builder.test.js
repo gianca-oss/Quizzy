@@ -3,6 +3,7 @@ const assert = require('node:assert');
 const {
     stripLeadingNum,
     buildRagContext,
+    buildRagContextWithStats,
     buildAnalysisPrompt,
     parseAnswers
 } = require('../api/response-builder');
@@ -31,6 +32,58 @@ test('buildRagContext preserves original (non-sequential) question numbers', () 
     assert.ok(ctx.includes('DOMANDA 3 - CONTESTO'));
     assert.ok(ctx.includes('DOMANDA 5 - NO CONTESTO'));
     assert.ok(!ctx.includes('DOMANDA 1'));
+});
+
+// --- buildRagContext() : dedup + full-length chunks -------------------------
+// A chunk shared by several questions must appear ONCE in the library and be
+// referenced by id, and it must no longer be cut at 1500 chars.
+
+test('buildRagContext emits a shared chunk once and references it by id', () => {
+    const shared = { id: 'chunk_1', section: '1.9 Transizioni', text: 'testo condiviso' };
+    const other = { id: 'chunk_2', section: '2.1 Altro', text: 'altro testo' };
+    const { context, stats } = buildRagContextWithStats([
+        { num: 1, result: { searchMethod: 'semantic', matches: [{ chunk: shared }, { chunk: other }] } },
+        { num: 2, result: { searchMethod: 'semantic', matches: [{ chunk: shared }] } }
+    ]);
+
+    assert.strictEqual(stats.uniqueChunks, 2, 'the shared chunk must not be duplicated');
+    assert.strictEqual(stats.totalRefs, 3);
+    assert.strictEqual(context.split('testo condiviso').length - 1, 1, 'text appears exactly once');
+    assert.ok(context.includes('DOMANDA 1 - CONTESTO (semantic): M1, M2'));
+    assert.ok(context.includes('DOMANDA 2 - CONTESTO (semantic): M1'));
+});
+
+test('buildRagContext keeps the top chunk full-length (no 1500-char cut)', () => {
+    const long = 'x'.repeat(4000);
+    const ctx = buildRagContext([
+        { num: 1, result: { searchMethod: 'semantic', matches: [{ chunk: { id: 'c1', section: '1.1', text: long } }] } }
+    ]);
+    assert.ok(ctx.includes('x'.repeat(4000)), 'top-ranked chunk must not be truncated at 1500');
+});
+
+test('buildRagContext caps low-relevance chunks to keep the budget', () => {
+    const long = 'y'.repeat(4000);
+    const ctx = buildRagContext([
+        {
+            num: 1,
+            result: {
+                searchMethod: 'semantic',
+                matches: [
+                    { chunk: { id: 'top', section: '1.1', text: 'top' } },
+                    { chunk: { id: 'c2', section: '1.2', text: 'second' } },
+                    { chunk: { id: 'c3', section: '1.3', text: long } }
+                ]
+            }
+        }
+    ]);
+    assert.ok(!ctx.includes('y'.repeat(1501)), 'rank-2 chunk should stay capped');
+});
+
+test('buildRagContext labels chunks with their section for citation', () => {
+    const ctx = buildRagContext([
+        { num: 1, result: { searchMethod: 'semantic', matches: [{ chunk: { id: 'c1', section: '3.6 L\'evoluzione', text: 't' } }] } }
+    ]);
+    assert.ok(ctx.includes('Sez. 3.6 L\'evoluzione'), 'section must reach the prompt so [Sez. X.Y] is answerable');
 });
 
 // --- buildAnalysisPrompt() : single source of truth -------------------------
