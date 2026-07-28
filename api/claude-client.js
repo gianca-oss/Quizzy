@@ -1,22 +1,92 @@
 const MAX_RETRIES = 3;
 
-const MODELS = {
-    haiku: 'claude-haiku-3-5-20241022',
-    sonnet: 'claude-sonnet-4-20250514',
-    opus: 'claude-opus-4-20250514'
+// Anthropic retires models. When Sonnet 4 was withdrawn every analysis started
+// failing instantly with "model: claude-sonnet-4-20250514" and the UI blamed a
+// Railway cold start. So each tier is a CHAIN, newest first: on a not-found we
+// move to the next candidate and remember the winner for the process lifetime.
+const MODEL_CHAINS = {
+    haiku: ['claude-haiku-4-5-20251001', 'claude-haiku-3-5-20241022'],
+    sonnet: ['claude-sonnet-5', 'claude-sonnet-4-20250514'],
+    opus: ['claude-opus-5', 'claude-opus-4-20250514']
 };
 
-// USD per million tokens (Anthropic public pricing)
+// Resolved per tier once we know what this API key can actually reach.
+const resolvedModel = {};
+
+// USD per million tokens (Anthropic public pricing). Unknown ids fall back to
+// the Sonnet tier so an estimate is still produced rather than a zero.
 const PRICING = {
+    'claude-haiku-4-5-20251001': { input: 1, output: 5 },
     'claude-haiku-3-5-20241022': { input: 0.80, output: 4 },
+    'claude-sonnet-5': { input: 3, output: 15 },
     'claude-sonnet-4-20250514': { input: 3, output: 15 },
+    'claude-opus-5': { input: 15, output: 75 },
     'claude-opus-4-20250514': { input: 15, output: 75 }
 };
 
 function computeCost(model, usage) {
     if (!usage) return 0;
-    const p = PRICING[model] || PRICING['claude-sonnet-4-20250514'];
+    const p = PRICING[model] || { input: 3, output: 15 };
     return (usage.input_tokens * p.input + usage.output_tokens * p.output) / 1_000_000;
+}
+
+// "model: claude-sonnet-4-20250514" / not_found_error → this id is gone.
+function isModelNotFound(status, body) {
+    if (status !== 404 && status !== 400) return false;
+    const lower = (body || '').toLowerCase();
+    return lower.includes('not_found_error') || /"?model"?\s*:\s*"?claude/.test(lower);
+}
+
+/**
+ * Send a request trying each candidate model for the tier until one is
+ * accepted, so a retired model degrades to the next best instead of taking
+ * the whole app down.
+ */
+async function callWithModelFallback(apiKey, modelKey, buildBody) {
+    const chain = MODEL_CHAINS[modelKey] || MODEL_CHAINS.sonnet;
+    const candidates = resolvedModel[modelKey] ? [resolvedModel[modelKey]] : chain;
+    let lastResponse = null;
+    let lastBody = '';
+
+    for (const model of candidates) {
+        const response = await callWithRetry('https://api.anthropic.com/v1/messages', {
+            method: 'POST',
+            headers: buildHeaders(apiKey),
+            body: JSON.stringify(buildBody(model))
+        });
+
+        if (response.ok) {
+            if (resolvedModel[modelKey] !== model) {
+                console.log(`[Models] tier "${modelKey}" → ${model}`);
+                resolvedModel[modelKey] = model;
+            }
+            return { response, model };
+        }
+
+        lastResponse = response;
+        lastBody = await response.clone().text();
+
+        if (isModelNotFound(response.status, lastBody)) {
+            console.warn(`[Models] ${model} non disponibile, provo il successivo`);
+            continue;
+        }
+        return { response, model };
+    }
+
+    // Every candidate is gone: surface it as a configuration problem, not as
+    // a transient failure the user should "retry in a few seconds".
+    const err = new Error(
+        `Nessun modello disponibile per "${modelKey}". Provati: ${chain.join(', ')}. ` +
+        `La API key non ha accesso a questi modelli o sono stati ritirati.`
+    );
+    err.kind = 'model_unavailable';
+    err.status = lastResponse?.status || 404;
+    err.detail = lastBody.substring(0, 200);
+    throw err;
+}
+
+function getResolvedModels() {
+    return { chains: MODEL_CHAINS, resolved: { ...resolvedModel } };
 }
 
 // Errors that won't be fixed by retrying — bail immediately to save cost & time.
@@ -76,20 +146,15 @@ function buildHeaders(apiKey) {
 }
 
 async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet') {
-    const model = MODELS[modelKey] || MODELS.sonnet;
-    const response = await callWithRetry('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: buildHeaders(apiKey),
-        body: JSON.stringify({
-            model,
-            max_tokens: 4000,
-            temperature: 0,
-            messages: [{
-                role: 'user',
-                content: [imageContent, { type: 'text', text: prompt }]
-            }]
-        })
-    });
+    const { response, model } = await callWithModelFallback(apiKey, modelKey, (m) => ({
+        model: m,
+        max_tokens: 4000,
+        temperature: 0,
+        messages: [{
+            role: 'user',
+            content: [imageContent, { type: 'text', text: prompt }]
+        }]
+    }));
 
     if (!response.ok) {
         const errorText = await response.text();
@@ -121,20 +186,15 @@ async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet
 }
 
 async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
-    const model = MODELS[modelKey] || MODELS.sonnet;
-    const response = await callWithRetry('https://api.anthropic.com/v1/messages', {
-        method: 'POST',
-        headers: buildHeaders(apiKey),
-        body: JSON.stringify({
-            model,
-            max_tokens: 4000,
-            temperature: 0,
-            messages: [{
-                role: 'user',
-                content: [{ type: 'text', text: prompt }]
-            }]
-        })
-    });
+    const { response, model } = await callWithModelFallback(apiKey, modelKey, (m) => ({
+        model: m,
+        max_tokens: 4000,
+        temperature: 0,
+        messages: [{
+            role: 'user',
+            content: [{ type: 'text', text: prompt }]
+        }]
+    }));
 
     if (!response.ok) {
         const body = await response.text();
@@ -158,4 +218,4 @@ async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
     return { text: data.content[0].text, model, cost: computeCost(model, data.usage) };
 }
 
-module.exports = { extractQuestions, analyzeWithContext };
+module.exports = { extractQuestions, analyzeWithContext, getResolvedModels, MODEL_CHAINS };

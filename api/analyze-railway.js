@@ -1,6 +1,6 @@
 const { loadEnhancedData, loadEmbeddings, getCourseName } = require('./data-loader');
 const { hybridSearch } = require('./search');
-const { extractQuestions, analyzeWithContext } = require('./claude-client');
+const { extractQuestions, analyzeWithContext, getResolvedModels } = require('./claude-client');
 const { parseQuestionsWithStats } = require('./question-parser');
 const {
     lookupQuestions,
@@ -36,7 +36,10 @@ module.exports = async function handler(req, res) {
             course: data?.courseName || getCourseName() || null,
             courseConfigured: !!getCourseName(),
             dataLoaded: !!data,
-            chunksAvailable: data?.textChunks?.length || 0
+            chunksAvailable: data?.textChunks?.length || 0,
+            // Which model each tier resolved to: a retired model id used to
+            // surface as a generic "analysis failed".
+            models: getResolvedModels()
         });
     }
 
@@ -331,7 +334,8 @@ module.exports = async function handler(req, res) {
         const statusMap = {
             no_credits: 402,
             auth: 401,
-            rate_limit: 429
+            rate_limit: 429,
+            model_unavailable: 503
         };
         const status = statusMap[error.kind] || 500;
         res.status(status).json({

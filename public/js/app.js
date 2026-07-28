@@ -901,6 +901,7 @@ async function analyze() {
             if (err.kind === 'no_credits') label = 'Credito Anthropic esaurito';
             else if (err.kind === 'auth') label = 'API Key non valida';
             else if (err.kind === 'rate_limit') label = 'Rate limit superato';
+            else if (err.kind === 'model_unavailable') label = 'Modello non disponibile';
             else if (err.name === 'AbortError') label = 'Timeout server';
             else label = (err.message || 'Errore sconosciuto').substring(0, 60);
             setImageState(i, label, 100, 'error');
@@ -954,6 +955,10 @@ async function analyze() {
             title = 'API Key non valida';
             body = "L'API key Anthropic configurata su Railway non è valida o è stata revocata.";
             note = 'Aggiorna la variabile <code>ANTHROPIC_API_KEY_EVO</code> nelle Variables di Railway.';
+        } else if (permanentErrorKind === 'model_unavailable') {
+            title = 'Modello non disponibile';
+            body = "I modelli Claude configurati non sono raggiungibili con questa API key.";
+            note = 'Di solito significa che il modello è stato ritirato da Anthropic. Il server prova automaticamente le alternative: se l\'errore persiste vanno aggiornati gli id dei modelli.';
         } else if (permanentErrorKind === 'rate_limit') {
             title = 'Limite di velocità superato';
             body = "Troppe richieste in poco tempo verso Anthropic.";
