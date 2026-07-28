@@ -24,20 +24,33 @@ function isTemperatureRejected(status, body) {
     return lower.includes('temperature') && (lower.includes('deprecat') || lower.includes('not supported') || lower.includes('unsupported'));
 }
 
-// USD per million tokens (Anthropic public pricing). Unknown ids fall back to
-// the Sonnet tier so an estimate is still produced rather than a zero.
+// USD per million tokens, from Anthropic's published rates (July 2026).
+// Unknown ids fall back to the Sonnet tier so the spend counter still gives
+// an estimate rather than silently reporting zero.
 const PRICING = {
     'claude-haiku-4-5-20251001': { input: 1, output: 5 },
     'claude-haiku-3-5-20241022': { input: 0.80, output: 4 },
-    'claude-sonnet-5': { input: 3, output: 15 },
+    'claude-sonnet-5': { input: 2, output: 10 },      // promo rate, see below
     'claude-sonnet-4-20250514': { input: 3, output: 15 },
-    'claude-opus-5': { input: 15, output: 75 },
+    'claude-opus-5': { input: 5, output: 25 },
     'claude-opus-4-20250514': { input: 15, output: 75 }
 };
 
+// Sonnet 5 launched at $2/$10; standard $3/$15 pricing starts 1 Sep 2026.
+// Encoding the switch here means the counter stays honest on its own instead
+// of quietly drifting once the promotion ends.
+const SONNET5_STANDARD_PRICING_FROM = Date.UTC(2026, 8, 1);
+
+function priceFor(model, when = Date.now()) {
+    if (model === 'claude-sonnet-5' && when >= SONNET5_STANDARD_PRICING_FROM) {
+        return { input: 3, output: 15 };
+    }
+    return PRICING[model] || { input: 3, output: 15 };
+}
+
 function computeCost(model, usage) {
     if (!usage) return 0;
-    const p = PRICING[model] || { input: 3, output: 15 };
+    const p = priceFor(model);
     return (usage.input_tokens * p.input + usage.output_tokens * p.output) / 1_000_000;
 }
 
