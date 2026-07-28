@@ -13,6 +13,17 @@ const MODEL_CHAINS = {
 // Resolved per tier once we know what this API key can actually reach.
 const resolvedModel = {};
 
+// Newer models reject `temperature` ("`temperature` is deprecated for this
+// model"). Rather than hard-code which ones, we learn it: the first rejection
+// makes us resend without the parameter and remember it for that model.
+const rejectsTemperature = new Set();
+
+function isTemperatureRejected(status, body) {
+    if (status !== 400) return false;
+    const lower = (body || '').toLowerCase();
+    return lower.includes('temperature') && (lower.includes('deprecat') || lower.includes('not supported') || lower.includes('unsupported'));
+}
+
 // USD per million tokens (Anthropic public pricing). Unknown ids fall back to
 // the Sonnet tier so an estimate is still produced rather than a zero.
 const PRICING = {
@@ -48,12 +59,29 @@ async function callWithModelFallback(apiKey, modelKey, buildBody) {
     let lastResponse = null;
     let lastBody = '';
 
-    for (const model of candidates) {
-        const response = await callWithRetry('https://api.anthropic.com/v1/messages', {
+    const send = (model) => {
+        const body = buildBody(model);
+        // Drop parameters this model is known to reject.
+        if (rejectsTemperature.has(model)) delete body.temperature;
+        return callWithRetry('https://api.anthropic.com/v1/messages', {
             method: 'POST',
             headers: buildHeaders(apiKey),
-            body: JSON.stringify(buildBody(model))
+            body: JSON.stringify(body)
         });
+    };
+
+    for (const model of candidates) {
+        let response = await send(model);
+
+        // Learn once that this model refuses `temperature`, then resend.
+        if (!response.ok) {
+            const body = await response.clone().text();
+            if (isTemperatureRejected(response.status, body) && !rejectsTemperature.has(model)) {
+                console.warn(`[Models] ${model} rifiuta "temperature": reinvio senza`);
+                rejectsTemperature.add(model);
+                response = await send(model);
+            }
+        }
 
         if (response.ok) {
             if (resolvedModel[modelKey] !== model) {
