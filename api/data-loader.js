@@ -30,8 +30,15 @@ function dropTableOfContents(chunks, label) {
     return kept;
 }
 
-function getGithubBase() {
-    const courseName = process.env.COURSE_NAME || 'strategia-internazionalizzazione';
+// The active course comes from the environment and has NO default on purpose:
+// a silent fallback meant that a missing or misspelled COURSE_NAME made the
+// app answer a quiz with a different course's material, confidently and
+// without any error. Failing loudly is the safer behaviour.
+function getCourseName() {
+    return process.env.COURSE_NAME || null;
+}
+
+function getGithubBase(courseName) {
     return `https://raw.githubusercontent.com/gianca-oss/Quizzy/main/data/processed/${courseName}/`;
 }
 
@@ -56,8 +63,12 @@ async function loadTextChunks(baseUrl, totalFiles) {
 async function loadEnhancedData() {
     if (enhancedDataCache) return enhancedDataCache;
 
-    const baseUrl = getGithubBase();
-    const courseName = process.env.COURSE_NAME || 'strategia-internazionalizzazione';
+    const courseName = getCourseName();
+    if (!courseName) {
+        console.error('[Corpus] COURSE_NAME non configurata: nessun corso da caricare');
+        return null;
+    }
+    const baseUrl = getGithubBase(courseName);
 
     try {
         const metadataResponse = await fetch(baseUrl + 'metadata.json');
@@ -95,8 +106,11 @@ async function loadFallbackChunks(baseUrl, courseName) {
 async function loadEmbeddings() {
     if (embeddingsCache) return embeddingsCache;
 
+    const courseName = getCourseName();
+    if (!courseName) return null;
+
     try {
-        const response = await fetch(getGithubBase() + 'embeddings.json');
+        const response = await fetch(getGithubBase(courseName) + 'embeddings.json');
         if (!response.ok) return null;
 
         const data = await response.json();
@@ -110,4 +124,4 @@ async function loadEmbeddings() {
     }
 }
 
-module.exports = { loadEnhancedData, loadEmbeddings, isTableOfContents };
+module.exports = { loadEnhancedData, loadEmbeddings, isTableOfContents, getCourseName };

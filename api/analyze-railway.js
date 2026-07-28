@@ -1,4 +1,4 @@
-const { loadEnhancedData, loadEmbeddings } = require('./data-loader');
+const { loadEnhancedData, loadEmbeddings, getCourseName } = require('./data-loader');
 const { hybridSearch } = require('./search');
 const { extractQuestions, analyzeWithContext } = require('./claude-client');
 const { parseQuestions } = require('./question-parser');
@@ -31,6 +31,10 @@ module.exports = async function handler(req, res) {
             status: 'active',
             message: 'Quiz Assistant API - Railway Edition',
             apiKeyConfigured: !!apiKey,
+            // Which course is actually serving answers — without this the
+            // status looks healthy even when the wrong corpus is loaded.
+            course: data?.courseName || getCourseName() || null,
+            courseConfigured: !!getCourseName(),
             dataLoaded: !!data,
             chunksAvailable: data?.textChunks?.length || 0
         });
@@ -61,6 +65,12 @@ module.exports = async function handler(req, res) {
 
         if (!imageContent?.source?.data) {
             return res.status(400).json({ error: 'Immagine non trovata o formato non valido' });
+        }
+
+        if (!getCourseName()) {
+            return res.status(500).json({
+                error: 'COURSE_NAME non configurata su Railway: impossibile sapere quale corso usare'
+            });
         }
 
         const data = await loadEnhancedData();
