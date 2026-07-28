@@ -1,0 +1,682 @@
+{
+  "version": "4.0-section-based",
+  "processedAt": "2026-07-28T18:35:42.673Z",
+  "courseName": "marketing",
+  "document": "data/source/marketing/marketing.pdf",
+  "stats": {
+    "totalPages": 235,
+    "totalSections": 166,
+    "totalChunks": 308,
+    "totalCharacters": 915601,
+    "avgChunkSize": 2973,
+    "totalKeywords": 1765,
+    "chunksPerFile": 50,
+    "totalFiles": 7
+  },
+  "sections": [
+    {
+      "title": "1. I concetti di sostenibilità e di circolarità2",
+      "level": "chapter"
+    },
+    {
+      "title": "2. Istituzioni e imprese nella sfida per la sostenibilità19",
+      "level": "chapter"
+    },
+    {
+      "title": "3. Il marketing della sostenibilità23",
+      "level": "chapter"
+    },
+    {
+      "title": "4. Il ruolo del consumatore nella transizione green e circolare30",
+      "level": "chapter"
+    },
+    {
+      "title": "5. L’importanza delle informazioni e le etichette37",
+      "level": "chapter"
+    },
+    {
+      "title": "6. Il quadro normativo su green claims e greenwashing44",
+      "level": "chapter"
+    },
+    {
+      "title": "1. Introduzione al Consumer Behavior51",
+      "level": "chapter"
+    },
+    {
+      "title": "2. Il valore per il cliente62",
+      "level": "chapter"
+    },
+    {
+      "title": "3. Servizi, disservizi e reclami nel B2B73",
+      "level": "chapter"
+    },
+    {
+      "title": "4. Giustizia percepita82",
+      "level": "chapter"
+    },
+    {
+      "title": "5. Switching behaviour: perché i clienti cambiano fornitore88",
+      "level": "chapter"
+    },
+    {
+      "title": "6. Errori sistematici nelle decisioni tecniche e commerciali: effetti di contesto e phantom decoy92",
+      "level": "chapter"
+    },
+    {
+      "title": "1. Brand: definizioni, cenni preliminari, background106",
+      "level": "chapter"
+    },
+    {
+      "title": "2. Branding oggi117",
+      "level": "chapter"
+    },
+    {
+      "title": "2.4 Woke communication: evidenze di engagement    .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .",
+      "level": "section"
+    },
+    {
+      "title": "3. Brand identity, image e reputation127",
+      "level": "chapter"
+    },
+    {
+      "title": "4. Brand equity132",
+      "level": "chapter"
+    },
+    {
+      "title": "5. Brand loyalty138",
+      "level": "chapter"
+    },
+    {
+      "title": "6. Brand development process142",
+      "level": "chapter"
+    },
+    {
+      "title": "7. Brand positioning151",
+      "level": "chapter"
+    },
+    {
+      "title": "9.3 Woke   .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .",
+      "level": "section"
+    },
+    {
+      "title": "1. Il marketing strategico166",
+      "level": "chapter"
+    },
+    {
+      "title": "2. Il piano di marketing209",
+      "level": "chapter"
+    },
+    {
+      "title": "1.1 Le origini del concetto di sostenibilità: dal Rapporto Brundtland a",
+      "level": "section"
+    },
+    {
+      "title": "1.2 I tre pilastri: capitale economico, sociale e naturale",
+      "level": "section"
+    },
+    {
+      "title": "1.3 Il Green Deal europeo: transizioni e trade-off",
+      "level": "section"
+    },
+    {
+      "title": "1.4 La green economy: la prima risposta",
+      "level": "section"
+    },
+    {
+      "title": "1.5 Eco-investimenti e green jobs in Italia",
+      "level": "section"
+    },
+    {
+      "title": "1.6 Dalla volontarietà alla graduale obbligatorietà",
+      "level": "section"
+    },
+    {
+      "title": "1.7 La doppia transizione e l’Industria 5.0",
+      "level": "section"
+    },
+    {
+      "title": "1.8 Il decoupling e l’economia circolare",
+      "level": "section"
+    },
+    {
+      "title": "1.9 La circolarità paga: l’indagine CONAI - Sant’Anna",
+      "level": "section"
+    },
+    {
+      "title": "2.1 Il Global Compact delle Nazioni Unite",
+      "level": "section"
+    },
+    {
+      "title": "2.2 L’Agenda 2030, gli SDG e i progressi delle aziende",
+      "level": "section"
+    },
+    {
+      "title": "2.3 Le imprese purpose driven",
+      "level": "section"
+    },
+    {
+      "title": "2.4 Due esempi italiani: Illy ed Enel",
+      "level": "section"
+    },
+    {
+      "title": "3.1 Definizione e marketing come processo",
+      "level": "section"
+    },
+    {
+      "title": "3.2 La tripartizione classica e il marketing mix",
+      "level": "section"
+    },
+    {
+      "title": "3.3 La fase di analisi e le strategie competitive",
+      "level": "section"
+    },
+    {
+      "title": "3.4 Gli orientamenti classici dell’impresa",
+      "level": "section"
+    },
+    {
+      "title": "3.5 Verso l’orientamento alla sostenibilità",
+      "level": "section"
+    },
+    {
+      "title": "3.6 L’evoluzione del consumatore",
+      "level": "section"
+    },
+    {
+      "title": "3.7 Il caso Carlsberg: marketing della sostenibilità in pratica",
+      "level": "section"
+    },
+    {
+      "title": "4.1 L’osservatorio sul consumatore e i green claims",
+      "level": "section"
+    },
+    {
+      "title": "4.2 Perceived Consumer Effectiveness e gap attitude-behavior",
+      "level": "section"
+    },
+    {
+      "title": "4.3 I comportamenti d’acquisto circolari (life cycle purchasing)",
+      "level": "section"
+    },
+    {
+      "title": "4.4 I comportamenti post-acquisto",
+      "level": "section"
+    },
+    {
+      "title": "4.5 Il consumatore circolare: la cluster analysis",
+      "level": "section"
+    },
+    {
+      "title": "5.1 Il ruolo dell’informazione ambientale",
+      "level": "section"
+    },
+    {
+      "title": "5.2 La base tecnica dell’informazione: LCA, EPD e tipi di etichette",
+      "level": "section"
+    },
+    {
+      "title": "5.3 Conoscenza di marchi, certificazioni e carbon claim",
+      "level": "section"
+    },
+    {
+      "title": "5.4 Riciclato, riciclabile e influenza dei green claim",
+      "level": "section"
+    },
+    {
+      "title": "5.5 Scetticismo, greenwashing belief e fiducia",
+      "level": "section"
+    },
+    {
+      "title": "5.6 La disponibilità a pagare per il packaging riciclato",
+      "level": "section"
+    },
+    {
+      "title": "6.1 Pressioni del contesto e decoupling",
+      "level": "section"
+    },
+    {
+      "title": "6.2 Il greenwashing: definizione e i sette peccati capitali",
+      "level": "section"
+    },
+    {
+      "title": "6.3 Prima fase (fino al 2014): principi generali",
+      "level": "section"
+    },
+    {
+      "title": "6.4 Seconda fase (2012-2017): linee guida vincolanti ed enforcement",
+      "level": "section"
+    },
+    {
+      "title": "6.5 Il caso Acqua Sant’Anna Bio Bottle (2012)",
+      "level": "section"
+    },
+    {
+      "title": "6.6 Terza fase (dal 2017): footprint e life cycle",
+      "level": "section"
+    },
+    {
+      "title": "6.7 Il caso ENI Diesel+ e la sentenza del Consiglio di Stato",
+      "level": "section"
+    },
+    {
+      "title": "1.1 Cosa analizziamo concretamente",
+      "level": "section"
+    },
+    {
+      "title": "1.2 Caso 1: Gemesis / Pure Grown Diamonds",
+      "level": "section"
+    },
+    {
+      "title": "1.3 Caso 2: S* e il mercato gluten free",
+      "level": "section"
+    },
+    {
+      "title": "1.4 Caso 3: InVRsion per il CB nel Retail",
+      "level": "section"
+    },
+    {
+      "title": "1.5 La ricerca di Consumer Behavior",
+      "level": "section"
+    },
+    {
+      "title": "2.1 Chi decide davvero nel B2B",
+      "level": "section"
+    },
+    {
+      "title": "2.2 Il valore per il cliente: componenti e leve",
+      "level": "section"
+    },
+    {
+      "title": "2.3 Dal capire al dare valore: il processo",
+      "level": "section"
+    },
+    {
+      "title": "2.4 La Conjoint analysis",
+      "level": "section"
+    },
+    {
+      "title": "2.5 Altri output della Conjoint",
+      "level": "section"
+    },
+    {
+      "title": "2.6 I limiti dell’analisi congiunta",
+      "level": "section"
+    },
+    {
+      "title": "2.7 Le catene mezzi-fine (laddering)",
+      "level": "section"
+    },
+    {
+      "title": "2.8 La tecnica di Fishbein",
+      "level": "section"
+    },
+    {
+      "title": "2.9 L’effetto framing nella comunicazione del valore",
+      "level": "section"
+    },
+    {
+      "title": "3.1 Perché anche chi vende prodotti vende servizi",
+      "level": "section"
+    },
+    {
+      "title": "3.2 La gestione del reclamo",
+      "level": "section"
+    },
+    {
+      "title": "3.3 Come misurare la qualità del servizio",
+      "level": "section"
+    },
+    {
+      "title": "4.1 Cosa valuta il cliente dopo un problema",
+      "level": "section"
+    },
+    {
+      "title": "4.2 Perché la giustizia percepita è importante",
+      "level": "section"
+    },
+    {
+      "title": "4.3 I quattro tipi di giustizia percepita",
+      "level": "section"
+    },
+    {
+      "title": "4.4 Le reazioni all’ingiustizia",
+      "level": "section"
+    },
+    {
+      "title": "4.5 Giustizia percepita nel contesto post-pandemico",
+      "level": "section"
+    },
+    {
+      "title": "5.1 Le cinque ragioni dello switching",
+      "level": "section"
+    },
+    {
+      "title": "5.2 Costi di switching e inerzia",
+      "level": "section"
+    },
+    {
+      "title": "5.3 Early warning signals",
+      "level": "section"
+    },
+    {
+      "title": "5.4 Come capire perché si è perso un cliente",
+      "level": "section"
+    },
+    {
+      "title": "5.5 Il bias di misurazione della soddisfazione",
+      "level": "section"
+    },
+    {
+      "title": "6.1 La razionalità limitata",
+      "level": "section"
+    },
+    {
+      "title": "6.2 Percezioni vs. realtà e gli assiomi della scelta razionale",
+      "level": "section"
+    },
+    {
+      "title": "6.3 Violazioni degli assiomi: il caso dell’extreme packaging design",
+      "level": "section"
+    },
+    {
+      "title": "6.4 Target, competitor e decoy",
+      "level": "section"
+    },
+    {
+      "title": "6.5 L’effetto compromesso",
+      "level": "section"
+    },
+    {
+      "title": "6.6 L’effetto attrazione",
+      "level": "section"
+    },
+    {
+      "title": "6.7 L’effetto Background",
+      "level": "section"
+    },
+    {
+      "title": "6.8 L’effetto Fantasma: phantom decoy",
+      "level": "section"
+    },
+    {
+      "title": "6.9 Bait & Switch",
+      "level": "section"
+    },
+    {
+      "title": "6.10 Reattanza",
+      "level": "section"
+    },
+    {
+      "title": "6.11 Sintesi finale",
+      "level": "section"
+    },
+    {
+      "title": "1.1 Che cos’è un marchio: le definizioni",
+      "level": "section"
+    },
+    {
+      "title": "1.2 Perché parlare di branding: il peso degli asset intangibili",
+      "level": "section"
+    },
+    {
+      "title": "1.3 Che cosa può essere un brand",
+      "level": "section"
+    },
+    {
+      "title": "1.4 Human brands",
+      "level": "section"
+    },
+    {
+      "title": "1.5 Gli elementi del brand",
+      "level": "section"
+    },
+    {
+      "title": "1.6 Le funzioni del brand",
+      "level": "section"
+    },
+    {
+      "title": "1.7 I vantaggi di un brand forte",
+      "level": "section"
+    },
+    {
+      "title": "1.8 Il branding come priorità di investimento: la survey McKinsey sui",
+      "level": "section"
+    },
+    {
+      "title": "1.9 Il branding nel B2B: la componente emotiva e la convergenza con il",
+      "level": "section"
+    },
+    {
+      "title": "2.1 Perché fare branding è sempre più difficile",
+      "level": "section"
+    },
+    {
+      "title": "2.2 Segnali ed esempi dal mercato",
+      "level": "section"
+    },
+    {
+      "title": "2.3 La creatività come risposta: comunicare il brand in pochi secondi",
+      "level": "section"
+    },
+    {
+      "title": "2.4 Woke communication: evidenze di engagement",
+      "level": "section"
+    },
+    {
+      "title": "2.5 Brand attivismo nel B2B: i dati",
+      "level": "section"
+    },
+    {
+      "title": "2.6 Le dieci sfide del branding contemporaneo",
+      "level": "section"
+    },
+    {
+      "title": "3.1 Identità, immagine, reputazione",
+      "level": "section"
+    },
+    {
+      "title": "3.2 Reputazione: il Global RepTrak 100",
+      "level": "section"
+    },
+    {
+      "title": "3.3 Centralità della brand image",
+      "level": "section"
+    },
+    {
+      "title": "3.4 Functional-emotional continuum: le emozioni contano anche nel",
+      "level": "section"
+    },
+    {
+      "title": "4.1 Definizione",
+      "level": "section"
+    },
+    {
+      "title": "4.2 Brand equity: valutazione",
+      "level": "section"
+    },
+    {
+      "title": "4.3 La valutazione finanziaria e i suoi limiti",
+      "level": "section"
+    },
+    {
+      "title": "4.4 Il brand oltre la vita dell’impresa",
+      "level": "section"
+    },
+    {
+      "title": "4.5 Brand equity e valore per gli azionisti",
+      "level": "section"
+    },
+    {
+      "title": "4.6 La Customer-Based Brand Equity e le scale di misurazione",
+      "level": "section"
+    },
+    {
+      "title": "4.7 Le componenti della brand equity (Aaker, 1996)",
+      "level": "section"
+    },
+    {
+      "title": "5.1 Definizione e driver",
+      "level": "section"
+    },
+    {
+      "title": "16.000 risultati. Nella maggior parte dei casi la brand loyalty è la variabile dipendente: la letteratura",
+      "level": "section"
+    },
+    {
+      "title": "5.2 I benefici di un’elevata brand loyalty",
+      "level": "section"
+    },
+    {
+      "title": "5.3 Il Customer Lifetime Value",
+      "level": "section"
+    },
+    {
+      "title": "5.4 Misurare la loyalty: i limiti del Net Promoter Score",
+      "level": "section"
+    },
+    {
+      "title": "6.1 La Corporate Brand Identity Matrix (Urde, 2016)",
+      "level": "section"
+    },
+    {
+      "title": "6.2 Il caso Gin Mare",
+      "level": "section"
+    },
+    {
+      "title": "19.000 copie scaricate per usi didattici.",
+      "level": "section"
+    },
+    {
+      "title": "6.3 Il caso LCS: riscrivere l’identità",
+      "level": "section"
+    },
+    {
+      "title": "7.1 Il posizionamento nella strategia di marketing",
+      "level": "section"
+    },
+    {
+      "title": "7.2 Brand positioning: come?",
+      "level": "section"
+    },
+    {
+      "title": "7.3 Obiettivi di un buon positioning",
+      "level": "section"
+    },
+    {
+      "title": "7.4 Brand positioning locali",
+      "level": "section"
+    },
+    {
+      "title": "7.5 Brand positioning spuri: il brand ossimorico",
+      "level": "section"
+    },
+    {
+      "title": "8.1 Un mestiere ancora raro in Italia: il caso Brembo",
+      "level": "section"
+    },
+    {
+      "title": "8.2 Il garante del brand: ogni decisione va riportata sul brand",
+      "level": "section"
+    },
+    {
+      "title": "8.3 L’analista dei trend: guardare fuori dalla finestra",
+      "level": "section"
+    },
+    {
+      "title": "8.4 Gestire un asset che sopravvive all’impresa: Alitalia e Pan Am",
+      "level": "section"
+    },
+    {
+      "title": "8.5 Presidiare le occasioni di consumo: il caso Aperol",
+      "level": "section"
+    },
+    {
+      "title": "8.6 Il mestiere sul campo: la prospettiva del brand strategist",
+      "level": "section"
+    },
+    {
+      "title": "9.1 Il modello del cultural branding",
+      "level": "section"
+    },
+    {
+      "title": "9.2 Il problema dell’esecuzione: il caso Gillette",
+      "level": "section"
+    },
+    {
+      "title": "9.3 Woke",
+      "level": "section"
+    },
+    {
+      "title": "9.4 Effetti delle retoriche woke: evidenze empiriche",
+      "level": "section"
+    },
+    {
+      "title": "1.1 Introduzione al marketing",
+      "level": "section"
+    },
+    {
+      "title": "1.2 Analisi della domanda",
+      "level": "section"
+    },
+    {
+      "title": "1.3 L’analisi del comportamento d’acquisto del consumatore",
+      "level": "section"
+    },
+    {
+      "title": "1.4 La segmentazione",
+      "level": "section"
+    },
+    {
+      "title": "1.5 L’analisi della concorrenza",
+      "level": "section"
+    },
+    {
+      "title": "1.6 Il posizionamento",
+      "level": "section"
+    },
+    {
+      "title": "1.7 Le strategie di portafoglio",
+      "level": "section"
+    },
+    {
+      "title": "1.8 L’analisi SWOT",
+      "level": "section"
+    },
+    {
+      "title": "1.9 La Value Proposition",
+      "level": "section"
+    },
+    {
+      "title": "2.1 Il concetto e le ragioni della pianificazione",
+      "level": "section"
+    },
+    {
+      "title": "2.2 Gli step e le condizioni della pianificazione di marketing",
+      "level": "section"
+    },
+    {
+      "title": "2.3 Il piano di marketing: definizione e caratteristiche",
+      "level": "section"
+    },
+    {
+      "title": "2.4 L’indice del piano di marketing aziendale",
+      "level": "section"
+    },
+    {
+      "title": "2.5 KPI e cruscotto di controllo",
+      "level": "section"
+    },
+    {
+      "title": "8.000 KPI dei vari settori (circa un migliaio nella sola area marketing e commerciale), selezionati da una",
+      "level": "section"
+    },
+    {
+      "title": "2.6 Costi, margini e pricing nel piano di marketing",
+      "level": "section"
+    },
+    {
+      "title": "2.7 Casi applicativi di piano e di lancio",
+      "level": "section"
+    }
+  ]
+}
