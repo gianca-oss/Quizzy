@@ -1,7 +1,7 @@
 const { loadEnhancedData, loadEmbeddings, getCourseName } = require('./data-loader');
 const { hybridSearch } = require('./search');
 const { extractQuestions, analyzeWithContext } = require('./claude-client');
-const { parseQuestions } = require('./question-parser');
+const { parseQuestionsWithStats } = require('./question-parser');
 const {
     lookupQuestions,
     buildHaikuVerificationPrompt,
@@ -85,12 +85,29 @@ module.exports = async function handler(req, res) {
         const responseText = extraction.text;
 
         // Step 2: Parse questions
-        const questions = parseQuestions(responseText);
+        const parsed = parseQuestionsWithStats(responseText);
+        const questions = parsed.questions;
         if (questions.length === 0) {
             return res.status(400).json({
                 error: 'Nessuna domanda estratta dall\'immagine. Assicurati che l\'immagine sia chiara e contenga domande.'
             });
         }
+        if (parsed.dropped || parsed.illegible || parsed.truncated) {
+            console.log(`[Extraction] ${questions.length} domande · ${parsed.dropped} scartate (illeggibili) · ${parsed.illegible} con opzioni parziali · ${parsed.truncated} oltre il limite`);
+        }
+
+        // Numbering: prefer the numbers printed on the quiz itself. They are
+        // the only thing that lines the table up with the sheet in the user's
+        // hands — positional numbering silently shifts as soon as a question
+        // is dropped or the pages are photographed out of order. Only trust
+        // them when the whole set is present, unique and increasing.
+        const printed = questions.map(q => q.printedNumber);
+        const usePrintedNumbers =
+            printed.every(n => Number.isInteger(n) && n > 0) &&
+            new Set(printed).size === printed.length &&
+            printed.every((n, i) => i === 0 || n > printed[i - 1]);
+        const numberOf = (i) => (usePrintedNumbers ? printed[i] : startNumber + i);
+        console.log(`[Numbering] ${usePrintedNumbers ? 'numeri stampati sul quiz: ' + printed[0] + '-' + printed[printed.length - 1] : 'posizionale da ' + startNumber}`);
 
         // Step 2.5: Three-tier question bank lookup.
         // Must follow the course actually in use: with the course hardcoded,
@@ -110,7 +127,7 @@ module.exports = async function handler(req, res) {
         // for the "?" recovery retry. Returns { answersByNum, blocksByNum }.
         const resolveWithRag = async (indices, modelKey, forceAnswer = false) => {
             const qs = indices.map(idx => questions[idx]);
-            const nums = indices.map(idx => startNumber + idx);
+            const nums = indices.map(idx => numberOf(idx));
 
             const searchResults = await hybridSearch(qs, data.textChunks, embeddingsData);
             const ragItems = qs.map((q, i) => ({ num: nums[i], result: searchResults[i] }));
@@ -129,7 +146,10 @@ module.exports = async function handler(req, res) {
             const analysisResult = await analyzeWithContext(apiKey, ragPrompt, modelKey);
             totalCost += (analysisResult.cost || 0);
 
-            const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text);
+            // Pass the context so every "[CITATO]" claim is checked against
+            // the material we actually sent: an invented quotation is demoted
+            // to NON_VERIFICATA instead of reaching the user as a citation.
+            const { answers: aiAnswers, analysisText } = parseAnswers(analysisResult.text, ragContext);
 
             // Split the RAG response into per-question blocks so each can be
             // stored next to its answer and re-ordered by question number.
@@ -159,7 +179,7 @@ module.exports = async function handler(req, res) {
 
         // --- Tier 1: Direct matches (mechanical remap, zero cost) ---
         direct.forEach(({ questionIndex, score, bankMatch, remappedLetter }) => {
-            const num = startNumber + questionIndex;
+            const num = numberOf(questionIndex);
             resolvedAnswers[num] = {
                 letter: remappedLetter,
                 source: 'QuestionBank',
@@ -182,7 +202,7 @@ module.exports = async function handler(req, res) {
                 const haikuAnswers = parseHaikuResponse(haikuResult.text, needsHaiku, questions, startNumber);
 
                 needsHaiku.forEach(({ questionIndex, score, bankMatch }) => {
-                    const num = startNumber + questionIndex;
+                    const num = numberOf(questionIndex);
                     const haikuAnswer = haikuAnswers.get(num);
 
                     if (haikuAnswer) {
@@ -217,7 +237,7 @@ module.exports = async function handler(req, res) {
             usedModel = model;
 
             unmatched.forEach(idx => {
-                const num = startNumber + idx;
+                const num = numberOf(idx);
                 if (!resolvedAnswers[num]) {
                     const answer = answersByNum[num] || { letter: '?', source: 'AI' };
                     resolvedAnswers[num] = {
@@ -234,7 +254,7 @@ module.exports = async function handler(req, res) {
             // at temperature 0 is pointless (identical output), so escalate
             // sonnet→opus; if already opus, retry opus with forceAnswer only.
             const stillUnknown = unmatched.filter(idx => {
-                const r = resolvedAnswers[startNumber + idx];
+                const r = resolvedAnswers[numberOf(idx)];
                 return !r || r.letter === '?';
             });
 
@@ -247,7 +267,7 @@ module.exports = async function handler(req, res) {
                 try {
                     const retry = await resolveWithRag(stillUnknown, retryModel, true);
                     stillUnknown.forEach(idx => {
-                        const num = startNumber + idx;
+                        const num = numberOf(idx);
                         const answer = retry.answersByNum[num];
                         if (answer && answer.letter !== '?') {
                             resolvedAnswers[num] = {
@@ -267,7 +287,7 @@ module.exports = async function handler(req, res) {
         // Build final response — table source and analysis both come from the
         // same per-question entry, assembled strictly in question-number order.
         const finalAnswersArray = questions.map((q, i) => {
-            const num = startNumber + i;
+            const num = numberOf(i);
             const resolved = resolvedAnswers[num] || { letter: '?', source: 'unknown' };
             return { num, letter: resolved.letter, source: resolved.source };
         });
@@ -276,7 +296,7 @@ module.exports = async function handler(req, res) {
             .map(a => resolvedAnswers[a.num]?.analysis)
             .filter(Boolean);
 
-        const bankResolved = direct.length + needsHaiku.filter(h => resolvedAnswers[startNumber + h.questionIndex]?.source?.includes('Haiku')).length;
+        const bankResolved = direct.length + needsHaiku.filter(h => resolvedAnswers[numberOf(h.questionIndex)]?.source?.includes('Haiku')).length;
 
         res.status(200).json({
             answers: finalAnswersArray,
@@ -295,6 +315,14 @@ module.exports = async function handler(req, res) {
                 chunksSearched: data.textChunks.length,
                 embeddingsLoaded: !!embeddingsData,
                 questionsAnalyzed: questions.length,
+                // What the OCR step had to throw away, so the UI can say so
+                // instead of silently showing fewer rows than the quiz has.
+                extraction: {
+                    droppedQuestions: parsed.dropped,
+                    partialQuestions: parsed.illegible,
+                    truncatedQuestions: parsed.truncated
+                },
+                numbering: usePrintedNumbers ? 'printed' : 'positional',
                 cost: totalCost
             }
         });

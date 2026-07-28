@@ -251,55 +251,120 @@ REGOLE OBBLIGATORIE:
 - NON aggiungere altre intestazioni o testo all'inizio o alla fine`;
 }
 
-function parseAnswers(finalResponse) {
+// Normalize text for citation matching: the model rarely reproduces a quote
+// byte-for-byte (accents, curly quotes, collapsed line breaks), so compare on
+// a flattened form.
+function normalizeForMatch(text) {
+    return (text || '')
+        .toLowerCase()
+        .normalize('NFD').replace(/[̀-ͯ]/g, '')
+        .replace(/[’‘`´]/g, "'")
+        .replace(/[^a-z0-9']+/g, ' ')
+        .trim();
+}
+
+// A quote must be substantial to be worth verifying: matching "sì" against the
+// corpus would always succeed and prove nothing.
+const MIN_QUOTE_CHARS = 25;
+
+/**
+ * Check that a quote the model attributed to the course actually appears in
+ * the context we sent it. Quotes are often elided ("inizio [...] fine"), so
+ * every fragment must be found.
+ */
+function isQuoteInContext(quote, normalizedContext) {
+    const parts = quote
+        .split(/\[\.\.\.\]|\.\.\.|…/)
+        .map(p => normalizeForMatch(p))
+        .filter(p => p.length >= MIN_QUOTE_CHARS);
+
+    if (parts.length === 0) return null; // too short to judge
+    return parts.every(p => normalizedContext.includes(p));
+}
+
+/**
+ * Parse the analysis into per-question answers.
+ *
+ * When `contextText` is provided, every "[CITATO]" claim is checked against
+ * the material that was actually sent to the model. Without this the FONTE
+ * column is only the model's word about itself: an invented quotation reaches
+ * the user labelled exactly like a real one.
+ *
+ * Sources: CITATO (quote found), NON_VERIFICATA (quote claimed, not found),
+ * AI (no quote).
+ */
+function parseAnswers(finalResponse, contextText = null) {
     const lines = finalResponse.split('\n');
     const answers = {};
     let currentQuestion = null;
+    const normalizedContext = contextText ? normalizeForMatch(contextText) : null;
 
     lines.forEach(line => {
-        const questionMatch = line.match(/^\s*\*\*(\d+)\./);
-        if (questionMatch) {
+        const questionMatch = line.match(/^\s*\**\s*(\d+)[.)]/);
+        if (questionMatch && /^\s*\*\*/.test(line)) {
             currentQuestion = questionMatch[1];
             if (!answers[currentQuestion]) {
-                answers[currentQuestion] = { letter: '?', source: 'AI' };
+                answers[currentQuestion] = { letter: '?', source: 'AI', quotes: [] };
             }
             return;
         }
 
         if (!currentQuestion) return;
+        const entry = answers[currentQuestion];
 
-        // Detect correct answer via marker on option line: [CORRETTA], ✓, ✔, (V), V
-        const correctMatch = line.match(/^\s*([A-D])\)\s.*(\[CORRETTA\]|\(V\)|[✓✔])\s*$/i);
+        // Correct-answer marker. Tolerant on purpose: the marker may be
+        // followed by more text, the line may be bold, the separator may be
+        // ")" or ".", and the option may be E. Each variant that slipped
+        // through used to leave a "?" and trigger a whole extra Opus pass.
+        const correctMatch = line.match(/^\s*\**\s*([A-E])[).]\s.*?(\[CORRETTA\]|\(V\)|[✓✔])/i);
         if (correctMatch) {
-            answers[currentQuestion].letter = correctMatch[1].toUpperCase();
+            entry.letter = correctMatch[1].toUpperCase();
         }
 
-        // Detect source from explanation
-        if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i) || line.match(/\[Sez\.?\s*[\d.]+\]/i)) {
-            answers[currentQuestion].source = 'CITATO';
-        } else if (line.includes('[VERIFICATO]')) {
-            answers[currentQuestion].source = 'VERIFICATO';
+        // Collect quoted spans so they can be checked against the material.
+        const quoted = line.match(/"([^"]{10,})"|«([^»]{10,})»/g);
+        if (quoted) {
+            quoted.forEach(q => entry.quotes.push(q.replace(/^["«]|["»]$/g, '')));
+        }
+
+        if (line.includes('[CITATO]') || line.match(/\[Pag\.?\s*\d+\]/i) || line.match(/\[Sez\.?[^\]]*\]/i)) {
+            entry.source = 'CITATO';
         } else if (line.includes('[AI]')) {
-            answers[currentQuestion].source = 'AI';
+            entry.source = 'AI';
         }
 
         // Legacy fallback: "Risposta: X"
-        const respMatch = line.match(/Risposta:\s*([A-Da-d])/i);
-        if (respMatch && answers[currentQuestion].letter === '?') {
-            answers[currentQuestion].letter = respMatch[1].toUpperCase();
+        const respMatch = line.match(/Risposta:\s*([A-Ea-e])\b/i);
+        if (respMatch && entry.letter === '?') {
+            entry.letter = respMatch[1].toUpperCase();
         }
 
-        // Prose fallback: "la risposta corretta è X" (è / e' / :) when no
-        // [CORRETTA] marker survived. Lets us recover a letter from the
-        // explanation sentence instead of leaving a "?".
-        if (answers[currentQuestion].letter === '?') {
-            const phrase = line.match(/risposta\s+corretta\s+(?:è|e'|e|:)?\s*([A-D])\b/i);
+        // Prose fallback: "la risposta corretta è X" — note \s* before the
+        // connector, so "Risposta corretta: B" (no space) is caught too.
+        if (entry.letter === '?') {
+            const phrase = line.match(/risposta\s+corretta\s*(?:è|e'|e|:)?\s*([A-E])\b/i);
             if (phrase) {
-                answers[currentQuestion].letter = phrase[1].toUpperCase();
+                entry.letter = phrase[1].toUpperCase();
             }
         }
     });
 
+    // Verify the citations, when we know what the model was actually given.
+    if (normalizedContext) {
+        Object.values(answers).forEach(entry => {
+            if (entry.source !== 'CITATO') return;
+            const verdicts = entry.quotes
+                .map(q => isQuoteInContext(q, normalizedContext))
+                .filter(v => v !== null);
+            // No quote long enough to check, or none of them found → the
+            // "citato" claim is not backed by the material we supplied.
+            if (verdicts.length === 0 || !verdicts.some(Boolean)) {
+                entry.source = 'NON_VERIFICATA';
+            }
+        });
+    }
+
+    Object.values(answers).forEach(e => delete e.quotes);
     return { answers, analysisText: finalResponse };
 }
 

@@ -162,3 +162,61 @@ test('parseAnswers keys answers by question number across a multi-block reply', 
     assert.strictEqual(answers['2'].letter, 'B');
     assert.strictEqual(answers['3'].letter, 'C');
 });
+
+// --- parseAnswers() : tolerance to real model formatting --------------------
+// Every variant below used to leave a "?", and each surviving "?" costs a
+// whole extra Opus recovery call.
+
+test('parseAnswers reads the marker even with trailing text or bold', () => {
+    const trailing = '**1. q**\nA) a\nB) b [CORRETTA] - perché è la definizione\nSpiegazione: [AI] x';
+    const bold = '**2. q**\nA) a\n**B) b [CORRETTA]**\nSpiegazione: [AI] x';
+    assert.strictEqual(parseAnswers(trailing).answers['1'].letter, 'B');
+    assert.strictEqual(parseAnswers(bold).answers['2'].letter, 'B');
+});
+
+test('parseAnswers supports option E and "A." separators', () => {
+    const optionE = '**3. q**\nA) a\nB) b\nC) c\nD) d\nE) e [CORRETTA]\nSpiegazione: [AI] x';
+    const dotted = '**4. q**\nA. a\nB. b [CORRETTA]\nSpiegazione: [AI] x';
+    assert.strictEqual(parseAnswers(optionE).answers['3'].letter, 'E');
+    assert.strictEqual(parseAnswers(dotted).answers['4'].letter, 'B');
+});
+
+test('parseAnswers prose fallback handles "Risposta corretta: B" without space', () => {
+    const resp = '**5. q**\nA) a\nB) b\nRisposta corretta: B\nSpiegazione: [AI] x';
+    assert.strictEqual(parseAnswers(resp).answers['5'].letter, 'B');
+});
+
+test('parseAnswers still leaves "?" when nothing marks an answer', () => {
+    const resp = '**6. q**\nA) a\nB) b\nSpiegazione: [AI] non determinabile';
+    assert.strictEqual(parseAnswers(resp).answers['6'].letter, '?');
+});
+
+// --- parseAnswers() : citation verification ---------------------------------
+// Without the context, "[CITATO]" is only the model's word about itself.
+
+const CONTEXT = '[M1 | Sez. 3.6] Il decoupling consiste nel disaccoppiare la crescita economica dall uso delle risorse naturali, come mostra il rapporto OCSE del 2011.';
+
+test('a quotation found in the material stays CITATO', () => {
+    const resp = '**1. q**\nA) a [CORRETTA]\nSpiegazione: [CITATO] "disaccoppiare la crescita economica dall uso delle risorse naturali" [Sez. 3.6].';
+    assert.strictEqual(parseAnswers(resp, CONTEXT).answers['1'].source, 'CITATO');
+});
+
+test('an invented quotation is demoted to NON_VERIFICATA', () => {
+    const resp = '**1. q**\nA) a [CORRETTA]\nSpiegazione: [CITATO] "il decoupling fu abolito dal trattato di Lisbona del 2007" [Sez. 3.6].';
+    assert.strictEqual(parseAnswers(resp, CONTEXT).answers['1'].source, 'NON_VERIFICATA');
+});
+
+test('an elided quotation is verified fragment by fragment', () => {
+    const resp = '**1. q**\nA) a [CORRETTA]\nSpiegazione: [CITATO] "Il decoupling consiste nel disaccoppiare la crescita [...] come mostra il rapporto OCSE del 2011" [Sez. 3.6].';
+    assert.strictEqual(parseAnswers(resp, CONTEXT).answers['1'].source, 'CITATO');
+});
+
+test('a CITATO tag with no quotation at all cannot be verified', () => {
+    const resp = '**1. q**\nA) a [CORRETTA]\nSpiegazione: [CITATO] il materiale lo conferma [Sez. 3.6].';
+    assert.strictEqual(parseAnswers(resp, CONTEXT).answers['1'].source, 'NON_VERIFICATA');
+});
+
+test('without context the verification is skipped (back-compatible)', () => {
+    const resp = '**1. q**\nA) a [CORRETTA]\nSpiegazione: [CITATO] "qualunque cosa" [Sez. 3.6].';
+    assert.strictEqual(parseAnswers(resp).answers['1'].source, 'CITATO');
+});

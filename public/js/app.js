@@ -393,7 +393,7 @@ async function importHistory(file) {
 
 function buildReportHtml(item) {
     const dateLabel = formatHistoryDate(item.date);
-    const sourceLabels = { CITATO: 'CITATO', VERIFICATO: 'VERIFICATO', AI: 'AI', QuestionBank: 'BANK', 'QuestionBank+Haiku': 'BANK+AI' };
+    const sourceLabels = { CITATO: 'CITATO', NON_VERIFICATA: 'NON VERIF.', AI: 'AI', QuestionBank: 'BANK', 'QuestionBank+Haiku': 'BANK+AI' };
 
     let rows = '';
     item.answers.forEach(a => {
@@ -655,9 +655,12 @@ function backToUpload() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+// CITATO now means the quotation was actually found in the course material,
+// not merely that the model claimed it. NON VERIF. is the honest middle
+// ground: a citation was asserted but could not be located in what we sent.
 const SOURCE_STYLES = {
     CITATO: { indicator: 'CITATO', color: '#ffffff' },
-    VERIFICATO: { indicator: 'VERIFICATO', color: '#ffffff' },
+    NON_VERIFICATA: { indicator: 'NON VERIF.', color: '#ffcc00' },
     AI: { indicator: 'AI', color: '#ffffff' },
     QuestionBank: { indicator: 'BANK', color: '#ffffff' },
     'QuestionBank+Haiku': { indicator: 'BANK+AI', color: '#ffffff' }
@@ -842,6 +845,10 @@ async function analyze() {
 
     const allResults = [];
     const failedIndexes = [];
+    // Questions the OCR could not read: they used to vanish silently, leaving
+    // a table with fewer rows than the quiz and no way to notice.
+    let droppedByOcr = 0;
+    let partialByOcr = 0;
     let questionStartNumber = 1;
     const precision = document.getElementById('precisionInput')?.checked === true;
 
@@ -860,6 +867,11 @@ async function analyze() {
             const data = await analyzeOneImage(images[i], i, questionStartNumber, precision, controller.signal);
             stopProgress();
             const qCount = data.metadata?.questionsAnalyzed || 0;
+            const ex = data.metadata?.extraction;
+            if (ex) {
+                droppedByOcr += (ex.droppedQuestions || 0) + (ex.truncatedQuestions || 0);
+                partialByOcr += (ex.partialQuestions || 0);
+            }
             setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
             allResults.push({ answers: data.answers || [], analysis: data.analysis || '' });
             questionStartNumber += qCount;
@@ -916,7 +928,7 @@ async function analyze() {
     if (allResults.length > 0) {
         // displayResults will call saveToHistory again with the same sessionId
         // → it updates the existing entry instead of creating a duplicate.
-        displayResults(allResults, { failedCount: failedIndexes.length, sessionId });
+        displayResults(allResults, { failedCount: failedIndexes.length, sessionId, droppedByOcr, partialByOcr });
     } else {
         // No image succeeded → drop any partial entry that may have been saved
         // earlier in this session (shouldn't happen since we save only on
@@ -1033,9 +1045,19 @@ function displayResults(allResults, opts = {}) {
     const pad = allQuestions.length > 15 ? '0px 3px' : '1px 4px';
 
     let html = '<div class="result-content">';
+    const notices = [];
     if (opts.failedCount) {
+        notices.push(`${opts.failedCount} immagine${opts.failedCount > 1 ? 'i' : ''} non analizzata${opts.failedCount > 1 ? 'e' : ''}, ${allResults.length} salvata${allResults.length > 1 ? 'e' : ''} nello storico`);
+    }
+    if (opts.droppedByOcr) {
+        notices.push(`${opts.droppedByOcr} domanda${opts.droppedByOcr > 1 ? 'e' : ''} non leggibile${opts.droppedByOcr > 1 ? 'i' : ''} nella foto: manca${opts.droppedByOcr > 1 ? 'no' : ''} dalla tabella. Rifotografa più da vicino.`);
+    }
+    if (opts.partialByOcr) {
+        notices.push(`${opts.partialByOcr} domanda${opts.partialByOcr > 1 ? 'e' : ''} con qualche opzione illeggibile: la risposta potrebbe essere meno affidabile.`);
+    }
+    if (notices.length) {
         html += `<div style="background:rgba(255,204,0,0.12);border:1px solid rgba(255,204,0,0.35);border-radius:8px;padding:8px 12px;margin-bottom:10px;font-size:12px;color:#ffcc00">
-            ${opts.failedCount} immagine${opts.failedCount > 1 ? 'i' : ''} non analizzata${opts.failedCount > 1 ? 'e' : ''}, ${allResults.length} salvata${allResults.length > 1 ? 'e' : ''} nello storico
+            ${notices.join('<br>')}
         </div>`;
     }
     html += `<table style="width: 100%; border-collapse: collapse; margin: 0; line-height: 1; table-layout: fixed;">`;

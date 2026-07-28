@@ -1,24 +1,53 @@
 const MAX_QUESTIONS = 30;
 
+// The quiz sheet numbers its own questions ("5. La somministrazione..."). We
+// strip that from the text to avoid rendering "5. 5. ...", but the number
+// itself is worth keeping: it is the only thing that ties a row of the table
+// back to the paper the user is holding.
+const PRINTED_NUM = /^\s*(\d{1,3})[.)]\s+/;
+
+function extractPrintedNumber(text) {
+    const m = (text || '').match(PRINTED_NUM);
+    return m ? parseInt(m[1], 10) : null;
+}
+
+/**
+ * Parse the extraction response, reporting what was discarded.
+ *
+ * Questions whose options came back unreadable used to disappear without a
+ * trace: the table simply had fewer rows and every following number was off
+ * by one against the printed sheet. The caller now learns how many were
+ * dropped so it can say so.
+ */
+function parseQuestionsWithStats(responseText) {
+    let result = parseJSONWithStats(responseText);
+
+    if (result.questions.length === 0) {
+        result = { questions: parseWithSeparators(responseText), dropped: 0, illegible: 0 };
+    }
+
+    if (result.questions.length === 0) {
+        result = { questions: parseAlternative(responseText), dropped: 0, illegible: 0 };
+    }
+
+    let truncated = 0;
+    if (result.questions.length > MAX_QUESTIONS) {
+        truncated = result.questions.length - MAX_QUESTIONS;
+        result.questions = result.questions.slice(0, MAX_QUESTIONS);
+    }
+
+    return { ...result, truncated };
+}
+
 function parseQuestions(responseText) {
-    let questions = parseJSON(responseText);
-
-    if (questions.length === 0) {
-        questions = parseWithSeparators(responseText);
-    }
-
-    if (questions.length === 0) {
-        questions = parseAlternative(responseText);
-    }
-
-    if (questions.length > MAX_QUESTIONS) {
-        questions = questions.slice(0, MAX_QUESTIONS);
-    }
-
-    return questions;
+    return parseQuestionsWithStats(responseText).questions;
 }
 
 function parseJSON(responseText) {
+    return parseJSONWithStats(responseText).questions;
+}
+
+function parseJSONWithStats(responseText) {
     try {
         // 1. Strip markdown code fences if present (```json ... ```)
         let cleaned = responseText.replace(/```(?:json)?\s*([\s\S]*?)\s*```/g, '$1');
@@ -28,32 +57,55 @@ function parseJSON(responseText) {
             .replace(/[‘’]/g, "'");
         // 3. Extract first JSON object containing "questions"
         const jsonMatch = cleaned.match(/\{[\s\S]*"questions"[\s\S]*\}/);
-        if (!jsonMatch) return [];
+        if (!jsonMatch) return { questions: [], dropped: 0, illegible: 0 };
 
         const data = JSON.parse(jsonMatch[0]);
-        if (!data.questions || !Array.isArray(data.questions)) return [];
+        if (!data.questions || !Array.isArray(data.questions)) {
+            return { questions: [], dropped: 0, illegible: 0 };
+        }
 
-        return data.questions
-            .filter(q => q.text && q.options && Object.keys(q.options).length >= 2)
-            .map((q, index) => {
-                // Filter out empty / illeggibile options so the analysis prompt
-                // doesn't end up with `B) ` lines that look broken
-                const cleanOptions = {};
-                for (const [k, v] of Object.entries(q.options)) {
-                    const text = String(v || '').trim();
-                    if (text && text.toLowerCase() !== '[illeggibile]') {
-                        cleanOptions[k] = text;
-                    }
+        let dropped = 0;
+        let illegible = 0;
+        const questions = [];
+
+        data.questions.forEach((q, index) => {
+            if (!q.text || !q.options || Object.keys(q.options).length < 2) {
+                dropped++;
+                return;
+            }
+
+            // Drop empty / unreadable options so the analysis prompt doesn't
+            // end up with a bare "B)" line, but remember that it happened.
+            const cleanOptions = {};
+            let hadIllegible = false;
+            for (const [k, v] of Object.entries(q.options)) {
+                const text = String(v || '').trim();
+                if (text && text.toLowerCase() !== '[illeggibile]') {
+                    cleanOptions[k] = text;
+                } else {
+                    hadIllegible = true;
                 }
-                return {
-                    number: index + 1,
-                    text: String(q.text).trim(),
-                    options: cleanOptions
-                };
-            })
-            .filter(q => Object.keys(q.options).length >= 2);
+            }
+
+            if (Object.keys(cleanOptions).length < 2) {
+                dropped++;
+                return;
+            }
+            if (hadIllegible) illegible++;
+
+            const rawText = String(q.text).trim();
+            questions.push({
+                number: index + 1,
+                printedNumber: extractPrintedNumber(rawText),
+                text: rawText,
+                options: cleanOptions,
+                partial: hadIllegible
+            });
+        });
+
+        return { questions, dropped, illegible };
     } catch {
-        return [];
+        return { questions: [], dropped: 0, illegible: 0 };
     }
 }
 
@@ -125,4 +177,4 @@ function parseAlternative(responseText) {
     return questions;
 }
 
-module.exports = { parseQuestions };
+module.exports = { parseQuestions, parseQuestionsWithStats, extractPrintedNumber };
