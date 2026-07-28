@@ -737,6 +737,36 @@ function hideMainView() {
     if (pt) pt.style.display = 'none';
 }
 
+// How many images are analysed at the same time. Sequential analysis meant a
+// 4-photo quiz took four times as long as one; going wide is the single
+// biggest win on wall-clock time. Capped so a large batch doesn't trip
+// Anthropic's rate limits (and each lane is a separate backend request).
+const MAX_PARALLEL_IMAGES = 3;
+
+/**
+ * Re-base question numbers across images.
+ *
+ * In parallel each image is numbered from 1, because we cannot know how many
+ * questions the previous photos held until they come back. Once everything is
+ * in, the answers AND the "**N." headings of the analysis are shifted so the
+ * batch reads as one continuous quiz.
+ */
+function renumberSequentially(results) {
+    let offset = 0;
+    return results.map(r => {
+        const shifted = offset === 0 ? r : {
+            answers: r.answers.map(a => ({ ...a, num: a.num + offset })),
+            analysis: (r.analysis || '').replace(
+                /\*\*\s*(\d+)\./g,
+                (_, n) => `**${parseInt(n, 10) + offset}.`
+            ),
+            numbering: r.numbering
+        };
+        offset += r.answers.length;
+        return shifted;
+    });
+}
+
 async function analyzeOneImage(image, index, startNumber, precision, externalSignal) {
     const requestBody = {
         model: 'claude-3-haiku-20240307',
@@ -848,28 +878,51 @@ async function analyze() {
 
     warmupBackend();
 
-    const allResults = [];
+    // Results are kept BY IMAGE INDEX, not in completion order: with images
+    // analysed in parallel they finish out of order, but the table and the
+    // analysis must still follow the order of the photos.
+    const resultByIndex = new Array(images.length).fill(null);
     const failedIndexes = [];
     // Questions the OCR could not read: they used to vanish silently, leaving
     // a table with fewer rows than the quiz and no way to notice.
     let droppedByOcr = 0;
     let partialByOcr = 0;
-    let questionStartNumber = 1;
     const precision = document.getElementById('precisionInput')?.checked === true;
 
     let permanentErrorKind = null;
-    for (let i = 0; i < images.length; i++) {
-        if (activeAnalysis?.cancelled) {
-            // Mark remaining as cancelled and bail out of the loop
-            for (let j = i; j < images.length; j++) {
-                setImageState(j, 'Annullata', 100, 'error');
-                failedIndexes.push(j);
-            }
-            break;
+    // A permanent failure (no credit, dead model) makes the remaining images
+    // pointless: abort them instead of firing more doomed calls.
+    let circuitBroken = false;
+
+    const orderedResults = () => resultByIndex.filter(Boolean);
+
+    const saveProgress = (doneCount) => {
+        const done = orderedResults();
+        if (!done.length) return;
+        // Renumber here too: a crash mid-batch must leave the history with one
+        // continuous sequence, not every image restarting from 1.
+        const ordered = done.every(r => r.numbering === 'printed') ? done : renumberSequentially(done);
+        saveToHistory(
+            ordered.flatMap(r => r.answers),
+            ordered.map(r => r.analysis).filter(Boolean).join('\n\n---\n\n'),
+            sessionId
+        );
+        session.completed = doneCount;
+        localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+    };
+
+    const processImage = async (i) => {
+        if (activeAnalysis?.cancelled || circuitBroken) {
+            setImageState(i, circuitBroken ? 'Saltata' : 'Annullata', 100, 'error');
+            failedIndexes.push(i);
+            return;
         }
         const stopProgress = startProgressFeedback(i);
         try {
-            const data = await analyzeOneImage(images[i], i, questionStartNumber, precision, controller.signal);
+            // Every image is numbered from 1 and re-based afterwards: in
+            // parallel we cannot know how many questions the earlier photos
+            // held. Quizzes that print their own numbers keep them.
+            const data = await analyzeOneImage(images[i], i, 1, precision, controller.signal);
             stopProgress();
             const qCount = data.metadata?.questionsAnalyzed || 0;
             const ex = data.metadata?.extraction;
@@ -878,28 +931,25 @@ async function analyze() {
                 partialByOcr += (ex.partialQuestions || 0);
             }
             setImageState(i, `Completata · ${qCount} domande`, 100, 'done');
-            allResults.push({ answers: data.answers || [], analysis: data.analysis || '' });
-            questionStartNumber += qCount;
+            resultByIndex[i] = {
+                answers: data.answers || [],
+                analysis: data.analysis || '',
+                numbering: data.metadata?.numbering
+            };
             if (data.metadata?.cost) addSpent(data.metadata.cost);
-
-            // Progressive save: persist what we have after every successful image
-            // so a mid-batch crash doesn't lose work.
-            const partialAnswers = allResults.flatMap(r => r.answers);
-            const partialAnalysis = allResults.map(r => r.analysis).filter(Boolean).join('\n\n---\n\n');
-            saveToHistory(partialAnswers, partialAnalysis, sessionId);
-            session.completed = i + 1;
-            localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+            // Progressive save so a crash mid-batch doesn't lose finished work.
+            saveProgress(orderedResults().length);
         } catch (err) {
             stopProgress();
-            // User-initiated abort?
             if (activeAnalysis?.cancelled) {
                 setImageState(i, 'Annullata', 100, 'error');
                 failedIndexes.push(i);
-                for (let j = i + 1; j < images.length; j++) {
-                    setImageState(j, 'Annullata', 100, 'error');
-                    failedIndexes.push(j);
-                }
-                break;
+                return;
+            }
+            if (circuitBroken && err.name === 'AbortError') {
+                setImageState(i, 'Saltata', 100, 'error');
+                failedIndexes.push(i);
+                return;
             }
             const isPermanent = err.kind && err.kind !== 'unknown';
             let label;
@@ -913,15 +963,31 @@ async function analyze() {
             failedIndexes.push(i);
             if (isPermanent) {
                 permanentErrorKind = err.kind;
-                // Don't waste credits on the remaining images
-                for (let j = i + 1; j < images.length; j++) {
-                    setImageState(j, 'Saltata', 100, 'error');
-                    failedIndexes.push(j);
-                }
-                break;
+                // Stop the images already in flight: they would fail the same
+                // way, and on a credit problem every extra call is waste.
+                circuitBroken = true;
+                controller.abort();
             }
         }
-    }
+    };
+
+    // Worker pool: images run concurrently but never more than MAX_PARALLEL at
+    // once, so a big batch doesn't trip Anthropic's rate limits.
+    let nextIndex = 0;
+    const worker = async () => {
+        while (nextIndex < images.length) {
+            await processImage(nextIndex++);
+        }
+    };
+    const lanes = Math.min(MAX_PARALLEL_IMAGES, images.length);
+    console.log(`[Analyze] ${images.length} immagini su ${lanes} in parallelo`);
+    await Promise.all(Array.from({ length: lanes }, worker));
+
+    // Re-base the numbering across images, unless every photo carried its own
+    // printed numbers (in which case they are authoritative and already right).
+    const done = orderedResults();
+    const allPrinted = done.length > 0 && done.every(r => r.numbering === 'printed');
+    const allResults = allPrinted ? done : renumberSequentially(done);
 
     loading.classList.remove('show');
     activeAnalysis = null;

@@ -1,5 +1,11 @@
 let enhancedDataCache = null;
 let embeddingsCache = null;
+// In-flight promises, not just results: with images analysed in parallel,
+// several requests hit a cold container at the same time and would each
+// download and parse the same multi-MB corpus. Sharing the promise means the
+// work happens once and everyone waits on it.
+let enhancedDataInFlight = null;
+let embeddingsInFlight = null;
 
 // A table-of-contents line looks like "2.1 Il Global Compact . . . . . 19".
 const TOC_LINE = /\.\s*\.\s*\.\s*\./;
@@ -62,7 +68,12 @@ async function loadTextChunks(baseUrl, totalFiles) {
 
 async function loadEnhancedData() {
     if (enhancedDataCache) return enhancedDataCache;
+    if (enhancedDataInFlight) return enhancedDataInFlight;
+    enhancedDataInFlight = loadEnhancedDataOnce().finally(() => { enhancedDataInFlight = null; });
+    return enhancedDataInFlight;
+}
 
+async function loadEnhancedDataOnce() {
     const courseName = getCourseName();
     if (!courseName) {
         console.error('[Corpus] COURSE_NAME non configurata: nessun corso da caricare');
@@ -105,7 +116,12 @@ async function loadFallbackChunks(baseUrl, courseName) {
 
 async function loadEmbeddings() {
     if (embeddingsCache) return embeddingsCache;
+    if (embeddingsInFlight) return embeddingsInFlight;
+    embeddingsInFlight = loadEmbeddingsOnce().finally(() => { embeddingsInFlight = null; });
+    return embeddingsInFlight;
+}
 
+async function loadEmbeddingsOnce() {
     const courseName = getCourseName();
     if (!courseName) return null;
 
