@@ -47,6 +47,11 @@ module.exports = async function handler(req, res) {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    // Declared outside the try so a failure can still report what was spent
+    // before it: money charged by Anthropic on a call that succeeded before
+    // the crash used to vanish from the counter.
+    let totalCost = 0;
+
     try {
         const apiKey = process.env.ANTHROPIC_API_KEY_EVO;
         if (!apiKey) {
@@ -120,7 +125,7 @@ module.exports = async function handler(req, res) {
         const courseName = data.courseName || process.env.COURSE_NAME;
         const { direct, needsHaiku, unmatched } = lookupQuestions(questions, courseName);
 
-        let totalCost = extraction.cost || 0;
+        totalCost = extraction.cost || 0;
         const resolvedAnswers = {};  // num → { letter, source, analysis }
 
         // Run one RAG pass over a set of question indices with a given model.
@@ -338,9 +343,13 @@ module.exports = async function handler(req, res) {
             model_unavailable: 503
         };
         const status = statusMap[error.kind] || 500;
+        console.error(`[Analyze] fallita (${error.kind || 'unknown'}) dopo $${totalCost.toFixed(4)} di chiamate riuscite: ${error.message}`);
         res.status(status).json({
             error: error.message || 'Errore interno',
             kind: error.kind || 'unknown',
+            // Calls that already succeeded were billed even though the request
+            // failed: report them so the spend counter stays truthful.
+            cost: totalCost,
             timestamp: new Date().toISOString()
         });
     }

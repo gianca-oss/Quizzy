@@ -768,13 +768,18 @@ async function analyzeOneImage(image, index, startNumber, precision, externalSig
             const text = await response.text();
             let kind = 'unknown';
             let message = `HTTP ${response.status}`;
+            let cost = 0;
             try {
                 const parsed = JSON.parse(text);
                 kind = parsed.kind || 'unknown';
                 message = parsed.error || message;
+                cost = parsed.cost || 0;
             } catch {
                 message = `${message}: ${text.substring(0, 100)}`;
             }
+            // A failed run can still have been billed for the calls that
+            // succeeded before the failure: count them.
+            if (cost) addSpent(cost);
             const err = new Error(message);
             err.kind = kind;
             err.status = response.status;

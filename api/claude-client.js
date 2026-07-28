@@ -186,6 +186,28 @@ function buildHeaders(apiKey) {
     };
 }
 
+/**
+ * Pull the text out of an Anthropic response.
+ *
+ * Reading content[0].text assumed the first block is always text. Newer
+ * models can put another block type first (e.g. thinking), which made the
+ * field undefined and blew up the parser downstream with an opaque
+ * "reading 'split'". Concatenate every text block instead.
+ */
+function textFromResponse(data) {
+    const blocks = Array.isArray(data?.content) ? data.content : [];
+    const text = blocks
+        .filter(b => b && b.type === 'text' && typeof b.text === 'string')
+        .map(b => b.text)
+        .join('\n')
+        .trim();
+    if (text) return text;
+    const kinds = blocks.map(b => b?.type || typeof b).join(', ') || 'nessun blocco';
+    const err = new Error(`Risposta API senza testo utilizzabile (blocchi: ${kinds})`);
+    err.kind = 'empty_response';
+    throw err;
+}
+
 async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet') {
     const { response, model } = await callWithModelFallback(apiKey, modelKey, (m) => ({
         model: m,
@@ -219,11 +241,7 @@ async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet
     }
 
     const data = await response.json();
-    if (!data?.content?.[0]) {
-        throw new Error('Risposta API incompleta');
-    }
-
-    return { text: data.content[0].text, cost: computeCost(model, data.usage) };
+    return { text: textFromResponse(data), cost: computeCost(model, data.usage) };
 }
 
 async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
@@ -256,7 +274,7 @@ async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
     }
 
     const data = await response.json();
-    return { text: data.content[0].text, model, cost: computeCost(model, data.usage) };
+    return { text: textFromResponse(data), model, cost: computeCost(model, data.usage) };
 }
 
 module.exports = { extractQuestions, analyzeWithContext, getResolvedModels, MODEL_CHAINS };

@@ -20,6 +20,11 @@ function extractPrintedNumber(text) {
  * dropped so it can say so.
  */
 function parseQuestionsWithStats(responseText) {
+    // Defence in depth: an upstream change that yields a non-string must not
+    // crash the request with an opaque "reading 'split'".
+    if (typeof responseText !== 'string' || !responseText.trim()) {
+        return { questions: [], dropped: 0, illegible: 0, truncated: 0 };
+    }
     let result = parseJSONWithStats(responseText);
 
     if (result.questions.length === 0) {
