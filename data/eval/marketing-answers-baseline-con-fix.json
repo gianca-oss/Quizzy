@@ -1,0 +1,1014 @@
+{
+  "course": "marketing",
+  "label": "baseline-con-fix",
+  "model": "sonnet",
+  "noContext": false,
+  "corpusChunks": 282,
+  "embeddings": true,
+  "sampled": 100,
+  "correct": 99,
+  "accuracy": 0.99,
+  "cost": 1.1674400000000003,
+  "results": [
+    {
+      "idx": 0,
+      "sezione": 1,
+      "numero": 1,
+      "domanda": "Quale affermazione sui cerchi dei materiali tecnici nel diagramma a farfalla della Ellen MacArthur Foundation è corretta?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 3,
+      "sezione": 1,
+      "numero": 4,
+      "domanda": "Che cosa si può affermare correttamente sul Rapporto Brundtland?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 7,
+      "sezione": 1,
+      "numero": 8,
+      "domanda": "Perché l’etichetta energetica degli elettrodomestici è considerata dalla Commissione la politica europea più efficace?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 11,
+      "sezione": 1,
+      "numero": 12,
+      "domanda": "Come va riletta in chiave di sostenibilità la definizione di marketing dell’American Marketing Association (1985)?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 15,
+      "sezione": 1,
+      "numero": 16,
+      "domanda": "Quali sono i primi atti legislativi sull’inquinamento atmosferico citati nella dispensa?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 19,
+      "sezione": 1,
+      "numero": 20,
+      "domanda": "Come è evoluta la disponibilità di suolo fertile pro capite?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 23,
+      "sezione": 1,
+      "numero": 24,
+      "domanda": "Quali sono i numeri del Global Compact riportati nella dispensa?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 27,
+      "sezione": 1,
+      "numero": 28,
+      "domanda": "Qual è l’effetto della CSDDD sulle piccole imprese?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 31,
+      "sezione": 1,
+      "numero": 32,
+      "domanda": "Quali dati descrivono correttamente l’esperienza della Ford T citata come esempio di leadership di costo?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 35,
+      "sezione": 1,
+      "numero": 36,
+      "domanda": "Qual è stata la prima mossa di Frausin alla guida di Carlsberg Italia?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 38,
+      "sezione": 1,
+      "numero": 39,
+      "domanda": "Perché il consumatore è considerato un attore centrale della transizione circolare?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 42,
+      "sezione": 1,
+      "numero": 43,
+      "domanda": "Quale affermazione rispecchia i dati sui comportamenti d’acquisto circolari degli italiani?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 46,
+      "sezione": 1,
+      "numero": 47,
+      "domanda": "Quale affermazione sulle variabili psicografiche e cognitive dei cluster è corretta?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 50,
+      "sezione": 1,
+      "numero": 51,
+      "domanda": "Che cosa emerge dalla Tabella 3 sulla fiducia nelle fonti di informazione (dato 2023)?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 54,
+      "sezione": 1,
+      "numero": 55,
+      "domanda": "Quale dato sul PET riportato nella dispensa è corretto?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 58,
+      "sezione": 1,
+      "numero": 59,
+      "domanda": "Sempre nei sette peccati capitali, che cosa indica il “minore dei due mali”?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 62,
+      "sezione": 1,
+      "numero": 63,
+      "domanda": "Perché l’AGCM contestò il claim “650 milioni di bottiglie” nella campagna Bio Bottle?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 66,
+      "sezione": 1,
+      "numero": 67,
+      "domanda": "Il Green Deal europeo viene presentato come un insieme di grandi dilemmi (trade-off) della transizione. Per il dilemma “conservare o utilizzare le risorse naturali”, quale soluzione viene indicata?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 70,
+      "sezione": 1,
+      "numero": 71,
+      "domanda": "Che cosa caratterizza l’Industria 5.0, che affianca la transizione digitale a quella verde nella cosiddetta doppia transizione?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 73,
+      "sezione": 1,
+      "numero": 74,
+      "domanda": "L’indagine CONAI - Sant’Anna (2022) afferma che “la simbiosi industriale non è più un mito”. Su quale evidenza si fonda questa affermazione?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 77,
+      "sezione": 1,
+      "numero": 78,
+      "domanda": "Nella tripartizione classica del marketing, che cosa distingue il marketing operativo dagli altri due ambiti?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 81,
+      "sezione": 1,
+      "numero": 82,
+      "domanda": "Nella lettura di Meandri e Zamagni (2001) sull’evoluzione del consumatore, che cosa contraddistingue la figura del consumatore-cittadino?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 85,
+      "sezione": 1,
+      "numero": 86,
+      "domanda": "Nella cluster analysis sul consumatore circolare, quali comportamenti rientrano nella conservazione di valore circolare?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 89,
+      "sezione": 1,
+      "numero": 90,
+      "domanda": "Nelle indagini sulla relazione impresa-consumatore, che cosa esprime il costrutto di greenwashing belief?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 93,
+      "sezione": 1,
+      "numero": 94,
+      "domanda": "Nella classificazione dei sette “peccati capitali” del greenwashing, un’affermazione anche veritiera ma inutile per selezionare prodotti ecologicamente preferibili configura il peccato di",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 97,
+      "sezione": 2,
+      "numero": 2,
+      "domanda": "Che cosa fa il Multidimensional Scaling (MDS)?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 101,
+      "sezione": 2,
+      "numero": 6,
+      "domanda": "Qual è la formulazione corretta dell’effetto compromesso?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 105,
+      "sezione": 2,
+      "numero": 10,
+      "domanda": "Come si legge una catena mezzi-fine nel laddering?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 108,
+      "sezione": 2,
+      "numero": 13,
+      "domanda": "Allo sportello un cliente ottiene un esito formalmente corretto e la procedura viene rispettata, ma resta in attesa per ore senza spiegazioni ed è trattato in modo sbrigativo. Quale tipo di giustizia è violato?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 112,
+      "sezione": 2,
+      "numero": 17,
+      "domanda": "Perché la Moissanite viene venduta a un prezzo intermedio fra diamante e zircone?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 116,
+      "sezione": 2,
+      "numero": 21,
+      "domanda": "Quale affermazione su dati primari e secondari è corretta?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 120,
+      "sezione": 2,
+      "numero": 25,
+      "domanda": "Nell’esempio della moto, quale attributo risulta più importante e con quale importanza relativa?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 124,
+      "sezione": 2,
+      "numero": 29,
+      "domanda": "Nella matrice di interpretazione Fishbein, dove ricade un attributo di alta importanza e bassa valutazione percepita, e che cosa può dire il metodo?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 128,
+      "sezione": 2,
+      "numero": 33,
+      "domanda": "Nella dispensa, che cos’è lo script del servizio?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 132,
+      "sezione": 2,
+      "numero": 37,
+      "domanda": "Un cliente lamenta che gli orari di apertura non sono comodi e di non sentirsi compreso nelle proprie necessità specifiche. Quale dimensione Servqual è chiamata in causa?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 136,
+      "sezione": 2,
+      "numero": 41,
+      "domanda": "“Consegna in ritardo perché un lotto è stato bloccato in fase di controllo qualità. Nuova consegna: venerdì.” Che cosa illustra questo esempio?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 140,
+      "sezione": 2,
+      "numero": 45,
+      "domanda": "Quali sono le cinque ragioni per cui i clienti cambiano fornitore?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 143,
+      "sezione": 2,
+      "numero": 48,
+      "domanda": "“L’entrata di una nuova marca non può aumentare la quota di una marca preesistente.” A quale principio della teoria economica classica corrisponde questa affermazione?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 147,
+      "sezione": 2,
+      "numero": 52,
+      "domanda": "In che cosa consiste l’avversione agli estremi?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 151,
+      "sezione": 2,
+      "numero": 56,
+      "domanda": "Nell’esempio del gasatore d’acqua venduto su Amazon in tre versioni, quali sono le cifre citate?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 155,
+      "sezione": 2,
+      "numero": 60,
+      "domanda": "Che cosa distingue l’effetto background dall’effetto compromesso e dall’effetto attrazione?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 159,
+      "sezione": 2,
+      "numero": 64,
+      "domanda": "Quale affermazione sulla reattanza è coerente con la dispensa?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 163,
+      "sezione": 2,
+      "numero": 68,
+      "domanda": "In che cosa consiste la Critical Incident Technique e su quale logica si fonda?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 167,
+      "sezione": 2,
+      "numero": 72,
+      "domanda": "A che cosa servono i reversals in una conjoint analysis?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 171,
+      "sezione": 2,
+      "numero": 76,
+      "domanda": "Come sono collocati prodotti e servizi lungo il continuum e secondo quali assi si classificano i tipi di servizio?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 175,
+      "sezione": 2,
+      "numero": 80,
+      "domanda": "La giustizia procedurale riguarda la percezione del cliente relativa a:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 178,
+      "sezione": 2,
+      "numero": 83,
+      "domanda": "Quale delle seguenti NON è tra le cinque ragioni per cui, secondo le slide, i clienti cambiano fornitore?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 182,
+      "sezione": 2,
+      "numero": 87,
+      "domanda": "Secondo le slide, come viene definito un decoy?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 186,
+      "sezione": 2,
+      "numero": 91,
+      "domanda": "Che cosa distingue l’effetto background dagli effetti compromesso e attrazione?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 190,
+      "sezione": 3,
+      "numero": 1,
+      "domanda": "Nelle quattro definizioni di brand messe a confronto nel corso, quale abbinamento tra fonte e prospettiva è corretto?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 194,
+      "sezione": 3,
+      "numero": 5,
+      "domanda": "Tra i fattori che rendono il branding sempre più difficile, la fonte indica:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 198,
+      "sezione": 3,
+      "numero": 9,
+      "domanda": "Che cosa collega la cosiddetta diagonale strategica della matrice di Urde?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 202,
+      "sezione": 3,
+      "numero": 13,
+      "domanda": "Quali sono i quattro obiettivi che un buon positioning deve raggiungere simultaneamente?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 206,
+      "sezione": 3,
+      "numero": 17,
+      "domanda": "Nei dati sull’effetto degli human brands sui brand associati, quali sono i valori riportati per Rolex?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 210,
+      "sezione": 3,
+      "numero": 21,
+      "domanda": "Nel caso del produttore bergamasco di componentistica elettrica che compete con Siemens, ABB e Schneider Electric, quale evidenza viene riportata?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 213,
+      "sezione": 3,
+      "numero": 24,
+      "domanda": "Nel caso della pasta premium, quale quota del sell-out Garofalo si realizza a sconto?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 217,
+      "sezione": 3,
+      "numero": 28,
+      "domanda": "Quali dati riporta la dispensa sull’attivismo socio-politico e gli acquisti B2B?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 221,
+      "sezione": 3,
+      "numero": 32,
+      "domanda": "Come viene definito il compito del brand manager in organizzazione?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 225,
+      "sezione": 3,
+      "numero": 36,
+      "domanda": "Come si calcola l’indicatore di price premium indicato nella dispensa?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 229,
+      "sezione": 3,
+      "numero": 40,
+      "domanda": "Riguardo alle componenti della brand equity secondo Aaker (1996), quale affermazione corrisponde alla dispensa?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 233,
+      "sezione": 3,
+      "numero": 44,
+      "domanda": "Quali sono i limiti del Net Promoter Score indicati nella dispensa?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 237,
+      "sezione": 3,
+      "numero": 48,
+      "domanda": "Che cosa simboleggiano le quattro scanalature della bottiglia di Gin Mare?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 241,
+      "sezione": 3,
+      "numero": 52,
+      "domanda": "Che cosa significa, operativamente, scegliere un target?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 245,
+      "sezione": 3,
+      "numero": 56,
+      "domanda": "Che cosa illustra il caso Brembo a proposito del mestiere del brand manager?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 248,
+      "sezione": 3,
+      "numero": 59,
+      "domanda": "Qual è la sequenza logica del modello di cultural branding di Holt?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 252,
+      "sezione": 3,
+      "numero": 63,
+      "domanda": "Perché si parla di branding: secondo i dati sulla composizione del valore di mercato delle società S&P 500, quale quadro emerge per il 2023-2024?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 256,
+      "sezione": 3,
+      "numero": 67,
+      "domanda": "Quale fattore è indicato tra le ragioni per cui fare branding è oggi sempre più difficile?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 260,
+      "sezione": 3,
+      "numero": 71,
+      "domanda": "Identity, image e reputation sono rappresentate come livelli concentrici. Quale abbinamento è corretto?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 264,
+      "sezione": 3,
+      "numero": 75,
+      "domanda": "Come vengono presentate la brand loyalty e la distinzione tra le sue due forme?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 268,
+      "sezione": 3,
+      "numero": 79,
+      "domanda": "Nella Corporate Brand Identity Matrix, la cella relationships riguarda",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 272,
+      "sezione": 3,
+      "numero": 83,
+      "domanda": "Quali sono i quattro obiettivi che un buon positioning deve raggiungere simultaneamente?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 276,
+      "sezione": 3,
+      "numero": 87,
+      "domanda": "Nel percorso operativo del brand positioning, dopo aver identificato le caratteristiche core e periferiche della propria offerta e di quella dei concorrenti, il passo successivo è",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 280,
+      "sezione": 3,
+      "numero": 91,
+      "domanda": "Che cosa si intende per woke branding?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 283,
+      "sezione": 4,
+      "numero": 3,
+      "domanda": "L’Executive Summary (capitolo 0) del piano di marketing:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 287,
+      "sezione": 4,
+      "numero": 7,
+      "domanda": "Quale catena logica descrive il concetto di marketing, cioè l’orientamento al mercato?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 291,
+      "sezione": 4,
+      "numero": 11,
+      "domanda": "Che cosa hanno in comune i piani di marketing e i piani di lancio esaminati nei casi applicativi, al di là del loro specifico “filo rosso”?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 295,
+      "sezione": 4,
+      "numero": 15,
+      "domanda": "Quale elemento fa parte della struttura in otto punti della value proposition?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 299,
+      "sezione": 4,
+      "numero": 19,
+      "domanda": "Il caso Ford - General Motors viene citato per mostrare:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 303,
+      "sezione": 4,
+      "numero": 23,
+      "domanda": "Quale affermazione sugli strumenti di raccolta delle opinioni è corretta?",
+      "attesa": "A",
+      "ottenuta": "?",
+      "fonte": "CITATO",
+      "giusta": false
+    },
+    {
+      "idx": 307,
+      "sezione": 4,
+      "numero": 27,
+      "domanda": "Nel processo d’acquisto B2B intervengono più ruoli. Quale definizione è corretta?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 311,
+      "sezione": 4,
+      "numero": 31,
+      "domanda": "Nel Nested approach di Shapiro e Bonoma, l’ordine dei livelli dall’esterno verso l’interno è:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 315,
+      "sezione": 4,
+      "numero": 35,
+      "domanda": "Quanto dichiara di voler costare Starbucks rispetto ai concorrenti?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "AI",
+      "giusta": true
+    },
+    {
+      "idx": 318,
+      "sezione": 4,
+      "numero": 38,
+      "domanda": "Nel caso Yoplait in Italia, quale obiettivo di quota era stato dichiarato e quale risultato è stato ottenuto dopo tre anni?",
+      "attesa": "D",
+      "ottenuta": "D",
+      "fonte": "AI",
+      "giusta": true
+    },
+    {
+      "idx": 322,
+      "sezione": 4,
+      "numero": 42,
+      "domanda": "Su quali due presupposti teorici poggia la matrice quota/tasso di crescita?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 326,
+      "sezione": 4,
+      "numero": 46,
+      "domanda": "Come si ordinano le vie di crescita e di diversificazione in termini di rischio e coerenza?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "AI",
+      "giusta": true
+    },
+    {
+      "idx": 330,
+      "sezione": 4,
+      "numero": 50,
+      "domanda": "Che cosa fa il metodo TOWS?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 334,
+      "sezione": 4,
+      "numero": 54,
+      "domanda": "Come si presentava Amazon.com nella value proposition delle origini?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 338,
+      "sezione": 4,
+      "numero": 58,
+      "domanda": "Tra le buone ragioni per pianificare indicate nel corso, quella richiamata dall’espressione “inerzia del sistema” afferma che:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 342,
+      "sezione": 4,
+      "numero": 62,
+      "domanda": "Tra le domande chiave elencate per la stesura di un piano di marketing figura anche:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 346,
+      "sezione": 4,
+      "numero": 66,
+      "domanda": "Nel capitolo 3, il “tabellone” incrociato di fatturato, margine e volumi:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 350,
+      "sezione": 4,
+      "numero": 70,
+      "domanda": "Tra le maggiori aree di controllo del capitolo 8, il “controllo delle performance” risponde alla domanda:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 353,
+      "sezione": 4,
+      "numero": 73,
+      "domanda": "Il controllo del piano secondo la logica “rolling”:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 357,
+      "sezione": 4,
+      "numero": 77,
+      "domanda": "Nell’executive summary one-page del piano Starbucks USA (2018):",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 361,
+      "sezione": 4,
+      "numero": 81,
+      "domanda": "Nel modello delle “7 P” per i servizi di Zeithaml e Bitner, quali leve si aggiungono alle quattro tradizionali?",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 365,
+      "sezione": 4,
+      "numero": 85,
+      "domanda": "Il carattere selettivo della percezione si articola negli stadi successivi:",
+      "attesa": "A",
+      "ottenuta": "A",
+      "fonte": "NON_VERIFICATA",
+      "giusta": true
+    },
+    {
+      "idx": 369,
+      "sezione": 4,
+      "numero": 89,
+      "domanda": "Nel targeting, l’approccio “concentrato” consiste in:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 373,
+      "sezione": 4,
+      "numero": 93,
+      "domanda": "La mappa di posizionamento colloca i diversi operatori su un piano definito da:",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 377,
+      "sezione": 4,
+      "numero": 97,
+      "domanda": "Quale affermazione descrive correttamente i quattro elementi dell’analisi SWOT e la loro natura?",
+      "attesa": "B",
+      "ottenuta": "B",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 381,
+      "sezione": 4,
+      "numero": 101,
+      "domanda": "Se il business è articolato in segmenti strategici, come si articola la value proposition?",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    },
+    {
+      "idx": 385,
+      "sezione": 4,
+      "numero": 105,
+      "domanda": "Nell’indice tipo del piano di marketing aziendale, il capitolo dedicato alla SWOT:",
+      "attesa": "C",
+      "ottenuta": "C",
+      "fonte": "CITATO",
+      "giusta": true
+    }
+  ]
+}
