@@ -520,7 +520,18 @@ function compressImage(file) {
                     const canvas = document.createElement('canvas');
                     const ctx = canvas.getContext('2d');
                     const maxDim = 1800;
-                    const jpegQ = 0.92;
+                    // 0.70 e non 0.92: su un uplink mobile il caricamento e' il
+                    // collo di bottiglia, non l'analisi. Quattro foto passano da
+                    // 3,16 MB a 1,91 MB da caricare (il base64 gonfia del 33%),
+                    // e l'estrazione non se ne accorge - misurato su quattro
+                    // fotografie di un A4 stampato: 20 domande su 20 estratte,
+                    // 20 numeri su 20 letti, fedelta' del testo 100%, tutte e
+                    // venti risolte a Tier 1 con la lettera giusta, identico a
+                    // 0.92. Sopra 0.85 si paga banda senza comprare nitidezza:
+                    // da 0.92 a 0.85 si risparmiano undici kilobyte per foto.
+                    // Il costo non cambia: i token immagine dipendono dai pixel,
+                    // non dal peso del file.
+                    const jpegQ = 0.70;
 
                     let width = img.width;
                     let height = img.height;
