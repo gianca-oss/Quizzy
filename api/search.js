@@ -58,9 +58,19 @@ async function getQueryEmbeddings(texts) {
     }
 }
 
+/**
+ * Testo da cui si ricava l'embedding della query.
+ *
+ * Solo la domanda, senza le opzioni. Concatenarle sembrava dare al motore piu'
+ * segnale, e invece gliene toglie: tre opzioni su quattro sono distrattori
+ * scritti apposta per essere plausibili, e trascinano il vettore verso il
+ * materiale sbagliato. Misurato sulle trenta domande di marketing-eval.json,
+ * che portano l'id del chunk da cui sono state scritte: il chunk giusto entra
+ * nei primi quattro 26 volte su 30 con le opzioni, 28 su 30 senza. Costa anche
+ * meno token, non di piu'.
+ */
 function buildQueryText(question) {
-    const options = question.options ? Object.values(question.options).join(' ') : '';
-    return `${question.text} ${options}`.trim();
+    return (question.text || '').trim();
 }
 
 /**
