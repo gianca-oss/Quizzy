@@ -260,6 +260,16 @@ function normalizeForMatch(text) {
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
         .replace(/[’‘`´]/g, "'")
         .replace(/[^a-z0-9']+/g, ' ')
+        // L'apostrofo si tiene dentro la parola, perche' in italiano e' parte
+        // del testo: "dell'impresa" non va spezzato. A bordo parola invece e'
+        // punteggiatura, ed e' esattamente li' che il controllo si rompeva: il
+        // modello, citando un passo che contiene una parola virgolettata, la
+        // rende con apici semplici ('billy', 'come'), il corpus non li ha, e
+        // una citazione autentica risultava introvabile. Misurato su venti
+        // domande: tre risposte su quattro marcate NON_VERIFICATA divergevano
+        // dal corpus esattamente su quel carattere, ed erano tutte corrette.
+        .replace(/(^|\s)'+/g, '$1')
+        .replace(/'+(?=\s|$)/g, '')
         .trim();
 }
 
