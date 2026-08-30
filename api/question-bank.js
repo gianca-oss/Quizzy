@@ -37,15 +37,29 @@ function loadQuestionBank(courseName) {
  * accents ("puo'", "perche'", "responsabilita'") collapse to the same
  * token as the OCR's real accents ("può", "perché", "responsabilità"),
  * which become "puo"/"perche"/"responsabilita" after accent removal.
+ *
+ * Vanno strippate TUTTE le varianti, dritta e ricurve. Il bank viene da un PDF
+ * e porta l'apostrofo tipografico (l’ordine); l'OCR di una fotografia
+ * restituisce quello dritto (l'ordine). Strippandone una sola, le due forme
+ * normalizzavano in modo diverso - "l ordine" contro "lordine" - e ogni
+ * elisione italiana faceva perdere punteggio: misurato su foto vere, due
+ * domande su venti scendevano da 1.00 a 0.67 e uscivano dal Tier 1.
  */
 function normalize(text) {
     return text
         .toLowerCase()
         .normalize('NFD').replace(/[̀-ͯ]/g, '')
-        .replace(/[''`´]/g, '')
+        .replace(/['‘’ʼ`´]/g, '')
         .replace(/[^\w\s]/g, ' ')
         .replace(/\s+/g, ' ')
         .trim();
+}
+
+// L'OCR restituisce il numero stampato dentro al testo ("13. Nel Nested
+// approach..."), il bank no. Confrontarli cosi' regalava un token di
+// differenza a ogni domanda, che su una domanda corta pesa parecchio.
+function stripLeadingNumber(text) {
+    return String(text || '').replace(/^\s*\d{1,3}\s*[.)]\s*/, '');
 }
 
 /**
@@ -139,7 +153,7 @@ function lookupQuestions(questions, courseName) {
     const unmatched = [];
 
     questions.forEach((q, idx) => {
-        const normQ = normalize(q.text);
+        const normQ = normalize(stripLeadingNumber(q.text));
         let bestScore = 0;
         let bestMatch = null;
 
