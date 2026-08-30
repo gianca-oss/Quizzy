@@ -17,7 +17,8 @@ restituisce con la fonte. PWA con service worker; deploy su Railway (auto-deploy
 - `scripts/` — preprocessing PDF, embeddings, `normalize-bank.js`, eval retrieval.
 - `tests/` — regression suite (`npm test`, node:test).
 - Il corso attivo si sceglie a runtime con la env var `COURSE_NAME` (vedi
-  `api/data-loader.js`), impostata su Railway. Nessun default hardcoded.
+  `api/data-loader.js`), impostata su Railway. Nessun default hardcoded: in locale
+  va passata a mano, `COURSE_NAME=marketing npm start`.
 
 ## Da non confondere
 Esiste un progetto separato `testy` (`~/GitHub/testy`, repo `gianca-oss/testy`,

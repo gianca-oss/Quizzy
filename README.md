@@ -19,9 +19,15 @@ npm install
 
 ## Avvio server
 
+Il corso servito si sceglie con la variabile d'ambiente `COURSE_NAME`, che non ha
+default: senza, `/api/analyze` risponde 500 invece di indovinare un corso.
+
 ```bash
-npm start
+COURSE_NAME=marketing npm start
 ```
+
+In produzione la variabile è impostata su Railway. `GET /api/analyze` riporta il
+corso effettivamente caricato, utile per verificarlo prima di un esame.
 
 Il server espone:
 - `GET /` — UI (da `public/index.html`)
