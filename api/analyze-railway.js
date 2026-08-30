@@ -270,9 +270,14 @@ module.exports = async function handler(req, res) {
             // solo le prende tutte e sei contro cinque, compresa l'unica che il
             // RAG completo sbagliava. Sono il 6% delle domande che arrivano al
             // RAG, quindi su un foglio d'esame si parla di una chiamata in piu'.
+            // Si tiene traccia del motivo per cui una domanda entra nel
+            // recupero: cambia come va etichettata la risposta che ne esce.
+            const enteredAsAI = new Set();
             const stillUnknown = unmatched.filter(idx => {
                 const r = resolvedAnswers[numberOf(idx)];
-                return !r || r.letter === '?' || r.source === 'AI';
+                if (!r || r.letter === '?') return true;
+                if (r.source === 'AI') { enteredAsAI.add(idx); return true; }
+                return false;
             });
 
             if (stillUnknown.length > 0) {
@@ -290,9 +295,23 @@ module.exports = async function handler(req, res) {
                         const num = numberOf(idx);
                         const answer = retry.answersByNum[num];
                         if (answer && answer.letter !== '?') {
+                            // Chi e' entrato qui perche' marcato "AI" resta "AI",
+                            // qualunque etichetta produca il secondo passaggio.
+                            // Quella domanda e' arrivata a Opus proprio perche' il
+                            // contesto non la copriva, e il controllo sulle
+                            // citazioni verifica che la frase citata esista nel
+                            // materiale, non che sostenga la risposta: sulla
+                            // domanda 17 del foglio di prova il modello ha citato
+                            // un passo autentico su Porter e le strategie
+                            // competitive per rispondere sulla teoria del valore
+                            // condiviso, che nel contesto non c'era. Etichettarla
+                            // "CITATO" direbbe al lettore piu' di quanto sappiamo.
+                            const source = enteredAsAI.has(idx)
+                                ? 'AI'
+                                : (answer.source || 'AI');
                             resolvedAnswers[num] = {
                                 letter: answer.letter,
-                                source: answer.source || 'AI',
+                                source,
                                 analysis: retry.blocksByNum[num] || resolvedAnswers[num]?.analysis || ''
                             };
                         }
