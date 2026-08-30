@@ -211,7 +211,13 @@ function textFromResponse(data) {
 async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet') {
     const { response, model } = await callWithModelFallback(apiKey, modelKey, (m) => ({
         model: m,
-        max_tokens: 4000,
+        // Stesso tetto dell'analisi, e per lo stesso motivo: il JSON di una
+        // pagina densa - testo della domanda piu' quattro opzioni per venti
+        // domande - supera comodamente i 4000 token, e quello che viene tagliato
+        // sono le ultime domande della pagina. Qui non possiamo scalare col
+        // numero di domande, perche' scoprirlo e' proprio il compito di questa
+        // chiamata: si parte dal massimo che regge tutta la catena di fallback.
+        max_tokens: 8000,
         temperature: 0,
         messages: [{
             role: 'user',

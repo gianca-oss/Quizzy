@@ -1,0 +1,328 @@
+{
+  "course": "marketing",
+  "sheet": "test-estrazione-20",
+  "count": 20,
+  "note": "Opzioni permutate rispetto al bank: \"expected\" e la lettera corretta COME STAMPATA sul foglio.",
+  "questions": [
+    {
+      "n": 1,
+      "text": "Quale affermazione sui cerchi dei materiali tecnici nel diagramma a farfalla della Ellen MacArthur Foundation è corretta?",
+      "options": {
+        "A": "Manutenzione, riuso, refurbish, riciclo, con il recupero energetico come ultimo cerchio interno all’economia circolare.",
+        "B": "Riciclo, refurbish, riuso, manutenzione, con il recupero energetico come cerchio più interno.",
+        "C": "Riciclo al primo posto, perché rigenera la materia, seguito da refurbish, riuso e manutenzione; il recupero energetico è equivalente al riciclo.",
+        "D": "Manutenzione, riuso, refurbish o rimanifattura, riciclo, in ordine decrescente di conservazione del valore; il recupero energetico resta fuori dallo schema dell’economia circolare."
+      },
+      "expected": "D",
+      "bank": {
+        "sezione": 1,
+        "numero": 1,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 2,
+      "text": "Come è evoluta la disponibilità di suolo fertile pro capite?",
+      "options": {
+        "A": "Nel 1961 erano 5 ettari, nel 2011 3,6 ettari, oggi 1,5-1,6 ettari.",
+        "B": "Nel 1961 erano 1,8 ettari, nel 2011 1,5 ettari, oggi circa 1 ettaro.",
+        "C": "Nel 1961 erano 3,6 ettari per abitante, nel 2011 circa la metà, oggi siamo intorno a 1,5-1,6 ettari.",
+        "D": "Nel 1961 erano 3,6 ettari, nel 2011 circa 2,5 ettari, oggi circa 2 ettari."
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 1,
+        "numero": 20,
+        "letteraOriginale": "A"
+      }
+    },
+    {
+      "n": 3,
+      "text": "Sempre nei sette peccati capitali, che cosa indica il “minore dei due mali”?",
+      "options": {
+        "A": "Affermazioni veritiere ma inutili per selezionare prodotti ecologicamente preferibili",
+        "B": "Affermazioni vere all’interno di una categoria di prodotti, che però distraggono dal fatto che il consumo di quel prodotto ha di per sé un grande impatto ambientale",
+        "C": "Affermazioni semplicemente false",
+        "D": "Affermazioni sulla natura green non sostenute da dati o evidenze facilmente verificabili"
+      },
+      "expected": "B",
+      "bank": {
+        "sezione": 1,
+        "numero": 59,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 4,
+      "text": "Nella tripartizione classica del marketing, che cosa distingue il marketing operativo dagli altri due ambiti?",
+      "options": {
+        "A": "Decide le linee di sviluppo nel mercato e le modalità distintive di posizionamento in una prospettiva di medio-lungo termine",
+        "B": "Mette in grado di decidere al meglio nelle scelte aziendali riguardanti il mercato, fornendo la base conoscitiva",
+        "C": "Definisce il purpose dell’impresa e gli obiettivi di sostenibilità da cui discende l’intero processo",
+        "D": "Realizza nel breve termine le strategie già formulate, agendo sulle leve del marketing mix: prodotto, prezzo, distribuzione e comunicazione"
+      },
+      "expected": "D",
+      "bank": {
+        "sezione": 1,
+        "numero": 78,
+        "letteraOriginale": "A"
+      }
+    },
+    {
+      "n": 5,
+      "text": "Che cosa fa il Multidimensional Scaling (MDS)?",
+      "options": {
+        "A": "Stima quanto ciascun attributo contribuisce all’utilità del consumatore e ne calcola il valore in euro.",
+        "B": "Trasforma giudizi di somiglianza o preferenza in distanze rappresentate in uno spazio multidimensionale, determinando l’immagine relativa percepita di imprese, prodotti o marchi.",
+        "C": "Misura in laboratorio la qualità oggettiva dei prodotti e la confronta con quella dichiarata dai produttori.",
+        "D": "Raggruppa i clienti in segmenti omogenei per comportamento d’acquisto."
+      },
+      "expected": "B",
+      "bank": {
+        "sezione": 2,
+        "numero": 2,
+        "letteraOriginale": "A"
+      }
+    },
+    {
+      "n": 6,
+      "text": "“Consegna in ritardo perché un lotto è stato bloccato in fase di controllo qualità. Nuova consegna: venerdì.” Che cosa illustra questo esempio?",
+      "options": {
+        "A": "Un intervento di giustizia procedurale, perché rende la procedura di reclamo più trasparente",
+        "B": "Il ripristino della giustizia distributiva, perché il danno subito viene compensato",
+        "C": "Che il ritardo resta identico, ma la percezione di giustizia aumenta rispetto al non dire nulla o al dire solo “c’è un ritardo”",
+        "D": "L’inefficacia della comunicazione in assenza di una compensazione economica"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 2,
+        "numero": 41,
+        "letteraOriginale": "D"
+      }
+    },
+    {
+      "n": 7,
+      "text": "La giustizia procedurale riguarda la percezione del cliente relativa a:",
+      "options": {
+        "A": "L’equità e correttezza del trattamento personale ricevuto dagli operatori",
+        "B": "L’equità, completezza e veridicità delle informazioni fornite dall’azienda",
+        "C": "L’equità del risultato ottenuto rispetto a ciò che si è dato o ci si aspettava",
+        "D": "L’equità delle modalità con cui si prendono le decisioni o si gestiscono le transazioni"
+      },
+      "expected": "D",
+      "bank": {
+        "sezione": 2,
+        "numero": 80,
+        "letteraOriginale": "B"
+      }
+    },
+    {
+      "n": 8,
+      "text": "Tra i fattori che rendono il branding sempre più difficile, la fonte indica:",
+      "options": {
+        "A": "La ritrovata efficacia degli strumenti di marketing tradizionali, che alza il costo di ingresso per i nuovi entranti",
+        "B": "Consumatori e imprese sempre meno brand sensitive, in un contesto di competizione esacerbata e con un set di scelta molto ampio",
+        "C": "Decision maker B2B sempre più anziani e quindi più legati ai brand storici",
+        "D": "Portafogli di prodotto e di brand sempre più concentrati e semplici da gestire"
+      },
+      "expected": "B",
+      "bank": {
+        "sezione": 3,
+        "numero": 5,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 9,
+      "text": "Nel caso della pasta premium, quale quota del sell-out Garofalo si realizza a sconto?",
+      "options": {
+        "A": "Circa il 60%",
+        "B": "Circa il 90%",
+        "C": "Circa il 75%",
+        "D": "Circa il 51%"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 3,
+        "numero": 24,
+        "letteraOriginale": "D"
+      }
+    },
+    {
+      "n": 10,
+      "text": "Perché si parla di branding: secondo i dati sulla composizione del valore di mercato delle società S&P 500, quale quadro emerge per il 2023-2024?",
+      "options": {
+        "A": "Gli intangibili valgono circa il 92%, ma i brevetti (23-32%) pesano più del brand (14-27%).",
+        "B": "Gli intangibili valgono circa il 68% del valore di mercato e il brand da solo il 4-6%, cioè meno dei brevetti (10-20%).",
+        "C": "Gli intangibili e i tangibili si equivalgono (circa 50% ciascuno) e il brand incide per il 17-24%.",
+        "D": "Gli intangibili valgono circa il 92%; il brand vale il 23-32% del totale, più dei brevetti (14-27%)."
+      },
+      "expected": "D",
+      "bank": {
+        "sezione": 3,
+        "numero": 63,
+        "letteraOriginale": "B"
+      }
+    },
+    {
+      "n": 11,
+      "text": "Quali sono i quattro obiettivi che un buon positioning deve raggiungere simultaneamente?",
+      "options": {
+        "A": "Awareness, relevance, differentiation, loyalty",
+        "B": "Credibility, relevance, consistency, reach",
+        "C": "Credibility, relevance, differentiation, stretch",
+        "D": "Differentiation, stretch, profitability, awareness"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 3,
+        "numero": 83,
+        "letteraOriginale": "D"
+      }
+    },
+    {
+      "n": 12,
+      "text": "Che cosa hanno in comune i piani di marketing e i piani di lancio esaminati nei casi applicativi, al di là del loro specifico “filo rosso”?",
+      "options": {
+        "A": "Partono tutti da un prodotto sviluppato ex novo appositamente per il lancio",
+        "B": "Si limitano al conto economico, unico elemento davvero confrontabile tra casi diversi",
+        "C": "Ricorrono sempre mercato, concorrenti, segmenti, target, posizionamento, leve del mix, costi e controllo",
+        "D": "Adottano tutti lo stesso formato standard, obbligatorio per qualunque piano di marketing"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 4,
+        "numero": 11,
+        "letteraOriginale": "A"
+      }
+    },
+    {
+      "n": 13,
+      "text": "Nel Nested approach di Shapiro e Bonoma, l’ordine dei livelli dall’esterno verso l’interno è:",
+      "options": {
+        "A": "fattori personali, fattori situazionali, processo d’acquisto, operative, demografiche",
+        "B": "demografiche, processo d’acquisto, operative, fattori personali, fattori situazionali",
+        "C": "demografiche, operative, processo d’acquisto, fattori situazionali, fattori personali",
+        "D": "operative, demografiche, processo d’acquisto, fattori personali, fattori situazionali"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 4,
+        "numero": 31,
+        "letteraOriginale": "B"
+      }
+    },
+    {
+      "n": 14,
+      "text": "Che cosa fa il metodo TOWS?",
+      "options": {
+        "A": "Sostituisce la SWOT con una check-list articolata su risultati, risorse e funzionamento interno.",
+        "B": "Incrocia forze e debolezze con opportunità e minacce per ricavarne azioni strategiche.",
+        "C": "Ordina le opportunità di mercato in base all’attrattività, escludendo i fattori interni all’azienda.",
+        "D": "Quantifica i fattori della SWOT attribuendo a ciascuno un peso da 1 a 5 e una probabilità di accadimento."
+      },
+      "expected": "B",
+      "bank": {
+        "sezione": 4,
+        "numero": 50,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 15,
+      "text": "Tra le maggiori aree di controllo del capitolo 8, il “controllo delle performance” risponde alla domanda:",
+      "options": {
+        "A": "come evolve la spesa di marketing in relazione al fatturato aziendale?",
+        "B": "l’azienda sta perseguendo le migliori opportunità di prodotto, di mercato e di canale?",
+        "C": "qual è la redditività dei diversi mercati, prodotti, canali e clienti dell’azienda?",
+        "D": "gli obiettivi fissati dal piano di marketing sono stati effettivamente ottenuti?"
+      },
+      "expected": "A",
+      "bank": {
+        "sezione": 4,
+        "numero": 70,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 16,
+      "text": "Nel targeting, l’approccio “concentrato” consiste in:",
+      "options": {
+        "A": "programmi di marketing diversi per i diversi segmenti",
+        "B": "un unico programma di marketing rivolto a tutto il mercato",
+        "C": "un programma di marketing costruito su misura per ogni singolo cliente",
+        "D": "un solo programma di marketing rivolto a un solo segmento"
+      },
+      "expected": "D",
+      "bank": {
+        "sezione": 4,
+        "numero": 89,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 17,
+      "text": "Quali sono i dati 2023 sui green jobs in Italia?",
+      "options": {
+        "A": "1.918.610 contratti programmati, pari al 34,8% delle attivazioni totali, con difficoltà di reperimento al 52,6% contro il 41,1% delle altre figure.",
+        "B": "1.918.610 contratti programmati, pari al 34,8% delle attivazioni totali, con difficoltà di reperimento al 44,7% contro il 34,1%.",
+        "C": "1.918.610 contratti programmati, pari al 24,8% delle attivazioni totali, con difficoltà di reperimento al 52,6%.",
+        "D": "1.918.610 contratti programmati, pari al 34,8% delle attivazioni totali, con difficoltà di reperimento al 47,4%."
+      },
+      "expected": "A",
+      "bank": {
+        "sezione": 1,
+        "numero": 21,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 18,
+      "text": "Che cosa caratterizza il caso Fairphone?",
+      "options": {
+        "A": "Un modello ricondizionato distribuito attraverso i due centri di riciclo che effettuano lo smantellamento robotico dell’iPhone",
+        "B": "Un design modulare progettato per essere scomposto, con recupero dei componenti di valore, a un prezzo di circa 550 euro, circa la metà di uno smartphone premium",
+        "C": "Un contenuto di materiale riciclato pari a circa il 50% del prodotto",
+        "D": "Un prezzo di circa 550 euro, pari a circa il doppio di uno smartphone premium, giustificato dalla circolarità"
+      },
+      "expected": "B",
+      "bank": {
+        "sezione": 1,
+        "numero": 40,
+        "letteraOriginale": "C"
+      }
+    },
+    {
+      "n": 19,
+      "text": "Secondo l’articolo 6 della Direttiva 2005/29/CE, richiamato nella prima fase, quando una pratica commerciale è ingannevole?",
+      "options": {
+        "A": "Quando omette il riferimento a un’etichetta di tipo I riconosciuta",
+        "B": "Quando non è supportata da un’analisi del ciclo di vita completa del prodotto",
+        "C": "Quando contiene informazioni false oppure quando, pur essendo corretta, inganna o può ingannare il consumatore medio inducendolo a una decisione commerciale che non avrebbe altrimenti preso",
+        "D": "Solo quando contiene informazioni oggettivamente false e verificabili ex post"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 1,
+        "numero": 60,
+        "letteraOriginale": "D"
+      }
+    },
+    {
+      "n": 20,
+      "text": "Quali sono i due principi guida della fase di analisi, in connessione con il marketing strategico?",
+      "options": {
+        "A": "Segmentare il mercato per variabili sociodemografiche e selezionare il target a maggiore disponibilità a pagare",
+        "B": "Massimizzare il fatturato e conseguire economie di scala attraverso le curve di esperienza",
+        "C": "Soddisfare i bisogni dei consumatori, tramite l’analisi del consumatore, e fornire un prodotto o servizio “migliore”, tramite l’analisi competitiva e le strategie di Porter",
+        "D": "Ridurre le esternalità ambientali e coinvolgere gli stakeholder non clienti nella progettazione dell’offerta"
+      },
+      "expected": "C",
+      "bank": {
+        "sezione": 1,
+        "numero": 79,
+        "letteraOriginale": "D"
+      }
+    }
+  ]
+}
