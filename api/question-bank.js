@@ -69,29 +69,50 @@ function similarity(a, b) {
     return jaccard * 0.7 + lenRatio * 0.3;
 }
 
+// Quanto il primo candidato deve staccare il secondo perche' il remap sia
+// considerato univoco.
+const MIN_REMAP_MARGIN = 0.05;
+
 /**
  * Try to mechanically remap the correct answer letter from the bank
  * to the photo's option ordering, by fuzzy-matching option texts.
  * Returns the remapped letter or null if no confident match.
+ *
+ * Un remap sbagliato qui e' il caso peggiore del sistema: la risposta esce a
+ * Tier 1, senza modello e senza verifica, con l'etichetta "Question Bank" che
+ * la fa sembrare la piu' affidabile di tutte. Quindi in caso di ambiguita' si
+ * restituisce null e la domanda scende a Tier 2, dove Haiku rimappa leggendo.
  */
 function mechanicalRemap(bankMatch, photoOptions) {
     const correctText = normalize(bankMatch.options[bankMatch.correct] || '');
     if (!correctText) return null;
 
-    let bestLetter = null;
-    let bestScore = 0;
+    const entries = Object.entries(photoOptions)
+        .map(([letter, text]) => ({ letter, norm: normalize(text) }));
 
-    for (const [letter, text] of Object.entries(photoOptions)) {
-        const normText = normalize(text);
-        const score = similarity(correctText, normText);
-        if (score > bestScore) {
-            bestScore = score;
-            bestLetter = letter;
-        }
-    }
+    // Coincidenza esatta dopo normalizzazione: non c'e' nulla da stimare.
+    // Copre il caso normale, in cui l'OCR restituisce la stessa opzione a meno
+    // di accenti e punteggiatura.
+    const exact = entries.filter(e => e.norm === correctText);
+    if (exact.length === 1) return exact[0].letter;
+    if (exact.length > 1) return null;
 
-    // Only accept if option text match is very high
-    return bestScore >= 0.85 ? bestLetter : null;
+    const scored = entries
+        .map(e => ({ letter: e.letter, score: similarity(correctText, e.norm) }))
+        .sort((a, b) => b.score - a.score);
+
+    const [best, runnerUp] = scored;
+    if (!best || best.score < 0.85) return null;
+
+    // Distrattori che differiscono solo per un numero ("Stati Uniti 13,5%,
+    // Italia 9%" contro "... Italia 7%") o per l'ordine delle stesse parole
+    // ottengono punteggi identici: similarity() scarta i token di uno o due
+    // caratteri e la differenza non la vede proprio. Senza margine vinceva
+    // semplicemente la prima opzione incontrata - misurato sul bank di
+    // marketing: 14 lettere sbagliate su 386, dodici delle quali "A".
+    if (runnerUp && best.score - runnerUp.score < MIN_REMAP_MARGIN) return null;
+
+    return best.letter;
 }
 
 /**
