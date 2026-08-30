@@ -244,10 +244,29 @@ async function extractQuestions(apiKey, imageContent, prompt, modelKey = 'sonnet
     return { text: textFromResponse(data), cost: computeCost(model, data.usage) };
 }
 
-async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
+/**
+ * Tetto di token in uscita per una risposta che deve coprire N domande.
+ *
+ * Con il vecchio valore fisso di 4000, un lotto da dieci domande veniva
+ * troncato: misurato su cento domande d'esame, zero risposte perse nelle
+ * posizioni 1-8 del lotto e quattro perse in posizione 9 o 10. Le domande
+ * troncate finivano poi nel giro di recupero con Opus, che costa cinque volte
+ * tanto - si pagava un modello di punta per rimediare a un limite nostro.
+ *
+ * Il tetto di 8000 non e' prudenza generica: e' il massimo che accetta anche
+ * l'ultimo anello della catena di fallback (Haiku 3.5 si ferma a 8192 token in
+ * uscita), quindi un valore piu' alto romperebbe la richiesta proprio quando
+ * siamo gia' ripiegati sul modello di riserva.
+ */
+function maxTokensForQuestions(count) {
+    return Math.min(8000, Math.max(4000, 600 * (count || 1) + 1000));
+}
+
+async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet', opts = {}) {
+    const maxTokens = opts.maxTokens || 4000;
     const { response, model } = await callWithModelFallback(apiKey, modelKey, (m) => ({
         model: m,
-        max_tokens: 4000,
+        max_tokens: maxTokens,
         temperature: 0,
         messages: [{
             role: 'user',
@@ -277,4 +296,4 @@ async function analyzeWithContext(apiKey, prompt, modelKey = 'sonnet') {
     return { text: textFromResponse(data), model, cost: computeCost(model, data.usage) };
 }
 
-module.exports = { extractQuestions, analyzeWithContext, getResolvedModels, MODEL_CHAINS };
+module.exports = { extractQuestions, analyzeWithContext, getResolvedModels, maxTokensForQuestions, MODEL_CHAINS };

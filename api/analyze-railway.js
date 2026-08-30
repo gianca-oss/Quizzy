@@ -1,6 +1,6 @@
 const { loadEnhancedData, loadEmbeddings, getCourseName } = require('./data-loader');
 const { hybridSearch } = require('./search');
-const { extractQuestions, analyzeWithContext, getResolvedModels } = require('./claude-client');
+const { extractQuestions, analyzeWithContext, getResolvedModels, maxTokensForQuestions } = require('./claude-client');
 const { parseQuestionsWithStats } = require('./question-parser');
 const {
     lookupQuestions,
@@ -151,7 +151,7 @@ module.exports = async function handler(req, res) {
             }));
             const ragPrompt = buildAnalysisPrompt(ragContext, numberedQuestions, { forceAnswer });
 
-            const analysisResult = await analyzeWithContext(apiKey, ragPrompt, modelKey);
+            const analysisResult = await analyzeWithContext(apiKey, ragPrompt, modelKey, { maxTokens: maxTokensForQuestions(qs.length) });
             totalCost += (analysisResult.cost || 0);
 
             // Pass the context so every "[CITATO]" claim is checked against
@@ -204,7 +204,7 @@ module.exports = async function handler(req, res) {
             console.log(`[QuestionBank] Tier 2 (Haiku): ${needsHaiku.length} questions`);
             try {
                 const haikuPrompt = buildHaikuVerificationPrompt(needsHaiku, questions, startNumber);
-                const haikuResult = await analyzeWithContext(apiKey, haikuPrompt, 'haiku');
+                const haikuResult = await analyzeWithContext(apiKey, haikuPrompt, 'haiku', { maxTokens: maxTokensForQuestions(needsHaiku.length) });
                 totalCost += (haikuResult.cost || 0);
 
                 const haikuAnswers = parseHaikuResponse(haikuResult.text, needsHaiku, questions, startNumber);
