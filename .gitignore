@@ -25,3 +25,4 @@ data/eval/.*-query-embeddings.json
 # Foglio di prova per la valutazione dell'estrazione: si rigenera dalla
 # ground truth in data/eval/extraction-sheet-groundtruth.json
 marketing-test-*.pdf
+marketing-rag-*.pdf
