@@ -256,20 +256,32 @@ module.exports = async function handler(req, res) {
                 }
             });
 
-            // --- Intervention D: "?" recovery ---
-            // Any question still without a confident letter gets one retry with
-            // an escalated model + forceAnswer prompt. Re-querying the SAME model
-            // at temperature 0 is pointless (identical output), so escalate
-            // sonnet→opus; if already opus, retry opus with forceAnswer only.
+            // --- Recupero delle risposte incerte ---
+            // Due casi, non uno solo. Il primo e' la domanda rimasta senza
+            // lettera; da quando max_tokens non tronca piu' la risposta e'
+            // diventato raro. Il secondo, molto piu' frequente, e' la risposta
+            // marcata "AI": il modello dichiara che nel contesto la risposta non
+            // c'e' e sceglie comunque. Li' non sta leggendo, sta ricordando, ed
+            // e' esattamente il terreno su cui Opus e' misurabilmente piu' forte.
+            //
+            // Misurato su cento domande d'esame senza alcun corpus: Sonnet 93,
+            // Opus 96, e nel confronto appaiato Opus vince tre volte e non perde
+            // mai. Sulle sei domande che la pipeline aveva marcato "AI", Opus da
+            // solo le prende tutte e sei contro cinque, compresa l'unica che il
+            // RAG completo sbagliava. Sono il 6% delle domande che arrivano al
+            // RAG, quindi su un foglio d'esame si parla di una chiamata in piu'.
             const stillUnknown = unmatched.filter(idx => {
                 const r = resolvedAnswers[numberOf(idx)];
-                return !r || r.letter === '?';
+                return !r || r.letter === '?' || r.source === 'AI';
             });
 
             if (stillUnknown.length > 0) {
-                // Escalate to the strongest model for the recovery pass. (At
-                // temperature 0, re-querying the same model yields identical
-                // output, so the retry only helps if it differs — escalate.)
+                // Si sale a Opus. Da notare che il vecchio motivo scritto qui -
+                // "a temperatura 0 lo stesso modello ridarebbe output identico"
+                // - non vale piu': Sonnet 5 rifiuta il parametro temperature e
+                // il client lo toglie, quindi due chiamate differiscono comunque.
+                // La ragione per salire resta, ma e' un'altra: sulle domande che
+                // il contesto non copre, Opus sa di piu'.
                 const retryModel = 'opus';
                 console.log(`[Recovery] Retrying ${stillUnknown.length} unresolved question(s) with ${retryModel} + forceAnswer`);
                 try {
